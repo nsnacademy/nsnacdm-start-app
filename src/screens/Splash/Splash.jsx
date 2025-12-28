@@ -7,6 +7,20 @@ export default function Splash() {
   const { user: tgUser } = useTelegram();
 
   useEffect(() => {
+    // -------------------------------
+    // 📌 1. Разворачиваем WebApp во весь экран
+    // -------------------------------
+    try {
+      window.Telegram?.WebApp?.expand();
+      window.Telegram?.WebApp?.disableVerticalSwipes();
+      console.log("WebApp expanded");
+    } catch (e) {
+      console.warn("Expand error:", e);
+    }
+
+    // -------------------------------
+    // 📌 2. Функция сохранения пользователя
+    // -------------------------------
     async function saveTelegramUser() {
       if (!tgUser) {
         console.log("TG user not found yet");
@@ -15,23 +29,30 @@ export default function Splash() {
 
       console.log("Saving user to Supabase:", tgUser);
 
-      // Записываем или обновляем пользователя в базе
       await supabase.from("users").upsert({
-        id: tgUser.id,
-        first_name: tgUser.first_name,
+        telegram_id: String(tgUser.id),
         username: tgUser.username ?? null,
+        first_name: tgUser.first_name ?? null,
+        created_at: new Date().toISOString(),
+        level: 1,
+        xp: 0,
       });
 
-      // Переход после записи
+      console.log("User saved!");
       window.location.href = "/intro";
     }
 
-    // Запускаем функцию через 4.2 секунды (анимация)
+    // -------------------------------
+    // 📌 3. Запускаем через 4.2 сек (анимация)
+    // -------------------------------
     const timer = setTimeout(saveTelegramUser, 4200);
 
     return () => clearTimeout(timer);
   }, [tgUser]);
 
+  // -------------------------------
+  // 📌 4. UI
+  // -------------------------------
   return (
     <section className="screen splash">
       <div className="splash-inner">
