@@ -5,7 +5,7 @@ export default function Intro() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Intro works!</h1>
+      <h1>Intro </h1>
 
       <div style={{ marginTop: 20, fontSize: 16 }}>
         <p><b>Telegram User Test:</b></p>
