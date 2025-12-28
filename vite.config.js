@@ -3,12 +3,17 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-  },
+
   build: {
-    outDir: "dist",
-    // ⚠️ НИЧЕГО НЕ ДОБАВЛЯТЬ!
-    // НЕ используй rollupOptions: external — Vercel ломается
-  }
+    target: "esnext",
+    rollupOptions: {
+      external: [],
+    },
+  },
+
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "esnext",
+    },
+  },
 });
