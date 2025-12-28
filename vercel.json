@@ -1,6 +1,7 @@
 {
-  "buildCommand": "npm run build",
-  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ],
   "env": {
     "VITE_VERCEL_FORCE_LEGACY": "true",
     "VERCEL_FORCE_NO_ROLLDOWN": "1"
