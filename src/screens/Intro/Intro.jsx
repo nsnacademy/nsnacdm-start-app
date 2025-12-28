@@ -1,31 +1,68 @@
-import { useEffect } from "react";
-import { useTelegram } from "../../hooks/useTelegram";
-import { saveUser } from "../../lib/saveUser";
+import { useEffect, useState } from "react";
+import { findOrCreateUser } from "../../lib/findOrCreateUser";
 
 export default function Intro() {
-  const { user } = useTelegram();
+  const [user, setUser] = useState(null);
+  const [status, setStatus] = useState("loading"); 
+  // loading | new | existing
 
   useEffect(() => {
-    if (user) {
-      console.log("Saving user to Supabase:", user);
-      saveUser(user);
+    const tg = window.Telegram?.WebApp;
+    const tgUser = tg?.initDataUnsafe?.user;
+
+    async function load() {
+      const result = await findOrCreateUser(tgUser);
+
+      if (!result) {
+        setStatus("error");
+        return;
+      }
+
+      // Определяем новый ли это был юзер
+      if (result.created_at === result.updated_at) {
+        setStatus("new");
+      } else {
+        setStatus("existing");
+      }
+
+      setUser(result);
     }
-  }, [user]);
+
+    load();
+  }, []);
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Intro</h1>
+    <div style={{ padding: 20, fontFamily: "sans-serif" }}>
+      <h1 style={{ marginBottom: 20 }}>Intro</h1>
 
-      <p><b>Telegram User Test:</b></p>
+      {status === "loading" && <p>Загрузка...</p>}
 
-      {user ? (
-        <>
-          <p>ID: {user.id}</p>
-          <p>Имя: {user.first_name}</p>
-          <p>Username: {user.username || "нет username"}</p>
-        </>
-      ) : (
-        <p>Нет данных о пользователе</p>
+      {status === "error" && <p>Ошибка загрузки данных</p>}
+
+      {user && (
+        <div>
+          <p><b>Профиль пользователя:</b></p>
+          <p>🆔 Telegram ID: {user.telegram_id}</p>
+          <p>👤 Имя: {user.first_name}</p>
+          <p>📛 Username: {user.username || "нет"}</p>
+          <p>🏅 Уровень: {user.level}</p>
+          <p>✨ XP: {user.xp}</p>
+          <p>🕒 Создан: {new Date(user.created_at).toLocaleString()}</p>
+
+          <br />
+
+          {status === "new" && (
+            <p style={{ color: "green" }}>
+              ✔ Этот пользователь был создал только что!
+            </p>
+          )}
+
+          {status === "existing" && (
+            <p style={{ color: "blue" }}>
+              ✔ Найден существующий пользователь в базе Supabase
+            </p>
+          )}
+        </div>
       )}
     </div>
   );
