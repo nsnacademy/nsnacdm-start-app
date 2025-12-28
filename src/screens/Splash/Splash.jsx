@@ -7,20 +7,29 @@ export default function Splash() {
   const { user: tgUser } = useTelegram();
 
   useEffect(() => {
-    // -------------------------------
-    // 📌 1. Разворачиваем WebApp во весь экран
-    // -------------------------------
-    try {
-      window.Telegram?.WebApp?.expand();
-      window.Telegram?.WebApp?.disableVerticalSwipes();
-      console.log("WebApp expanded");
-    } catch (e) {
-      console.warn("Expand error:", e);
+    const tg = window.Telegram?.WebApp;
+
+    // ---------------------------------------------------
+    // 🔥 iOS FULLSCREEN HACK
+    // ---------------------------------------------------
+    function iosExpandHack() {
+      try {
+        tg?.requestFullscreen?.();   // частично работает на iOS
+        tg?.expand();                // стандартный expand()
+        tg?.disableVerticalSwipes(); // не даёт свернуть вниз
+      } catch (e) {
+        console.log("iOS fullscreen hack error:", e);
+      }
     }
 
-    // -------------------------------
-    // 📌 2. Функция сохранения пользователя
-    // -------------------------------
+    // Запуск нескольких попыток — это важно для iOS
+    iosExpandHack();
+    setTimeout(iosExpandHack, 300);
+    setTimeout(iosExpandHack, 1200);
+
+    // ---------------------------------------------------
+    // 🔥 Сохранение пользователя в Supabase
+    // ---------------------------------------------------
     async function saveTelegramUser() {
       if (!tgUser) {
         console.log("TG user not found yet");
@@ -31,28 +40,22 @@ export default function Splash() {
 
       await supabase.from("users").upsert({
         telegram_id: String(tgUser.id),
-        username: tgUser.username ?? null,
         first_name: tgUser.first_name ?? null,
+        username: tgUser.username ?? null,
         created_at: new Date().toISOString(),
         level: 1,
         xp: 0,
       });
 
-      console.log("User saved!");
       window.location.href = "/intro";
     }
 
-    // -------------------------------
-    // 📌 3. Запускаем через 4.2 сек (анимация)
-    // -------------------------------
+    // Задержка для анимации splash
     const timer = setTimeout(saveTelegramUser, 4200);
 
     return () => clearTimeout(timer);
   }, [tgUser]);
 
-  // -------------------------------
-  // 📌 4. UI
-  // -------------------------------
   return (
     <section className="screen splash">
       <div className="splash-inner">
