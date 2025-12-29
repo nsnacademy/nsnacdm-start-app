@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import StepImage from "../../assets/step.png";   // 🔥 картинка
+import StepImage from "../../assets/step.png";
 
 export default function StepIntro() {
   const navigate = useNavigate();
@@ -24,23 +24,28 @@ export default function StepIntro() {
           margin: 0 auto;
         }
 
-        /* === ВЕРХНИЙ ТЕКСТ === */
+        /* === ТЕКСТОВЫЙ БЛОК — как в Intro, опускаем ниже === */
         .text-block {
           display: flex;
           flex-direction: column;
-          gap: 14px;
           text-align: center;
-          margin-top: 50px;
+          gap: 14px;
+
+          margin-top: 30px;    /* 🔥 ровно как в Intro */
         }
 
         .text-block p {
           font-size: 16px;
           color: #1a1a1a;
-          line-height: 1.45;
+          line-height: 1.48;
           margin: 0;
         }
 
-        /* === КАРТИНКА по центру (как в Intro) === */
+        .text-block b {
+          font-weight: 600;
+        }
+
+        /* === КАРТИНКА — как в Intro === */
         .center {
           flex-grow: 1;
           display: flex;
@@ -50,7 +55,7 @@ export default function StepIntro() {
 
         .step-img {
           width: 100%;
-          max-width: 740px;    /* 👈 как в Intro */
+          max-width: 740px;
         }
 
         /* === НИЗ === */
@@ -77,7 +82,7 @@ export default function StepIntro() {
           color: #222;
         }
 
-        /* === Планшеты (убираем картинку, центрируем всё) === */
+        /* === Планшеты === */
         @media (min-width: 768px) {
           .screen {
             max-width: 640px;
@@ -88,7 +93,7 @@ export default function StepIntro() {
           }
 
           .center {
-            display: none; /* 🔥 картинка скрыта */
+            display: none; /* 🔥 скрываем картинку на планшете */
           }
 
           .text-block p {
@@ -113,7 +118,6 @@ export default function StepIntro() {
           .screen {
             max-width: 700px;
             border-radius: 24px;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -135,12 +139,12 @@ export default function StepIntro() {
 
         {/* ТЕКСТ */}
         <div className="text-block">
-          <p>Шаг — это маленькое действие на 3–10 минут.</p>
+          <p><b>Шаг — это маленькое действие на 3–10 минут.</b></p>
           <p>Ты не бежишь — ты просто двигаешься.</p>
-          <p>Каждый шаг — попытка. Каждая попытка — победа.</p>
+          <p>Каждый шаг — попытка. <b>Каждая попытка — победа.</b></p>
         </div>
 
-        {/* КАРТИНКА — как в Intro */}
+        {/* КАРТИНКА */}
         <div className="center">
           <img className="step-img" src={StepImage} alt="step intro" />
         </div>
