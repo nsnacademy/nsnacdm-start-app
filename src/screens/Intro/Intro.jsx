@@ -31,7 +31,7 @@ export default function Intro() {
 
   return (
     <>
-      <style>{`
+        <style>{`
   .screen {
     width: 100%;
     height: 100vh;
@@ -40,13 +40,11 @@ export default function Intro() {
 
     display: flex;
     flex-direction: column;
-    align-items: center;
-
     padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
     box-sizing: border-box;
 
-    max-width: 520px;                /* 🔥 ограничиваем ширину под ПК */
-    margin: 0 auto;                  /* 🔥 центрируем на ПК */
+    max-width: 520px;
+    margin: 0 auto;
   }
 
   /* ВЕРХ */
@@ -78,7 +76,7 @@ export default function Intro() {
     line-height: 1.4;
   }
 
-  /* КАРТИНКА — центр */
+  /* КАРТИНКА — только мобильные */
   .center {
     flex-grow: 1;
     display: flex;
@@ -91,12 +89,12 @@ export default function Intro() {
     max-width: 440px;
   }
 
-  /* Низ */
+  /* НИЗ */
   .bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     margin-bottom: 10px;
   }
 
@@ -115,47 +113,62 @@ export default function Intro() {
     color: #222;
   }
 
-  /* 🔥 Планшеты */
+  /* 📌 ПЛАНШЕТЫ (убираем картинку, делаем компактнее) */
   @media (min-width: 768px) {
     .screen {
-      padding-top: 70px;
       max-width: 600px;
+      padding-top: 80px;
     }
 
-    .title {
-      font-size: 28px;   /* немного крупнее */
-    }
-
-    .subtitle {
-      font-size: 16px;
-    }
-
-    .intro-img {
-      max-width: 500px;
-    }
-
-    .next-btn {
-      width: 280px;
-      height: 60px;
-      font-size: 20px;
-    }
-  }
-
-  /* 🔥 ПК (широкие мониторы) */
-  @media (min-width: 1024px) {
-    .screen {
-      max-width: 480px;           /* сохраняем мобильную ширину */
-      height: 90vh;               /* чуть уменьшить высоту */
-      margin-top: 3vh;            /* центрируем лучше */
-      border-radius: 24px;        /* можно красиво скруглить */
+    .center {
+      display: none;     /* 🔥 скрываем картинку */
     }
 
     .title {
       font-size: 30px;
     }
 
-    .intro-img {
-      max-width: 480px;
+    .subtitle {
+      font-size: 17px;
+    }
+
+    .next-btn {
+      width: 320px;
+      height: 60px;
+      font-size: 20px;
+    }
+  }
+
+  /* 💻 ДЕСКТОП (ещё шире, компактнее) */
+  @media (min-width: 1024px) {
+    .screen {
+      max-width: 700px;
+      height: auto;
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+
+    .top {
+      margin-top: 60px; /* чуть опускаем */
+    }
+
+    .title {
+      font-size: 34px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 18px;
+    }
+
+    .next-btn {
+      width: 360px;
+      height: 64px;
+      font-size: 21px;
+    }
+
+    .dots-bottom {
+      font-size: 14px;
     }
   }
 `}</style>
