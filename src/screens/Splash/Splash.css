@@ -50,25 +50,17 @@ body {
 
 /* Заголовок */
 .splash-title {
-  font-size: 25px;       /* как в Intro */
-  font-weight: 600;      /* как на всех экранах */
-  letter-spacing: 0.03em;
-  line-height: 1.25;     /* аккуратный компактный */
-  margin: 0;
-  text-align: center;
+  font-size: 25px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
-
 
 .splash-sub {
-  font-size: 15px;         /* как в Intro */
+  font-size: 16px;
   color: var(--text-muted);
   max-width: 340px;
-  line-height: 1.45;       /* ровно как на Intro */
-  margin: 0;
-  margin-top: 10px;        /* небольшое пространство между заголовком */
-  text-align: center;
+  line-height: 1.6;
 }
-
 
 /* Линия загрузки */
 .splash-line-wrap {
