@@ -30,7 +30,7 @@ export default function StepIntro() {
           flex-direction: column;
           text-align: center;
           gap: 14px;
-          margin-top: 30px;
+          margin-top: 50px;
         }
 
         .text-block p {
