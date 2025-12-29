@@ -41,7 +41,7 @@ export default function Intro() {
         alignItems: "center",
         justifyContent: "center",
         fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
-        background: "#fF8F8F8",
+        background: "#f8F8F8",
       }}
     >
       <div
