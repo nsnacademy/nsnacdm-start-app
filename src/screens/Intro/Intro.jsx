@@ -42,7 +42,7 @@ export default function Intro() {
           flex-direction: column;
           align-items: center;
 
-          padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
+          padding: calc(env(safe-area-inset-top) + 10px) 20px 25px;
           box-sizing: border-box;
 
           max-width: 520px;       /* 🔥 адаптация под ПК */
