@@ -45,15 +45,14 @@ export default function Intro() {
           box-sizing: border-box;
         }
 
-        /* ЕЩЁ НИЖЕ */
+        /* 🔥 ЧЁТКО: опустить верхний блок на 30px */
         .top {
           display: flex;
           flex-direction: column;
           text-align: center;
           gap: 12px;
 
-          flex-grow: 30;     /* 🔥 Было 0.2 → теперь ниже */
-          
+          margin-top: 30px;   /* вот то самое смещение */
         }
 
         .dots-top {
@@ -76,9 +75,9 @@ export default function Intro() {
           line-height: 1.4;
         }
 
-        /* Картинка ниже ещё сильнее */
+        /* Картинка — центр */
         .center {
-          flex-grow: 200;    /* 🔥 Было 1 → теперь ниже */
+          flex-grow: 1;
           display: flex;
           justify-content: center;
           align-items: center;
