@@ -45,14 +45,13 @@ export default function Intro() {
           box-sizing: border-box;
         }
 
-        /* 🔥 ЧЁТКО: опустить верхний блок на 30px */
+        /* ВЕРХ */
         .top {
           display: flex;
           flex-direction: column;
           text-align: center;
           gap: 12px;
-
-          margin-top: 30px;   /* вот то самое смещение */
+          margin-top: 30px;
         }
 
         .dots-top {
@@ -75,7 +74,7 @@ export default function Intro() {
           line-height: 1.4;
         }
 
-        /* Картинка — центр */
+        /* КАРТИНКА — строго по центру между верхом и низом */
         .center {
           flex-grow: 1;
           display: flex;
@@ -88,11 +87,14 @@ export default function Intro() {
           max-width: 440px;
         }
 
+        /* НИЗ — поднимаем на 10px и увеличиваем расстояние */
         .bottom {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
+
+          gap: 12px;          /* 🔥 как сверху (между кнопкой и точками) */
+          margin-bottom: 10px; /* 🔥 подняли весь блок вверх */
         }
 
         .next-btn {
@@ -113,7 +115,7 @@ export default function Intro() {
 
       <div className="screen">
 
-        {/* Верх */}
+        {/* ВЕРХ */}
         <div className="top">
           <div className="dots-top">... ★ • • •</div>
 
@@ -129,12 +131,12 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* Картинка */}
+        {/* КАРТИНКА */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
 
-        {/* Низ */}
+        {/* НИЗ */}
         <div className="bottom">
           <button className="next-btn">Далее</button>
           <div className="dots-bottom">● ○ ○ ○</div>
