@@ -1,133 +1,103 @@
-import { useEffect, useState } from "react";
-import { findOrCreateUser } from "../../lib/findOrCreateUser";
-import { useUserStore } from "../../store/userStore";
+<div className="screen splash"
+     style={{
+       width: "100%",
+       height: "100vh",
+       padding: "40px 20px",
+       display: "flex",
+       justifyContent: "center",
+       alignItems: "flex-start",
+       background: "#ffffff",
+       fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
+     }}>
 
-// 👉 Картинка расположена в src/assets/
-import IntroImage from "../../assets/intro.png";
+  <div className="splash-inner"
+       style={{
+         width: "100%",
+         maxWidth: 420,
+         display: "flex",
+         flexDirection: "column",
+         alignItems: "center",
+         textAlign: "center",
+       }}>
 
-export default function Intro() {
-  const user = useUserStore((s) => s.user);
-  const setUser = useUserStore((s) => s.setUser);
-
-  const [status, setStatus] = useState("loading");
-
-  useEffect(() => {
-    const tg = window.Telegram?.WebApp;
-    const tgUser = tg?.initDataUnsafe?.user;
-
-    async function load() {
-      if (!tgUser) return setStatus("error");
-
-      const result = await findOrCreateUser(tgUser);
-      if (!result) return setStatus("error");
-
-      setUser(result);
-
-      if (result.created_at === result.updated_at) setStatus("new");
-      else setStatus("existing");
-    }
-
-    load();
-  }, [setUser]);
-
-  return (
+    {/* Верхние точки */}
     <div
-      className="screen splash"
       style={{
-        width: "100%",
-        height: "100vh",
-        padding: 20,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
-        background: "#ffffff",
+        opacity: 0.45,
+        fontSize: 14,
+        marginBottom: 40,   // ← Увеличено
+        letterSpacing: "3px",
       }}
     >
-      <div className="splash-inner">
-
-        {/* Верхние точки */}
-        <div
-          style={{
-            opacity: 0.45,
-            fontSize: 14,
-            marginBottom: 10,
-            letterSpacing: "3px",
-          }}
-        >
-          ... ★ • • •
-        </div>
-
-        {/* Заголовок */}
-        <h1
-          style={{
-            fontSize: 26,
-            fontWeight: 600,
-            lineHeight: "1.2",
-            color: "#111",
-            margin: 0,
-            textAlign: "center",
-          }}
-        >
-          Начать с начала — это<br />
-          пространство мягких<br />
-          перезапусков
-        </h1>
-
-        {/* Подзаголовок */}
-        <p
-          style={{
-            fontSize: 16,
-            color: "#5c5c5c",
-            lineHeight: "1.35",
-            textAlign: "center",
-            marginTop: 10,
-            maxWidth: 330,
-          }}
-        >
-          Ты возвращаешь себе контроль<br />
-          маленькими шагами.
-        </p>
-
-        {/* Иллюстрация */}
-        <img
-          src={IntroImage}
-          alt="intro illustration"
-          style={{
-            width: "82%",
-            maxWidth: 300,
-            height: "auto",
-            marginTop: 30,
-            marginBottom: 10,
-            borderRadius: 0,
-            objectFit: "contain",
-          }}
-        />
-
-        {/* Кнопка */}
-        <button
-          style={{
-            width: 240,
-            height: 56,
-            border: "none",
-            borderRadius: 16,
-            background: "#2c2c2e",
-            color: "#fff",
-            fontSize: 18,
-            fontWeight: 500,
-            cursor: "pointer",
-            marginTop: 20,
-          }}
-          onClick={() => console.log("Next screen")}
-        >
-          Далее
-        </button>
-
-        {/* Нижние точки */}
-        <div style={{ marginTop: 12, fontSize: 12, color: "#222" }}>
-          ● ○ ○ ○
-        </div>
-      </div>
+      ... ★ • • •
     </div>
-  );
-}
+
+    {/* Заголовок */}
+    <h1
+      style={{
+        fontSize: 28,
+        fontWeight: 600,
+        lineHeight: "1.25",
+        color: "#111",
+        margin: 0,
+        marginBottom: 18,   // ← расстояние до подзаголовка
+      }}
+    >
+      Начать с начала — это<br />
+      пространство мягких<br />
+      перезапусков
+    </h1>
+
+    {/* Подзаголовок */}
+    <p
+      style={{
+        fontSize: 17,
+        color: "#5c5c5c",
+        lineHeight: "1.45",
+        margin: 0,
+        marginBottom: 45,   // ← расстояние до картинки
+        maxWidth: 350,
+      }}
+    >
+      Ты возвращаешь себе контроль<br />
+      маленькими шагами.
+    </p>
+
+    {/* Иллюстрация — шире */}
+    <img
+      src={IntroImage}
+      alt="intro illustration"
+      style={{
+        width: "90%",        // ← шире
+        maxWidth: 340,
+        height: "auto",
+        marginBottom: 50,    // ← расстояние до кнопки
+        objectFit: "contain",
+      }}
+    />
+
+    {/* Кнопка */}
+    <button
+      style={{
+        width: 260,          // ← чуть шире
+        height: 56,
+        border: "none",
+        borderRadius: 16,
+        background: "#2c2c2e",
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: 500,
+        cursor: "pointer",
+        marginBottom: 20,    // ← расстояние до точек
+      }}
+    >
+      Далее
+    </button>
+
+    {/* Нижние точки */}
+    <div style={{ fontSize: 13, color: "#222" }}>
+      ● ○ ○ ○
+    </div>
+
+  </div>
+</div>
