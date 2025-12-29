@@ -24,14 +24,13 @@ export default function StepIntro() {
           margin: 0 auto;
         }
 
-        /* === ТЕКСТОВЫЙ БЛОК — как в Intro, опускаем ниже === */
+        /* === ТЕКСТОВЫЙ БЛОК (как в Intro) === */
         .text-block {
           display: flex;
           flex-direction: column;
           text-align: center;
           gap: 14px;
-
-          margin-top: 30px;    /* 🔥 ровно как в Intro */
+          margin-top: 30px;
         }
 
         .text-block p {
@@ -41,7 +40,7 @@ export default function StepIntro() {
           margin: 0;
         }
 
-        .text-block b {
+        .text-block strong {
           font-weight: 600;
         }
 
@@ -82,7 +81,7 @@ export default function StepIntro() {
           color: #222;
         }
 
-        /* === Планшеты === */
+        /* === Планшеты (как Intro) === */
         @media (min-width: 768px) {
           .screen {
             max-width: 640px;
@@ -93,7 +92,7 @@ export default function StepIntro() {
           }
 
           .center {
-            display: none; /* 🔥 скрываем картинку на планшете */
+            display: none;
           }
 
           .text-block p {
@@ -113,7 +112,7 @@ export default function StepIntro() {
           }
         }
 
-        /* === ПК === */
+        /* === ПК (как Intro) === */
         @media (min-width: 1024px) {
           .screen {
             max-width: 700px;
@@ -139,9 +138,9 @@ export default function StepIntro() {
 
         {/* ТЕКСТ */}
         <div className="text-block">
-          <p><b>Шаг — это маленькое действие на 3–10 минут.</b></p>
-          <p>Ты не бежишь — ты просто двигаешься.</p>
-          <p>Каждый шаг — попытка. <b>Каждая попытка — победа.</b></p>
+          <p><strong>Шаг — это маленькое действие на 3–10 минут.</strong></p>
+          <p>Ты не бежишь — <strong>ты просто двигаешься</strong>.</p>
+          <p>Каждый шаг — попытка. <strong>Каждая попытка — победа.</strong></p>
         </div>
 
         {/* КАРТИНКА */}
