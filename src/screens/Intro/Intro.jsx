@@ -65,7 +65,7 @@ export default function Intro() {
   }
 
   .title {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
     margin: 0;
     line-height: 1.25;
