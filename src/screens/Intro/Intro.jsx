@@ -32,23 +32,29 @@ export default function Intro() {
   return (
     <>
       <style>{`
+        /* -------------------- ЭКРАН -------------------- */
         .screen {
           width: 100%;
           height: 100vh;
-          display: flex;
-          flex-direction: column;
+
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-          padding: env(safe-area-inset-top) 20px env(safe-area-inset-bottom);
+
+          display: flex;
+          flex-direction: column;
+
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 25px;
           box-sizing: border-box;
         }
 
+        /* -------------------- ВЕРХ -------------------- */
         .top {
-          text-align: center;
           display: flex;
           flex-direction: column;
-          gap: 10px;
-          padding-top: 10px;
+          text-align: center;
+          gap: 12px;
+
+          flex-grow: 0.2;   /* 🔥 опускает текстовый блок вниз */
         }
 
         .dots-top {
@@ -71,11 +77,12 @@ export default function Intro() {
           line-height: 1.4;
         }
 
+        /* -------------------- КАРТИНКА -------------------- */
         .center {
-          flex-grow: 1;                /* распределяет воздух */
+          flex-grow: 1;  /* 🔥 идеально распределяет вертикальное пространство */
           display: flex;
-          align-items: center;
           justify-content: center;
+          align-items: center;
         }
 
         .intro-img {
@@ -84,12 +91,12 @@ export default function Intro() {
           height: auto;
         }
 
+        /* -------------------- НИЗ -------------------- */
         .bottom {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 12px;
-          padding-bottom: 20px;
         }
 
         .next-btn {
@@ -100,6 +107,7 @@ export default function Intro() {
           background: #2c2c2e;
           color: #fff;
           font-size: 18px;
+          font-weight: 500;
         }
 
         .dots-bottom {
@@ -110,6 +118,7 @@ export default function Intro() {
 
       <div className="screen">
 
+        {/* -------- ВЕРХ -------- */}
         <div className="top">
           <div className="dots-top">... ★ • • •</div>
 
@@ -125,12 +134,17 @@ export default function Intro() {
           </p>
         </div>
 
+        {/* -------- КАРТИНКА -------- */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
 
+        {/* -------- НИЗ -------- */}
         <div className="bottom">
-          <button className="next-btn">Далее</button>
+          <button className="next-btn" onClick={() => console.log("NEXT SCREEN")}>
+            Далее
+          </button>
+
           <div className="dots-bottom">● ○ ○ ○</div>
         </div>
 
