@@ -40,9 +40,13 @@ export default function Intro() {
 
           display: flex;
           flex-direction: column;
+          align-items: center;
 
           padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
           box-sizing: border-box;
+
+          max-width: 520px;       /* 🔥 адаптация под ПК */
+          margin: 0 auto;         /* центрирование */
         }
 
         /* ВЕРХ */
@@ -51,7 +55,7 @@ export default function Intro() {
           flex-direction: column;
           text-align: center;
           gap: 12px;
-          margin-top: 30px;
+          margin-top: 30px;     /* опустить блок */
         }
 
         .dots-top {
@@ -74,7 +78,7 @@ export default function Intro() {
           line-height: 1.4;
         }
 
-        /* КАРТИНКА — строго по центру между верхом и низом */
+        /* КАРТИНКА — центр */
         .center {
           flex-grow: 1;
           display: flex;
@@ -84,17 +88,17 @@ export default function Intro() {
 
         .intro-img {
           width: 82%;
-          max-width: 440px;
+          max-width: 640px;      /* адаптив для ПК */
         }
 
-        /* НИЗ — поднимаем на 10px и увеличиваем расстояние */
+        /* НИЗ */
         .bottom {
           display: flex;
           flex-direction: column;
           align-items: center;
 
-          gap: 12px;          /* 🔥 как сверху (между кнопкой и точками) */
-          margin-bottom: 10px; /* 🔥 подняли весь блок вверх */
+          gap: 12px;             /* расстояние между кнопкой и точками */
+          margin-bottom: 10px;   /* поднять блок вверх */
         }
 
         .next-btn {
@@ -111,6 +115,61 @@ export default function Intro() {
           font-size: 12px;
           color: #222;
         }
+
+        /* ——————————————————————
+           🔥  АДАПТАЦИЯ ПЛАНШЕТ (768px+)
+        —————————————————————— */
+        @media (min-width: 768px) {
+          .screen {
+            max-width: 650px;
+            padding-top: 80px;
+          }
+
+          .title {
+            font-size: 28px;
+          }
+
+          .subtitle {
+            font-size: 16px;
+          }
+
+          .intro-img {
+            max-width: 550px;
+          }
+
+          .next-btn {
+            width: 300px;
+            height: 60px;
+            font-size: 20px;
+          }
+        }
+
+        /* ——————————————————————
+           🔥  АДАПТАЦИЯ ПК (1024px+)
+        —————————————————————— */
+        @media (min-width: 1024px) {
+          .screen {
+            max-width: 480px;     /* сохраняем мобильный формат, не растягиваем UI */
+            height: 92vh;
+            margin-top: 3vh;
+            border-radius: 24px;
+          }
+
+          .title {
+            font-size: 30px;
+          }
+
+          .intro-img {
+            max-width: 480px;
+          }
+
+          .next-btn {
+            width: 300px;
+            height: 60px;
+            font-size: 20px;
+          }
+        }
+
       `}</style>
 
       <div className="screen">
