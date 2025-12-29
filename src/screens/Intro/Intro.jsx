@@ -47,7 +47,7 @@ export default function Intro() {
       <div
         className="splash-inner"
         style={{
-          gap: "32px", // 🔥 увеличил расстояние красиво
+          gap: "40px", // 🔥 увеличил расстояние красиво
           maxWidth: "380px",
         }}
       >
