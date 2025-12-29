@@ -40,18 +40,20 @@ export default function Intro() {
 
           display: flex;
           flex-direction: column;
-          padding: calc(env(safe-area-inset-top) + 20px) 20px 25px;
+
+          padding: calc(env(safe-area-inset-top) + 50px) 40px 25px;
           box-sizing: border-box;
         }
 
-        /* 🔥 ВЕРХ — опускаем компактно вниз */
+        /* ЕЩЁ НИЖЕ */
         .top {
           display: flex;
           flex-direction: column;
           text-align: center;
-          gap: 10px;
+          gap: 12px;
 
-          flex-grow: 0.1;  /* 🔥 регулирует плавное опускание */
+          flex-grow: 30;     /* 🔥 Было 0.2 → теперь ниже */
+          
         }
 
         .dots-top {
@@ -63,23 +65,22 @@ export default function Intro() {
         .title {
           font-size: 28px;
           font-weight: 600;
-          line-height: 1.25;
           margin: 0;
+          line-height: 1.25;
         }
 
         .subtitle {
           font-size: 17px;
           color: #5c5c5c;
-          line-height: 1.4;
           margin: 0;
+          line-height: 1.4;
         }
 
-        /* 🔥 КАРТИНКА — чётко в центре */
+        /* Картинка ниже ещё сильнее */
         .center {
-          flex-grow: 1;  /* центрирует идеально */
           display: flex;
-          align-items: center;
           justify-content: center;
+          align-items: center;
         }
 
         .intro-img {
@@ -87,7 +88,6 @@ export default function Intro() {
           max-width: 340px;
         }
 
-        /* НИЗ – на месте */
         .bottom {
           display: flex;
           flex-direction: column;
@@ -113,7 +113,7 @@ export default function Intro() {
 
       <div className="screen">
 
-        {/* ВЕРХ */}
+        {/* Верх */}
         <div className="top">
           <div className="dots-top">... ★ • • •</div>
 
@@ -129,12 +129,12 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* КАРТИНКА */}
+        {/* Картинка */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
 
-        {/* НИЗ */}
+        {/* Низ */}
         <div className="bottom">
           <button className="next-btn">Далее</button>
           <div className="dots-bottom">● ○ ○ ○</div>
