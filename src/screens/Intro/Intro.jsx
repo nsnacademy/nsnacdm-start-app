@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useUserStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 import IntroImage from "../../assets/intro.png";
 
 export default function Intro() {
+  const navigate = useNavigate();
+
   const user = useUserStore((s) => s.user);
   const setUser = useUserStore((s) => s.setUser);
 
@@ -49,7 +52,6 @@ export default function Intro() {
     margin: 0 auto;
   }
 
-  /* === ВЕРХ (мобильный) === */
   .top {
     display: flex;
     flex-direction: column;
@@ -78,7 +80,6 @@ export default function Intro() {
     line-height: 1.4;
   }
 
-  /* === КАРТИНКА (мобильный) === */
   .center {
     flex-grow: 1;
     display: flex;
@@ -91,7 +92,6 @@ export default function Intro() {
     max-width: 740px;
   }
 
-  /* === Низ === */
   .bottom {
     display: flex;
     flex-direction: column;
@@ -115,19 +115,17 @@ export default function Intro() {
     color: #222;
   }
 
-
-  /* === ПЛАНШЕТЫ (768px+) — без картинки + центрируем вертикально === */
   @media (min-width: 768px) {
     .screen {
       max-width: 640px;
       padding: 0 40px;
       display: flex;
-      justify-content: center;     /* 🔥 центр по вертикали */
-      align-items: center;         /* 🔥 центр по горизонтали */
+      justify-content: center;
+      align-items: center;
     }
 
     .center {
-      display: none; /* убираем картинку */
+      display: none;
     }
 
     .top {
@@ -147,7 +145,7 @@ export default function Intro() {
     }
 
     .bottom {
-      gap: 48px; /* в 2 раза больше */
+      gap: 48px;
       margin-top: 48px;
       margin-bottom: 0;
     }
@@ -159,8 +157,6 @@ export default function Intro() {
     }
   }
 
-
-  /* === ПК (1024px+) — полностью центрируем === */
   @media (min-width: 1024px) {
     .screen {
       max-width: 700px;
@@ -168,7 +164,7 @@ export default function Intro() {
       padding: 0 60px;
 
       display: flex;
-      justify-content: center;   /* 👑 perfect desktop centering */
+      justify-content: center;
       align-items: center;
       border-radius: 24px;
     }
@@ -201,7 +197,6 @@ export default function Intro() {
 
       <div className="screen">
 
-        {/* ВЕРХ */}
         <div className="top">
           <div className="dots-top">... ★ • • •</div>
 
@@ -217,14 +212,17 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* КАРТИНКА Mobile */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
 
-        {/* НИЗ */}
         <div className="bottom">
-          <button className="next-btn">Далее</button>
+          <button
+            className="next-btn"
+            onClick={() => navigate("/step-intro")}
+          >
+            Далее
+          </button>
           <div className="dots-bottom">● ○ ○ ○</div>
         </div>
 
