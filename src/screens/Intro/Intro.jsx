@@ -78,7 +78,7 @@ export default function Intro() {
 
         /* Картинка ниже ещё сильнее */
         .center {
-          flex-grow: 5;    /* 🔥 Было 1 → теперь ниже */
+          flex-grow: 50;    /* 🔥 Было 1 → теперь ниже */
           display: flex;
           justify-content: center;
           align-items: center;
