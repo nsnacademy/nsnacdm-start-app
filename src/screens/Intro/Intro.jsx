@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useUserStore } from "../../store/userStore";
 
-// 👉 Импорт твоей картинки (положи в src/assets/)
+// 👉 Картинка расположена в src/assets/
 import IntroImage from "../../assets/intro.png";
 
 export default function Intro() {
@@ -10,34 +10,21 @@ export default function Intro() {
   const setUser = useUserStore((s) => s.setUser);
 
   const [status, setStatus] = useState("loading");
-  // loading | new | existing | error
 
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
     const tgUser = tg?.initDataUnsafe?.user;
 
     async function load() {
-      if (!tgUser) {
-        setStatus("error");
-        return;
-      }
+      if (!tgUser) return setStatus("error");
 
       const result = await findOrCreateUser(tgUser);
+      if (!result) return setStatus("error");
 
-      if (!result) {
-        setStatus("error");
-        return;
-      }
-
-      // сохраняем пользователя в Zustand
       setUser(result);
 
-      // определяем новый это пользователь или уже существующий
-      if (result.created_at === result.updated_at) {
-        setStatus("new");
-      } else {
-        setStatus("existing");
-      }
+      if (result.created_at === result.updated_at) setStatus("new");
+      else setStatus("existing");
     }
 
     load();
@@ -45,26 +32,29 @@ export default function Intro() {
 
   return (
     <div
+      className="screen splash"
       style={{
+        width: "100%",
+        height: "100vh",
         padding: 20,
-        fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
         display: "flex",
+        alignItems: "center",
         justifyContent: "center",
+        fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
+        background: "#ffffff",
       }}
     >
-      <div
-        style={{
-          width: 330,
-          minHeight: 700,
-          background: "#fff",
-          borderRadius: 32,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-          textAlign: "center",
-          padding: "30px 20px",
-        }}
-      >
+      <div className="splash-inner">
+
         {/* Верхние точки */}
-        <div style={{ opacity: 0.45, fontSize: 14, marginBottom: 20 }}>
+        <div
+          style={{
+            opacity: 0.45,
+            fontSize: 14,
+            marginBottom: 10,
+            letterSpacing: "3px",
+          }}
+        >
           ... ★ • • •
         </div>
 
@@ -76,6 +66,7 @@ export default function Intro() {
             lineHeight: "1.2",
             color: "#111",
             margin: 0,
+            textAlign: "center",
           }}
         >
           Начать с начала — это<br />
@@ -89,7 +80,9 @@ export default function Intro() {
             fontSize: 16,
             color: "#5c5c5c",
             lineHeight: "1.35",
-            marginTop: 14,
+            textAlign: "center",
+            marginTop: 10,
+            maxWidth: 330,
           }}
         >
           Ты возвращаешь себе контроль<br />
@@ -101,13 +94,13 @@ export default function Intro() {
           src={IntroImage}
           alt="intro illustration"
           style={{
-            width: 220,
-            height: 220,
-            borderRadius: "50%",
-            objectFit: "cover",
-            margin: "40px auto",
-            display: "block",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+            width: "82%",
+            maxWidth: 300,
+            height: "auto",
+            marginTop: 30,
+            marginBottom: 10,
+            borderRadius: 0,
+            objectFit: "contain",
           }}
         />
 
@@ -123,18 +116,15 @@ export default function Intro() {
             fontSize: 18,
             fontWeight: 500,
             cursor: "pointer",
-            marginTop: 10,
+            marginTop: 20,
           }}
-          onClick={() => {
-            // 👉 здесь можешь сделать переход на следующий экран
-            console.log("Next screen");
-          }}
+          onClick={() => console.log("Next screen")}
         >
           Далее
         </button>
 
         {/* Нижние точки */}
-        <div style={{ marginTop: 18, fontSize: 12, color: "#222" }}>
+        <div style={{ marginTop: 12, fontSize: 12, color: "#222" }}>
           ● ○ ○ ○
         </div>
       </div>
