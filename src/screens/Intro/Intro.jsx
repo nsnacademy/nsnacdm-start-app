@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useUserStore } from "../../store/userStore";
 
-// 👉 Картинка (положи в src/assets/)
+// картинка
 import IntroImage from "../../assets/intro.png";
 
 export default function Intro() {
@@ -40,29 +40,24 @@ export default function Intro() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        background: "#F8F8F8", // твой цвет
         fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
-        background: "#f8F8F8",
       }}
     >
       <div
         className="splash-inner"
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-          gap: "26px", // общий base-gap (iOS style)
-          maxWidth: "380px", // шире!
-          width: "100%",
+          gap: "32px", // 🔥 увеличил расстояние красиво
+          maxWidth: "380px",
         }}
       >
-        {/* Верхние точки */}
+        {/* Точки */}
         <div
           style={{
             opacity: 0.45,
             fontSize: 14,
             letterSpacing: "3px",
-            marginBottom: "10px",
+            marginBottom: "4px", // чуть меньше, чтобы всё ровно
           }}
         >
           ... ★ • • •
@@ -73,10 +68,10 @@ export default function Intro() {
           style={{
             fontSize: 28,
             fontWeight: 600,
-            lineHeight: "1.25",
+            lineHeight: "1.3",
             color: "#111",
             margin: 0,
-            maxWidth: "340px",
+            maxWidth: "350px",
           }}
         >
           Начать с начала — это<br />
@@ -89,26 +84,25 @@ export default function Intro() {
           style={{
             fontSize: 17,
             color: "#5c5c5c",
-            lineHeight: "1.45",
-            marginTop: "6px",
+            lineHeight: "1.5",
             maxWidth: "350px",
+            marginTop: "-10px", // 🔥 подправил, чтобы расстояния были идеальными
           }}
         >
           Ты возвращаешь себе контроль<br />
           маленькими шагами.
         </p>
 
-        {/* Иллюстрация */}
+        {/* Картинка */}
         <img
           src={IntroImage}
           alt="intro illustration"
           style={{
-            width: "88%",            // шире, но адаптивно
+            width: "88%",
             maxWidth: "320px",
             height: "auto",
-            marginTop: "10px",
-            marginBottom: "10px",
             objectFit: "contain",
+            background: "#F8F8F8",
           }}
         />
 
@@ -124,17 +118,14 @@ export default function Intro() {
             fontSize: 18,
             fontWeight: 500,
             cursor: "pointer",
-            marginTop: "10px",
           }}
-          onClick={() => console.log("Next screen")}
+          onClick={() => console.log("NEXT SCREEN")}
         >
           Далее
         </button>
 
-        {/* Нижние точки */}
-        <div style={{ marginTop: 10, fontSize: 12, color: "#222" }}>
-          ● ○ ○ ○
-        </div>
+        {/* Точки снизу */}
+        <div style={{ fontSize: 12, color: "#222" }}>● ○ ○ ○</div>
       </div>
     </div>
   );
