@@ -42,14 +42,14 @@ export default function Intro() {
     flex-direction: column;
     align-items: center;
 
-    padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
+    padding: calc(env(safe-area-inset-top) + 50px) 20px 40px;
     box-sizing: border-box;
 
-    max-width: 520px;                /* 🔥 ограничиваем ширину под ПК */
-    margin: 0 auto;                  /* 🔥 центрируем на ПК */
+    max-width: 520px;
+    margin: 0 auto;
   }
 
-  /* ВЕРХ */
+  /* === ВЕРХ Мобильные === */
   .top {
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@ export default function Intro() {
   }
 
   .title {
-    font-size: 23px;
+    font-size: 27px;
     font-weight: 600;
     margin: 0;
     line-height: 1.25;
@@ -78,7 +78,7 @@ export default function Intro() {
     line-height: 1.4;
   }
 
-  /* КАРТИНКА — центр */
+  /* === КАРТИНКА — только мобильные === */
   .center {
     flex-grow: 1;
     display: flex;
@@ -91,7 +91,7 @@ export default function Intro() {
     max-width: 440px;
   }
 
-  /* Низ */
+  /* === НИЗ === */
   .bottom {
     display: flex;
     flex-direction: column;
@@ -115,47 +115,83 @@ export default function Intro() {
     color: #222;
   }
 
-  /* 🔥 Планшеты */
+
+  /* === ПЛАНШЕТЫ (768px+) === */
   @media (min-width: 768px) {
     .screen {
+      max-width: 640px;
       padding-top: 70px;
-      max-width: 600px;
+      padding-bottom: 70px;
+    }
+
+    /* Убираем картинку */
+    .center {
+      display: none;
+    }
+
+    /* Тексты — одинаковые расстояния */
+    .top {
+      width: 100%;
+      gap: 24px;         /* одинаковые отступы между строками */
+      margin-top: 0;
     }
 
     .title {
-      font-size: 28px;   /* немного крупнее */
+      font-size: 32px;
+      line-height: 1.2;
     }
 
     .subtitle {
-      font-size: 16px;
+      font-size: 18px;
+      line-height: 1.45;
     }
 
-    .intro-img {
-      max-width: 500px;
+    /* Кнопка ниже — отступ в 2 раза больше */
+    .bottom {
+      gap: 48px;         /* 🔥 2× больше чем 24px */
+      margin-top: 60px;
+      margin-bottom: 0;
     }
 
     .next-btn {
-      width: 280px;
+      width: 320px;
       height: 60px;
       font-size: 20px;
     }
   }
 
-  /* 🔥 ПК (широкие мониторы) */
+
+  /* === ПК (1024px+) === */
   @media (min-width: 1024px) {
     .screen {
-      max-width: 480px;           /* сохраняем мобильную ширину */
-      height: 90vh;               /* чуть уменьшить высоту */
-      margin-top: 3vh;            /* центрируем лучше */
-      border-radius: 24px;        /* можно красиво скруглить */
+      max-width: 700px;
+      padding-top: 90px;
+      padding-bottom: 90px;
+      border-radius: 24px;
+    }
+
+    .top {
+      gap: 24px;
     }
 
     .title {
-      font-size: 30px;
+      font-size: 36px;
     }
 
-    .intro-img {
-      max-width: 480px;
+    .subtitle {
+      font-size: 20px;
+    }
+
+    /* Кнопка + точки — 48px между ними */
+    .bottom {
+      gap: 48px;
+      margin-top: 70px;
+    }
+
+    .next-btn {
+      width: 360px;
+      height: 62px;
+      font-size: 21px;
     }
   }
 `}</style>
@@ -179,7 +215,7 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* КАРТИНКА */}
+        {/* КАРТИНКА Mobile Only */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
