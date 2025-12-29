@@ -174,7 +174,7 @@ export default function Intro() {
     }
 
     .top {
-      gap: 24px;
+      gap: 15px;
     }
 
     .title {
@@ -186,8 +186,8 @@ export default function Intro() {
     }
 
     .bottom {
-      gap: 48px;
-      margin-top: 28px;
+      gap: 15px;
+      margin-top: 40px;
     }
 
     .next-btn {
