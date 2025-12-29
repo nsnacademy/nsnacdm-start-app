@@ -31,137 +31,148 @@ export default function Intro() {
 
   return (
     <>
-      <style>{`
-        /* === БАЗА === */
-        .screen {
-          width: 100%;
-          height: 100vh;
-          background: #f8f8f8;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        <style>{`
+  .screen {
+    width: 100%;
+    height: 100vh;
+    background: #f8f8f8;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
+    box-sizing: border-box;
 
-          padding: calc(env(safe-area-inset-top) + 40px) 20px 40px;
-          box-sizing: border-box;
+    max-width: 520px;
+    margin: 0 auto;
+  }
 
-          max-width: 520px;
-          margin: 0 auto;
-        }
+  /* ВЕРХ */
+  .top {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
 
-        /* === ВЕРХНИЙ БЛОК === */
-        .top {
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          gap: 40px;      /* 🔥 расстояние между текстами 40px */
-          margin-bottom: 40px; /* 🔥 отступ вниз */
-        }
+  .dots-top {
+    opacity: 0.45;
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
 
-        .dots-top {
-          opacity: 0.45;
-          font-size: 14px;
-          letter-spacing: 3px;
-        }
+  .title {
+    font-size: 23px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.25;
+  }
 
-        .title {
-          font-size: 23px;
-          font-weight: 600;
-          margin: 0;
-          line-height: 1.25;
-        }
+  .subtitle {
+    font-size: 14px;
+    color: #5c5c5c;
+    margin: 0;
+    line-height: 1.4;
+  }
 
-        .subtitle {
-          font-size: 14px;
-          color: #5c5c5c;
-          margin: 0;
-          line-height: 1.4;
-        }
+  /* КАРТИНКА — только мобильные */
+  .center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-        /* === КАРТИНКА === */
-        .center {
-          flex-grow: 1; /* центрирует ровно между верхом и низом */
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+  .intro-img {
+    width: 82%;
+    max-width: 440px;
+  }
 
-        .intro-img {
-          width: 82%;
-          max-width: 440px;
-        }
+  /* НИЗ */
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
 
-        /* === НИЗ === */
-        .bottom {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+  .next-btn {
+    width: 260px;
+    height: 56px;
+    border: none;
+    border-radius: 16px;
+    background: #2c2c2e;
+    color: #fff;
+    font-size: 18px;
+  }
 
-          gap: 40px;        /* 🔥 расстояние между кнопкой и точками 40px */
-          margin-top: 40px; /* 🔥 отступ вверх */
-        }
+  .dots-bottom {
+    font-size: 12px;
+    color: #222;
+  }
 
-        .next-btn {
-          width: 260px;
-          height: 56px;
-          border: none;
-          border-radius: 16px;
-          background: #2c2c2e;
-          color: #fff;
-          font-size: 18px;
-        }
+  /* 📌 ПЛАНШЕТЫ (убираем картинку, делаем компактнее) */
+  @media (min-width: 768px) {
+    .screen {
+      max-width: 600px;
+      padding-top: 80px;
+    }
 
-        .dots-bottom {
-          font-size: 12px;
-          color: #222;
-        }
+    .center {
+      display: none;     /* 🔥 скрываем картинку */
+    }
 
-        /* === ПЛАНШЕТЫ (убираем картинку) === */
-        @media (min-width: 768px) {
-          .screen {
-            max-width: 600px;
-            padding-top: 60px;
-          }
+    .title {
+      font-size: 30px;
+    }
 
-          .center {
-            display: none;  /* 🔥 скрываем картинку */
-          }
+    .subtitle {
+      font-size: 17px;
+    }
 
-          .title {
-            font-size: 30px;
-          }
-          .subtitle {
-            font-size: 17px;
-          }
+    .next-btn {
+      width: 320px;
+      height: 60px;
+      font-size: 20px;
+    }
+  }
 
-          .next-btn {
-            width: 300px;
-            height: 60px;
-            font-size: 20px;
-          }
-        }
+  /* 💻 ДЕСКТОП (ещё шире, компактнее) */
+  @media (min-width: 1024px) {
+    .screen {
+      max-width: 700px;
+      height: auto;
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
 
-        /* === ПК === */
-        @media (min-width: 1024px) {
-          .screen {
-            max-width: 700px;
-            padding-top: 80px;
-          }
+    .top {
+      margin-top: 60px; /* чуть опускаем */
+    }
 
-          .title {
-            font-size: 34px;
-          }
-          .subtitle {
-            font-size: 18px;
-          }
+    .title {
+      font-size: 34px;
+      line-height: 1.2;
+    }
 
-          .next-btn {
-            width: 330px;
-            height: 62px;
-          }
-        }
-      `}</style>
+    .subtitle {
+      font-size: 18px;
+    }
+
+    .next-btn {
+      width: 360px;
+      height: 64px;
+      font-size: 21px;
+    }
+
+    .dots-bottom {
+      font-size: 14px;
+    }
+  }
+`}</style>
+
 
       <div className="screen">
 
@@ -181,7 +192,7 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* КАРТИНКА (только мобильные) */}
+        {/* КАРТИНКА */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
