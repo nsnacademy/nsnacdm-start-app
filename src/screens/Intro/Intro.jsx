@@ -65,7 +65,7 @@ export default function Intro() {
         }
 
         .title {
-          font-size: 27px;
+          font-size: 23px;
           font-weight: 600;
           margin: 0;
           line-height: 1.25;
@@ -149,7 +149,7 @@ export default function Intro() {
         —————————————————————— */
         @media (min-width: 1024px) {
           .screen {
-            max-width: 100%;     /* сохраняем мобильный формат, не растягиваем UI */
+            max-width: 480px;     /* сохраняем мобильный формат, не растягиваем UI */
             height: 92vh;
             margin-top: 3vh;
             border-radius: 24px;
