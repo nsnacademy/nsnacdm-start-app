@@ -51,7 +51,7 @@ export default function Splash() {
     }
 
     // Задержка для анимации splash
-    const timer = setTimeout(saveTelegramUser, 4200);
+    const timer = setTimeout(saveTelegramUser, 3200);
 
     return () => clearTimeout(timer);
   }, [tgUser]);
