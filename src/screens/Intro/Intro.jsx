@@ -54,7 +54,7 @@ export default function Intro() {
           text-align: center;
           gap: 12px;
 
-          flex-grow: 0.2;   /* 🔥 опускает текстовый блок вниз */
+          flex-grow: 0.5;   /* 🔥 опускает текстовый блок вниз */
         }
 
         .dots-top {
