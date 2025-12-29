@@ -31,29 +31,26 @@ export default function Intro() {
 
   return (
     <>
-      {/* -------- CSS внутри компонента -------- */}
       <style>{`
-        /* -------------------- ЭКРАН -------------------- */
         .screen {
-          width: 390px;
-          height: 844px;
-          margin: 0 auto;
+          width: 100%;
+          height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
           display: flex;
           flex-direction: column;
           align-items: center;
-
           padding: 25px 20px;
+          box-sizing: border-box;
         }
 
-        /* -------------------- ВЕРХНИЙ БЛОК -------------------- */
         .top {
           text-align: center;
           display: flex;
           flex-direction: column;
           gap: 12px;
+          margin-top: 20px; /* немного вниз от safe-area */
         }
 
         .dots-top {
@@ -76,9 +73,9 @@ export default function Intro() {
           line-height: 1.45;
         }
 
-        /* -------------------- ЦЕНТР -------------------- */
+        /* Исправлено — красивый зазор */
         .center {
-          margin: 130px 0;
+          margin: 45px 0;
           display: flex;
           justify-content: center;
         }
@@ -89,13 +86,12 @@ export default function Intro() {
           object-fit: contain;
         }
 
-        /* -------------------- НИЖНИЙ БЛОК -------------------- */
         .bottom {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 12px;
-          margin-bottom: 10px;
+          margin-bottom: 25px;
         }
 
         .next-btn {
@@ -116,9 +112,7 @@ export default function Intro() {
         }
       `}</style>
 
-      {/* ----------- JSX структура ------------- */}
       <div className="screen">
-        {/* ВЕРХ */}
         <div className="top">
           <div className="dots-top">... ★ • • •</div>
 
@@ -134,12 +128,10 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* КАРТИНКА */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
 
-        {/* НИЗ */}
         <div className="bottom">
           <button className="next-btn" onClick={() => console.log("NEXT SCREEN")}>
             Далее
