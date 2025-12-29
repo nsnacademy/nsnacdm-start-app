@@ -41,7 +41,7 @@ export default function Intro() {
           display: flex;
           flex-direction: column;
 
-          padding: calc(env(safe-area-inset-top) + 50px) 40px 25px;
+          padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
           box-sizing: border-box;
         }
 
@@ -78,6 +78,7 @@ export default function Intro() {
 
         /* Картинка ниже ещё сильнее */
         .center {
+          flex-grow: 200;    /* 🔥 Было 1 → теперь ниже */
           display: flex;
           justify-content: center;
           align-items: center;
