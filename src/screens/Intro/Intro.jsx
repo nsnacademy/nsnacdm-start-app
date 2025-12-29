@@ -55,7 +55,7 @@ export default function Intro() {
     flex-direction: column;
     text-align: center;
     gap: 12px;
-    margin-top: 50px;
+    margin-top: 40px;
   }
 
   .dots-top {
