@@ -41,7 +41,7 @@ export default function Intro() {
           display: flex;
           flex-direction: column;
 
-          padding: calc(env(safe-area-inset-top) + 50px) 20px 25px;
+          padding: calc(env(safe-area-inset-top) + 50px) 20px 55px;
           box-sizing: border-box;
         }
 
