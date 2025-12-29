@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useUserStore } from "../../store/userStore";
 
-// картинка
 import IntroImage from "../../assets/intro.png";
 
 export default function Intro() {
@@ -31,102 +30,124 @@ export default function Intro() {
   }, [setUser]);
 
   return (
-    <div
-      className="screen splash"
-      style={{
-        width: "100%",
-        height: "100vh",
-        padding: "40px 20px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#F8F8F8", // твой цвет
-        fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
-      }}
-    >
-      <div
-        className="splash-inner"
-        style={{
-          gap: "40px", // 🔥 увеличил расстояние красиво
-          maxWidth: "380px",
-        }}
-      >
-        {/* Точки */}
-        <div
-          style={{
-            opacity: 0.45,
-            fontSize: 14,
-            letterSpacing: "3px",
-            marginBottom: "4px", // чуть меньше, чтобы всё ровно
-          }}
-        >
-          ... ★ • • •
+    <>
+      {/* -------- CSS внутри компонента -------- */}
+      <style>{`
+        /* -------------------- ЭКРАН -------------------- */
+        .screen {
+          width: 390px;
+          height: 844px;
+          margin: 0 auto;
+          background: #f8f8f8;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          padding: 25px 20px;
+        }
+
+        /* -------------------- ВЕРХНИЙ БЛОК -------------------- */
+        .top {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .dots-top {
+          opacity: 0.45;
+          font-size: 14px;
+          letter-spacing: 3px;
+        }
+
+        .title {
+          font-size: 26px;
+          font-weight: 600;
+          line-height: 1.25;
+          margin: 0;
+        }
+
+        .subtitle {
+          font-size: 16px;
+          color: #5c5c5c;
+          margin: 0;
+          line-height: 1.45;
+        }
+
+        /* -------------------- ЦЕНТР -------------------- */
+        .center {
+          margin: 130px 0;
+          display: flex;
+          justify-content: center;
+        }
+
+        .intro-img {
+          width: 95%;
+          max-width: 300px;
+          object-fit: contain;
+        }
+
+        /* -------------------- НИЖНИЙ БЛОК -------------------- */
+        .bottom {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 10px;
+        }
+
+        .next-btn {
+          width: 260px;
+          height: 56px;
+          border: none;
+          border-radius: 16px;
+          background: #2c2c2e;
+          color: #fff;
+          font-size: 18px;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        .dots-bottom {
+          font-size: 12px;
+          color: #222;
+        }
+      `}</style>
+
+      {/* ----------- JSX структура ------------- */}
+      <div className="screen">
+        {/* ВЕРХ */}
+        <div className="top">
+          <div className="dots-top">... ★ • • •</div>
+
+          <h1 className="title">
+            Начать с начала — это<br />
+            пространство мягких<br />
+            перезапусков
+          </h1>
+
+          <p className="subtitle">
+            Ты возвращаешь себе контроль<br />
+            маленькими шагами.
+          </p>
         </div>
 
-        {/* Заголовок */}
-        <h1
-          style={{
-            fontSize: 28,
-            fontWeight: 600,
-            lineHeight: "1.3",
-            color: "#111",
-            margin: 0,
-            maxWidth: "350px",
-          }}
-        >
-          Начать с начала — это<br />
-          пространство мягких<br />
-          перезапусков
-        </h1>
+        {/* КАРТИНКА */}
+        <div className="center">
+          <img className="intro-img" src={IntroImage} alt="intro" />
+        </div>
 
-        {/* Подзаголовок */}
-        <p
-          style={{
-            fontSize: 17,
-            color: "#5c5c5c",
-            lineHeight: "1.5",
-            maxWidth: "350px",
-            marginTop: "-10px", // 🔥 подправил, чтобы расстояния были идеальными
-          }}
-        >
-          Ты возвращаешь себе контроль<br />
-          маленькими шагами.
-        </p>
+        {/* НИЗ */}
+        <div className="bottom">
+          <button className="next-btn" onClick={() => console.log("NEXT SCREEN")}>
+            Далее
+          </button>
 
-        {/* Картинка */}
-        <img
-          src={IntroImage}
-          alt="intro illustration"
-          style={{
-            width: "88%",
-            maxWidth: "320px",
-            height: "auto",
-            objectFit: "contain",
-            background: "#F8F8F8",
-          }}
-        />
-
-        {/* Кнопка */}
-        <button
-          style={{
-            width: 260,
-            height: 56,
-            border: "none",
-            borderRadius: 16,
-            background: "#2c2c2e",
-            color: "#fff",
-            fontSize: 18,
-            fontWeight: 500,
-            cursor: "pointer",
-          }}
-          onClick={() => console.log("NEXT SCREEN")}
-        >
-          Далее
-        </button>
-
-        {/* Точки снизу */}
-        <div style={{ fontSize: 12, color: "#222" }}>● ○ ○ ○</div>
+          <div className="dots-bottom">● ○ ○ ○</div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
