@@ -65,14 +65,14 @@ export default function Intro() {
   }
 
   .title {
-    font-size: 32px;
+    font-size: 37px;
     font-weight: 600;
     margin: 0;
     line-height: 1.25;
   }
 
   .subtitle {
-    font-size: 18px;
+    font-size: 23px;
     color: #5c5c5c;
     margin: 0;
     line-height: 1.4;
@@ -87,7 +87,7 @@ export default function Intro() {
   }
 
   .intro-img {
-    width: 82%;
+    width: 100%;
     max-width: 740px;
   }
 
@@ -187,7 +187,7 @@ export default function Intro() {
 
     .bottom {
       gap: 48px;
-      margin-top: 48px;
+      margin-top: 28px;
     }
 
     .next-btn {
