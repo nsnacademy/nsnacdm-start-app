@@ -52,7 +52,7 @@ export default function Intro() {
           text-align: center;
           gap: 12px;
 
-          flex-grow: 0.1;     /* 🔥 Было 0.2 → теперь ниже */
+          flex-grow: 3;     /* 🔥 Было 0.2 → теперь ниже */
           
         }
 
@@ -78,7 +78,7 @@ export default function Intro() {
 
         /* Картинка ниже ещё сильнее */
         .center {
-          flex-grow: 10;    /* 🔥 Было 1 → теперь ниже */
+          flex-grow: 100;    /* 🔥 Было 1 → теперь ниже */
           display: flex;
           justify-content: center;
           align-items: center;
