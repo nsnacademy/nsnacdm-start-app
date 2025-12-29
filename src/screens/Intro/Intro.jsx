@@ -35,13 +35,11 @@ export default function Intro() {
         .screen {
           width: 100%;
           height: 100vh;
-          background: #f8f8f8;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
           display: flex;
           flex-direction: column;
-          align-items: center;
-          padding: 25px 20px;
+          background: #f8f8f8;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+          padding: env(safe-area-inset-top) 20px env(safe-area-inset-bottom);
           box-sizing: border-box;
         }
 
@@ -49,8 +47,8 @@ export default function Intro() {
           text-align: center;
           display: flex;
           flex-direction: column;
-          gap: 12px;
-          margin-top: 20px; /* немного вниз от safe-area */
+          gap: 10px;
+          padding-top: 10px;
         }
 
         .dots-top {
@@ -60,30 +58,30 @@ export default function Intro() {
         }
 
         .title {
-          font-size: 26px;
+          font-size: 28px;
           font-weight: 600;
-          line-height: 1.25;
           margin: 0;
+          line-height: 1.25;
         }
 
         .subtitle {
-          font-size: 16px;
+          font-size: 17px;
           color: #5c5c5c;
           margin: 0;
-          line-height: 1.45;
+          line-height: 1.4;
         }
 
-        /* Исправлено — красивый зазор */
         .center {
-          margin: 45px 0;
+          flex-grow: 1;                /* распределяет воздух */
           display: flex;
+          align-items: center;
           justify-content: center;
         }
 
         .intro-img {
-          width: 95%;
-          max-width: 300px;
-          object-fit: contain;
+          width: 82%;
+          max-width: 340px;
+          height: auto;
         }
 
         .bottom {
@@ -91,7 +89,7 @@ export default function Intro() {
           flex-direction: column;
           align-items: center;
           gap: 12px;
-          margin-bottom: 25px;
+          padding-bottom: 20px;
         }
 
         .next-btn {
@@ -102,8 +100,6 @@ export default function Intro() {
           background: #2c2c2e;
           color: #fff;
           font-size: 18px;
-          font-weight: 500;
-          cursor: pointer;
         }
 
         .dots-bottom {
@@ -113,6 +109,7 @@ export default function Intro() {
       `}</style>
 
       <div className="screen">
+
         <div className="top">
           <div className="dots-top">... ★ • • •</div>
 
@@ -133,12 +130,10 @@ export default function Intro() {
         </div>
 
         <div className="bottom">
-          <button className="next-btn" onClick={() => console.log("NEXT SCREEN")}>
-            Далее
-          </button>
-
+          <button className="next-btn">Далее</button>
           <div className="dots-bottom">● ○ ○ ○</div>
         </div>
+
       </div>
     </>
   );
