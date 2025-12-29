@@ -55,7 +55,7 @@ export default function Intro() {
     flex-direction: column;
     text-align: center;
     gap: 12px;
-    margin-top: 30px;
+    margin-top: 50px;
   }
 
   .dots-top {
@@ -65,14 +65,14 @@ export default function Intro() {
   }
 
   .title {
-    font-size: 37px;
+    font-size: 38px;
     font-weight: 600;
     margin: 0;
     line-height: 1.25;
   }
 
   .subtitle {
-    font-size: 23px;
+    font-size: 15px;
     color: #5c5c5c;
     margin: 0;
     line-height: 1.4;
