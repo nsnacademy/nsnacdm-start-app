@@ -49,7 +49,7 @@ export default function Intro() {
     margin: 0 auto;
   }
 
-  /* === ВЕРХ Мобильные === */
+  /* === ВЕРХ (мобильный) === */
   .top {
     display: flex;
     flex-direction: column;
@@ -65,20 +65,20 @@ export default function Intro() {
   }
 
   .title {
-    font-size: 27px;
+    font-size: 32px;
     font-weight: 600;
     margin: 0;
     line-height: 1.25;
   }
 
   .subtitle {
-    font-size: 14px;
+    font-size: 18px;
     color: #5c5c5c;
     margin: 0;
     line-height: 1.4;
   }
 
-  /* === КАРТИНКА — только мобильные === */
+  /* === КАРТИНКА (мобильный) === */
   .center {
     flex-grow: 1;
     display: flex;
@@ -88,10 +88,10 @@ export default function Intro() {
 
   .intro-img {
     width: 82%;
-    max-width: 440px;
+    max-width: 740px;
   }
 
-  /* === НИЗ === */
+  /* === Низ === */
   .bottom {
     display: flex;
     flex-direction: column;
@@ -116,24 +116,24 @@ export default function Intro() {
   }
 
 
-  /* === ПЛАНШЕТЫ (768px+) === */
+  /* === ПЛАНШЕТЫ (768px+) — без картинки + центрируем вертикально === */
   @media (min-width: 768px) {
     .screen {
       max-width: 640px;
-      padding-top: 70px;
-      padding-bottom: 70px;
+      padding: 0 40px;
+      display: flex;
+      justify-content: center;     /* 🔥 центр по вертикали */
+      align-items: center;         /* 🔥 центр по горизонтали */
     }
 
-    /* Убираем картинку */
     .center {
-      display: none;
+      display: none; /* убираем картинку */
     }
 
-    /* Тексты — одинаковые расстояния */
     .top {
-      width: 100%;
-      gap: 24px;         /* одинаковые отступы между строками */
+      gap: 24px;
       margin-top: 0;
+      width: 100%;
     }
 
     .title {
@@ -146,27 +146,30 @@ export default function Intro() {
       line-height: 1.45;
     }
 
-    /* Кнопка ниже — отступ в 2 раза больше */
     .bottom {
-      gap: 48px;         /* 🔥 2× больше чем 24px */
-      margin-top: 60px;
+      gap: 48px; /* в 2 раза больше */
+      margin-top: 48px;
       margin-bottom: 0;
     }
 
     .next-btn {
-      width: 320px;
+      width: 300px;
       height: 60px;
       font-size: 20px;
     }
   }
 
 
-  /* === ПК (1024px+) === */
+  /* === ПК (1024px+) — полностью центрируем === */
   @media (min-width: 1024px) {
     .screen {
       max-width: 700px;
-      padding-top: 90px;
-      padding-bottom: 90px;
+      height: 100vh;
+      padding: 0 60px;
+
+      display: flex;
+      justify-content: center;   /* 👑 perfect desktop centering */
+      align-items: center;
       border-radius: 24px;
     }
 
@@ -182,10 +185,9 @@ export default function Intro() {
       font-size: 20px;
     }
 
-    /* Кнопка + точки — 48px между ними */
     .bottom {
       gap: 48px;
-      margin-top: 70px;
+      margin-top: 48px;
     }
 
     .next-btn {
@@ -215,7 +217,7 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* КАРТИНКА Mobile Only */}
+        {/* КАРТИНКА Mobile */}
         <div className="center">
           <img className="intro-img" src={IntroImage} alt="intro" />
         </div>
