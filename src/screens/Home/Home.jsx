@@ -52,7 +52,8 @@ export default function Home() {
         }
 
         .icon {
-          width: 18px;
+          width: 20px;
+          height: 20px;
           opacity: 0.85;
         }
 
@@ -133,8 +134,9 @@ export default function Home() {
           opacity: 1;
         }
 
-        .nav-item img {
-          width: 35px;
+        .nav-item svg {
+          width: 32px;
+          height: 32px;
         }
 
       `}</style>
@@ -145,14 +147,24 @@ export default function Home() {
         <div className="top-pill-container">
           <div className="top-pill">
             <div className="left">
-              <img src="/icons/home.svg" className="icon" />
+
+              {/* HOME ICON (HEROICONS SOLID) */}
+              <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
+                <path d="M11.47 3.84a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1-1.06 1.06L18 11.56V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-7.44l-.97 1.84a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"/>
+              </svg>
+
               <span>Уровень 3</span>
             </div>
 
             <div className="separator"></div>
 
             <div className="right">
-              <img src="/icons/profile.svg" className="icon" />
+
+              {/* PROFILE ICON */}
+              <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
+                <path d="M12 2a6 6 0 1 1 0 12A6 6 0 0 1 12 2Zm0 14c5 0 9 2.5 9 6v1H3v-1c0-3.5 4-6 9-6Z"/>
+              </svg>
+
               <span>120 ОД</span>
             </div>
           </div>
@@ -168,13 +180,42 @@ export default function Home() {
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* NAV */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
-            <button className="nav-item active"><img src="/icons/home.png" /></button>
-            <button className="nav-item"><img src="/icons/steps.png" /></button>
-            <button className="nav-item"><img src="/icons/shop.png" /></button>
-            <button className="nav-item"><img src="/icons/profile.png" /></button>
+
+            {/* HOME */}
+            <button className="nav-item active">
+              <svg fill="#6A6A6A" viewBox="0 0 24 24">
+                <path d="M11.47 3.84a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1-1.06 1.06L18 11.56V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-7.44l-.97 1.84a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"/>
+              </svg>
+            </button>
+
+            {/* STEPS — CUSTOM */}
+            <button className="nav-item">
+              <svg fill="#6A6A6A" viewBox="0 0 24 24">
+                <path d="M7 5.5C5.8 5.5 5 6.4 5 7.6C5 9.2 6.6 12 7.3 12C7.9 12 9.5 9.2 9.5 7.6C9.5 6.4 8.3 5.5 7 5.5Z"/>
+                <circle cx="7.4" cy="13.5" r="1.2"/>
+                <path d="M15 10C13.8 10 13 10.9 13 12.1C13 13.7 14.5 16.5 15.2 16.5C15.8 16.5 17.4 13.7 17.4 12.1C17.4 10.9 16.2 10 15 10Z"/>
+                <circle cx="15.3" cy="18" r="1.2"/>
+              </svg>
+            </button>
+
+            {/* SHOP */}
+            <button className="nav-item">
+              <svg fill="none" stroke="#6A6A6A" strokeWidth="2" viewBox="0 0 24 24">
+                <rect x="4" y="7" width="16" height="14" rx="3"/>
+                <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>
+              </svg>
+            </button>
+
+            {/* PROFILE */}
+            <button className="nav-item">
+              <svg fill="#6A6A6A" viewBox="0 0 24 24">
+                <path d="M12 2a6 6 0 1 1 0 12A6 6 0 0 1 12 2Zm0 14c5 0 9 2.5 9 6v1H3v-1c0-3.5 4-6 9-6Z"/>
+              </svg>
+            </button>
+
           </div>
         </div>
 
