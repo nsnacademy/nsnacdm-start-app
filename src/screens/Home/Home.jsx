@@ -87,7 +87,7 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ======================= UPDATED NAVIGATION ======================= */
+        /* ======================= NAVIGATION ======================= */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -95,8 +95,8 @@ export default function Home() {
         }
 
         .nav-pill {
-          width: 92%;               /* ← расширено */
-          max-width: 520px;         /* ← расширено */
+          width: 92%;               /* расширено */
+          max-width: 520px;         /* шире */
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -106,13 +106,21 @@ export default function Home() {
           justify-content: space-between;
           align-items: center;
 
-          padding: 0 30px;          /* ← шире внутри */
+          padding: 0 30px;          /* шире внутри */
         }
 
         .nav-item {
           border: none;
           background: none;
           opacity: 0.45;
+          padding: 0;
+          transition: transform 0.15s ease, opacity 0.2s ease;
+        }
+
+        /* Анимация нажатия */
+        .nav-item:active {
+          transform: scale(0.88);
+          opacity: 0.6;
         }
 
         .nav-item.active {
@@ -122,6 +130,11 @@ export default function Home() {
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform 0.2s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .nav-item:active svg {
+          transform: scale(0.88);
         }
       `}</style>
 
@@ -142,7 +155,7 @@ export default function Home() {
 
             <div className="separator"></div>
 
-            {/* ENERGY */}
+            {/* ENERGY (YELLOW) */}
             <div className="right">
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
@@ -160,7 +173,7 @@ export default function Home() {
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* NAVIGATION */}
+        {/* ============= NAVIGATION (With animation) ============= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
