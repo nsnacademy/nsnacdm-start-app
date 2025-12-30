@@ -55,6 +55,7 @@ export default function StepIntro2() {
           max-width: 740px;
         }
 
+        /* === НИЖНИЙ БЛОК — ВЫРОВНЕН === */
         .bottom {
           display: flex;
           flex-direction: column;
@@ -78,6 +79,7 @@ export default function StepIntro2() {
           color: #222;
         }
 
+        /* === Планшеты === */
         @media (min-width: 768px) {
           .screen {
             max-width: 640px;
@@ -96,7 +98,7 @@ export default function StepIntro2() {
           }
 
           .bottom {
-            gap: 48px;
+            gap: 28px;
             margin-top: 48px;
             margin-bottom: 0;
           }
@@ -108,17 +110,23 @@ export default function StepIntro2() {
           }
         }
 
+        /* === ПК === */
         @media (min-width: 1024px) {
           .screen {
             max-width: 700px;
             border-radius: 24px;
-            display: flex;
             justify-content: center;
             align-items: center;
           }
 
           .text-block p {
             font-size: 22px;
+          }
+
+          .bottom {
+            gap: 28px;
+            margin-top: 40px;
+            margin-bottom: 0;
           }
 
           .next-btn {
@@ -130,7 +138,6 @@ export default function StepIntro2() {
       `}</style>
 
       <div className="screen">
-
         <div className="text-block">
           <p><strong>ОД — очки действия</strong> за твои шаги.</p>
           <p>
@@ -152,7 +159,6 @@ export default function StepIntro2() {
           </button>
           <div className="dots-bottom">● ● ● ○</div>
         </div>
-
       </div>
     </>
   );

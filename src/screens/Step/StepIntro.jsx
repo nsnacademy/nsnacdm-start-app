@@ -24,7 +24,6 @@ export default function StepIntro() {
           margin: 0 auto;
         }
 
-        /* === ТЕКСТОВЫЙ БЛОК (как в Intro) === */
         .text-block {
           display: flex;
           flex-direction: column;
@@ -44,7 +43,6 @@ export default function StepIntro() {
           font-weight: 600;
         }
 
-        /* === КАРТИНКА — как в Intro === */
         .center {
           flex-grow: 1;
           display: flex;
@@ -57,12 +55,12 @@ export default function StepIntro() {
           max-width: 740px;
         }
 
-        /* === НИЗ === */
+        /* === НИЖНИЙ БЛОК — ВЫРОВНЕН === */
         .bottom {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
+          gap: 12px;              /* 🔥 одинаково как в Intro */
           margin-bottom: 10px;
         }
 
@@ -81,7 +79,7 @@ export default function StepIntro() {
           color: #222;
         }
 
-        /* === Планшеты (как Intro) === */
+        /* === Планшеты === */
         @media (min-width: 768px) {
           .screen {
             max-width: 640px;
@@ -100,7 +98,7 @@ export default function StepIntro() {
           }
 
           .bottom {
-            gap: 28px;
+            gap: 28px;              /* 🔥 одинаково */
             margin-top: 48px;
             margin-bottom: 0;
           }
@@ -112,18 +110,23 @@ export default function StepIntro() {
           }
         }
 
-        /* === ПК (как Intro) === */
+        /* === ПК === */
         @media (min-width: 1024px) {
           .screen {
             max-width: 700px;
             border-radius: 24px;
-            display: flex;
             justify-content: center;
             align-items: center;
           }
 
           .text-block p {
             font-size: 22px;
+          }
+
+          .bottom {
+            gap: 28px;              /* 🔥 одинаково */
+            margin-top: 40px;
+            margin-bottom: 0;
           }
 
           .next-btn {
@@ -135,24 +138,20 @@ export default function StepIntro() {
       `}</style>
 
       <div className="screen">
-
-        {/* ТЕКСТ */}
         <div className="text-block">
           <p><strong>Шаг — это маленькое действие на 3–10 минут.</strong></p>
           <p>Ты не бежишь — <strong>ты просто двигаешься</strong>.</p>
           <p>Каждый шаг — попытка. <strong>Каждая попытка — победа.</strong></p>
         </div>
 
-        {/* КАРТИНКА */}
         <div className="center">
           <img className="step-img" src={StepImage} alt="step intro" />
         </div>
 
-        {/* НИЗ */}
         <div className="bottom">
           <button
             className="next-btn"
-             onClick={() => navigate("/step-intro-2")}
+            onClick={() => navigate("/step-intro-2")}
           >
             Далее
           </button>
