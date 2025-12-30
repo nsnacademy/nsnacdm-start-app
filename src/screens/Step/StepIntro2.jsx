@@ -134,7 +134,7 @@ export default function StepIntro2() {
         <div className="text-block">
           <p><strong>ОД — очки действия</strong> за твои шаги.</p>
           <p>
-            Чем больше ОД, тем <strong>выше уровень</strong> 
+            Чем больше ОД, тем <strong>выше уровень</strong>ㅤ
             и тем <strong>больше доступных функций</strong>.
           </p>
         </div>

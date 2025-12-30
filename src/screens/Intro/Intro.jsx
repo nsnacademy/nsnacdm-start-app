@@ -198,7 +198,7 @@ export default function Intro() {
       <div className="screen">
 
         <div className="top">
-          <div className="dots-top">... ★ • • •</div>
+          <div className="dots-top">★ • • •</div>
 
           <h1 className="title">
             Начать с начала — это<br />
