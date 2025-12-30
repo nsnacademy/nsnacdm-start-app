@@ -112,7 +112,7 @@ export default function Home() {
         .nav-pill {
           width: 82%;
           max-width: 450px;
-          height: 90px;
+          height: 80px;
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
