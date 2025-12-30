@@ -2,7 +2,6 @@ export default function Home() {
   return (
     <>
       <style>{`
-        /* Убираем квадрат нажатия на телефонах */
         * {
           -webkit-tap-highlight-color: transparent;
         }
@@ -12,19 +11,16 @@ export default function Home() {
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* TOP PILL */
         .top-pill-container {
           width: 100%;
           display: flex;
@@ -74,13 +70,27 @@ export default function Home() {
         /* CONTENT */
         .content {
           text-align: center;
-          margin-top: -20px;
         }
 
+        /* КАРТИНКА → 40px → ЗАГОЛОВОК */
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: -20px;
+          margin-bottom: 40px;
+        }
+
+        /* ЗАГОЛОВОК → 40px → ПОДЗАГОЛОВОК */
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+
+        /* ПОДЗАГОЛОВОК → 40px → КНОПКА */
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 40px;
         }
 
         .primary-btn {
@@ -94,7 +104,6 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* NAVIGATION */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -102,20 +111,18 @@ export default function Home() {
         }
 
         .nav-pill {
-          width: 92%;  
+          width: 92%;
           max-width: 520px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 0 30px;
         }
 
-        /* Базовое состояние иконок */
         .nav-item {
           border: none;
           background: none;
@@ -126,18 +133,15 @@ export default function Home() {
             opacity .2s ease;
         }
 
-        /* Активная вкладка */
         .nav-item.active {
           opacity: 1;
         }
 
-        /* iOS Dock эффект */
         .nav-item:active {
           transform: translateY(-4px) scale(1.15);
           opacity: 0.85;
         }
 
-        /* Иконки */
         .nav-item svg {
           width: 32px;
           height: 32px;
@@ -150,14 +154,12 @@ export default function Home() {
       `}</style>
 
       <div className="home-screen">
-        
-        {/* ================= TOP ================= */}
+
+        {/* TOP */}
         <div className="top-pill-container">
           <div className="top-pill">
-
-            {/* PROFILE ICON */}
             <div className="left">
-              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
@@ -166,7 +168,6 @@ export default function Home() {
 
             <div className="separator"></div>
 
-            {/* ENERGY ICON */}
             <div className="right">
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
@@ -176,26 +177,25 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ================= CONTENT ================= */}
+        {/* CONTENT */}
         <div className="content">
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+
           <h2>У вас пока нет задач</h2>
           <p>Добавьте первую задачу, чтобы начать свой путь</p>
+
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* ================= NAVIGATION ================= */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
-
-            {/* HOME */}
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
-            {/* STEPS */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
@@ -205,17 +205,15 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* SHOP */}
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
                 <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
               </svg>
             </button>
 
-            {/* PROFILE */}
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
