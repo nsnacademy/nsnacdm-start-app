@@ -1,26 +1,20 @@
+import { supabase } from "../../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import StepImage from "../../assets/step3.png";
-import { supabase } from "../../lib/supabase";
 import { useUserStore } from "../../store/userStore";
 
 export default function StepIntro3() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
-  const setUser = useUserStore((s) => s.setUser);
 
   async function finishOnboarding() {
-    if (!user) return;
+    if (!user?.telegram_id) return;
 
-    // 🔥 1. Обновляем в Supabase
     await supabase
       .from("users")
       .update({ has_onboarded: true })
       .eq("telegram_id", user.telegram_id);
 
-    // 🔥 2. Обновляем локальный store
-    setUser({ ...user, has_onboarded: true });
-
-    // 🔥 3. Переход на главный экран
     navigate("/home");
   }
 
@@ -97,9 +91,60 @@ export default function StepIntro3() {
           font-size: 12px;
           color: #222;
         }
+
+        @media (min-width: 768px) {
+          .screen {
+            max-width: 640px;
+            padding: 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .center {
+            display: none;
+          }
+
+          .text-block p {
+            font-size: 20px;
+          }
+
+          .bottom {
+            gap: 48px;
+            margin-top: 48px;
+            margin-bottom: 0;
+          }
+
+          .next-btn {
+            width: 300px;
+            height: 60px;
+            font-size: 20px;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .screen {
+            max-width: 700px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .text-block p {
+            font-size: 22px;
+          }
+
+          .next-btn {
+            width: 340px;
+            height: 62px;
+            font-size: 21px;
+          }
+        }
       `}</style>
 
       <div className="screen">
+
         <div className="text-block">
           <p><strong>Используй ОД</strong>, чтобы открывать инструменты:</p>
           <p>чек-листы, мини-планы, трекеры</p>
@@ -117,8 +162,10 @@ export default function StepIntro3() {
           >
             Начать с начала
           </button>
+
           <div className="dots-bottom">● ● ● ●</div>
         </div>
+
       </div>
     </>
   );
