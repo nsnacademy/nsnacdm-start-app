@@ -11,48 +11,58 @@ export default function Splash() {
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
-    // iOS fullscreen hack
+    // ===========================
+    // 🔥 iOS FULLSCREEN FIX
+    // ===========================
     function iosExpandHack() {
       try {
         tg?.requestFullscreen?.();
         tg?.expand();
         tg?.disableVerticalSwipes?.();
-      } catch {}
+      } catch (e) {
+        console.log("iOS fullscreen error:", e);
+      }
     }
 
     iosExpandHack();
     setTimeout(iosExpandHack, 300);
     setTimeout(iosExpandHack, 1200);
 
-    // Основная логика загрузки
-    async function loadUser() {
-      if (!tgUser) return;
-
-      console.log("TG USER:", tgUser);
-
-      // 1. Находим или создаём пользователя
-      const user = await findOrCreateUser(tgUser);
-
-      if (!user) {
-        console.error("USER NOT FOUND");
+    // ===========================
+    // 🔥 ЛОГИКА Splash экрана
+    // ===========================
+    async function load() {
+      if (!tgUser) {
+        console.log("Waiting TG user…");
         return;
       }
 
-      // 2. Сохраняем в Zustand
+      console.log("TG USER:", tgUser);
+
+      // 1) Найти или создать пользователя
+      const user = await findOrCreateUser(tgUser);
+
+      if (!user) {
+        console.error("User not found or error");
+        return;
+      }
+
+      console.log("USER FROM DB:", user);
+
       setUser(user);
 
-      // 3. Ждём анимацию
+      // 2) Ждём окончание анимации (как раньше)
       await new Promise((res) => setTimeout(res, 3200));
 
-      // 4. Проверяем — проходил ли онбординг?
+      // 3) Переход
       if (user.has_onboarded === true) {
-        window.location.href = "/home"; // уже проходил
+        window.location.href = "/home";  // уже видел обучение
       } else {
-        window.location.href = "/intro"; // первый раз
+        window.location.href = "/intro"; // впервые
       }
     }
 
-    loadUser();
+    load();
   }, [tgUser, setUser]);
 
   return (
