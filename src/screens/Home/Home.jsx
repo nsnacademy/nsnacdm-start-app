@@ -97,7 +97,7 @@ export default function Home() {
         .content p {
           font-size: 16px;
           opacity: 0.55;
-          margin-bottom: 25px;
+          margin-bottom: 15px;
         }
 
         .primary-btn {
