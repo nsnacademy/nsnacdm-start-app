@@ -100,7 +100,7 @@ export default function StepIntro() {
           }
 
           .bottom {
-            gap: 48px;
+            gap: 28px;
             margin-top: 48px;
             margin-bottom: 0;
           }
