@@ -78,7 +78,7 @@ export default function Home() {
         }
 
         .empty-img {
-          width: 400px;
+          width: 270px;
           opacity: 0.95;
           margin-bottom: -20px;
         }
