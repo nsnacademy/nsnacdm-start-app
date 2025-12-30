@@ -2,6 +2,11 @@ export default function Home() {
   return (
     <>
       <style>{`
+        /* Убираем квадрат нажатия на телефонах */
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+
         .home-screen {
           width: 100%;
           height: 100vh;
@@ -19,6 +24,7 @@ export default function Home() {
           margin: 0 auto;
         }
 
+        /* TOP PILL */
         .top-pill-container {
           width: 100%;
           display: flex;
@@ -65,6 +71,7 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        /* CONTENT */
         .content {
           text-align: center;
           margin-top: -20px;
@@ -87,7 +94,7 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ======================= NAVIGATION ======================= */
+        /* NAVIGATION */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -95,8 +102,8 @@ export default function Home() {
         }
 
         .nav-pill {
-          width: 92%;               /* расширено */
-          max-width: 520px;         /* шире */
+          width: 92%;  
+          max-width: 520px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -105,46 +112,50 @@ export default function Home() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-
-          padding: 0 30px;          /* шире внутри */
+          padding: 0 30px;
         }
 
+        /* Базовое состояние иконок */
         .nav-item {
           border: none;
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: transform 0.15s ease, opacity 0.2s ease;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
         }
 
-        /* Анимация нажатия */
-        .nav-item:active {
-          transform: scale(0.88);
-          opacity: 0.6;
-        }
-
+        /* Активная вкладка */
         .nav-item.active {
           opacity: 1;
         }
 
+        /* iOS Dock эффект */
+        .nav-item:active {
+          transform: translateY(-4px) scale(1.15);
+          opacity: 0.85;
+        }
+
+        /* Иконки */
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: transform 0.2s cubic-bezier(.25,.46,.45,.94);
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
 
         .nav-item:active svg {
-          transform: scale(0.88);
+          transform: scale(1.15);
         }
       `}</style>
 
       <div className="home-screen">
         
-        {/* TOP PILL */}
+        {/* ================= TOP ================= */}
         <div className="top-pill-container">
           <div className="top-pill">
 
-            {/* PROFILE */}
+            {/* PROFILE ICON */}
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="8" r="4"/>
@@ -155,7 +166,7 @@ export default function Home() {
 
             <div className="separator"></div>
 
-            {/* ENERGY (YELLOW) */}
+            {/* ENERGY ICON */}
             <div className="right">
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
@@ -165,7 +176,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* CONTENT */}
+        {/* ================= CONTENT ================= */}
         <div className="content">
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
           <h2>У вас пока нет задач</h2>
@@ -173,7 +184,7 @@ export default function Home() {
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* ============= NAVIGATION (With animation) ============= */}
+        {/* ================= NAVIGATION ================= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
