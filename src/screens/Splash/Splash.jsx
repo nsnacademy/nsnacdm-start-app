@@ -64,7 +64,7 @@ export default function Splash() {
         {/* 🔥 Минималистичная кнопка пропуска */}
         <button
           className="skip-btn"
-          onClick={() => (window.location.href = "/intro")}
+          onClick={() => (window.location.href = "/Home")}
         >
           Пропустить →
         </button>
