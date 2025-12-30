@@ -3,6 +3,8 @@ import Splash from "./screens/Splash/Splash";
 import Intro from "./screens/Intro/Intro";
 import StepIntro from "./screens/Step/StepIntro";
 import StepIntro2 from "./screens/Step/StepIntro2";
+import StepIntro3 from "./screens/Step/StepIntro3";
+
 
 export default function App() {
 
@@ -15,6 +17,7 @@ export default function App() {
         <Route path="/intro" element={<Intro />} />
         <Route path="/step-intro" element={<StepIntro />} />
         <Route path="/step-intro-2" element={<StepIntro2 />} />
+        <Route path="/step-intro-3" element={<StepIntro3 />} />
       </Routes>
     </BrowserRouter>
   );

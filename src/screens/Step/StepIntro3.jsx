@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import StepImage from "../../assets/step2.png";
+import StepImage from "../../assets/step3.png";   // 🔥 картинка для 4 экрана
 
-export default function StepIntro2() {
+export default function StepIntro3() {
   const navigate = useNavigate();
 
   return (
@@ -112,6 +112,7 @@ export default function StepIntro2() {
           .screen {
             max-width: 700px;
             border-radius: 24px;
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -132,25 +133,23 @@ export default function StepIntro2() {
       <div className="screen">
 
         <div className="text-block">
-          <p><strong>ОД — очки действия</strong> за твои шаги.</p>
-          <p>
-            Чем больше ОД, тем <strong>выше уровень</strong>ㅤ
-            и тем <strong>больше доступных функций</strong>.
-          </p>
+          <p><strong>Используй ОД</strong>, чтобы открывать инструменты:</p>
+          <p>чек-листы, мини-планы, трекеры</p>
+          <p>и <strong>другие полезные функции</strong>.</p>
         </div>
 
         <div className="center">
-          <img className="step-img" src={StepImage} alt="step intro 2" />
+          <img className="step-img" src={StepImage} alt="step intro 3" />
         </div>
 
         <div className="bottom">
           <button
             className="next-btn"
-            onClick={() => navigate("/step-intro-3")}
+            onClick={() => navigate("/")}
           >
-            Далее
+            Начать с начала
           </button>
-          <div className="dots-bottom">● ● ● ○</div>
+          <div className="dots-bottom">● ● ● ●</div>
         </div>
 
       </div>
