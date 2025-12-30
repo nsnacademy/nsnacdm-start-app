@@ -20,7 +20,6 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        /* ===================== TOP PILL ===================== */
         .top-pill-container {
           width: 100%;
           display: flex;
@@ -67,7 +66,6 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===================== EMPTY ===================== */
         .content {
           text-align: center;
           margin-top: -20px;
@@ -102,7 +100,6 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===================== NAVIGATION ===================== */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -143,14 +140,14 @@ export default function Home() {
 
       <div className="home-screen">
         
-        {/* TOP PILL */}
+        {/* TOP */}
         <div className="top-pill-container">
           <div className="top-pill">
             <div className="left">
 
-              {/* TOP ICON (PROFILE) */}
+              {/* TOP ICON — PROFILE */}
               <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z" />
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z"/>
               </svg>
 
               <span>Уровень 3</span>
@@ -160,7 +157,7 @@ export default function Home() {
 
             <div className="right">
 
-              {/* TOP ICON (ENERGY) */}
+              {/* TOP ICON — ENERGY */}
               <svg className="icon" viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
@@ -180,35 +177,35 @@ export default function Home() {
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* 🔥 NEW NAVIGATION (TABLER FILLED ICONS) */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* HOME — YOUR TABLER FILLED ICON */}
+            {/* HOME — selected */}
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M12.707 2.293l9 9c.63 .63 .184 1.707 -.707 1.707h-1v6a3 3 0 0 1 -3 3h-1v-7a3 3 0 0 0 -2.824 -2.995l-.176 -.005h-2a3 3 0 0 0 -3 3v7h-1a3 3 0 0 1 -3 -3v-6h-1c-.89 0 -1.337 -1.077 -.707 -1.707l9 -9a1 1 0 0 1 1.414 0" />
+                <path d="M12.707 2.293l9 9c.63 .63 .184 1.707 -.707 1.707h-1v6a3 3 0 0 1 -3 3h-1v-7a3 3 0 0 0 -2.824 -2.995l-.176 -.005h-2a3 3 0 0 0 -3 3v7h-1a3 3 0 0 1 -3 -3v-6h-1c-.89 0 -1.337 -1.077 -.707 -1.707l9 -9a1 1 0 0 1 1.414 0"/>
               </svg>
             </button>
 
-            {/* STEPS — BEAUTIFUL STRONG FOOTPRINTS */}
+            {/* STEPS — new clean version */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M7 4c-2.4 0-3.5 1.6-3.5 3.4 0 2.8 2.5 6.8 3.5 6.8S11 10.2 11 7.4C11 5.6 9.4 4 7 4Z"/>
-                <circle cx="7.7" cy="15.7" r="1.6"/>
-                <path d="M16 9c-2.4 0-3.5 1.6-3.5 3.4 0 2.8 2.5 6.8 3.5 6.8s3.5-4 3.5-6.8C20 10.6 18.4 9 16 9Z"/>
-                <circle cx="16.7" cy="18.7" r="1.6"/>
+                <path d="M7 4c-1.8 0-3 1.2-3 3 0 2.4 2.2 6 3.2 6s3.2-3.6 3.2-6c0-1.8-1.2-3-3.4-3Z"/>
+                <circle cx="7.5" cy="14.5" r="1.2"/>
+                <path d="M16 9c-1.8 0-3 1.2-3 3 0 2.4 2.2 6 3.2 6s3.2-3.6 3.2-6c0-1.8-1.2-3-3.4-3Z"/>
+                <circle cx="16.5" cy="18" r="1.2"/>
               </svg>
             </button>
 
-            {/* SHOP — CLEAN, MODERN */}
+            {/* SHOP — clean filled bag */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M6 3h12l2 5H4l2-5Zm2 8v10h8V11H8Zm-4 0h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V11Z"/>
+                <path d="M6 7h12c1.1 0 2 .9 2 2v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V9c0-1.1.9-2 2-2Zm3-3a3 3 0 0 1 6 0v3H9V4Z"/>
               </svg>
             </button>
 
-            {/* PROFILE — BEAUTIFUL FILLED */}
+            {/* PROFILE */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c5 0 9 2.7 9 6v2H3v-2c0-3.3 4-6 9-6Z"/>
