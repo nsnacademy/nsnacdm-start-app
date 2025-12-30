@@ -174,7 +174,7 @@ export default function Home() {
             <button className="nav-item active"><img src="/icons/home.svg" /></button>
             <button className="nav-item"><img src="/icons/steps.svg" /></button>
             <button className="nav-item"><img src="/icons/shop.svg" /></button>
-            <button className="nav-item"><img src="/icons/profile.svg" /></button>
+            <button className="nav-item"><img src="/icons/profile.png" /></button>
           </div>
         </div>
 
