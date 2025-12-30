@@ -34,7 +34,7 @@ export default function Home() {
           display: flex;
           justify-content: center;
           margin-top: 60px;
-          margin-bottom: 60px; /* одинаково как внизу */
+          margin-bottom: 60px;
         }
 
         .top-pill {
@@ -79,7 +79,7 @@ export default function Home() {
         .content {
           text-align: center;
           margin-top: 0;
-          margin-bottom: 0; /* чтобы было ровно по центру */
+          margin-bottom: 0;
         }
 
         .empty-img {
@@ -91,13 +91,15 @@ export default function Home() {
         .content h2 {
           font-size: 24px;
           font-weight: 700;
-          margin-bottom: 10px;
+          margin-bottom: 5px; /* уменьшено с 10px → 5px */
         }
 
         .content p {
-          font-size: 16px;
+          font-size: 15px; /* было 16px → теперь 15px */
           opacity: 0.55;
-          margin-bottom: 25px;
+          max-width: 290px; /* текст стал чуть уже */
+          margin: 0 auto 25px;
+          line-height: 1.4;
         }
 
         .primary-btn {
@@ -116,7 +118,7 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px; /* одинаковое расстояние как сверху */
+          margin-top: 60px;
         }
 
         .nav-pill {
