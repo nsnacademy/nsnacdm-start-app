@@ -1,8 +1,22 @@
+import { supabase } from "../../lib/supabase";
 import { useNavigate } from "react-router-dom";
-import StepImage from "../../assets/step3.png";   // 🔥 картинка для 4 экрана
+import StepImage from "../../assets/step3.png";
+import { useUserStore } from "../../store/userStore";
 
 export default function StepIntro3() {
   const navigate = useNavigate();
+  const user = useUserStore((s) => s.user);
+
+  async function finishOnboarding() {
+    if (!user?.telegram_id) return;
+
+    await supabase
+      .from("users")
+      .update({ has_onboarded: true })
+      .eq("telegram_id", user.telegram_id);
+
+    navigate("/home");
+  }
 
   return (
     <>
@@ -112,7 +126,6 @@ export default function StepIntro3() {
           .screen {
             max-width: 700px;
             border-radius: 24px;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -145,11 +158,11 @@ export default function StepIntro3() {
         <div className="bottom">
           <button
             className="next-btn"
-            onClick={() => navigate("/home")}
-
+            onClick={finishOnboarding}
           >
             Начать с начала
           </button>
+
           <div className="dots-bottom">● ● ● ●</div>
         </div>
 

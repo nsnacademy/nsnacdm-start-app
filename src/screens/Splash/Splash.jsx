@@ -1,60 +1,64 @@
 import { useEffect } from "react";
 import "./Splash.css";
-import { supabase } from "../../lib/supabase";
+import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useTelegram } from "../../hooks/useTelegram";
+import { useUserStore } from "../../store/userStore";
 
 export default function Splash() {
   const { user: tgUser } = useTelegram();
+  const setUser = useUserStore((s) => s.setUser);
 
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
     // ---------------------------------------------------
-    // 🔥 iOS FULLSCREEN HACK
+    // 🔥 FULLSCREEN / iOS FIX
     // ---------------------------------------------------
     function iosExpandHack() {
       try {
-        tg?.requestFullscreen?.();   // частично работает на iOS
-        tg?.expand();                // стандартный expand()
-        tg?.disableVerticalSwipes(); // не даёт свернуть вниз
+        tg?.requestFullscreen?.();
+        tg?.expand();
+        tg?.disableVerticalSwipes?.();
       } catch (e) {
-        console.log("iOS fullscreen hack error:", e);
+        console.log("iOS fullscreen error:", e);
       }
     }
 
-    // Запуск нескольких попыток — это важно для iOS
     iosExpandHack();
     setTimeout(iosExpandHack, 300);
     setTimeout(iosExpandHack, 1200);
 
     // ---------------------------------------------------
-    // 🔥 Сохранение пользователя в Supabase
+    // 🔥 Основная логика загрузки
     // ---------------------------------------------------
-    async function saveTelegramUser() {
-      if (!tgUser) {
-        console.log("TG user not found yet");
+    async function loadUser() {
+      if (!tgUser) return;
+
+      console.log("TG USER:", tgUser);
+
+      // ===== 1. находим или создаём =====
+      const user = await findOrCreateUser(tgUser);
+
+      if (!user) {
+        console.error("USER NOT FOUND");
         return;
       }
 
-      console.log("Saving user to Supabase:", tgUser);
+      setUser(user);
 
-      await supabase.from("users").upsert({
-        telegram_id: String(tgUser.id),
-        first_name: tgUser.first_name ?? null,
-        username: tgUser.username ?? null,
-        created_at: new Date().toISOString(),
-        level: 1,
-        xp: 0,
-      });
+      // ===== 2. задержка для сплеша =====
+      await new Promise((res) => setTimeout(res, 3200));
 
-      window.location.href = "/intro";
+      // ===== 3. логика маршрутизации =====
+      if (user.has_onboarded) {
+        window.location.href = "/home"; // уже проходил
+      } else {
+        window.location.href = "/intro"; // первый вход
+      }
     }
 
-    // Задержка для анимации splash
-    const timer = setTimeout(saveTelegramUser, 3200);
-
-    return () => clearTimeout(timer);
-  }, [tgUser]);
+    loadUser();
+  }, [tgUser, setUser]);
 
   return (
     <section className="screen splash">

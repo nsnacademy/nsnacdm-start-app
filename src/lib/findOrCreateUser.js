@@ -8,24 +8,26 @@ export async function findOrCreateUser(tgUser) {
 
   const telegram_id = String(tgUser.id);
 
-  // 1. Проверяем — есть ли такой пользователь в Supabase
+  // 1 — ищем в базе
   const { data: existing, error: selectError } = await supabase
     .from("users")
     .select("*")
     .eq("telegram_id", telegram_id)
     .single();
 
+  // Ошибки кроме "нет данных" — критические
   if (selectError && selectError.code !== "PGRST116") {
     console.error("Supabase select error:", selectError);
     return null;
   }
 
+  // Пользователь найден — возвращаем
   if (existing) {
     console.log("User already exists:", existing);
     return existing;
   }
 
-  // 2. Если нет — создаём
+  // 2 — создаём пользователя
   const newUser = {
     telegram_id,
     username: tgUser.username || "",
@@ -33,6 +35,7 @@ export async function findOrCreateUser(tgUser) {
     created_at: new Date().toISOString(),
     level: 1,
     xp: 0,
+    has_onboarded: false,   // 🔥 ОБЯЗАТЕЛЬНО
   };
 
   const { data: inserted, error: insertError } = await supabase
