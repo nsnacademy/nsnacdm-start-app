@@ -87,6 +87,7 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
+        /* ======================= UPDATED NAVIGATION ======================= */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -94,8 +95,8 @@ export default function Home() {
         }
 
         .nav-pill {
-          width: 82%;
-          max-width: 480px;
+          width: 92%;               /* ← расширено */
+          max-width: 520px;         /* ← расширено */
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -105,7 +106,7 @@ export default function Home() {
           justify-content: space-between;
           align-items: center;
 
-          padding: 0 26px;
+          padding: 0 30px;          /* ← шире внутри */
         }
 
         .nav-item {
@@ -163,14 +164,14 @@ export default function Home() {
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* 🏠 HOME — EXACT MATCH */}
+            {/* HOME */}
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
-            {/* 👣 STEPS — EXACT LIKE MACET */}
+            {/* STEPS */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
@@ -180,7 +181,7 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* 🛍 SHOP — OUTLINE EXACT LIKE MACET */}
+            {/* SHOP */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
@@ -188,7 +189,7 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* 👤 PROFILE — THIN EXACT MATCH */}
+            {/* PROFILE */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="8" r="4"/>
