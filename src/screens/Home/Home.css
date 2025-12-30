@@ -1,19 +1,17 @@
+/* ===== ГЛАВНЫЙ BODY ===== */
 body {
-  background: #e3e3e3;
-  display: flex;
-  justify-content: center;
-
-  /* Делаем отступ сверху как в StepIntro */
-  padding-top: calc(env(safe-area-inset-top) + 110px);
-
-  padding-bottom: 20px;
+  background: #e3e3e3;                     /* Цвет фона вокруг "телефона" */
+  display: flex;                            /* Чтобы разместить телефон по центру */
+  justify-content: center;                  /* Центрируем горизонтально */
+  padding: 120px 0 20px;                    /* <<< ВЕРХНИЙ ОТСТУП 120px — КАК ТЫ ПРОСИЛ */
   font-family: -apple-system, "SF Pro Display";
 }
 
-/* PHONE FRAME */
+
+/* ===== РАМКА ТЕЛЕФОНА ===== */
 .iphone {
   width: 375px;
-  height: calc(812px - env(safe-area-inset-top)); /* Чтобы экран не съезжал вниз */
+  height: 812px;
   background: #f8f8f8;
   border-radius: 40px;
   overflow: hidden;
@@ -24,8 +22,8 @@ body {
 }
 
 
-/* ---------------- TOP PILL ---------------- */
 
+/* ===== ВЕРХНЯЯ ТАБЛЕТКА (УРОВЕНЬ + ОД) ===== */
 .top-container {
   width: 100%;
   display: flex;
@@ -46,7 +44,8 @@ body {
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-.left, .right {
+.left,
+.right {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -70,8 +69,9 @@ body {
   opacity: 0.55;
 }
 
-/* ---------------- CONTENT ---------------- */
 
+
+/* ===== СРЕДНЯЯ ОБЛАСТЬ (пустые задачи) ===== */
 .content {
   text-align: center;
   margin-top: -10px;
@@ -106,13 +106,14 @@ body {
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
-/* ---------------- BOTTOM NAVIGATION ---------------- */
 
+
+/* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
 .nav-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-bottom: 22px;
+  padding-bottom: 22px;      /* <<< НИЖНИЙ ОТСТУП ОСТАЛСЯ НЕИЗМЕННЫМ */
 }
 
 .nav-pill {
