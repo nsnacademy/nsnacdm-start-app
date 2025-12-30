@@ -145,7 +145,8 @@ export default function StepIntro3() {
         <div className="bottom">
           <button
             className="next-btn"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
+
           >
             Начать с начала
           </button>
