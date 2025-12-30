@@ -192,7 +192,7 @@ export default function Home() {
         <div className="content">
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
           <h2>У вас пока нет задач</h2>
-          <p>Добавьте свою первую задачу</p>
+          <p>Добавьте свою первую задач, чтобы начать</p>
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
