@@ -66,7 +66,7 @@ export default function Splash() {
           className="skip-btn"
           onClick={() => (window.location.href = "/Home")}
         >
-          Пропустить →
+          Пропустить вступление →
         </button>
 
       </div>
