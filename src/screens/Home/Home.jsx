@@ -80,19 +80,19 @@ export default function Home() {
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: 40px;        /* Картинка → заголовок */
+          margin-bottom: 25px;        /* Картинка → заголовок */
         }
 
         .content h2 {
           font-size: 24px;
           font-weight: 700;
-          margin-bottom: 20px;        /* Заголовок → подзаголовок */
+          margin-bottom: 10px;        /* Заголовок → подзаголовок */
         }
 
         .content p {
           font-size: 16px;
           opacity: 0.55;
-          margin-bottom: 40px;        /* Подзаголовок → кнопка */
+          margin-bottom: 25px;        /* Подзаголовок → кнопка */
         }
 
         .primary-btn {
