@@ -2,6 +2,7 @@ export default function Home() {
   return (
     <>
       <style>{`
+        /* Убираем квадрат нажатия на телефонах */
         * {
           -webkit-tap-highlight-color: transparent;
         }
@@ -15,19 +16,21 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: space-between;
 
-          padding: calc(env(safe-area-inset-top) + 20px) 20px 30px;
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* ===================== TOP PILL ===================== */
+        /* TOP PILL */
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-bottom: 10px;
+          margin-top: 60px;
+          margin-bottom: 40px;
         }
 
         .top-pill {
@@ -54,6 +57,7 @@ export default function Home() {
 
         .icon {
           width: 22px;
+          height: 22px;
           opacity: 0.9;
         }
 
@@ -67,33 +71,16 @@ export default function Home() {
           opacity: 0.55;
         }
 
-
-        /* ===================== CENTER BLOCK ===================== */
-        .center-block {
-          flex: 1;                            /* тянется между top и bottom */
-          display: flex;
-          flex-direction: column;
-          justify-content: center;            /* центр по вертикали */
-          align-items: center;                /* центр по горизонтали */
+        /* CONTENT */
+        .content {
           text-align: center;
+          margin-top: -20px;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: 40px;
-        }
-
-        .center-block h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 40px;
-        }
-
-        .center-block p {
-          font-size: 16px;
-          opacity: 0.55;
-          margin-bottom: 40px;
+          margin-bottom: -20px;
         }
 
         .primary-btn {
@@ -107,17 +94,15 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-
-        /* ===================== NAVIGATION ===================== */
+        /* NAVIGATION */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 20px;
         }
 
         .nav-pill {
-          width: 92%;
+          width: 92%;  
           max-width: 520px;
           height: 75px;
           background: #ffffff;
@@ -130,94 +115,109 @@ export default function Home() {
           padding: 0 30px;
         }
 
+        /* Базовое состояние иконок */
         .nav-item {
           border: none;
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: transform .22s, opacity .2s;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
         }
 
+        /* Активная вкладка */
         .nav-item.active {
           opacity: 1;
         }
 
+        /* iOS Dock эффект */
+        .nav-item:active {
+          transform: translateY(-4px) scale(1.15);
+          opacity: 0.85;
+        }
+
+        /* Иконки */
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
 
+        .nav-item:active svg {
+          transform: scale(1.15);
+        }
       `}</style>
 
       <div className="home-screen">
         
-        {/* ===================== TOP ===================== */}
+        {/* ================= TOP ================= */}
         <div className="top-pill-container">
           <div className="top-pill">
 
+            {/* PROFILE ICON */}
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
               <span>Уровень 3</span>
             </div>
 
             <div className="separator"></div>
 
+            {/* ENERGY ICON */}
             <div className="right">
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
-                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
               <span>120 ОД</span>
             </div>
-
           </div>
         </div>
 
-
-        {/* ===================== CENTER ===================== */}
-        <div className="center-block">
+        {/* ================= CONTENT ================= */}
+        <div className="content">
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
-
           <h2>У вас пока нет задач</h2>
-
           <p>Добавьте первую задачу, чтобы начать свой путь</p>
-
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-
-        {/* ===================== NAVIGATION ===================== */}
+        {/* ================= NAVIGATION ================= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
+            {/* HOME */}
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z" />
+                <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
+            {/* STEPS */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z" />
-                <circle cx="8.5" cy="14.8" r="1.3" />
-                <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z" />
-                <circle cx="16.6" cy="18.5" r="1.3" />
+                <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
+                <circle cx="8.5" cy="14.8" r="1.3"/>
+                <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
+                <circle cx="16.6" cy="18.5" r="1.3"/>
               </svg>
             </button>
 
+            {/* SHOP */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="4" y="7" width="16" height="13" rx="3" />
-                <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                <rect x="4" y="7" width="16" height="13" rx="3"/>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
               </svg>
             </button>
 
+            {/* PROFILE */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
             </button>
 
