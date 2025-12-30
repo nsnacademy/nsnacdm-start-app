@@ -113,3 +113,20 @@ body {
     height: 2px;
   }
 }
+
+
+.skip-btn {
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: rgba(0,0,0,0.38); /* мягкий серый */
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: 0.2s ease;
+}
+
+.skip-btn:hover {
+  color: rgba(0,0,0,0.6);
+  transform: translateX(2px);
+}

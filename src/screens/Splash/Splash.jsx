@@ -11,9 +11,6 @@ export default function Splash() {
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
-    // ===========================
-    // 🔥 iOS FULLSCREEN FIX
-    // ===========================
     function iosExpandHack() {
       try {
         tg?.requestFullscreen?.();
@@ -28,37 +25,22 @@ export default function Splash() {
     setTimeout(iosExpandHack, 300);
     setTimeout(iosExpandHack, 1200);
 
-    // ===========================
-    // 🔥 ЛОГИКА Splash экрана
-    // ===========================
     async function load() {
-      if (!tgUser) {
-        console.log("Waiting TG user…");
-        return;
-      }
+      if (!tgUser) return;
 
       console.log("TG USER:", tgUser);
 
-      // 1) Найти или создать пользователя
       const user = await findOrCreateUser(tgUser);
-
-      if (!user) {
-        console.error("User not found or error");
-        return;
-      }
-
-      console.log("USER FROM DB:", user);
+      if (!user) return;
 
       setUser(user);
 
-      // 2) Ждём окончание анимации (как раньше)
       await new Promise((res) => setTimeout(res, 3200));
 
-      // 3) Переход
       if (user.has_onboarded === true) {
-        window.location.href = "/home";  // уже видел обучение
+        window.location.href = "/home";
       } else {
-        window.location.href = "/intro"; // впервые
+        window.location.href = "/intro";
       }
     }
 
@@ -68,6 +50,7 @@ export default function Splash() {
   return (
     <section className="screen splash">
       <div className="splash-inner">
+        
         <div className="splash-title">НАЧАТЬ С НАЧАЛА</div>
 
         <div className="splash-sub">
@@ -77,6 +60,15 @@ export default function Splash() {
         <div className="splash-line-wrap">
           <div className="splash-line"></div>
         </div>
+
+        {/* 🔥 Минималистичная кнопка пропуска */}
+        <button
+          className="skip-btn"
+          onClick={() => (window.location.href = "/intro")}
+        >
+          Пропустить →
+        </button>
+
       </div>
     </section>
   );
