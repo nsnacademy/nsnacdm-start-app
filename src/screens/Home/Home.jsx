@@ -134,7 +134,7 @@ export default function Home() {
         }
 
         .nav-item img {
-          width: 26px;
+          width: 35px;
         }
 
       `}</style>
