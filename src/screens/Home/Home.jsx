@@ -31,7 +31,7 @@ export default function Home() {
 
         .top-pill {
           width: 82%;
-          max-width: 320px;
+          max-width: 480px;
           height: 48px;
           background: #fff;
           border-radius: 30px;
@@ -110,8 +110,8 @@ export default function Home() {
 
         .nav-pill {
           width: 82%;
-          max-width: 450px;
-          height: 80px;
+          max-width: 480px;
+          height: 75px;
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
@@ -171,9 +171,9 @@ export default function Home() {
         {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
-            <button className="nav-item active"><img src="/icons/home.svg" /></button>
-            <button className="nav-item"><img src="/icons/steps.svg" /></button>
-            <button className="nav-item"><img src="/icons/shop.svg" /></button>
+            <button className="nav-item active"><img src="/icons/home.png" /></button>
+            <button className="nav-item"><img src="/icons/steps.png" /></button>
+            <button className="nav-item"><img src="/icons/shop.png" /></button>
             <button className="nav-item"><img src="/icons/profile.png" /></button>
           </div>
         </div>
