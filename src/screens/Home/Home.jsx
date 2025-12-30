@@ -74,20 +74,20 @@ export default function Home() {
         /* CONTENT */
         .content {
           text-align: center;
-          margin-top: -20px;
+          margin-top: 0px;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: -20px;
+          margin-bottom: 0px;
         }
 
         .primary-btn {
           width: 240px;
           height: 52px;
           border: none;
-          border-radius: 16px;
+          border-radius: 30px;
           background: #222;
           color: white;
           font-size: 17px;
