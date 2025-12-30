@@ -1,4 +1,8 @@
+import { useUserStore } from "../../store/userStore";
+
 export default function Home() {
+  const user = useUserStore((state) => state.user);
+
   return (
     <>
       <style>{`
@@ -11,10 +15,12 @@ export default function Home() {
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
+
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
           max-width: 520px;
@@ -27,7 +33,7 @@ export default function Home() {
           display: flex;
           justify-content: center;
           margin-top: 60px;
-          margin-bottom: 60px; /* одинаковый отступ сверху */
+          margin-bottom: 60px;
         }
 
         .top-pill {
@@ -77,19 +83,19 @@ export default function Home() {
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: 25px;
+          margin-bottom: 40px;        /* картинка → заголовок */
         }
 
         .content h2 {
           font-size: 24px;
           font-weight: 700;
-          margin-bottom: 10px;
+          margin-bottom: 20px;        /* заголовок → подзаголовок */
         }
 
         .content p {
           font-size: 16px;
           opacity: 0.55;
-          margin-bottom: 25px;
+          margin-bottom: 40px;        /* подзаголовок → кнопка */
         }
 
         .primary-btn {
@@ -108,7 +114,7 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px; /* одинаковый отступ снизу */
+          margin-bottom: 60px;
         }
 
         .nav-pill {
@@ -163,7 +169,7 @@ export default function Home() {
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
-              <span>Уровень 3</span>
+              <span>Уровень {user?.level ?? 1}</span>
             </div>
 
             <div className="separator"></div>
@@ -172,7 +178,7 @@ export default function Home() {
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
-              <span>120 ОД</span>
+              <span>{user?.od ?? 0} ОД</span>
             </div>
           </div>
         </div>
