@@ -1,0 +1,141 @@
+body {
+  background: #e3e3e3;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  font-family: -apple-system, "SF Pro Display";
+}
+
+/* PHONE FRAME */
+.iphone {
+  width: 375px;
+  height: 812px;
+  background: #f8f8f8;
+  border-radius: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* ---------------- TOP PILL ---------------- */
+
+.top-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+.top-pill {
+  width: 76%;
+  max-width: 320px;
+  height: 38px;
+  background: #ffffff;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+.icon {
+  width: 18px;
+  opacity: 0.85;
+}
+
+.separator {
+  flex: 1;
+  height: 4px;
+  max-width: 90px;
+  background: #d4d4d4;
+  border-radius: 2px;
+  margin: 0 14px;
+  opacity: 0.55;
+}
+
+/* ---------------- CONTENT ---------------- */
+
+.content {
+  text-align: center;
+  margin-top: -10px;
+}
+
+.empty-img {
+  width: 200px;
+  opacity: 0.95;
+  margin-bottom: 10px;
+}
+
+.content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.content p {
+  font-size: 16px;
+  opacity: 0.55;
+  margin-bottom: 26px;
+}
+
+.primary-btn {
+  width: 230px;
+  height: 52px;
+  background: #222;
+  color: white;
+  border: none;
+  font-size: 17px;
+  border-radius: 16px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+/* ---------------- BOTTOM NAVIGATION ---------------- */
+
+.nav-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 22px;
+}
+
+.nav-pill {
+  width: 76%;
+  max-width: 320px;
+  height: 56px;
+
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 26px;
+}
+
+.nav-item {
+  border: none;
+  background: none;
+  opacity: 0.45;
+}
+
+.nav-item.active {
+  opacity: 1;
+}
+
+.nav-item img {
+  width: 26px;
+}
