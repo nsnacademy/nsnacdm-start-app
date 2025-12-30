@@ -11,32 +11,25 @@ export default function Splash() {
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
-    // ---------------------------------------------------
-    // 🔥 FULLSCREEN / iOS FIX
-    // ---------------------------------------------------
     function iosExpandHack() {
       try {
         tg?.requestFullscreen?.();
         tg?.expand();
         tg?.disableVerticalSwipes?.();
-      } catch (e) {
-        console.log("iOS fullscreen error:", e);
-      }
+      } catch (e) {}
     }
 
     iosExpandHack();
     setTimeout(iosExpandHack, 300);
     setTimeout(iosExpandHack, 1200);
 
-    // ---------------------------------------------------
-    // 🔥 Основная логика загрузки
-    // ---------------------------------------------------
+    // 🔥 Основная логика
     async function loadUser() {
       if (!tgUser) return;
 
       console.log("TG USER:", tgUser);
 
-      // ===== 1. находим или создаём =====
+      // 1) Находим или создаём пользователя
       const user = await findOrCreateUser(tgUser);
 
       if (!user) {
@@ -46,14 +39,14 @@ export default function Splash() {
 
       setUser(user);
 
-      // ===== 2. задержка для сплеша =====
+      // 2) ждем завершения сплеша
       await new Promise((res) => setTimeout(res, 3200));
 
-      // ===== 3. логика маршрутизации =====
+      // 3) логика показа онбординга
       if (user.has_onboarded) {
-        window.location.href = "/home"; // уже проходил
+        window.location.href = "/home";
       } else {
-        window.location.href = "/intro"; // первый вход
+        window.location.href = "/intro";
       }
     }
 
