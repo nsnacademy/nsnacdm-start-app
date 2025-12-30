@@ -52,9 +52,9 @@ export default function Home() {
         }
 
         .icon {
-          width: 20px;
-          height: 20px;
-          opacity: 0.85;
+          width: 22px;
+          height: 22px;
+          opacity: 0.9;
         }
 
         .separator {
@@ -138,7 +138,6 @@ export default function Home() {
           width: 32px;
           height: 32px;
         }
-
       `}</style>
 
       <div className="home-screen">
@@ -148,9 +147,9 @@ export default function Home() {
           <div className="top-pill">
             <div className="left">
 
-              {/* HOME ICON (HEROICONS SOLID) */}
-              <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M11.47 3.84a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1-1.06 1.06L18 11.56V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-7.44l-.97 1.84a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"/>
+              {/* NEW HOME ICON */}
+              <svg className="icon" viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M19 21H5c-1 0-1.5-.5-1.5-1.5V11l8-6 8 6v8.5c0 1-.5 1.5-1.5 1.5Z"/>
               </svg>
 
               <span>Уровень 3</span>
@@ -160,9 +159,9 @@ export default function Home() {
 
             <div className="right">
 
-              {/* PROFILE ICON */}
+              {/* NEW PROFILE ICON */}
               <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M12 2a6 6 0 1 1 0 12A6 6 0 0 1 12 2Zm0 14c5 0 9 2.5 9 6v1H3v-1c0-3.5 4-6 9-6Z"/>
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z"/>
               </svg>
 
               <span>120 ОД</span>
@@ -187,32 +186,32 @@ export default function Home() {
             {/* HOME */}
             <button className="nav-item active">
               <svg fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M11.47 3.84a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1-1.06 1.06L18 11.56V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-7.44l-.97 1.84a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"/>
+                <path d="M19 21H5c-1 0-1.5-.5-1.5-1.5V11l8-6 8 6v8.5c0 1-.5 1.5-1.5 1.5Z"/>
               </svg>
             </button>
 
-            {/* STEPS — CUSTOM */}
+            {/* STEPS (более крепкие следы) */}
             <button className="nav-item">
               <svg fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M7 5.5C5.8 5.5 5 6.4 5 7.6C5 9.2 6.6 12 7.3 12C7.9 12 9.5 9.2 9.5 7.6C9.5 6.4 8.3 5.5 7 5.5Z"/>
-                <circle cx="7.4" cy="13.5" r="1.2"/>
-                <path d="M15 10C13.8 10 13 10.9 13 12.1C13 13.7 14.5 16.5 15.2 16.5C15.8 16.5 17.4 13.7 17.4 12.1C17.4 10.9 16.2 10 15 10Z"/>
-                <circle cx="15.3" cy="18" r="1.2"/>
+                <path d="M7 5c-2 0-3 1.2-3 3 0 2.2 2 5.5 3 5.5s3-3.3 3-5.5c0-1.8-1-3-3-3Z"/>
+                <circle cx="7.5" cy="15" r="1.4"/>
+                <path d="M16 10c-2 0-3 1.2-3 3 0 2.2 2 5.5 3 5.5s3-3.3 3-5.5c0-1.8-1-3-3-3Z"/>
+                <circle cx="16.3" cy="18.5" r="1.4"/>
               </svg>
             </button>
 
             {/* SHOP */}
             <button className="nav-item">
-              <svg fill="none" stroke="#6A6A6A" strokeWidth="2" viewBox="0 0 24 24">
-                <rect x="4" y="7" width="16" height="14" rx="3"/>
-                <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>
+              <svg stroke="#6A6A6A" fill="none" strokeWidth="2" viewBox="0 0 24 24">
+                <rect x="3" y="7" width="18" height="14" rx="3"/>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
               </svg>
             </button>
 
             {/* PROFILE */}
             <button className="nav-item">
               <svg fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M12 2a6 6 0 1 1 0 12A6 6 0 0 1 12 2Zm0 14c5 0 9 2.5 9 6v1H3v-1c0-3.5 4-6 9-6Z"/>
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z"/>
               </svg>
             </button>
 
