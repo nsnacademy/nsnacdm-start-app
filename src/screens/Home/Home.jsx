@@ -31,7 +31,7 @@ export default function Home() {
 
 
         .top-pill {
-          width: 76%;
+          width: 82%;
           max-width: 320px;
           height: 48px;
           background: #fff;
@@ -110,9 +110,9 @@ export default function Home() {
         }
 
         .nav-pill {
-          width: 76%;
-          max-width: 320px;
-          height: 62px;
+          width: 82%;
+          max-width: 450px;
+          height: 90px;
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
