@@ -112,7 +112,7 @@ export default function StepIntro3() {
           }
 
           .bottom {
-            gap: 28px;
+            gap: 15x;
             margin-top: 48px;
             margin-bottom: 0;
           }
@@ -138,7 +138,7 @@ export default function StepIntro3() {
           }
 
           .bottom {
-            gap: 28px;
+            gap: 15px;
             margin-top: 40px;
             margin-bottom: 0;
           }
