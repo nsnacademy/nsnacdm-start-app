@@ -71,23 +71,35 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* CONTENT */
+        /* ================= CONTENT (только это изменено) ================= */
         .content {
           text-align: center;
-          margin-top: 0px;
+          margin-top: 0;              /* Центровка блока */
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: 0px;
+          margin-bottom: 40px;        /* Картинка → заголовок */
+        }
+
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 20px;        /* Заголовок → подзаголовок */
+        }
+
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 40px;        /* Подзаголовок → кнопка */
         }
 
         .primary-btn {
           width: 240px;
           height: 52px;
           border: none;
-          border-radius: 30px;
+          border-radius: 16px;
           background: #222;
           color: white;
           font-size: 17px;
@@ -115,7 +127,6 @@ export default function Home() {
           padding: 0 30px;
         }
 
-        /* Базовое состояние иконок */
         .nav-item {
           border: none;
           background: none;
@@ -126,18 +137,15 @@ export default function Home() {
             opacity .2s ease;
         }
 
-        /* Активная вкладка */
         .nav-item.active {
           opacity: 1;
         }
 
-        /* iOS Dock эффект */
         .nav-item:active {
           transform: translateY(-4px) scale(1.15);
           opacity: 0.85;
         }
 
-        /* Иконки */
         .nav-item svg {
           width: 32px;
           height: 32px;
