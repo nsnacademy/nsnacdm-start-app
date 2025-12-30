@@ -128,6 +128,7 @@ export default function Home() {
           border: none;
           background: none;
           opacity: 0.45;
+          padding: 0;
         }
 
         .nav-item.active {
@@ -142,14 +143,14 @@ export default function Home() {
 
       <div className="home-screen">
         
-        {/* TOP */}
+        {/* TOP PILL */}
         <div className="top-pill-container">
           <div className="top-pill">
             <div className="left">
 
-              {/* NEW HOME ICON */}
-              <svg className="icon" viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M19 21H5c-1 0-1.5-.5-1.5-1.5V11l8-6 8 6v8.5c0 1-.5 1.5-1.5 1.5Z"/>
+              {/* TOP ICON (PROFILE) */}
+              <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z" />
               </svg>
 
               <span>Уровень 3</span>
@@ -159,9 +160,9 @@ export default function Home() {
 
             <div className="right">
 
-              {/* NEW PROFILE ICON */}
-              <svg className="icon" fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z"/>
+              {/* TOP ICON (ENERGY) */}
+              <svg className="icon" viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
 
               <span>120 ОД</span>
@@ -179,39 +180,38 @@ export default function Home() {
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* NAVIGATION */}
+        {/* 🔥 NEW NAVIGATION (TABLER FILLED ICONS) */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* HOME */}
+            {/* HOME — YOUR TABLER FILLED ICON */}
             <button className="nav-item active">
-              <svg fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M19 21H5c-1 0-1.5-.5-1.5-1.5V11l8-6 8 6v8.5c0 1-.5 1.5-1.5 1.5Z"/>
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M12.707 2.293l9 9c.63 .63 .184 1.707 -.707 1.707h-1v6a3 3 0 0 1 -3 3h-1v-7a3 3 0 0 0 -2.824 -2.995l-.176 -.005h-2a3 3 0 0 0 -3 3v7h-1a3 3 0 0 1 -3 -3v-6h-1c-.89 0 -1.337 -1.077 -.707 -1.707l9 -9a1 1 0 0 1 1.414 0" />
               </svg>
             </button>
 
-            {/* STEPS (более крепкие следы) */}
+            {/* STEPS — BEAUTIFUL STRONG FOOTPRINTS */}
             <button className="nav-item">
-              <svg fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M7 5c-2 0-3 1.2-3 3 0 2.2 2 5.5 3 5.5s3-3.3 3-5.5c0-1.8-1-3-3-3Z"/>
-                <circle cx="7.5" cy="15" r="1.4"/>
-                <path d="M16 10c-2 0-3 1.2-3 3 0 2.2 2 5.5 3 5.5s3-3.3 3-5.5c0-1.8-1-3-3-3Z"/>
-                <circle cx="16.3" cy="18.5" r="1.4"/>
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M7 4c-2.4 0-3.5 1.6-3.5 3.4 0 2.8 2.5 6.8 3.5 6.8S11 10.2 11 7.4C11 5.6 9.4 4 7 4Z"/>
+                <circle cx="7.7" cy="15.7" r="1.6"/>
+                <path d="M16 9c-2.4 0-3.5 1.6-3.5 3.4 0 2.8 2.5 6.8 3.5 6.8s3.5-4 3.5-6.8C20 10.6 18.4 9 16 9Z"/>
+                <circle cx="16.7" cy="18.7" r="1.6"/>
               </svg>
             </button>
 
-            {/* SHOP */}
+            {/* SHOP — CLEAN, MODERN */}
             <button className="nav-item">
-              <svg stroke="#6A6A6A" fill="none" strokeWidth="2" viewBox="0 0 24 24">
-                <rect x="3" y="7" width="18" height="14" rx="3"/>
-                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M6 3h12l2 5H4l2-5Zm2 8v10h8V11H8Zm-4 0h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V11Z"/>
               </svg>
             </button>
 
-            {/* PROFILE */}
+            {/* PROFILE — BEAUTIFUL FILLED */}
             <button className="nav-item">
-              <svg fill="#6A6A6A" viewBox="0 0 24 24">
-                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c4 0 8 2 8 5v2H4v-2c0-3 4-5 8-5Z"/>
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c5 0 9 2.7 9 6v2H3v-2c0-3.3 4-6 9-6Z"/>
               </svg>
             </button>
 
