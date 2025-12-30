@@ -22,11 +22,13 @@ export default function Home() {
 
         /* ===================== TOP PILL ===================== */
         .top-pill-container {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          margin-bottom: 40px;
-        }
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 120px; /* ← вот это опускает блок уровнем + ОД */
+        margin-bottom: 40px;
+}
+
 
         .top-pill {
           width: 76%;
