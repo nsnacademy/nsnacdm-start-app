@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <>
       <style>{`
+        /* Убираем квадрат нажатия на телефонах */
         * {
           -webkit-tap-highlight-color: transparent;
         }
@@ -33,7 +34,7 @@ export default function Home() {
           display: flex;
           justify-content: center;
           margin-top: 60px;
-          margin-bottom: 60px;
+          margin-bottom: 60px; /* одинаково как внизу */
         }
 
         .top-pill {
@@ -74,16 +75,11 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* CENTER BLOCK (new) */
-        .center-block {
-          max-width: 260px;
-          margin: 0 auto;
-        }
-
-        /* CONTENT */
+        /* ================= CONTENT ================= */
         .content {
           text-align: center;
           margin-top: 0;
+          margin-bottom: 0; /* чтобы было ровно по центру */
         }
 
         .empty-img {
@@ -95,14 +91,13 @@ export default function Home() {
         .content h2 {
           font-size: 24px;
           font-weight: 700;
-          margin-bottom: 5px;   /* УМЕНЬШИЛИ на 5px */
+          margin-bottom: 10px;
         }
 
         .content p {
-          font-size: 15px;
+          font-size: 16px;
           opacity: 0.55;
           margin-bottom: 25px;
-          line-height: 1.35;
         }
 
         .primary-btn {
@@ -121,11 +116,11 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: 60px; /* одинаковое расстояние как сверху */
         }
 
         .nav-pill {
-          width: 92%;  
+          width: 92%;
           max-width: 520px;
           height: 75px;
           background: #ffffff;
@@ -195,12 +190,10 @@ export default function Home() {
 
         {/* ================= CONTENT ================= */}
         <div className="content">
-          <div className="center-block">
-            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
-            <h2>У вас пока нет задач</h2>
-            <p>Добавьте первую задачу, чтобы начать свой путь</p>
-            <button className="primary-btn">Добавить задачу</button>
-          </div>
+          <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+          <h2>У вас пока нет задач</h2>
+          <p>Добавьте первую задачу, чтобы начать свой путь</p>
+          <button className="primary-btn">Добавить задачу</button>
         </div>
 
         {/* ================= NAVIGATION ================= */}
