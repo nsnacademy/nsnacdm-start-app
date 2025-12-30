@@ -22,13 +22,12 @@ export default function Home() {
 
         /* ===================== TOP PILL ===================== */
         .top-pill-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: 60px; /* ← вот это опускает блок уровнем + ОД */
-        margin-bottom: 40px;
-}
-
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 60px;
+          margin-bottom: 40px;
+        }
 
         .top-pill {
           width: 82%;
@@ -67,7 +66,7 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===================== EMPTY CONTENT ===================== */
+        /* ===================== EMPTY ===================== */
         .content {
           text-align: center;
           margin-top: -20px;
@@ -138,70 +137,22 @@ export default function Home() {
           width: 26px;
         }
 
-        /* ===================== TABLETS ===================== */
-        @media (min-width: 768px) {
-          .home-screen {
-            max-width: 640px;
-            padding: 40px 40px;
-          }
-
-          .empty-img {
-            width: 300px;
-          }
-
-          .content h2 {
-            font-size: 26px;
-          }
-
-          .content p {
-            font-size: 18px;
-          }
-
-          .primary-btn {
-            width: 280px;
-            height: 56px;
-          }
-        }
-
-        /* ===================== DESKTOP ===================== */
-        @media (min-width: 1024px) {
-          .home-screen {
-            max-width: 700px;
-            border-radius: 24px;
-          }
-
-          .content h2 {
-            font-size: 28px;
-          }
-
-          .content p {
-            font-size: 20px;
-          }
-
-          .nav-pill {
-            height: 70px;
-          }
-
-          .nav-item img {
-            width: 30px;
-          }
-        }
       `}</style>
 
       <div className="home-screen">
         
-        {/* TOP PILL */}
+        {/* TOP */}
         <div className="top-pill-container">
           <div className="top-pill">
             <div className="left">
-              <img src="/icons/flower.svg" className="icon" alt="lvl" />
+              <img src="/icons/home.svg" className="icon" />
               <span>Уровень 3</span>
             </div>
 
             <div className="separator"></div>
 
             <div className="right">
-              <img src="/icons/energy.svg" className="icon" alt="energy" />
+              <img src="/icons/profile.svg" className="icon" />
               <span>120 ОД</span>
             </div>
           </div>
@@ -217,7 +168,7 @@ export default function Home() {
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
-        {/* NAVIGATION */}
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
             <button className="nav-item active"><img src="/icons/home.svg" /></button>

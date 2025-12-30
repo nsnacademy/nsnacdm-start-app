@@ -98,7 +98,7 @@ export default function StepIntro() {
           }
 
           .bottom {
-            gap: 28px;              /* 🔥 одинаково */
+            gap: 15px;              /* 🔥 одинаково */
             margin-top: 48px;
             margin-bottom: 0;
           }
@@ -124,7 +124,7 @@ export default function StepIntro() {
           }
 
           .bottom {
-            gap: 28px;              /* 🔥 одинаково */
+            gap: 15px;              /* 🔥 одинаково */
             margin-top: 40px;
             margin-bottom: 0;
           }
