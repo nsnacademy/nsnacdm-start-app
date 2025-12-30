@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import StepImage from "../../assets/step.png";
+import StepImage from "../../assets/step2.png";
 
-export default function StepIntro() {
+export default function StepIntro2() {
   const navigate = useNavigate();
 
   return (
@@ -24,13 +24,13 @@ export default function StepIntro() {
           margin: 0 auto;
         }
 
-        /* === ТЕКСТОВЫЙ БЛОК (как в Intro) === */
+        /* === ТЕКСТОВЫЙ БЛОК === */
         .text-block {
           display: flex;
           flex-direction: column;
           text-align: center;
           gap: 14px;
-          margin-top: 50px;
+          margin-top: 50px;   /* как в StepIntro */
         }
 
         .text-block p {
@@ -44,7 +44,7 @@ export default function StepIntro() {
           font-weight: 600;
         }
 
-        /* === КАРТИНКА — как в Intro === */
+        /* === КАРТИНКА === */
         .center {
           flex-grow: 1;
           display: flex;
@@ -81,7 +81,7 @@ export default function StepIntro() {
           color: #222;
         }
 
-        /* === Планшеты (как Intro) === */
+        /* === Планшеты === */
         @media (min-width: 768px) {
           .screen {
             max-width: 640px;
@@ -112,11 +112,12 @@ export default function StepIntro() {
           }
         }
 
-        /* === ПК (как Intro) === */
+        /* === ПК === */
         @media (min-width: 1024px) {
           .screen {
             max-width: 700px;
             border-radius: 24px;
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -138,26 +139,29 @@ export default function StepIntro() {
 
         {/* ТЕКСТ */}
         <div className="text-block">
-          <p><strong>Шаг — это маленькое действие на 3–10 минут.</strong></p>
-          <p>Ты не бежишь — <strong>ты просто двигаешься</strong>.</p>
-          <p>Каждый шаг — попытка. <strong>Каждая попытка — победа.</strong></p>
+          <p><strong>ОД — очки действия</strong> за твои шаги.</p>
+          <p>
+            Чем больше ОД, тем <strong>выше уровень</strong> 
+            и тем <strong>больше доступных функций</strong>.
+          </p>
         </div>
 
         {/* КАРТИНКА */}
         <div className="center">
-          <img className="step-img" src={StepImage} alt="step intro" />
+          <img className="step-img" src={StepImage} alt="step intro 2" />
         </div>
 
         {/* НИЗ */}
         <div className="bottom">
           <button
             className="next-btn"
-             onClick={() => navigate("/step-intro-2")}
+            onClick={() => navigate("/")}
           >
             Далее
           </button>
-          <div className="dots-bottom">● ● ○ ○</div>
+          <div className="dots-bottom">● ● ● ○</div>
         </div>
+
       </div>
     </>
   );
