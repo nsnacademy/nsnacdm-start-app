@@ -1,4 +1,8 @@
+import { useUserStore } from "../../store/userStore";
+
 export default function Home() {
+  const user = useUserStore((s) => s.user);
+
   return (
     <>
       <style>{`
@@ -71,28 +75,28 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ================= CONTENT (только это изменено) ================= */
+        /* ================= CONTENT ================= */
         .content {
           text-align: center;
-          margin-top: 0;              /* Центровка блока */
+          margin-top: 0;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
-          margin-bottom: 25px;        /* Картинка → заголовок */
+          margin-bottom: 25px;
         }
 
         .content h2 {
           font-size: 24px;
           font-weight: 700;
-          margin-bottom: 10px;        /* Заголовок → подзаголовок */
+          margin-bottom: 10px;
         }
 
         .content p {
           font-size: 16px;
           opacity: 0.55;
-          margin-bottom: 25px;        /* Подзаголовок → кнопка */
+          margin-bottom: 25px;
         }
 
         .primary-btn {
@@ -169,7 +173,7 @@ export default function Home() {
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
-              <span>Уровень 3</span>
+              <span>Уровень {user?.level ?? 1}</span>
             </div>
 
             <div className="separator"></div>
@@ -179,7 +183,7 @@ export default function Home() {
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
-              <span>120 ОД</span>
+              <span>{user?.od ?? 0} ОД</span>
             </div>
           </div>
         </div>
