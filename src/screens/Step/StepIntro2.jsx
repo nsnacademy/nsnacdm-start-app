@@ -24,13 +24,12 @@ export default function StepIntro2() {
           margin: 0 auto;
         }
 
-        /* === ТЕКСТОВЫЙ БЛОК === */
         .text-block {
           display: flex;
           flex-direction: column;
           text-align: center;
           gap: 14px;
-          margin-top: 50px;   /* как в StepIntro */
+          margin-top: 50px;
         }
 
         .text-block p {
@@ -44,7 +43,6 @@ export default function StepIntro2() {
           font-weight: 600;
         }
 
-        /* === КАРТИНКА === */
         .center {
           flex-grow: 1;
           display: flex;
@@ -57,7 +55,6 @@ export default function StepIntro2() {
           max-width: 740px;
         }
 
-        /* === НИЗ === */
         .bottom {
           display: flex;
           flex-direction: column;
@@ -81,7 +78,6 @@ export default function StepIntro2() {
           color: #222;
         }
 
-        /* === Планшеты === */
         @media (min-width: 768px) {
           .screen {
             max-width: 640px;
@@ -112,12 +108,10 @@ export default function StepIntro2() {
           }
         }
 
-        /* === ПК === */
         @media (min-width: 1024px) {
           .screen {
             max-width: 700px;
             border-radius: 24px;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -137,21 +131,18 @@ export default function StepIntro2() {
 
       <div className="screen">
 
-        {/* ТЕКСТ */}
         <div className="text-block">
           <p><strong>ОД — очки действия</strong> за твои шаги.</p>
           <p>
-            Чем больше ОД, тем <strong>выше уровень</strong> 
+            Чем больше ОД, тем <strong>выше уровень</strong>
             и тем <strong>больше доступных функций</strong>.
           </p>
         </div>
 
-        {/* КАРТИНКА */}
         <div className="center">
           <img className="step-img" src={StepImage} alt="step intro 2" />
         </div>
 
-        {/* НИЗ */}
         <div className="bottom">
           <button
             className="next-btn"
