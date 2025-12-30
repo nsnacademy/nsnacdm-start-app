@@ -25,7 +25,7 @@ export default function Home() {
         width: 100%;
         display: flex;
         justify-content: center;
-        margin-top: 120px; /* ← вот это опускает блок уровнем + ОД */
+        margin-top: 60px; /* ← вот это опускает блок уровнем + ОД */
         margin-bottom: 40px;
 }
 
