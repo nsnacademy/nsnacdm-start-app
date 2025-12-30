@@ -97,7 +97,7 @@ export default function Home() {
         .content p {
           font-size: 16px;
           opacity: 0.55;
-          margin-bottom: 15px;
+          margin-bottom: 25px;
         }
 
         .primary-btn {
@@ -192,7 +192,7 @@ export default function Home() {
         <div className="content">
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
           <h2>У вас пока нет задач</h2>
-          <p>Добавьте свою первую задач, чтобы начать</p>
+          <p>Добавьте первую задачу, чтобы начать свой путь</p>
           <button className="primary-btn">Добавить задачу</button>
         </div>
 
