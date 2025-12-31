@@ -33,16 +33,38 @@ export default function NewTask() {
           margin: 0 auto;
         }
 
-        /* ===== CENTER CONTENT WRAPPER ===== */
+        /* ===== BACK BUTTON ===== */
+        .back-btn {
+          width: 100%;
+          max-width: 520px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 25px;
+        }
+
+        .back-btn svg {
+          width: 28px;
+          height: 28px;
+          stroke: #444;
+          transition: 0.2s;
+        }
+
+        .back-btn:active svg {
+          transform: translateX(-3px);
+          opacity: 0.7;
+        }
+
+        /* ===== CENTER CONTENT ===== */
         .center-wrapper {
           width: 100%;
+          flex: 1;
+
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
 
-          flex: 1;
-          margin-top: -40px; /* идеально центрирует по макету */
+          margin-top: 60px; /* ← ОПУСКАЕТ КОНТЕНТ НИЖЕ ЦЕНТРА */
         }
 
         /* ===== INPUT CARD ===== */
@@ -124,11 +146,6 @@ export default function NewTask() {
           opacity: 0.8;
         }
 
-        .reward-text {
-          display: flex;
-          flex-direction: column;
-        }
-
         .reward-main {
           font-size: 16px;
           font-weight: 600;
@@ -152,7 +169,7 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 40px;
+          margin-bottom: 60px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
@@ -206,10 +223,16 @@ export default function NewTask() {
 
       <div className="new-screen">
 
-        {/* ========= CENTER CONTENT ========= */}
+        {/* === BACK BUTTON === */}
+        <div className="back-btn" onClick={() => navigate(-1)}>
+          <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
+            <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+
+        {/* === CENTERED CONTENT === */}
         <div className="center-wrapper">
 
-          {/* INPUT CARD */}
           <div className="task-box">
             <input
               className="input"
@@ -231,16 +254,12 @@ export default function NewTask() {
                 </button>
               ))}
 
-              <button
-                className="time-btn"
-                onClick={() => setSelectedTime(null)}
-              >
+              <button className="time-btn" onClick={() => setSelectedTime(null)}>
                 Другое
               </button>
             </div>
           </div>
 
-          {/* REWARD */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24" fill="#333">
@@ -248,20 +267,16 @@ export default function NewTask() {
               </svg>
             </div>
 
-            <div className="reward-text">
+            <div>
               <div className="reward-main">+12 ОД маленькая победа</div>
               <div className="reward-sub">Уменьшее свет одостонить</div>
             </div>
           </div>
 
-          {/* ADD */}
-          <button className="add-btn">
-            Добавить
-          </button>
-
+          <button className="add-btn">Добавить</button>
         </div>
 
-        {/* ========= NAVIGATION ========= */}
+        {/* === NAVIGATION === */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
