@@ -7,7 +7,6 @@ export default function NewTask() {
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
-  // ★ Новые интервалы времени
   const times = [10, 20, 30, 40, 50, 60];
 
   return (
@@ -17,9 +16,12 @@ export default function NewTask() {
           -webkit-tap-highlight-color: transparent;
         }
 
+        /* ============================
+           BASE LAYOUT (PHONE-FIRST)
+        ==============================*/
         .new-screen {
           width: 100%;
-          height: 100vh;
+          min-height: 100vh;              /* вместо height для Safari / iPad */
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
@@ -30,17 +32,19 @@ export default function NewTask() {
 
           padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
           box-sizing: border-box;
-          max-width: 520px;
+
+          max-width: 520px;               /* идеально для телефона */
           margin: 0 auto;
         }
 
-        /* ===== HEADER ===== */
+        /* ============================
+           HEADER
+        ==============================*/
         .header-zone {
           width: 100%;
-          max-width: 520px;
           position: relative;
-          margin-bottom: 15px;
           margin-top: 50px;
+          margin-bottom: 15px;
         }
 
         .back-btn {
@@ -73,7 +77,9 @@ export default function NewTask() {
           padding-top: 44px;
         }
 
-        /* ===== CENTER CONTENT ===== */
+        /* ============================
+           CONTENT CENTER
+        ==============================*/
         .center-wrapper {
           width: 100%;
           flex: 1;
@@ -86,6 +92,7 @@ export default function NewTask() {
           margin-top: 40px;
         }
 
+        /* ===== INPUT CARD ===== */
         .task-box {
           width: 100%;
           background: #fff;
@@ -120,7 +127,6 @@ export default function NewTask() {
           justify-content: center;
           align-items: center;
           gap: 10px;
-          text-align: center;
         }
 
         .time-btn {
@@ -139,7 +145,7 @@ export default function NewTask() {
           color: white;
         }
 
-        /* ===== REWARD BLOCK ===== */
+        /* ===== REWARD (HORIZONTAL) ===== */
         .reward-box {
           width: 100%;
           background: #fff;
@@ -172,6 +178,12 @@ export default function NewTask() {
           fill: #FFC400;
         }
 
+        .reward-text-group {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
         .reward-main {
           font-size: 16px;
           font-weight: 600;
@@ -184,12 +196,7 @@ export default function NewTask() {
           margin-top: 2px;
         }
 
-        .reward-text-group {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-
+        /* ===== BUTTON ===== */
         .add-btn {
           width: 70%;
           height: 54px;
@@ -205,7 +212,9 @@ export default function NewTask() {
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        /* ===== NAVIGATION ===== */
+        /* ============================
+           NAVIGATION
+        ==============================*/
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -232,25 +241,105 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition:
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform 0.22s, opacity 0.2s;
         }
 
         .nav-item.active {
           opacity: 1;
         }
 
-        .nav-item:active {
-          transform: translateY(-4px) scale(1.15);
-          opacity: 0.85;
-        }
-
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: 0.22s;
         }
+
+        .nav-item:active {
+          transform: translateY(-4px) scale(1.15);
+        }
+
+        /* ====================================================
+           RESPONSIVE — SMALL PHONES (iPhone SE / older Android)
+        ======================================================*/
+        @media (max-width: 380px) {
+          .screen-title { font-size: 18px; }
+          .input { font-size: 15px; height: 44px; }
+          .time-btn { padding: 0 12px; font-size: 14px; }
+          .reward-main { font-size: 15px; }
+          .add-btn { height: 50px; font-size: 16px; }
+        }
+
+        /* ====================================================
+           RESPONSIVE — TABLETS (iPad Mini / 10th Gen)
+        ======================================================*/
+        @media (min-width: 700px) {
+          .new-screen {
+            max-width: 700px;
+            padding: 40px 50px;
+          }
+
+          .screen-title {
+            font-size: 26px;
+            padding-top: 60px;
+          }
+
+          .task-box {
+            padding: 30px;
+            border-radius: 30px;
+          }
+
+          .input {
+            height: 56px;
+            font-size: 18px;
+          }
+
+          .time-btn {
+            height: 50px;
+            font-size: 17px;
+            padding: 0 20px;
+          }
+
+          .reward-box {
+            padding: 26px;
+            border-radius: 32px;
+          }
+
+          .reward-main { font-size: 20px; }
+          .reward-sub { font-size: 15px; }
+
+          .add-btn {
+            width: 60%;
+            height: 62px;
+            font-size: 20px;
+            border-radius: 24px;
+          }
+
+          .nav-pill {
+            height: 90px;
+            border-radius: 34px;
+          }
+
+          .nav-item svg {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        /* ====================================================
+           RESPONSIVE — DESKTOP (большие экраны / ПК)
+        ======================================================*/
+        @media (min-width: 1024px) {
+          .new-screen {
+            max-width: 480px;    /* оставляем форму телефона */
+          }
+
+          body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ececec;
+          }
+        }
+
       `}</style>
 
       <div className="new-screen">
@@ -313,7 +402,6 @@ export default function NewTask() {
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* ★ ПЕРВАЯ ИКОНКА → HOME */}
             <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
