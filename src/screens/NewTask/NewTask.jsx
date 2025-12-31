@@ -496,7 +496,7 @@ export default function NewTask() {
                 id: Date.now(),
                 title: task,
                 time: selectedTime,
-                od: animatedRewar,
+                od: animatedReward,
                 hp: animatedHp,
               };
 
