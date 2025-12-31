@@ -10,6 +10,8 @@ export default function Home() {
 
   // ← ДОБАВЛЕНО
   const tasks = useTaskStore((s) => s.tasks);
+  console.log("TASKS:", tasks);
+
 
   return (
     <>
