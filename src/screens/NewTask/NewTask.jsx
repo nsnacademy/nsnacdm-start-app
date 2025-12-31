@@ -159,13 +159,12 @@ export default function NewTask() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* NAV */
+        /* ========== NAVIGATION (как в Home) ========== */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: auto;
-          margin-bottom: 10px;
+          margin-top: 60px;
         }
 
         .nav-pill {
@@ -187,7 +186,9 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
+          transition:
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
         }
 
         .nav-item.active {
@@ -202,6 +203,11 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
         }
       `}</style>
 
@@ -239,7 +245,6 @@ export default function NewTask() {
               </button>
             ))}
 
-            {/* Другое */}
             <button className="time-btn">Другое</button>
           </div>
         </div>
@@ -265,7 +270,7 @@ export default function NewTask() {
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            <button className="nav-item" onClick={() => navigate("/home")}>
+            <button className="nav-item active" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
