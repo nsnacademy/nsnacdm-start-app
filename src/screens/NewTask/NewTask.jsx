@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import confetti from "canvas-confetti"; // 🎉 конфетти
+import confetti from "canvas-confetti"; // 🎉 конфетти библиотека
 
 export default function NewTask() {
   const navigate = useNavigate();
 
-  // ===== VALUES =====
+  // ===== REWARD VALUES =====
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
@@ -17,7 +17,7 @@ export default function NewTask() {
 
   const times = [10, 20, 30, 40, 50, 60];
 
-  // ===== SMOOTH ANIMATION FUNCTION =====
+  // ===== SMOOTH NUMBER ANIMATION =====
   function animateValue(from, to, setter, duration = 350) {
     const start = performance.now();
 
@@ -32,27 +32,26 @@ export default function NewTask() {
     requestAnimationFrame(frame);
   }
 
-  // first load — animate from 0
+  // animate on first render
   useEffect(() => {
-    const startReward = selectedTime;
-    const startHp = Math.round(selectedTime * 2.5);
+    const initialReward = selectedTime;
+    const initialHp = Math.round(selectedTime * 2.5);
 
-    setReward(startReward);
-    setHp(startHp);
+    setReward(initialReward);
+    setHp(initialHp);
 
-    animateValue(0, startReward, setAnimatedReward);
-    animateValue(0, startHp, setAnimatedHp);
+    animateValue(0, initialReward, setAnimatedReward);
+    animateValue(0, initialHp, setAnimatedHp);
   }, []);
 
-
   // =====================================================
-  // 🔥 1) Получаем координату reward-icon для вылета конфетти
+  // 🎯 ВЫЛЕТ ИЗ КНОПКИ "Добавить"
   // =====================================================
   function getOrigin() {
-    const icon = document.querySelector(".reward-icon");
-    if (!icon) return { x: 0.5, y: 0.5 };
+    const btn = document.querySelector(".add-btn");
+    if (!btn) return { x: 0.5, y: 0.5 };
 
-    const rect = icon.getBoundingClientRect();
+    const rect = btn.getBoundingClientRect();
 
     return {
       x: (rect.left + rect.width / 2) / window.innerWidth,
@@ -61,7 +60,7 @@ export default function NewTask() {
   }
 
   // =====================================================
-  // 🔥 2) Уровни конфетти по времени (10–60 минут)
+  // 🎉 УРОВНИ КОНФЕТТИ ПО ВРЕМЕНИ (10 → 60 минут)
   // =====================================================
   function fireConfettiByTime(t) {
     const origin = getOrigin();
@@ -151,7 +150,7 @@ export default function NewTask() {
         origin
       });
 
-      // лепестки слева
+      // золотые лучи слева
       setTimeout(() => {
         confetti({
           particleCount: 130,
@@ -164,7 +163,7 @@ export default function NewTask() {
         });
       }, 200);
 
-      // лепестки справа
+      // золотые лучи справа
       setTimeout(() => {
         confetti({
           particleCount: 120,
@@ -177,7 +176,7 @@ export default function NewTask() {
         });
       }, 380);
 
-      // золотая пыль вниз
+      // золотая пыль (эпилог)
       setTimeout(() => {
         confetti({
           particleCount: 80,
@@ -194,9 +193,8 @@ export default function NewTask() {
   }
 
   // =====================================================
-  // 🔥 3) Нажатие кнопки "Добавить" → запустить конфетти
+  // UI
   // =====================================================
-
 
   return (
     <>
@@ -469,7 +467,7 @@ export default function NewTask() {
             </div>
           </div>
 
-          {/* REWARD with animation */}
+          {/* REWARD BLOCK */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -483,14 +481,12 @@ export default function NewTask() {
             </div>
           </div>
 
-          {/* ADD BUTTON WITH CONFETTI */}
+          {/* ADD BUTTON → FIRE CONFETTI */}
           <button
             className="add-btn"
             onClick={() => {
               fireConfettiByTime(selectedTime);
-
-              // если хочешь сразу возвращаться на home:
-              // navigate("/home");
+              // navigate("/home");  <-- если нужно
             }}
           >
             Добавить
@@ -498,7 +494,7 @@ export default function NewTask() {
 
         </div>
 
-        {/* NAV */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
