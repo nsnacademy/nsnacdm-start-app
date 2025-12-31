@@ -44,7 +44,7 @@ export default function NewTask() {
           justify-content: center;      /* заголовок центр */
 
           position: relative;           /* чтобы стрелка была абсолютной */
-          margin-top: 70px;
+          margin-top: 90px;
           margin-bottom: 15px;
         }
 
