@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 
 export default function NewTask() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
+
+  const [title, setTitle] = useState("");
+  const [selectedTime, setSelectedTime] = useState(10);
+
+  const times = [5, 10, 20, 25, 30];
 
   return (
     <>
@@ -12,7 +18,7 @@ export default function NewTask() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        .newtask-screen {
+        .screen {
           width: 100%;
           height: 100vh;
           background: #f8f8f8;
@@ -20,87 +26,126 @@ export default function NewTask() {
 
           display: flex;
           flex-direction: column;
-          align-items: center;
           justify-content: space-between;
+          align-items: center;
 
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
+
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* TOP PILL */
-        .top-pill-container {
+        .back {
           width: 100%;
           display: flex;
-          justify-content: center;
-          margin-top: 60px;
-          margin-bottom: 60px;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          margin-bottom: 20px;
         }
 
-        .top-pill {
-          width: 82%;
+        .back svg {
+          width: 26px;
+          height: 26px;
+        }
+
+        .page-center {
+          width: 100%;
           max-width: 480px;
-          height: 48px;
-          background: #fff;
-          border-radius: 30px;
           display: flex;
-          align-items: center;
-          justify-content: space-between;
+          flex-direction: column;
+          gap: 24px;
+        }
+
+        .title {
+          font-size: 24px;
+          font-weight: 700;
+        }
+
+        .input-block {
+          width: 100%;
+          background: #ffffff;
+          border-radius: 20px;
+          padding: 20px;
+          box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+        }
+
+        .input-field {
+          width: 100%;
+          height: 52px;
+          border-radius: 14px;
+          border: none;
+          background: #f1f1f1;
           padding: 0 16px;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+          font-size: 16px;
+          margin-bottom: 25px;
         }
 
-        .left, .right {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 14px;
+        .time-label {
+          font-size: 16px;
           font-weight: 500;
-          color: #555;
+          margin-bottom: 12px;
         }
 
-        .icon {
-          width: 22px;
-          height: 22px;
+        .time-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .time-btn {
+          height: 44px;
+          border-radius: 14px;
+          border: none;
+          font-size: 15px;
+          background: #f1f1f1;
           opacity: 0.9;
         }
 
-        .separator {
-          flex: 1;
-          height: 4px;
-          max-width: 90px;
-          background: #d4d4d4;
-          border-radius: 2px;
-          margin: 0 14px;
-          opacity: 0.55;
+        .time-btn.active {
+          background: #222;
+          color: #fff;
+          opacity: 1;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        /* CONTENT */
-        .content {
+        .reward-block {
           width: 100%;
-          max-width: 480px;
-          text-align: left;
-          margin-top: 0;
-        }
-
-        .content h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 18px;
-        }
-
-        .task-input {
-          width: 100%;
-          height: 140px;
-          padding: 14px 16px;
-          font-size: 16px;
+          background: #ffffff;
+          padding: 16px 20px;
           border-radius: 18px;
-          border: none;
-          outline: none;
-          resize: none;
-          background: #fff;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+          box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .reward-icon {
+          width: 42px;
+          height: 42px;
+          background: #ececec;
+          border-radius: 12px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .reward-icon svg {
+          width: 22px;
+          height: 22px;
+        }
+
+        .reward-text-1 {
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        .reward-text-2 {
+          font-size: 14px;
+          opacity: 0.55;
+          margin-top: -2px;
         }
 
         .primary-btn {
@@ -112,18 +157,15 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-          margin-top: 28px;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
         }
 
-        /* BOTTOM NAV */
+        /* === НАВИГАЦИЯ КАК В ТВОЁМ HOME === */
+
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: 40px;
         }
 
         .nav-pill {
@@ -165,64 +207,79 @@ export default function NewTask() {
           transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
 
-        .nav-item:active svg {
-          transform: scale(1.15);
-        }
       `}</style>
 
-      <div className="newtask-screen">
+      <div className="screen">
 
-        {/* ================= TOP ================= */}
-        <div className="top-pill-container">
-          <div className="top-pill">
-
-            <div className="left">
-              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
-              </svg>
-              <span>Уровень {user?.level ?? 1}</span>
-            </div>
-
-            <div className="separator"></div>
-
-            <div className="right">
-              <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
-                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
-              </svg>
-              <span>{user?.od ?? 0} ОД</span>
-            </div>
-
-          </div>
+        {/* TOP BACK */}
+        <div className="back" onClick={() => navigate("/home")}>
+          <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span>Назад</span>
         </div>
 
-        {/* ================= CONTENT ================= */}
-        <div className="content">
-          <h2>Новая задача</h2>
+        {/* CENTER */}
+        <div className="page-center">
 
-          <textarea
-            className="task-input"
-            placeholder="Опишите вашу задачу..."
-          />
+          <div className="title">Новая задача</div>
 
-          <button
-            className="primary-btn"
-            onClick={() => navigate("/")}
-          >
+          <div className="input-block">
+            <input
+              className="input-field"
+              placeholder="Введите задачу"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+
+            <div className="time-label">Запланированное время</div>
+
+            <div className="time-grid">
+              {times.map((t) => (
+                <button
+                  key={t}
+                  className={`time-btn ${selectedTime === t ? "active" : ""}`}
+                  onClick={() => setSelectedTime(t)}
+                >
+                  {t} мин
+                </button>
+              ))}
+
+              <button className="time-btn">Другое</button>
+            </div>
+          </div>
+
+          <div className="reward-block">
+            <div className="reward-icon">
+              <svg viewBox="0 0 24 24" fill="#FFC400">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+              </svg>
+            </div>
+
+            <div>
+              <div className="reward-text-1">+12 ОД маленькая победа</div>
+              <div className="reward-text-2">Увеличение энергии</div>
+            </div>
+          </div>
+
+          <button className="primary-btn">
             Добавить
           </button>
+
         </div>
 
-        {/* ================= NAVIGATION ================= */}
+        {/* === НАВИГАЦИЯ — ТОЧЬ В ТОЧЬ КАК В HOME === */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            <button className="nav-item" onClick={() => navigate("/")}>
+            {/* 1 — Дом */}
+            <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
+            {/* 2 — Категории */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
@@ -232,6 +289,7 @@ export default function NewTask() {
               </svg>
             </button>
 
+            {/* 3 — Текущая страница (замок) */}
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
@@ -239,6 +297,7 @@ export default function NewTask() {
               </svg>
             </button>
 
+            {/* 4 — Профиль */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
