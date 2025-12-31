@@ -25,13 +25,24 @@ export default function NewTask() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: flex-start;
+          justify-content: space-between;
 
-          padding: calc(env(safe-area-inset-top) + 40px) 20px 20px;
+          padding: calc(env(safe-area-inset-top) + 20px) 20px 20px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
-          overflow-y: auto;
+        }
+
+        /* ===== CENTER CONTENT WRAPPER ===== */
+        .center-wrapper {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          flex: 1;
+          margin-top: -40px; /* идеально центрирует по макету */
         }
 
         /* ===== INPUT CARD ===== */
@@ -150,7 +161,6 @@ export default function NewTask() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: auto;
           margin-bottom: 10px;
         }
 
@@ -196,57 +206,62 @@ export default function NewTask() {
 
       <div className="new-screen">
 
-        {/* ========= INPUT CARD ========= */}
-        <div className="task-box">
-          <input
-            className="input"
-            placeholder="Введите задачу"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-          />
+        {/* ========= CENTER CONTENT ========= */}
+        <div className="center-wrapper">
 
-          <div className="label">Запланированное время</div>
+          {/* INPUT CARD */}
+          <div className="task-box">
+            <input
+              className="input"
+              placeholder="Введите задачу"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+            />
 
-          <div className="time-row">
-            {times.map((t) => (
+            <div className="label">Запланированное время</div>
+
+            <div className="time-row">
+              {times.map((t) => (
+                <button
+                  key={t}
+                  className={`time-btn ${selectedTime === t ? "active" : ""}`}
+                  onClick={() => setSelectedTime(t)}
+                >
+                  {t} мин
+                </button>
+              ))}
+
               <button
-                key={t}
-                className={`time-btn ${selectedTime === t ? "active" : ""}`}
-                onClick={() => setSelectedTime(t)}
+                className="time-btn"
+                onClick={() => setSelectedTime(null)}
               >
-                {t} мин
+                Другое
               </button>
-            ))}
-
-            <button
-              className="time-btn"
-              onClick={() => setSelectedTime(null)}
-            >
-              Другое
-            </button>
+            </div>
           </div>
+
+          {/* REWARD */}
+          <div className="reward-box">
+            <div className="reward-icon">
+              <svg viewBox="0 0 24 24" fill="#333">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+              </svg>
+            </div>
+
+            <div className="reward-text">
+              <div className="reward-main">+12 ОД маленькая победа</div>
+              <div className="reward-sub">Уменьшее свет одостонить</div>
+            </div>
+          </div>
+
+          {/* ADD */}
+          <button className="add-btn">
+            Добавить
+          </button>
+
         </div>
 
-        {/* ========= REWARD ========= */}
-        <div className="reward-box">
-          <div className="reward-icon">
-            <svg viewBox="0 0 24 24" fill="#333">
-              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
-            </svg>
-          </div>
-
-          <div className="reward-text">
-            <div className="reward-main">+12 ОД маленькая победа</div>
-            <div className="reward-sub">Уменьшее свет одостонить</div>
-          </div>
-        </div>
-
-        {/* ========= ADD ========= */}
-        <button className="add-btn">
-          Добавить
-        </button>
-
-        {/* ========= NAV ========= */}
+        {/* ========= NAVIGATION ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
