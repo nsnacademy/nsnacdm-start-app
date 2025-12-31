@@ -65,12 +65,14 @@ export default function NewTask() {
           stroke: #222;
         }
 
-        /* CONTENT */
+        /* ТОЧНО КАК В HOME */
         .content-block {
-          width: 90%;
-          max-width: 460px;
+          width: 82%;
+          max-width: 480px;
           margin: 0 auto;
-        }
+}
+
+        
 
         /* INPUT CARD */
         .input-card {
