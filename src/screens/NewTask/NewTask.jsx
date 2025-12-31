@@ -7,7 +7,7 @@ export default function NewTask() {
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
-  // ★ ОБНОВЛЁННЫЕ ВРЕМЕНА
+  // ★ Новые интервалы времени
   const times = [10, 20, 30, 40, 50, 60];
 
   return (
@@ -86,7 +86,6 @@ export default function NewTask() {
           margin-top: 40px;
         }
 
-        /* ===== INPUT CARD ===== */
         .task-box {
           width: 100%;
           background: #fff;
@@ -191,7 +190,6 @@ export default function NewTask() {
           justify-content: center;
         }
 
-        /* ===== BUTTON ===== */
         .add-btn {
           width: 70%;
           height: 54px;
@@ -234,7 +232,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: 
+          transition:
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
@@ -294,7 +292,6 @@ export default function NewTask() {
             </div>
           </div>
 
-          {/* === REWARD === */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -316,8 +313,8 @@ export default function NewTask() {
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* ★ ОБНОВЛЕНО: переход на Home.jsx */}
-            <button className="nav-item" onClick={() => navigate("/")}>
+            {/* ★ ПЕРВАЯ ИКОНКА → HOME */}
+            <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
