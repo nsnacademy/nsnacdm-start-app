@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import confetti from "canvas-confetti"; // 🎉 конфетти библиотека
+import { useTaskStore } from "../../store/taskStore";
+
 
 export default function NewTask() {
   const navigate = useNavigate();
+  const addTask = useTaskStore((s) => s.addTask);
+
 
   // ===== REWARD VALUES =====
   const [task, setTask] = useState("");
@@ -485,10 +489,30 @@ export default function NewTask() {
           <button
             className="add-btn"
             onClick={() => {
+              if (!task.trim()) return; // Защита от пустого
+
+    // Создаём объект задачи
+              const newTask = {
+                id: Date.now(),
+                title: task,
+                time: selectedTime,
+                od: animatedReward,
+                hp: animatedHp,
+              };
+
+    // Сохраняем задачу в Zustand
+              addTask(newTask);
+
+    // Конфетти
               fireConfettiByTime(selectedTime);
-              // navigate("/home");  <-- если нужно
+
+    // Переход домой
+              setTimeout(() => {
+                navigate("/home");
+              }, 400);
             }}
           >
+
             Добавить
           </button>
 
