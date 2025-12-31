@@ -164,7 +164,6 @@ export default function NewTask() {
           margin-top: 10px;
         }
 
-        /* NAV (ИДЕНТИЧНО HOME) */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -191,7 +190,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition:
+          transition: 
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
