@@ -160,7 +160,7 @@ export default function NewTask() {
           width: 46px;
           height: 46px;
           border-radius: 14px;
-          background: #dad8d8ff;  /* мягкое золото */
+          background: #f1f1f1;  /* мягкое золото */
           display: flex;
           align-items: center;
           justify-content: center;
