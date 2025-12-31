@@ -36,7 +36,7 @@ export default function NewTask() {
 
         /* ===== HEADER (идеальное выравнивание) ===== */
         .header-zone {
-          width: 100%;
+          width: 92%;
           max-width: 520px;
 
           display: flex;
@@ -75,7 +75,7 @@ export default function NewTask() {
 
         /* ===== CENTER CONTENT ===== */
         .center-wrapper {
-          width: 100%;
+          width: 92%;
           flex: 1;
 
           display: flex;
