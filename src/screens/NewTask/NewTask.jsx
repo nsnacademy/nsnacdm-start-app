@@ -27,19 +27,29 @@ export default function NewTask() {
           align-items: center;
           justify-content: space-between;
 
-          padding: calc(env(safe-area-inset-top) + 20px) 20px 20px;
+          padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* ===== BACK BUTTON ===== */
-        .back-btn {
+        /* ===== BACK + TITLE WRAPPER ===== */
+        .header-zone {
           width: 100%;
           max-width: 520px;
+          position: relative;
+          margin-bottom: 15px;
+          margin-top: 10px;
+        }
+
+        /* Стрелка ниже */
+        .back-btn {
+          position: absolute;
+          left: 0;
+          top: 8px; /* ← ниже стрелка */
           display: flex;
           align-items: center;
-          margin-bottom: 25px;
+          cursor: pointer;
         }
 
         .back-btn svg {
@@ -54,6 +64,15 @@ export default function NewTask() {
           opacity: 0.7;
         }
 
+        .screen-title {
+          text-align: center;
+          width: 100%;
+          font-size: 20px;
+          font-weight: 600;
+          color: #2c2c2c;
+          padding-top: 4px;
+        }
+
         /* ===== CENTER CONTENT ===== */
         .center-wrapper {
           width: 100%;
@@ -64,7 +83,7 @@ export default function NewTask() {
           align-items: center;
           justify-content: center;
 
-          margin-top: 60px; /* ← ОПУСКАЕТ КОНТЕНТ НИЖЕ ЦЕНТРА */
+          margin-top: 60px; /* ← Опускает весь контент ниже */
         }
 
         /* ===== INPUT CARD ===== */
@@ -223,14 +242,18 @@ export default function NewTask() {
 
       <div className="new-screen">
 
-        {/* === BACK BUTTON === */}
-        <div className="back-btn" onClick={() => navigate(-1)}>
-          <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
-            <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        {/* === HEADER (back + title) === */}
+        <div className="header-zone">
+          <div className="back-btn" onClick={() => navigate(-1)}>
+            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
+              <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+
+          <div className="screen-title">Новая задача</div>
         </div>
 
-        {/* === CENTERED CONTENT === */}
+        {/* === CENTER CONTENT === */}
         <div className="center-wrapper">
 
           <div className="task-box">
