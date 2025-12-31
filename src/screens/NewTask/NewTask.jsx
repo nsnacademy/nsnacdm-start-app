@@ -37,7 +37,7 @@ export default function NewTask() {
 
         /* BACK BUTTON */
         .back {
-          width: 100%;
+          width: 82%;
           max-width: 480px;
           display: flex;
           align-items: center;
@@ -52,7 +52,8 @@ export default function NewTask() {
         }
 
         .title {
-          width: 100%;
+          width: 82%;
+          max-width: 480px;
           text-align: center;
           font-size: 22px;
           font-weight: 600;
@@ -61,7 +62,8 @@ export default function NewTask() {
 
         /* INPUT BLOCK */
         .input-block {
-          width: 100%;
+          width: 82%;
+          max-width: 480px;
           background: #ffffff;
           border-radius: 20px;
           padding: 20px;
@@ -110,7 +112,7 @@ export default function NewTask() {
 
         /* REWARD BLOCK */
         .reward-block {
-          width: 100%;
+          width: 82%;
           max-width: 480px;
           display: flex;
           align-items: center;
@@ -158,9 +160,10 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+          margin-bottom: 10px;
         }
 
-        /* NAVIGATION — точная копия Home */
+        /* NAVIGATION — идентично Home */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -222,6 +225,7 @@ export default function NewTask() {
           <span>Назад</span>
         </div>
 
+        {/* TITLE */}
         <div className="title">Новая задача</div>
 
         {/* INPUT BLOCK */}
@@ -250,7 +254,7 @@ export default function NewTask() {
           </div>
         </div>
 
-        {/* REWARD */}
+        {/* REWARD BLOCK */}
         <div className="reward-block">
           <div className="reward-icon">
             <svg viewBox="0 0 24 24" fill="#FFC400">
@@ -264,9 +268,10 @@ export default function NewTask() {
           </div>
         </div>
 
+        {/* BUTTON */}
         <button className="primary-btn">Добавить</button>
 
-        {/* NAVIGATION — полностью идентичная Home */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
