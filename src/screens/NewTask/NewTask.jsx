@@ -67,7 +67,7 @@ export default function NewTask() {
 
         /* ТОЧНО КАК В HOME */
         .content-block {
-          width: 82%;
+          width: 100%;
           max-width: 480px;
           margin: 0 auto;
 }
