@@ -211,9 +211,9 @@ export default function NewTask() {
         }
 
         .nav-pill {
-          width: 100%;
+          width: 92%;
           max-width: 520px;
-          height: 78px;
+          height: 75px;
           background: white;
           border-radius: 30px;
           box-shadow: 0 6px 26px rgba(0,0,0,0.12);
@@ -235,8 +235,8 @@ export default function NewTask() {
         }
 
         .nav-item svg {
-          width: 30px;
-          height: 30px;
+          width: 32px;
+          height: 32px;
         }
       `}</style>
 
