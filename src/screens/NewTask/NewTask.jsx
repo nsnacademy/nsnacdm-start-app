@@ -20,15 +20,16 @@ export default function NewTask() {
 
         .screen {
           width: 100%;
-          min-height: 100vh;
+          height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
           align-items: center;
 
-          padding: calc(env(safe-area-inset-top) + 30px) 20px 30px;
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
@@ -118,7 +119,7 @@ export default function NewTask() {
           padding: 16px 20px;
           border-radius: 16px;
           box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-          margin-bottom: 40px;
+          margin-bottom: 20px;
         }
 
         .reward-icon {
@@ -159,7 +160,7 @@ export default function NewTask() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ========== NAVIGATION (как в Home) ========== */
+        /* NAVIGATION — точная копия Home */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -263,10 +264,9 @@ export default function NewTask() {
           </div>
         </div>
 
-        {/* BUTTON */}
         <button className="primary-btn">Добавить</button>
 
-        {/* NAVIGATION */}
+        {/* NAVIGATION — полностью идентичная Home */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
