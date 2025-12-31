@@ -97,7 +97,7 @@ export default function Home() {
         .content p {
           font-size: 16px;
           opacity: 0.55;
-          margin-bottom: 25px;
+          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -193,7 +193,9 @@ export default function Home() {
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
           <h2>У вас пока нет задач</h2>
           <p>Добавьте первую задачу, чтобы начать свой путь</p>
-          <button className="primary-btn">Добавить задачу</button>
+          <button className="primary-btn" onClick={() => navigate("/new-task")}>
+            Добавить задачу
+          </button>
         </div>
 
         {/* ================= NAVIGATION ================= */}
