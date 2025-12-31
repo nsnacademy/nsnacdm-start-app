@@ -513,7 +513,7 @@ export default function NewTask() {
             }}
           >
 
-            Добавь
+            Добавить
           </button>
 
         </div>
