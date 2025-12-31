@@ -39,13 +39,13 @@ export default function NewTask() {
           max-width: 520px;
           position: relative;
           margin-bottom: 15px;
-          margin-top: 60px; /* ← опустил заголовок и стрелку */
+          margin-top: 50px; /* было 60 — поднял на 10px */
         }
 
         .back-btn {
           position: absolute;
           left: 0;
-          top: 58px; /* ← стрелка опущена на 50px */
+          top: 48px; /* было 58 — поднял стрелку на 10px */
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -70,7 +70,7 @@ export default function NewTask() {
           font-weight: 600;
           color: #2c2c2c;
 
-          padding-top: 54px; /* ← заголовок опущен */
+          padding-top: 44px; /* было 54 — поднял заголовок на 10px */
         }
 
         /* ===== CENTER CONTENT ===== */
@@ -83,7 +83,7 @@ export default function NewTask() {
           align-items: center;
           justify-content: center;
 
-          margin-top: 60px; /* ← контент ниже */
+          margin-top: 40px; /* было 60 — поднял весь контент на 20px */
         }
 
         /* ===== INPUT CARD ===== */
