@@ -1,7 +1,15 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useUserStore } from "../../store/userStore";
 
-export default function Home() {
+export default function NewTask() {
   const navigate = useNavigate();
+  const user = useUserStore((s) => s.user);
+
+  const [task, setTask] = useState("");
+  const [selectedTime, setSelectedTime] = useState(10);
+
+  const times = [5, 10, 20, 25, 30];
 
   return (
     <>
@@ -10,32 +18,194 @@ export default function Home() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        .home-screen {
+        .new-screen {
           width: 100%;
           height: 100vh;
           background: #f8f8f8;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
           display: flex;
           flex-direction: column;
-          justify-content: flex-end;
           align-items: center;
+          justify-content: flex-start;
 
-          padding-bottom: 30px;
+          padding: calc(env(safe-area-inset-top) + 30px) 20px 20px;
           box-sizing: border-box;
-          max-width: 520px;   /* ← оставлено как в исходнике */
+          max-width: 520px;
           margin: 0 auto;
+          overflow-y: auto;
         }
 
+        /* ===== TOP PILL ===== */
+        .top-pill-container {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 35px;
+          margin-top: 10px;
+        }
+
+        .top-pill {
+          width: 82%;
+          max-width: 480px;
+          height: 48px;
+          background: #fff;
+          border-radius: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 16px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        .left, .right {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #555;
+        }
+
+        .icon {
+          width: 22px;
+          height: 22px;
+          opacity: 0.9;
+        }
+
+        .separator {
+          flex: 1;
+          height: 4px;
+          max-width: 90px;
+          background: #d4d4d4;
+          border-radius: 2px;
+          margin: 0 14px;
+          opacity: 0.55;
+        }
+
+        /* ===== CONTENT BOX ===== */
+        .task-box {
+          width: 100%;
+          background: #fff;
+          border-radius: 26px;
+          padding: 22px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+          margin-bottom: 25px;
+        }
+
+        .input {
+          width: 100%;
+          height: 48px;
+          border-radius: 16px;
+          border: none;
+          background: #f1f1f1;
+          padding: 0 16px;
+          font-size: 16px;
+          outline: none;
+          margin-bottom: 20px;
+        }
+
+        .label {
+          font-size: 15px;
+          color: #555;
+          margin-bottom: 14px;
+        }
+
+        .time-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .time-btn {
+          height: 42px;
+          padding: 0 16px;
+          border-radius: 16px;
+          border: none;
+          background: #f2f2f2;
+          font-size: 15px;
+          color: #444;
+          transition: 0.18s;
+        }
+
+        .time-btn.active {
+          background: #262626;
+          color: white;
+        }
+
+        /* ===== REWARD BLOCK ===== */
+        .reward-box {
+          width: 100%;
+          background: #fff;
+          border-radius: 26px;
+          padding: 20px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+          margin-bottom: 30px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .reward-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          background: #efefef;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .reward-icon svg {
+          width: 22px;
+          height: 22px;
+          opacity: 0.8;
+        }
+
+        .reward-text {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .reward-main {
+          font-size: 16px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .reward-sub {
+          font-size: 13px;
+          color: #777;
+        }
+
+        /* ===== ADD BUTTON ===== */
+        .add-btn {
+          width: 70%;
+          height: 54px;
+          background: #222;
+          color: white;
+          font-size: 17px;
+          border-radius: 20px;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 40px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        }
+
+        /* ===== NAVIGATION ===== */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: auto;
+          margin-bottom: 10px;
         }
 
         .nav-pill {
-          width: 92%;               /* ← оставлено */
-          max-width: 520px;         /* ← оставлено */
+          width: 92%;
+          max-width: 520px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -44,7 +214,7 @@ export default function Home() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 0 30px;          /* ← оставлено */
+          padding: 0 30px;
         }
 
         .nav-item {
@@ -67,30 +237,95 @@ export default function Home() {
         }
 
         .nav-item svg {
-          width: 32px;   /* ← оставлено */
-          height: 32px;  /* ← оставлено */
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
-        }
-
-        .nav-item:active svg {
-          transform: scale(1.15);
+          width: 32px;
+          height: 32px;
+          transition: 0.22s;
         }
       `}</style>
 
-      <div className="home-screen">
+      <div className="new-screen">
 
-        {/* ========= NAVIGATION ONLY ========= */}
+        {/* ========= TOP ========= */}
+        <div className="top-pill-container">
+          <div className="top-pill">
+            <div className="left">
+              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+              </svg>
+              <span>Уровень {user?.level ?? 1}</span>
+            </div>
+
+            <div className="separator"></div>
+
+            <div className="right">
+              <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+              </svg>
+              <span>{user?.od ?? 0} ОД</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ========= INPUT CARD ========= */}
+        <div className="task-box">
+          <input
+            className="input"
+            placeholder="Введите задачу"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+
+          <div className="label">Запланированное время</div>
+
+          <div className="time-row">
+            {times.map((t) => (
+              <button
+                key={t}
+                className={`time-btn ${selectedTime === t ? "active" : ""}`}
+                onClick={() => setSelectedTime(t)}
+              >
+                {t} мин
+              </button>
+            ))}
+
+            <button
+              className="time-btn"
+              onClick={() => setSelectedTime(null)}
+            >
+              Другое
+            </button>
+          </div>
+        </div>
+
+        {/* ========= REWARD ========= */}
+        <div className="reward-box">
+          <div className="reward-icon">
+            <svg viewBox="0 0 24 24" fill="#333">
+              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+            </svg>
+          </div>
+
+          <div className="reward-text">
+            <div className="reward-main">+12 ОД маленькая победа</div>
+            <div className="reward-sub">Уменьшее свет одостонить</div>
+          </div>
+        </div>
+
+        {/* ========= ADD ========= */}
+        <button className="add-btn">
+          Добавить
+        </button>
+
+        {/* ========= NAV ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
-
-            {/* HOME */}
-            <button className="nav-item active">
+            <button className="nav-item" onClick={() => navigate("/")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
-            {/* DISCOVER */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
@@ -100,28 +335,21 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* ADD TASK → переход на NewTask */}
-            <button
-              className="nav-item"
-              onClick={() => navigate("/new-task")}
-            >
+            <button className="nav-item active">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
-                <path d="M12 11v6M9 14h6"/>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
               </svg>
             </button>
 
-            {/* PROFILE */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
             </button>
-
           </div>
         </div>
-
       </div>
     </>
   );
