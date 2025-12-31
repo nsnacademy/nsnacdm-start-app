@@ -211,7 +211,7 @@ export default function NewTask() {
         }
 
         .nav-pill {
-          width: 92%;
+          width: 100%;
           max-width: 520px;
           height: 75px;
           background: white;
@@ -221,7 +221,7 @@ export default function NewTask() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 0 34px;
+          padding: 0 0;
         }
 
         .nav-item {
