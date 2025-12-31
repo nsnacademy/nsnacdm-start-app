@@ -7,7 +7,8 @@ export default function NewTask() {
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
-  const times = [5, 10, 20, 25, 30];
+  // ★ ОБНОВЛЁННЫЕ ВРЕМЕНА
+  const times = [10, 20, 30, 40, 50, 60];
 
   return (
     <>
@@ -45,7 +46,7 @@ export default function NewTask() {
         .back-btn {
           position: absolute;
           left: 0;
-          top: 48px; 
+          top: 48px;
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -82,7 +83,7 @@ export default function NewTask() {
           align-items: center;
           justify-content: center;
 
-          margin-top: 40px; 
+          margin-top: 40px;
         }
 
         /* ===== INPUT CARD ===== */
@@ -139,7 +140,7 @@ export default function NewTask() {
           color: white;
         }
 
-        /* ===== REWARD BLOCK (горизонтальный) ===== */
+        /* ===== REWARD BLOCK ===== */
         .reward-box {
           width: 100%;
           background: #fff;
@@ -148,11 +149,11 @@ export default function NewTask() {
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 
           display: flex;
-          flex-direction: row;     /* ← горизонтально */
-          align-items: center;     /* по вертикали центр */
-          justify-content: center; /* по центру */
-
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
           gap: 14px;
+
           margin-bottom: 30px;
         }
 
@@ -160,7 +161,7 @@ export default function NewTask() {
           width: 46px;
           height: 46px;
           border-radius: 14px;
-          background: #f1f1f1;  /* мягкое золото */
+          background: #f1f1f1;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -169,7 +170,7 @@ export default function NewTask() {
         .reward-icon svg {
           width: 26px;
           height: 26px;
-          fill: #FFC400; /* яркое золото */
+          fill: #FFC400;
         }
 
         .reward-main {
@@ -290,17 +291,10 @@ export default function NewTask() {
                   {t} мин
                 </button>
               ))}
-
-              <button
-                className="time-btn"
-                onClick={() => setSelectedTime(null)}
-              >
-                Другое
-              </button>
             </div>
           </div>
 
-          {/* === REWARD (горизонтально + центр) === */}
+          {/* === REWARD === */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -322,6 +316,7 @@ export default function NewTask() {
         <div className="nav-wrapper">
           <div className="nav-pill">
 
+            {/* ★ ОБНОВЛЕНО: переход на Home.jsx */}
             <button className="nav-item" onClick={() => navigate("/")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
