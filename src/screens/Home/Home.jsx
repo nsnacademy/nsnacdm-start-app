@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 
+// ← ДОБАВЛЕНО
+import { useTaskStore } from "../../store/taskStore";
+
 export default function Home() {
   const navigate = useNavigate(); // ← ОБЯЗАТЕЛЬНО
   const user = useUserStore((s) => s.user);
+
+  // ← ДОБАВЛЕНО
+  const tasks = useTaskStore((s) => s.tasks);
 
   return (
     <>
@@ -166,7 +172,6 @@ export default function Home() {
         {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -186,20 +191,77 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ========= CONTENT ========= */}
-        <div className="content">
-          <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+        {/* ========= CONTENT (Условие задач) ========= */}
+        {tasks.length === 0 ? (
+          <div className="content">
+            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
 
-          <h2>У вас пока нет задач</h2>
-          <p>Добавьте первую задачу, чтобы начать свой путь</p>
+            <h2>У вас пока нет задач</h2>
+            <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-          <button
-            className="primary-btn"
-            onClick={() => navigate("/new-task")}
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/new-task")}
+            >
+              Добавить задачу
+            </button>
+          </div>
+        ) : (
+          <div
+            style={{
+              width: "92%",
+              maxWidth: "480px",
+              background: "#fff",
+              padding: "18px 20px",
+              borderRadius: "24px",
+              boxShadow: "0 8px 22px rgba(0,0,0,0.06)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "40px",
+            }}
           >
-            Добавить задачу
-          </button>
-        </div>
+            {/* СТАРТ */}
+            <button
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: "50%",
+                background: "#efefef",
+                border: "none",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 20,
+              }}
+              onClick={() => navigate("/timer")}
+            >
+              ▶
+            </button>
+
+            {/* ТЕКСТ */}
+            <div style={{ flex: 1, marginLeft: 14 }}>
+              <div style={{ fontSize: 17, fontWeight: 600 }}>
+                {tasks[0].title}
+              </div>
+
+              <div style={{ fontSize: 14, opacity: 0.6, marginTop: 4 }}>
+                +{tasks[0].od} ОД • {tasks[0].hp} xp
+              </div>
+            </div>
+
+            {/* Три точки */}
+            <div
+              style={{
+                fontSize: 28,
+                padding: "6px 10px",
+                cursor: "pointer",
+              }}
+            >
+              ⋯
+            </div>
+          </div>
+        )}
 
         {/* ========= NAVIGATION ========= */}
         <div className="nav-wrapper">
@@ -236,7 +298,6 @@ export default function Home() {
 
           </div>
         </div>
-
       </div>
     </>
   );

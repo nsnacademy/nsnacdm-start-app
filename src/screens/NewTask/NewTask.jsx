@@ -477,7 +477,7 @@ export default function NewTask() {
 
             <div className="reward-text-group">
               <div className="reward-main">+{animatedReward} ОД маленькая победа</div>
-              <div className="reward-sub">{animatedHp} ХП</div>
+              <div className="reward-sub">{animatedHp} xp</div>
             </div>
           </div>
 
