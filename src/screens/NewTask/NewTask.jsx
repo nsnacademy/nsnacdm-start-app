@@ -25,34 +25,23 @@ export default function NewTask() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
 
-          padding: 40px 20px 30px;
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 20px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
+          overflow-y: auto;
         }
 
-        /* ========= CENTER AREA ========= */
-        .center-content {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-
-          flex: 1;
-          margin-top: 40px;
-        }
-
+        /* ===== INPUT CARD ===== */
         .task-box {
           width: 100%;
           background: #fff;
           border-radius: 26px;
           padding: 22px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-          margin-bottom: 30px;
-          max-width: 480px;
+          margin-bottom: 25px;
         }
 
         .input {
@@ -95,7 +84,52 @@ export default function NewTask() {
           color: white;
         }
 
-        /* ========= ADD BUTTON ========= */
+        /* ===== REWARD BLOCK ===== */
+        .reward-box {
+          width: 100%;
+          background: #fff;
+          border-radius: 26px;
+          padding: 20px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+          margin-bottom: 30px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .reward-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          background: #efefef;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .reward-icon svg {
+          width: 22px;
+          height: 22px;
+          opacity: 0.8;
+        }
+
+        .reward-text {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .reward-main {
+          font-size: 16px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .reward-sub {
+          font-size: 13px;
+          color: #777;
+        }
+
+        /* ===== ADD BUTTON ===== */
         .add-btn {
           width: 70%;
           height: 54px;
@@ -107,16 +141,17 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-top: 10px;
+          margin-bottom: 40px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        /* ========= NAVIGATION ========= */
+        /* ===== NAVIGATION ===== */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
           margin-top: auto;
+          margin-bottom: 10px;
         }
 
         .nav-pill {
@@ -138,7 +173,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition:
+          transition: 
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
@@ -155,60 +190,67 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+          transition: 0.22s;
         }
-
       `}</style>
 
       <div className="new-screen">
 
-        {/* ========= CENTERED CONTENT ========= */}
-        <div className="center-content">
+        {/* ========= INPUT CARD ========= */}
+        <div className="task-box">
+          <input
+            className="input"
+            placeholder="Введите задачу"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
 
-          <div className="task-box">
-            <input
-              className="input"
-              placeholder="Введите задачу"
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
-            />
+          <div className="label">Запланированное время</div>
 
-            <div className="label">Запланированное время</div>
-
-            <div className="time-row">
-              {times.map((t) => (
-                <button
-                  key={t}
-                  className={`time-btn ${selectedTime === t ? "active" : ""}`}
-                  onClick={() => setSelectedTime(t)}
-                >
-                  {t} мин
-                </button>
-              ))}
-
+          <div className="time-row">
+            {times.map((t) => (
               <button
-                className="time-btn"
-                onClick={() => setSelectedTime(null)}
+                key={t}
+                className={`time-btn ${selectedTime === t ? "active" : ""}`}
+                onClick={() => setSelectedTime(t)}
               >
-                Другое
+                {t} мин
               </button>
-            </div>
+            ))}
+
+            <button
+              className="time-btn"
+              onClick={() => setSelectedTime(null)}
+            >
+              Другое
+            </button>
           </div>
-
-          <button className="add-btn">
-            Добавить
-          </button>
-
         </div>
 
-        {/* ========= NAVIGATION ========= */}
+        {/* ========= REWARD ========= */}
+        <div className="reward-box">
+          <div className="reward-icon">
+            <svg viewBox="0 0 24 24" fill="#333">
+              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+            </svg>
+          </div>
+
+          <div className="reward-text">
+            <div className="reward-main">+12 ОД маленькая победа</div>
+            <div className="reward-sub">Уменьшее свет одостонить</div>
+          </div>
+        </div>
+
+        {/* ========= ADD ========= */}
+        <button className="add-btn">
+          Добавить
+        </button>
+
+        {/* ========= NAV ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            <button
-              className="nav-item"
-              onClick={() => navigate("/")}
-            >
+            <button className="nav-item" onClick={() => navigate("/")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
