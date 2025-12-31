@@ -31,14 +31,22 @@ export default function NewTask() {
 
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
+
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* BACK BUTTON */
+        /* ВСЕ КОНТЕЙНЕРЫ → ТАКИЕ ЖЕ, КАК В HOME */
+        .back,
+        .title,
+        .input-block,
+        .reward-block {
+          width: 100%;
+          max-width: 520px;
+        }
+
+        /* BACK */
         .back {
-          width: 82%;
-          max-width: 480px;
           display: flex;
           align-items: center;
           gap: 8px;
@@ -52,8 +60,6 @@ export default function NewTask() {
         }
 
         .title {
-          width: 82%;
-          max-width: 480px;
           text-align: center;
           font-size: 22px;
           font-weight: 600;
@@ -62,8 +68,6 @@ export default function NewTask() {
 
         /* INPUT BLOCK */
         .input-block {
-          width: 82%;
-          max-width: 480px;
           background: #ffffff;
           border-radius: 20px;
           padding: 20px;
@@ -110,10 +114,8 @@ export default function NewTask() {
           box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        /* REWARD BLOCK */
+        /* REWARD */
         .reward-block {
-          width: 82%;
-          max-width: 480px;
           display: flex;
           align-items: center;
           gap: 12px;
@@ -121,7 +123,6 @@ export default function NewTask() {
           padding: 16px 20px;
           border-radius: 16px;
           box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-          margin-bottom: 20px;
         }
 
         .reward-icon {
@@ -160,10 +161,10 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-          margin-bottom: 10px;
+          margin-top: 10px;
         }
 
-        /* NAVIGATION — идентично Home */
+        /* NAV (ИДЕНТИЧНО HOME) */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -228,7 +229,7 @@ export default function NewTask() {
         {/* TITLE */}
         <div className="title">Новая задача</div>
 
-        {/* INPUT BLOCK */}
+        {/* INPUT */}
         <div className="input-block">
           <input
             className="input-field"
@@ -254,7 +255,7 @@ export default function NewTask() {
           </div>
         </div>
 
-        {/* REWARD BLOCK */}
+        {/* REWARD */}
         <div className="reward-block">
           <div className="reward-icon">
             <svg viewBox="0 0 24 24" fill="#FFC400">
@@ -268,10 +269,9 @@ export default function NewTask() {
           </div>
         </div>
 
-        {/* BUTTON */}
         <button className="primary-btn">Добавить</button>
 
-        {/* NAVIGATION */}
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
