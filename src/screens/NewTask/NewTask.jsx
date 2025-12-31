@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import confetti from "canvas-confetti"; // 🎉 конфетти
 
 export default function NewTask() {
   const navigate = useNavigate();
@@ -42,6 +43,160 @@ export default function NewTask() {
     animateValue(0, startReward, setAnimatedReward);
     animateValue(0, startHp, setAnimatedHp);
   }, []);
+
+
+  // =====================================================
+  // 🔥 1) Получаем координату reward-icon для вылета конфетти
+  // =====================================================
+  function getOrigin() {
+    const icon = document.querySelector(".reward-icon");
+    if (!icon) return { x: 0.5, y: 0.5 };
+
+    const rect = icon.getBoundingClientRect();
+
+    return {
+      x: (rect.left + rect.width / 2) / window.innerWidth,
+      y: (rect.top + rect.height / 2) / window.innerHeight
+    };
+  }
+
+  // =====================================================
+  // 🔥 2) Уровни конфетти по времени (10–60 минут)
+  // =====================================================
+  function fireConfettiByTime(t) {
+    const origin = getOrigin();
+
+    if (t === 10) {
+      confetti({
+        particleCount: 40,
+        spread: 45,
+        startVelocity: 18,
+        scalar: 0.7,
+        origin
+      });
+    }
+
+    if (t === 20) {
+      confetti({
+        particleCount: 70,
+        spread: 60,
+        startVelocity: 25,
+        scalar: 0.8,
+        origin
+      });
+    }
+
+    if (t === 30) {
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        startVelocity: 32,
+        gravity: 0.9,
+        scalar: 1,
+        origin
+      });
+    }
+
+    if (t === 40) {
+      confetti({
+        particleCount: 140,
+        spread: 100,
+        startVelocity: 38,
+        scalar: 1.1,
+        origin
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 60,
+          spread: 140,
+          startVelocity: 28,
+          scalar: 1,
+          origin
+        });
+      }, 250);
+    }
+
+    if (t === 50) {
+      confetti({
+        particleCount: 160,
+        spread: 120,
+        startVelocity: 45,
+        scalar: 1.2,
+        gravity: 0.85,
+        origin
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 130,
+          spread: 160,
+          startVelocity: 32,
+          scalar: 1.2,
+          gravity: 0.9,
+          origin
+        });
+      }, 220);
+    }
+
+    if (t === 60) {
+      // основной золотой взрыв
+      confetti({
+        particleCount: 200,
+        spread: 130,
+        startVelocity: 55,
+        scalar: 1.3,
+        gravity: 0.8,
+        colors: ["#FFD700", "#FFE680", "#FFF2B0"],
+        origin
+      });
+
+      // лепестки слева
+      setTimeout(() => {
+        confetti({
+          particleCount: 130,
+          spread: 160,
+          startVelocity: 40,
+          scalar: 1.3,
+          gravity: 0.9,
+          colors: ["#FFD700", "#FFF4B8"],
+          origin
+        });
+      }, 200);
+
+      // лепестки справа
+      setTimeout(() => {
+        confetti({
+          particleCount: 120,
+          spread: 160,
+          startVelocity: 40,
+          scalar: 1.25,
+          gravity: 0.9,
+          colors: ["#FFD700", "#FFF4B8"],
+          origin
+        });
+      }, 380);
+
+      // золотая пыль вниз
+      setTimeout(() => {
+        confetti({
+          particleCount: 80,
+          spread: 90,
+          startVelocity: 22,
+          scalar: 0.9,
+          gravity: 1.1,
+          ticks: 260,
+          colors: ["#FFF9D6", "#FFD700"],
+          origin
+        });
+      }, 600);
+    }
+  }
+
+  // =====================================================
+  // 🔥 3) Нажатие кнопки "Добавить" → запустить конфетти
+  // =====================================================
+
 
   return (
     <>
@@ -328,7 +483,18 @@ export default function NewTask() {
             </div>
           </div>
 
-          <button className="add-btn">Добавить</button>
+          {/* ADD BUTTON WITH CONFETTI */}
+          <button
+            className="add-btn"
+            onClick={() => {
+              fireConfettiByTime(selectedTime);
+
+              // если хочешь сразу возвращаться на home:
+              // navigate("/home");
+            }}
+          >
+            Добавить
+          </button>
 
         </div>
 
