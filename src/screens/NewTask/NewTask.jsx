@@ -33,16 +33,17 @@ export default function NewTask() {
           box-sizing: border-box;
 
           max-width: 520px;
-          margin: 0 auto;
+          margin: 0 auto; /* центрирование */
         }
 
+        /* BACK BUTTON */
         .back {
           width: 100%;
+          max-width: 480px;
+          margin: 0 auto 20px;
           display: flex;
           align-items: center;
           gap: 8px;
-          cursor: pointer;
-          margin-bottom: 20px;
         }
 
         .back svg {
@@ -50,9 +51,11 @@ export default function NewTask() {
           height: 26px;
         }
 
+        /* CENTER COLUMN */
         .page-center {
           width: 100%;
           max-width: 480px;
+          margin: 0 auto;
           display: flex;
           flex-direction: column;
           gap: 24px;
@@ -63,8 +66,12 @@ export default function NewTask() {
           font-weight: 700;
         }
 
+        /* INPUT BLOCK */
         .input-block {
           width: 100%;
+          max-width: 480px;
+          margin: 0 auto;
+
           background: #ffffff;
           border-radius: 20px;
           padding: 20px;
@@ -110,8 +117,12 @@ export default function NewTask() {
           box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
+        /* REWARD BLOCK */
         .reward-block {
           width: 100%;
+          max-width: 480px;
+          margin: 0 auto;
+
           background: #ffffff;
           padding: 16px 20px;
           border-radius: 18px;
@@ -148,6 +159,7 @@ export default function NewTask() {
           margin-top: -2px;
         }
 
+        /* ADD BUTTON */
         .primary-btn {
           width: 240px;
           height: 52px;
@@ -157,10 +169,11 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+          margin-left: auto;
+          margin-right: auto;
         }
 
-        /* === НАВИГАЦИЯ КАК В ТВОЁМ HOME === */
-
+        /* NAVIGATION */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -204,14 +217,12 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
-
       `}</style>
 
       <div className="screen">
 
-        {/* TOP BACK */}
+        {/* BACK */}
         <div className="back" onClick={() => navigate("/home")}>
           <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
             <path d="M15 18l-6-6 6-6" />
@@ -219,7 +230,7 @@ export default function NewTask() {
           <span>Назад</span>
         </div>
 
-        {/* CENTER */}
+        {/* CENTER CONTENT */}
         <div className="page-center">
 
           <div className="title">Новая задача</div>
@@ -268,18 +279,16 @@ export default function NewTask() {
 
         </div>
 
-        {/* === НАВИГАЦИЯ — ТОЧЬ В ТОЧЬ КАК В HOME === */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* 1 — Дом */}
             <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
-            {/* 2 — Категории */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
@@ -289,7 +298,6 @@ export default function NewTask() {
               </svg>
             </button>
 
-            {/* 3 — Текущая страница (замок) */}
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
@@ -297,7 +305,6 @@ export default function NewTask() {
               </svg>
             </button>
 
-            {/* 4 — Профиль */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
