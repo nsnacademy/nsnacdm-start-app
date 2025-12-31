@@ -18,7 +18,7 @@ export default function NewTask() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        /* === ГЛАВНЫЙ КОНТЕЙНЕР — КАК В HOME === */
+        /* === MAIN SCREEN === */
         .screen {
           width: 100%;
           height: 100vh;
@@ -33,18 +33,23 @@ export default function NewTask() {
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
 
-          max-width: 520px;  /* ← тот же max-width */
-          margin: 0 auto;   /* ← центрирование */
+          max-width: 520px;
+          margin: 0 auto;
+        }
+
+        /* === CONTENT WIDTH LIKE HOME === */
+        .content-container {
+          width: 82%;
+          max-width: 480px;
+          margin: 0 auto;
         }
 
         /* BACK */
         .back {
-          width: 100%;
           display: flex;
           align-items: center;
           gap: 8px;
-          max-width: 480px;     /* ← как top-pill */
-          margin: 0 auto 20px;
+          margin-bottom: 25px;
         }
 
         .back svg {
@@ -52,28 +57,20 @@ export default function NewTask() {
           height: 26px;
         }
 
-        /* === ЦЕНТР КОНТЕНТА — КАК В HOME === */
-        .page-center {
-          width: 100%;
-          max-width: 480px;   /* ← как top-pill */
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-        }
-
         .title {
           font-size: 24px;
           font-weight: 700;
+          margin-bottom: 20px;
         }
 
-        /* INPUT BLOCK (аналог карточки) */
+        /* INPUT BLOCK */
         .input-block {
           width: 100%;
           background: #ffffff;
           border-radius: 20px;
           padding: 20px;
           box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+          margin-bottom: 25px;
         }
 
         .input-field {
@@ -112,7 +109,6 @@ export default function NewTask() {
           background: #222;
           color: #fff;
           box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-          opacity: 1;
         }
 
         /* REWARD BLOCK */
@@ -126,6 +122,7 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           gap: 12px;
+          margin-bottom: 30px;
         }
 
         .reward-icon {
@@ -138,11 +135,6 @@ export default function NewTask() {
           align-items: center;
         }
 
-        .reward-icon svg {
-          width: 22px;
-          height: 22px;
-        }
-
         .reward-text-1 {
           font-size: 16px;
           font-weight: 600;
@@ -153,9 +145,10 @@ export default function NewTask() {
           opacity: 0.55;
         }
 
-        /* ADD BUTTON */
+        /* BUTTON */
         .primary-btn {
-          width: 240px;
+          width: 100%;
+          max-width: 240px;
           height: 52px;
           border: none;
           border-radius: 16px;
@@ -163,12 +156,11 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-
-          margin-left: auto;
-          margin-right: auto;
+          display: block;
+          margin: 0 auto;
         }
 
-        /* === НАВИГАЦИЯ — КАК В HOME === */
+        /* === NAVIGATION === */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -178,13 +170,11 @@ export default function NewTask() {
 
         .nav-pill {
           width: 92%;
-          max-width: 520px;  /* ← тот же max-width */
+          max-width: 520px;
           height: 75px;
-
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -196,43 +186,29 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-
-          transition: 
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform 0.22s, opacity .2s;
         }
 
         .nav-item.active {
           opacity: 1;
         }
-
-        .nav-item:active {
-          transform: translateY(-4px) scale(1.15);
-          opacity: 0.85;
-        }
-
-        .nav-item svg {
-          width: 32px;
-          height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
-        }
       `}</style>
 
       <div className="screen">
 
-        {/* BACK */}
-        <div className="back" onClick={() => navigate("/home")}>
-          <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-          <span>Назад</span>
-        </div>
+        <div className="content-container">
 
-        {/* CENTER CONTENT */}
-        <div className="page-center">
+          {/* BACK */}
+          <div className="back" onClick={() => navigate("/home")}>
+            <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            <span>Назад</span>
+          </div>
 
           <div className="title">Новая задача</div>
 
+          {/* INPUT BLOCK */}
           <div className="input-block">
             <input
               className="input-field"
@@ -258,10 +234,11 @@ export default function NewTask() {
             </div>
           </div>
 
+          {/* REWARD */}
           <div className="reward-block">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24" fill="#FFC400">
-                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
             </div>
 
@@ -271,13 +248,10 @@ export default function NewTask() {
             </div>
           </div>
 
-          <button className="primary-btn">
-            Добавить
-          </button>
-
+          <button className="primary-btn">Добавить</button>
         </div>
 
-        {/* ========== NAVIGATION ========== */}
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
