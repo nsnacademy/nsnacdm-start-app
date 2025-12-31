@@ -36,21 +36,22 @@ export default function NewTask() {
           margin: 0 auto;
         }
 
-        /* ВСЕ КОНТЕЙНЕРЫ → ТАКИЕ ЖЕ, КАК В HOME */
-        .back,
-        .title,
-        .input-block,
-        .reward-block {
+        /* КОНТЕНТ ДОЛЖЕН СООТВЕТСТВОВАТЬ HOME */
+        .content-wrapper {
           width: 100%;
           max-width: 520px;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 22px;
         }
 
-        /* BACK */
         .back {
+          width: 100%;
           display: flex;
           align-items: center;
           gap: 8px;
-          margin-bottom: 20px;
           cursor: pointer;
         }
 
@@ -60,19 +61,20 @@ export default function NewTask() {
         }
 
         .title {
+          width: 100%;
           text-align: center;
           font-size: 22px;
           font-weight: 600;
-          margin-bottom: 20px;
+          margin-top: -8px;
         }
 
         /* INPUT BLOCK */
         .input-block {
+          width: 100%;
           background: #ffffff;
           border-radius: 20px;
           padding: 20px;
           box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-          margin-bottom: 25px;
         }
 
         .input-field {
@@ -116,10 +118,11 @@ export default function NewTask() {
 
         /* REWARD */
         .reward-block {
+          width: 100%;
+          background: #ffffff;
           display: flex;
           align-items: center;
           gap: 12px;
-          background: #ffffff;
           padding: 16px 20px;
           border-radius: 16px;
           box-shadow: 0 6px 16px rgba(0,0,0,0.05);
@@ -161,14 +164,15 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-          margin-top: 10px;
+          margin-top: 6px;
         }
 
+        /* NAVIGATION (копия Home) */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: 50px;
         }
 
         .nav-pill {
@@ -190,7 +194,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: 
+          transition:
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
@@ -213,64 +217,71 @@ export default function NewTask() {
         .nav-item:active svg {
           transform: scale(1.15);
         }
+
       `}</style>
 
       <div className="screen">
 
-        {/* BACK */}
-        <div className="back" onClick={() => navigate("/home")}>
-          <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-          <span>Назад</span>
-        </div>
+        {/* ОБЁРТКА КОНТЕНТА */}
+        <div className="content-wrapper">
 
-        {/* TITLE */}
-        <div className="title">Новая задача</div>
-
-        {/* INPUT */}
-        <div className="input-block">
-          <input
-            className="input-field"
-            placeholder="Введите задачу"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-
-          <div className="time-label">Запланированное время</div>
-
-          <div className="time-grid">
-            {times.map((t) => (
-              <button
-                key={t}
-                className={`time-btn ${selectedTime === t ? "active" : ""}`}
-                onClick={() => setSelectedTime(t)}
-              >
-                {t} мин
-              </button>
-            ))}
-
-            <button className="time-btn">Другое</button>
-          </div>
-        </div>
-
-        {/* REWARD */}
-        <div className="reward-block">
-          <div className="reward-icon">
-            <svg viewBox="0 0 24 24" fill="#FFC400">
-              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+          {/* BACK */}
+          <div className="back" onClick={() => navigate("/home")}>
+            <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
+              <path d="M15 18l-6-6 6-6" />
             </svg>
+            <span>Назад</span>
           </div>
 
-          <div>
-            <div className="reward-text-1">+12 ОД маленькая победа</div>
-            <div className="reward-text-2">Увеличение энергии</div>
+          {/* TITLE */}
+          <div className="title">Новая задача</div>
+
+          {/* INPUT */}
+          <div className="input-block">
+            <input
+              className="input-field"
+              placeholder="Введите задачу"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+
+            <div className="time-label">Запланированное время</div>
+
+            <div className="time-grid">
+              {times.map((t) => (
+                <button
+                  key={t}
+                  className={`time-btn ${selectedTime === t ? "active" : ""}`}
+                  onClick={() => setSelectedTime(t)}
+                >
+                  {t} мин
+                </button>
+              ))}
+
+              <button className="time-btn">Другое</button>
+            </div>
           </div>
+
+          {/* REWARD */}
+          <div className="reward-block">
+            <div className="reward-icon">
+              <svg viewBox="0 0 24 24" fill="#FFC400">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+              </svg>
+            </div>
+
+            <div>
+              <div className="reward-text-1">+12 ОД маленькая победа</div>
+              <div className="reward-text-2">Увеличение энергии</div>
+            </div>
+          </div>
+
+          {/* BUTTON */}
+          <button className="primary-btn">Добавить</button>
+
         </div>
 
-        <button className="primary-btn">Добавить</button>
-
-        {/* NAV */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
