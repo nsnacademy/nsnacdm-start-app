@@ -39,13 +39,13 @@ export default function NewTask() {
           max-width: 520px;
           position: relative;
           margin-bottom: 15px;
-          margin-top: 50px; /* поднято */
+          margin-top: 50px;
         }
 
         .back-btn {
           position: absolute;
           left: 0;
-          top: 48px; /* поднято */
+          top: 48px; 
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -69,7 +69,7 @@ export default function NewTask() {
           font-size: 20px;
           font-weight: 600;
           color: #2c2c2c;
-          padding-top: 44px; /* поднято */
+          padding-top: 44px;
         }
 
         /* ===== CENTER CONTENT ===== */
@@ -82,7 +82,7 @@ export default function NewTask() {
           align-items: center;
           justify-content: center;
 
-          margin-top: 40px; /* поднят весь контент */
+          margin-top: 40px; 
         }
 
         /* ===== INPUT CARD ===== */
@@ -117,8 +117,8 @@ export default function NewTask() {
           width: 100%;
           display: flex;
           flex-wrap: wrap;
-          justify-content: center;  /* центр! */
-          align-items: center;      /* центр! */
+          justify-content: center;
+          align-items: center;
           gap: 10px;
           text-align: center;
         }
@@ -139,20 +139,20 @@ export default function NewTask() {
           color: white;
         }
 
-        /* ===== REWARD BLOCK ===== */
+        /* ===== REWARD BLOCK (горизонтальный) ===== */
         .reward-box {
           width: 100%;
           background: #fff;
           border-radius: 26px;
-          padding: 22px;
+          padding: 20px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 
           display: flex;
-          flex-direction: column;      /* вертикально */
-          align-items: center;         /* центр */
-          justify-content: center;     /* центр */
-          gap: 10px;                   /* мягкий интервал */
+          flex-direction: row;     /* ← горизонтально */
+          align-items: center;     /* по вертикали центр */
+          justify-content: center; /* по центру */
 
+          gap: 14px;
           margin-bottom: 30px;
         }
 
@@ -160,30 +160,34 @@ export default function NewTask() {
           width: 46px;
           height: 46px;
           border-radius: 14px;
-          background: #efefef;
-
+          background: #f8f2d6;  /* мягкое золото */
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
         .reward-icon svg {
-          width: 24px;
-          height: 24px;
-          opacity: 0.85;
+          width: 26px;
+          height: 26px;
+          fill: #FFC400; /* яркое золото */
         }
 
         .reward-main {
           font-size: 16px;
           font-weight: 600;
           color: #333;
-          text-align: center;  /* центрирован */
         }
 
         .reward-sub {
           font-size: 13px;
           color: #777;
-          text-align: center;  /* центрирован */
+          margin-top: 2px;
+        }
+
+        .reward-text-group {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
 
         /* ===== BUTTON ===== */
@@ -229,7 +233,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition:
+          transition: 
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
@@ -296,15 +300,18 @@ export default function NewTask() {
             </div>
           </div>
 
+          {/* === REWARD (горизонтально + центр) === */}
           <div className="reward-box">
             <div className="reward-icon">
-              <svg viewBox="0 0 24 24" fill="#333">
+              <svg viewBox="0 0 24 24">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
             </div>
 
-            <div className="reward-main">+12 ОД маленькая победа</div>
-            <div className="reward-sub">Уменьшее свет одостонить</div>
+            <div className="reward-text-group">
+              <div className="reward-main">+12 ОД маленькая победа</div>
+              <div className="reward-sub">Уменьшее свет одостонить</div>
+            </div>
           </div>
 
           <button className="add-btn">Добавить</button>
@@ -338,7 +345,7 @@ export default function NewTask() {
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6А6А" fill="none" strokeWidth="2">
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
