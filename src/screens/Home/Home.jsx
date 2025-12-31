@@ -1,12 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 
 export default function Home() {
+  const navigate = useNavigate(); // ← ОБЯЗАТЕЛЬНО
   const user = useUserStore((s) => s.user);
 
   return (
     <>
       <style>{`
-        /* Убираем квадрат нажатия на телефонах */
         * {
           -webkit-tap-highlight-color: transparent;
         }
@@ -28,13 +29,12 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        /* TOP PILL */
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
           margin-top: 60px;
-          margin-bottom: 60px; /* одинаково как внизу */
+          margin-bottom: 60px;
         }
 
         .top-pill {
@@ -75,11 +75,10 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ================= CONTENT ================= */
         .content {
           text-align: center;
           margin-top: 0;
-          margin-bottom: 0; /* чтобы было ровно по центру */
+          margin-bottom: 0;
         }
 
         .empty-img {
@@ -111,12 +110,11 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* NAVIGATION */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px; /* одинаковое расстояние как сверху */
+          margin-top: 60px;
         }
 
         .nav-pill {
@@ -164,8 +162,8 @@ export default function Home() {
       `}</style>
 
       <div className="home-screen">
-        
-        {/* ================= TOP ================= */}
+
+        {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
 
@@ -188,17 +186,22 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ================= CONTENT ================= */}
+        {/* ========= CONTENT ========= */}
         <div className="content">
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+
           <h2>У вас пока нет задач</h2>
           <p>Добавьте первую задачу, чтобы начать свой путь</p>
-          <button className="primary-btn" onClick={() => navigate("/new-task")}>
+
+          <button
+            className="primary-btn"
+            onClick={() => navigate("/new-task")}
+          >
             Добавить задачу
           </button>
         </div>
 
-        {/* ================= NAVIGATION ================= */}
+        {/* ========= NAVIGATION ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
