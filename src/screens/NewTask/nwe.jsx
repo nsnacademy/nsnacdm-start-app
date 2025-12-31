@@ -1,15 +1,14 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/userStore";
+import { useState } from "react";
 
 export default function NewTask() {
   const navigate = useNavigate();
-  const user = useUserStore((s) => s.user);
 
-  const [title, setTitle] = useState("");
+  const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
-  const times = [5, 10, 20, 25, 30];
+  // интервалы времени
+  const times = [10, 20, 30, 40, 50, 60];
 
   return (
     <>
@@ -18,7 +17,7 @@ export default function NewTask() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        .screen {
+        .new-screen {
           width: 100%;
           height: 100vh;
           background: #f8f8f8;
@@ -26,153 +25,192 @@ export default function NewTask() {
 
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
           align-items: center;
+          justify-content: space-between;
 
-          padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
+          padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
           box-sizing: border-box;
-
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* === ТОЧНАЯ КОЛОНКА КАК В HOME === */
-        .page-center {
-          width: 100%;
+        /* ===== HEADER (идеальное выравнивание) ===== */
+        .header-zone {
+          width: 92%;
+          max-width: 520px;
+
+          display: flex;
+          align-items: center;          /* по вертикали центр */
+          justify-content: center;      /* заголовок центр */
+
+          position: relative;           /* чтобы стрелка была абсолютной */
+          margin-top: 90px;
+          margin-bottom: 15px;
+        }
+
+        .back-btn {
+          position: absolute;
+          left: 0;                      /* слева */
+          top: 50%;                     /* центр по вертикали */
+          transform: translateY(-50%);  /* ровно посередине */
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        .back-btn svg {
+          width: 28px;
+          height: 28px;
+          stroke: #444;
+          transition: 0.2s;
+        }
+
+        .screen-title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #2c2c2c;
           text-align: center;
+          line-height: 28px;            /* идеальное совпадение со стрелкой */
+        }
+
+        /* ===== CENTER CONTENT ===== */
+        .center-wrapper {
+          width: 92%;
+          flex: 1;
+
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-top: 20px; /* как в Home */
-          gap: 24px;
+          justify-content: center;
+
+          margin-top: 40px;
         }
 
-        .back {
+        .task-box {
           width: 100%;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          cursor: pointer;
-          margin-bottom: 10px;
+          background: #fff;
+          border-radius: 26px;
+          padding: 22px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+          margin-bottom: 25px;
         }
 
-        .back svg {
-          width: 24px;
-          height: 24px;
-        }
-
-        .title {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 5px;
-        }
-
-        /* INPUT */
-        .input-block {
+        .input {
           width: 100%;
-          background: #ffffff;
-          border-radius: 20px;
-          padding: 20px;
-          box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-        }
-
-        .input-field {
-          width: 100%;
-          height: 52px;
-          border-radius: 14px;
+          height: 48px;
+          border-radius: 16px;
           border: none;
           background: #f1f1f1;
           padding: 0 16px;
           font-size: 16px;
-          margin-bottom: 25px;
+          outline: none;
+          margin-bottom: 20px;
         }
 
-        .time-label {
-          font-size: 16px;
-          font-weight: 500;
-          margin-bottom: 12px;
+        .label {
+          font-size: 15px;
+          color: #555;
+          margin-bottom: 14px;
         }
 
-        .time-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
+        .time-row {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
           gap: 10px;
+          text-align: center;
         }
 
         .time-btn {
-          height: 44px;
-          border-radius: 14px;
+          height: 42px;
+          padding: 0 16px;
+          border-radius: 16px;
           border: none;
+          background: #f2f2f2;
           font-size: 15px;
-          background: #f1f1f1;
-          opacity: 0.9;
+          color: #444;
+          transition: 0.18s;
         }
 
         .time-btn.active {
-          background: #222;
-          color: #fff;
-          opacity: 1;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+          background: #262626;
+          color: white;
         }
 
-        /* REWARD */
-        .reward-block {
+        /* ===== REWARD BLOCK ===== */
+        .reward-box {
           width: 100%;
-          background: #ffffff;
-          padding: 16px 20px;
-          border-radius: 18px;
-          box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+          background: #fff;
+          border-radius: 26px;
+          padding: 20px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 
           display: flex;
+          flex-direction: row;
           align-items: center;
-          gap: 12px;
+          justify-content: center;
+          gap: 14px;
+
+          margin-bottom: 30px;
         }
 
         .reward-icon {
-          width: 42px;
-          height: 42px;
-          background: #ececec;
-          border-radius: 12px;
+          width: 46px;
+          height: 46px;
+          border-radius: 14px;
+          background: #f1f1f1;
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
         }
 
         .reward-icon svg {
-          width: 22px;
-          height: 22px;
+          width: 26px;
+          height: 26px;
+          fill: #FFC400;
         }
 
-        .reward-text-1 {
+        .reward-text-group {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .reward-main {
           font-size: 16px;
           font-weight: 600;
+          color: #333;
         }
 
-        .reward-text-2 {
-          font-size: 14px;
-          opacity: 0.55;
-          margin-top: -2px;
+        .reward-sub {
+          font-size: 13px;
+          color: #777;
         }
 
-        /* BUTTON */
-        .primary-btn {
-          width: 240px;
-          height: 52px;
-          border: none;
-          border-radius: 16px;
+        /* ===== BUTTON ===== */
+        .add-btn {
+          width: 70%;
+          height: 54px;
           background: #222;
           color: white;
           font-size: 17px;
-          box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-          margin-top: 10px;
+          border-radius: 20px;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 60px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        /* NAVIGATION */
+        /* ===== NAVIGATION ===== */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-bottom: 10px;
         }
 
         .nav-pill {
@@ -193,7 +231,9 @@ export default function NewTask() {
           border: none;
           background: none;
           opacity: 0.45;
-          transition: transform 0.22s, opacity .2s;
+          transition:
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
         }
 
         .nav-item.active {
@@ -209,35 +249,35 @@ export default function NewTask() {
           width: 32px;
           height: 32px;
         }
-
       `}</style>
 
-      <div className="screen">
+      <div className="new-screen">
 
-        {/* TOP BACK */}
-        <div className="back" onClick={() => navigate("/home")}>
-          <svg viewBox="0 0 24 24" stroke="#000" fill="none" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-          <span>Назад</span>
+        {/* === HEADER === */}
+        <div className="header-zone">
+          <div className="back-btn" onClick={() => navigate(-1)}>
+            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
+              <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+
+          <div className="screen-title">Новая задача</div>
         </div>
 
-        {/* === PAGE CENTER (как Home) === */}
-        <div className="page-center">
+        {/* === CENTER CONTENT === */}
+        <div className="center-wrapper">
 
-          <div className="title">Новая задача</div>
-
-          <div className="input-block">
+          <div className="task-box">
             <input
-              className="input-field"
+              className="input"
               placeholder="Введите задачу"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
             />
 
-            <div className="time-label">Запланированное время</div>
+            <div className="label">Запланированное время</div>
 
-            <div className="time-grid">
+            <div className="time-row">
               {times.map((t) => (
                 <button
                   key={t}
@@ -247,33 +287,32 @@ export default function NewTask() {
                   {t} мин
                 </button>
               ))}
-
-              <button className="time-btn">Другое</button>
             </div>
           </div>
 
-          <div className="reward-block">
+          <div className="reward-box">
             <div className="reward-icon">
-              <svg viewBox="0 0 24 24" fill="#FFC400">
-                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+              <svg viewBox="0 0 24 24">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
             </div>
 
-            <div>
-              <div className="reward-text-1">+12 ОД маленькая победа</div>
-              <div className="reward-text-2">Увеличение энергии</div>
+            <div className="reward-text-group">
+              <div className="reward-main">+12 ОД маленькая победа</div>
+              <div className="reward-sub">Уменьшее свет одостонить</div>
             </div>
           </div>
 
-          <button className="primary-btn">Добавить</button>
+          <button className="add-btn">Добавить</button>
 
         </div>
 
-        {/* NAV */}
+        {/* === NAVIGATION === */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            <button className="nav-item active" onClick={() => navigate("/home")}>
+            {/* переход на /home */}
+            <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>

@@ -1,14 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NewTask() {
   const navigate = useNavigate();
 
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
+  const [reward, setReward] = useState(0); // награда ОД/ХП
 
   // интервалы времени
   const times = [10, 20, 30, 40, 50, 60];
+
+  // пересчёт награды при первом рендере
+  useEffect(() => {
+    setReward(Math.round(selectedTime * 1.5));
+  }, []);
 
   return (
     <>
@@ -40,19 +46,19 @@ export default function NewTask() {
           max-width: 520px;
 
           display: flex;
-          align-items: center;          /* по вертикали центр */
-          justify-content: center;      /* заголовок центр */
+          align-items: center;
+          justify-content: center;
 
-          position: relative;           /* чтобы стрелка была абсолютной */
+          position: relative;
           margin-top: 90px;
           margin-bottom: 15px;
         }
 
         .back-btn {
           position: absolute;
-          left: 0;                      /* слева */
-          top: 50%;                     /* центр по вертикали */
-          transform: translateY(-50%);  /* ровно посередине */
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -70,7 +76,7 @@ export default function NewTask() {
           font-weight: 600;
           color: #2c2c2c;
           text-align: center;
-          line-height: 28px;            /* идеальное совпадение со стрелкой */
+          line-height: 28px;
         }
 
         /* ===== CENTER CONTENT ===== */
@@ -282,7 +288,11 @@ export default function NewTask() {
                 <button
                   key={t}
                   className={`time-btn ${selectedTime === t ? "active" : ""}`}
-                  onClick={() => setSelectedTime(t)}
+                  onClick={() => {
+                    setSelectedTime(t);
+                    const hp = Math.round(t * 1.5);
+                    setReward(hp);
+                  }}
                 >
                   {t} мин
                 </button>
@@ -290,6 +300,7 @@ export default function NewTask() {
             </div>
           </div>
 
+          {/* reward box */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -298,8 +309,8 @@ export default function NewTask() {
             </div>
 
             <div className="reward-text-group">
-              <div className="reward-main">+12 ОД маленькая победа</div>
-              <div className="reward-sub">Уменьшее свет одостонить</div>
+              <div className="reward-main">+{reward} ОД</div>
+              <div className="reward-sub">{reward} ХП</div>
             </div>
           </div>
 
@@ -311,7 +322,6 @@ export default function NewTask() {
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* переход на /home */}
             <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
@@ -327,7 +337,7 @@ export default function NewTask() {
               </svg>
             </button>
 
-            <button className="nav-item active">
+            <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
                 <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
