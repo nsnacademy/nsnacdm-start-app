@@ -39,13 +39,13 @@ export default function NewTask() {
           max-width: 520px;
           position: relative;
           margin-bottom: 15px;
-          margin-top: 50px; /* было 60 — поднял на 10px */
+          margin-top: 50px; /* поднято */
         }
 
         .back-btn {
           position: absolute;
           left: 0;
-          top: 48px; /* было 58 — поднял стрелку на 10px */
+          top: 48px; /* поднято */
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -69,8 +69,7 @@ export default function NewTask() {
           font-size: 20px;
           font-weight: 600;
           color: #2c2c2c;
-
-          padding-top: 44px; /* было 54 — поднял заголовок на 10px */
+          padding-top: 44px; /* поднято */
         }
 
         /* ===== CENTER CONTENT ===== */
@@ -83,7 +82,7 @@ export default function NewTask() {
           align-items: center;
           justify-content: center;
 
-          margin-top: 40px; /* было 60 — поднял весь контент на 20px */
+          margin-top: 40px; /* поднят весь контент */
         }
 
         /* ===== INPUT CARD ===== */
@@ -115,9 +114,13 @@ export default function NewTask() {
         }
 
         .time-row {
+          width: 100%;
           display: flex;
           flex-wrap: wrap;
+          justify-content: center;  /* центр! */
+          align-items: center;      /* центр! */
           gap: 10px;
+          text-align: center;
         }
 
         .time-btn {
@@ -141,39 +144,46 @@ export default function NewTask() {
           width: 100%;
           background: #fff;
           border-radius: 26px;
-          padding: 20px;
+          padding: 22px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-          margin-bottom: 30px;
+
           display: flex;
-          align-items: center;
-          gap: 14px;
+          flex-direction: column;      /* вертикально */
+          align-items: center;         /* центр */
+          justify-content: center;     /* центр */
+          gap: 10px;                   /* мягкий интервал */
+
+          margin-bottom: 30px;
         }
 
         .reward-icon {
-          width: 40px;
-          height: 40px;
-          border-radius: 12px;
+          width: 46px;
+          height: 46px;
+          border-radius: 14px;
           background: #efefef;
+
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
         .reward-icon svg {
-          width: 22px;
-          height: 22px;
-          opacity: 0.8;
+          width: 24px;
+          height: 24px;
+          opacity: 0.85;
         }
 
         .reward-main {
           font-size: 16px;
           font-weight: 600;
           color: #333;
+          text-align: center;  /* центрирован */
         }
 
         .reward-sub {
           font-size: 13px;
           color: #777;
+          text-align: center;  /* центрирован */
         }
 
         /* ===== BUTTON ===== */
@@ -238,7 +248,6 @@ export default function NewTask() {
           height: 32px;
           transition: 0.22s;
         }
-
       `}</style>
 
       <div className="new-screen">
@@ -294,10 +303,8 @@ export default function NewTask() {
               </svg>
             </div>
 
-            <div>
-              <div className="reward-main">+12 ОД маленькая победа</div>
-              <div className="reward-sub">Уменьшее свет одостонить</div>
-            </div>
+            <div className="reward-main">+12 ОД маленькая победа</div>
+            <div className="reward-sub">Уменьшее свет одостонить</div>
           </div>
 
           <button className="add-btn">Добавить</button>
@@ -331,7 +338,7 @@ export default function NewTask() {
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+              <svg viewBox="0 0 24 24" stroke="#6A6А6А" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
