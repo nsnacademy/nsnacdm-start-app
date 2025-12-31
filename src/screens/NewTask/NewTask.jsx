@@ -18,6 +18,7 @@ export default function NewTask() {
           -webkit-tap-highlight-color: transparent;
         }
 
+        /* === ГЛАВНЫЙ КОНТЕЙНЕР — КАК В HOME === */
         .screen {
           width: 100%;
           height: 100vh;
@@ -32,18 +33,18 @@ export default function NewTask() {
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
 
-          max-width: 520px;
-          margin: 0 auto; /* центрирование */
+          max-width: 520px;  /* ← тот же max-width */
+          margin: 0 auto;   /* ← центрирование */
         }
 
-        /* BACK BUTTON */
+        /* BACK */
         .back {
           width: 100%;
-          max-width: 480px;
-          margin: 0 auto 20px;
           display: flex;
           align-items: center;
           gap: 8px;
+          max-width: 480px;     /* ← как top-pill */
+          margin: 0 auto 20px;
         }
 
         .back svg {
@@ -51,10 +52,10 @@ export default function NewTask() {
           height: 26px;
         }
 
-        /* CENTER COLUMN */
+        /* === ЦЕНТР КОНТЕНТА — КАК В HOME === */
         .page-center {
           width: 100%;
-          max-width: 480px;
+          max-width: 480px;   /* ← как top-pill */
           margin: 0 auto;
           display: flex;
           flex-direction: column;
@@ -66,12 +67,9 @@ export default function NewTask() {
           font-weight: 700;
         }
 
-        /* INPUT BLOCK */
+        /* INPUT BLOCK (аналог карточки) */
         .input-block {
           width: 100%;
-          max-width: 480px;
-          margin: 0 auto;
-
           background: #ffffff;
           border-radius: 20px;
           padding: 20px;
@@ -113,16 +111,13 @@ export default function NewTask() {
         .time-btn.active {
           background: #222;
           color: #fff;
-          opacity: 1;
           box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+          opacity: 1;
         }
 
         /* REWARD BLOCK */
         .reward-block {
           width: 100%;
-          max-width: 480px;
-          margin: 0 auto;
-
           background: #ffffff;
           padding: 16px 20px;
           border-radius: 18px;
@@ -156,7 +151,6 @@ export default function NewTask() {
         .reward-text-2 {
           font-size: 14px;
           opacity: 0.55;
-          margin-top: -2px;
         }
 
         /* ADD BUTTON */
@@ -169,22 +163,24 @@ export default function NewTask() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+
           margin-left: auto;
           margin-right: auto;
         }
 
-        /* NAVIGATION */
+        /* === НАВИГАЦИЯ — КАК В HOME === */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 40px;
+          margin-top: 60px;
         }
 
         .nav-pill {
           width: 92%;
-          max-width: 520px;
+          max-width: 520px;  /* ← тот же max-width */
           height: 75px;
+
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
@@ -200,6 +196,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
+
           transition: 
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
@@ -217,6 +214,7 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
       `}</style>
 
@@ -279,7 +277,7 @@ export default function NewTask() {
 
         </div>
 
-        {/* NAVIGATION */}
+        {/* ========== NAVIGATION ========== */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
