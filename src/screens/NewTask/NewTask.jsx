@@ -6,14 +6,15 @@ export default function NewTask() {
 
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
-  const [reward, setReward] = useState(0); // награда ОД/ХП
 
-  // интервалы времени
+  const [reward, setReward] = useState(10); // ОД = время
+  const [hp, setHp] = useState(25);        // ХП = время * 2.5
+
   const times = [10, 20, 30, 40, 50, 60];
 
-  // пересчёт награды при первом рендере
   useEffect(() => {
-    setReward(Math.round(selectedTime * 1.5));
+    setReward(selectedTime);
+    setHp(Math.round(selectedTime * 2.5));
   }, []);
 
   return (
@@ -40,15 +41,12 @@ export default function NewTask() {
           margin: 0 auto;
         }
 
-        /* ===== HEADER (идеальное выравнивание) ===== */
         .header-zone {
           width: 92%;
           max-width: 520px;
-
           display: flex;
           align-items: center;
           justify-content: center;
-
           position: relative;
           margin-top: 90px;
           margin-bottom: 15px;
@@ -68,7 +66,6 @@ export default function NewTask() {
           width: 28px;
           height: 28px;
           stroke: #444;
-          transition: 0.2s;
         }
 
         .screen-title {
@@ -79,16 +76,13 @@ export default function NewTask() {
           line-height: 28px;
         }
 
-        /* ===== CENTER CONTENT ===== */
         .center-wrapper {
           width: 92%;
           flex: 1;
-
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-
           margin-top: 40px;
         }
 
@@ -126,7 +120,6 @@ export default function NewTask() {
           justify-content: center;
           align-items: center;
           gap: 10px;
-          text-align: center;
         }
 
         .time-btn {
@@ -145,20 +138,17 @@ export default function NewTask() {
           color: white;
         }
 
-        /* ===== REWARD BLOCK ===== */
         .reward-box {
           width: 100%;
           background: #fff;
           border-radius: 26px;
           padding: 20px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: center;
           gap: 14px;
-
           margin-bottom: 30px;
         }
 
@@ -195,7 +185,6 @@ export default function NewTask() {
           color: #777;
         }
 
-        /* ===== BUTTON ===== */
         .add-btn {
           width: 70%;
           height: 54px;
@@ -211,7 +200,6 @@ export default function NewTask() {
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        /* ===== NAVIGATION ===== */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -226,7 +214,6 @@ export default function NewTask() {
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -237,9 +224,7 @@ export default function NewTask() {
           border: none;
           background: none;
           opacity: 0.45;
-          transition:
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform 0.22s, opacity .2s;
         }
 
         .nav-item.active {
@@ -259,18 +244,15 @@ export default function NewTask() {
 
       <div className="new-screen">
 
-        {/* === HEADER === */}
         <div className="header-zone">
           <div className="back-btn" onClick={() => navigate(-1)}>
             <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
               <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-
           <div className="screen-title">Новая задача</div>
         </div>
 
-        {/* === CENTER CONTENT === */}
         <div className="center-wrapper">
 
           <div className="task-box">
@@ -290,8 +272,8 @@ export default function NewTask() {
                   className={`time-btn ${selectedTime === t ? "active" : ""}`}
                   onClick={() => {
                     setSelectedTime(t);
-                    const hp = Math.round(t * 1.5);
-                    setReward(hp);
+                    setReward(t);               // ОД = время
+                    setHp(Math.round(t * 2.5)); // ХП = время × 2.5
                   }}
                 >
                   {t} мин
@@ -300,7 +282,6 @@ export default function NewTask() {
             </div>
           </div>
 
-          {/* reward box */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -309,8 +290,8 @@ export default function NewTask() {
             </div>
 
             <div className="reward-text-group">
-              <div className="reward-main">+{reward} ОД</div>
-              <div className="reward-sub">{reward} ХП</div>
+              <div className="reward-main">+{reward} ОД маленькая победа</div>
+              <div className="reward-sub">{hp} ХП</div>
             </div>
           </div>
 
@@ -318,7 +299,6 @@ export default function NewTask() {
 
         </div>
 
-        {/* === NAVIGATION === */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
