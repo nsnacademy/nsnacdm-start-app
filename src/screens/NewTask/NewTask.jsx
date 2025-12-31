@@ -20,9 +20,9 @@ export default function Home() {
           justify-content: flex-end;
           align-items: center;
 
-          box-sizing: border-box;
           padding-bottom: 30px;
-          max-width: 520px;
+          box-sizing: border-box;
+          max-width: 520px;   /* ← оставлено как в исходнике */
           margin: 0 auto;
         }
 
@@ -30,11 +30,12 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
+          margin-top: 60px;
         }
 
         .nav-pill {
-          width: 92%;
-          max-width: 520px;
+          width: 92%;               /* ← оставлено */
+          max-width: 520px;         /* ← оставлено */
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -43,7 +44,7 @@ export default function Home() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 0 30px;
+          padding: 0 30px;          /* ← оставлено */
         }
 
         .nav-item {
@@ -66,8 +67,8 @@ export default function Home() {
         }
 
         .nav-item svg {
-          width: 32px;
-          height: 32px;
+          width: 32px;   /* ← оставлено */
+          height: 32px;  /* ← оставлено */
           transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
 
@@ -78,7 +79,7 @@ export default function Home() {
 
       <div className="home-screen">
 
-        {/* ========= NAVIGATION ========= */}
+        {/* ========= NAVIGATION ONLY ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -99,7 +100,7 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* ADD TASK → Переход на NewTask */}
+            {/* ADD TASK → переход на NewTask */}
             <button
               className="nav-item"
               onClick={() => navigate("/new-task")}
