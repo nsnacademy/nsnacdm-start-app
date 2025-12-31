@@ -33,20 +33,19 @@ export default function NewTask() {
           margin: 0 auto;
         }
 
-        /* ===== BACK + TITLE WRAPPER ===== */
+        /* ===== HEADER ===== */
         .header-zone {
           width: 100%;
           max-width: 520px;
           position: relative;
           margin-bottom: 15px;
-          margin-top: 10px;
+          margin-top: 60px; /* ← опустил заголовок и стрелку */
         }
 
-        /* Стрелка ниже */
         .back-btn {
           position: absolute;
           left: 0;
-          top: 8px; /* ← ниже стрелка */
+          top: 58px; /* ← стрелка опущена на 50px */
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -70,7 +69,8 @@ export default function NewTask() {
           font-size: 20px;
           font-weight: 600;
           color: #2c2c2c;
-          padding-top: 4px;
+
+          padding-top: 54px; /* ← заголовок опущен */
         }
 
         /* ===== CENTER CONTENT ===== */
@@ -83,7 +83,7 @@ export default function NewTask() {
           align-items: center;
           justify-content: center;
 
-          margin-top: 60px; /* ← Опускает весь контент ниже */
+          margin-top: 60px; /* ← контент ниже */
         }
 
         /* ===== INPUT CARD ===== */
@@ -176,7 +176,7 @@ export default function NewTask() {
           color: #777;
         }
 
-        /* ===== ADD BUTTON ===== */
+        /* ===== BUTTON ===== */
         .add-btn {
           width: 70%;
           height: 54px;
@@ -219,7 +219,7 @@ export default function NewTask() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: 
+          transition:
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
@@ -238,11 +238,12 @@ export default function NewTask() {
           height: 32px;
           transition: 0.22s;
         }
+
       `}</style>
 
       <div className="new-screen">
 
-        {/* === HEADER (back + title) === */}
+        {/* === HEADER === */}
         <div className="header-zone">
           <div className="back-btn" onClick={() => navigate(-1)}>
             <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
@@ -277,7 +278,10 @@ export default function NewTask() {
                 </button>
               ))}
 
-              <button className="time-btn" onClick={() => setSelectedTime(null)}>
+              <button
+                className="time-btn"
+                onClick={() => setSelectedTime(null)}
+              >
                 Другое
               </button>
             </div>
@@ -297,6 +301,7 @@ export default function NewTask() {
           </div>
 
           <button className="add-btn">Добавить</button>
+
         </div>
 
         {/* === NAVIGATION === */}
