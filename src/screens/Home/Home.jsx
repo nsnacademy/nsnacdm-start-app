@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";      // ← ДОБАВЛЕНО
 import { useUserStore } from "../../store/userStore";
 
 export default function Home() {
-  const navigate = useNavigate();                   // ← ДОБАВЛЕНО
   const user = useUserStore((s) => s.user);
 
   return (
@@ -36,7 +34,7 @@ export default function Home() {
           display: flex;
           justify-content: center;
           margin-top: 60px;
-          margin-bottom: 60px;
+          margin-bottom: 60px; /* одинаково как внизу */
         }
 
         .top-pill {
@@ -77,11 +75,11 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* CONTENT */
+        /* ================= CONTENT ================= */
         .content {
           text-align: center;
           margin-top: 0;
-          margin-bottom: 0;
+          margin-bottom: 0; /* чтобы было ровно по центру */
         }
 
         .empty-img {
@@ -118,7 +116,7 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: 60px; /* одинаковое расстояние как сверху */
         }
 
         .nav-pill {
@@ -195,11 +193,7 @@ export default function Home() {
           <img className="empty-img" src="/images/clipboard.png" alt="empty" />
           <h2>У вас пока нет задач</h2>
           <p>Добавьте первую задачу, чтобы начать свой путь</p>
-
-          <button
-            className="primary-btn"
-            onClick={() => navigate("/new-task")}   // ← теперь работает
-          >
+          <button className="primary-btn" onClick={() => navigate("/new-task")}>
             Добавить задачу
           </button>
         </div>
