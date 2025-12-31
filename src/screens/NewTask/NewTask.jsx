@@ -4,17 +4,43 @@ import { useState, useEffect } from "react";
 export default function NewTask() {
   const navigate = useNavigate();
 
+  // ===== VALUES =====
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
   const [reward, setReward] = useState(10); // ОД = время
   const [hp, setHp] = useState(25);        // ХП = время * 2.5
 
+  const [animatedReward, setAnimatedReward] = useState(10);
+  const [animatedHp, setAnimatedHp] = useState(25);
+
   const times = [10, 20, 30, 40, 50, 60];
 
+  // ===== SMOOTH ANIMATION FUNCTION =====
+  function animateValue(from, to, setter, duration = 350) {
+    const start = performance.now();
+
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const value = from + (to - from) * progress;
+      setter(Math.round(value));
+
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  // first load — animate from 0
   useEffect(() => {
-    setReward(selectedTime);
-    setHp(Math.round(selectedTime * 2.5));
+    const startReward = selectedTime;
+    const startHp = Math.round(selectedTime * 2.5);
+
+    setReward(startReward);
+    setHp(startHp);
+
+    animateValue(0, startReward, setAnimatedReward);
+    animateValue(0, startHp, setAnimatedHp);
   }, []);
 
   return (
@@ -29,12 +55,10 @@ export default function NewTask() {
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-
           padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
           box-sizing: border-box;
           max-width: 520px;
@@ -244,6 +268,7 @@ export default function NewTask() {
 
       <div className="new-screen">
 
+        {/* HEADER */}
         <div className="header-zone">
           <div className="back-btn" onClick={() => navigate(-1)}>
             <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
@@ -253,6 +278,7 @@ export default function NewTask() {
           <div className="screen-title">Новая задача</div>
         </div>
 
+        {/* CENTER */}
         <div className="center-wrapper">
 
           <div className="task-box">
@@ -271,9 +297,15 @@ export default function NewTask() {
                   key={t}
                   className={`time-btn ${selectedTime === t ? "active" : ""}`}
                   onClick={() => {
+                    const newReward = t;
+                    const newHp = Math.round(t * 2.5);
+
                     setSelectedTime(t);
-                    setReward(t);               // ОД = время
-                    setHp(Math.round(t * 2.5)); // ХП = время × 2.5
+                    setReward(newReward);
+                    setHp(newHp);
+
+                    animateValue(animatedReward, newReward, setAnimatedReward);
+                    animateValue(animatedHp, newHp, setAnimatedHp);
                   }}
                 >
                   {t} мин
@@ -282,6 +314,7 @@ export default function NewTask() {
             </div>
           </div>
 
+          {/* REWARD with animation */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -290,8 +323,8 @@ export default function NewTask() {
             </div>
 
             <div className="reward-text-group">
-              <div className="reward-main">+{reward} ОД маленькая победа</div>
-              <div className="reward-sub">{hp} ХП</div>
+              <div className="reward-main">+{animatedReward} ОД маленькая победа</div>
+              <div className="reward-sub">{animatedHp} ХП</div>
             </div>
           </div>
 
@@ -299,6 +332,7 @@ export default function NewTask() {
 
         </div>
 
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
