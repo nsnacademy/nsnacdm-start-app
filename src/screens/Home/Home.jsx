@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
+
+// ← ДОБАВЛЕНО
 import { useTaskStore } from "../../store/taskStore";
 
 export default function Home() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ← ОБЯЗАТЕЛЬНО
   const user = useUserStore((s) => s.user);
+
+  // ← ДОБАВЛЕНО
   const tasks = useTaskStore((s) => s.tasks);
+  
 
   return (
     <>
@@ -23,6 +28,7 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: flex-start;
 
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
@@ -30,13 +36,12 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        /* ---------- TOP PILL ---------- */
-
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-bottom: 55px; /* точный отступ как в макете */
+          margin-top: 60px;
+          margin-bottom: 60px;
         }
 
         .top-pill {
@@ -77,26 +82,28 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ---------- CONTENT BLOCK ---------- */
-
-        .middle {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          /* ключ: middle НЕ влияет на верх и низ */
-          margin-bottom: auto;
-        }
-
         .content {
           text-align: center;
+          margin-top: 0;
+          margin-bottom: 0;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
+        }
+
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -108,69 +115,13 @@ export default function Home() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-          margin-top: 10px;
         }
-
-        /* ---------- TASK CARD ---------- */
-
-        .task-card {
-          width: 92%;
-          max-width: 480px;
-          background: #fff;
-          border-radius: 24px;
-          padding: 18px 20px;
-          box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          /* МАКЕТНЫЙ отступ вместо случайных значений */
-          margin-top: 10px;
-        }
-
-        .task-start {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: #efefef;
-          border: none;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 20px;
-        }
-
-        .task-info {
-          flex: 1;
-          margin-left: 14px;
-        }
-
-        .task-title {
-          font-size: 17px;
-          font-weight: 600;
-        }
-
-        .task-sub {
-          font-size: 14px;
-          opacity: 0.6;
-          margin-top: 4px;
-        }
-
-        .task-menu {
-          font-size: 28px;
-          padding: 6px 10px;
-          cursor: pointer;
-        }
-
-        /* ---------- NAVIGATION ---------- */
 
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-
-          margin-top: 50px; /* точный отступ как в макете */
+          margin-top: 60px;
         }
 
         .nav-pill {
@@ -192,25 +143,36 @@ export default function Home() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: transform 0.22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
         }
 
         .nav-item.active {
           opacity: 1;
         }
 
+        .nav-item:active {
+          transform: translateY(-4px) scale(1.15);
+          opacity: 0.85;
+        }
+
+        .nav-item svg {
+          width: 32px;
+          height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
         .nav-item:active svg {
           transform: scale(1.15);
         }
-
       `}</style>
 
       <div className="home-screen">
 
-        {/* ---------- TOP ---------- */}
+        {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -230,37 +192,79 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ---------- MIDDLE ---------- */}
-        <div className="middle">
-          {tasks.length === 0 ? (
-            <div className="content">
+        {/* ========= CONTENT (Условие задач) ========= */}
+        {tasks.length === 0 ? (
+          <div className="content">
+            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
 
-              <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+            <h2>У вас пока нет задач</h2>
+            <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-              <h2>У вас пока нет задач</h2>
-              <p>Добавьте первую задачу, чтобы начать свой путь</p>
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/new-task")}
+            >
+              Добавить задачу
+            </button>
+          </div>
+        ) : (
+          <div
+            style={{
+              width: "92%",
+              maxWidth: "480px",
+              background: "#fff",
+              padding: "18px 20px",
+              borderRadius: "24px",
+              boxShadow: "0 8px 22px rgba(0,0,0,0.06)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "40px",
+            }}
+          >
+            {/* СТАРТ */}
+            <button
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: "50%",
+                background: "#efefef",
+                border: "none",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 20,
+              }}
+              onClick={() => navigate("/timer")}
+            >
+              ▶
+            </button>
 
-              <button className="primary-btn" onClick={() => navigate("/new-task")}>
-                Добавить задачу
-              </button>
-            </div>
-          ) : (
-            <div className="task-card">
-              <button className="task-start" onClick={() => navigate("/timer")}>
-                ▶
-              </button>
-
-              <div className="task-info">
-                <div className="task-title">{tasks[0].title}</div>
-                <div className="task-sub">+{tasks[0].od} ОД • {tasks[0].hp} xp</div>
+            {/* ТЕКСТ */}
+            <div style={{ flex: 1, marginLeft: 14 }}>
+              <div style={{ fontSize: 17, fontWeight: 600 }}>
+                {tasks[0].title}
               </div>
 
-              <div className="task-menu">⋯</div>
+              <div style={{ fontSize: 14, opacity: 0.6, marginTop: 4 }}>
+                +{tasks[0].od} ОД • {tasks[0].hp} xp
+              </div>
             </div>
-          )}
-        </div>
 
-        {/* ---------- NAV ---------- */}
+            {/* Три точки */}
+            <div
+              style={{
+                fontSize: 28,
+                padding: "6px 10px",
+                cursor: "pointer",
+              }}
+            >
+              ⋯
+            </div>
+          </div>
+        )}
+
+        {/* ========= NAVIGATION ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -295,7 +299,6 @@ export default function Home() {
 
           </div>
         </div>
-
       </div>
     </>
   );
