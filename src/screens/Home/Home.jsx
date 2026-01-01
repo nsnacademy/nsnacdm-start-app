@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
-import { useTaskStore } from "../../store/taskStore"; // ← добавлено
+import { useTaskStore } from "../../store/taskStore";
 
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
-
-  const tasks = useTaskStore((s) => s.tasks); // ← добавлено
+  const tasks = useTaskStore((s) => s.tasks);
 
   return (
     <>
@@ -28,14 +27,18 @@ export default function Home() {
 
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
+
           max-width: 520px;
           margin: 0 auto;
         }
+
+        /* ---------- TOP PILL ---------- */
 
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
+
           margin-top: 60px;
           margin-bottom: 60px;
         }
@@ -44,11 +47,14 @@ export default function Home() {
           width: 82%;
           max-width: 480px;
           height: 48px;
+
           background: #fff;
           border-radius: 30px;
+
           display: flex;
           align-items: center;
           justify-content: space-between;
+
           padding: 0 16px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.08);
         }
@@ -78,32 +84,21 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        /* ---------- CONTENT (ТАКАЯ ЖЕ ШИРИНА, КАК БЫЛО) ---------- */
+
         .content {
+          width: 82%;
+          max-width: 480px;
+
           text-align: center;
           margin-top: 0;
           margin-bottom: 0;
-
-          /* --- ВАЖНО: оставляем те же размеры --- */
-          width: 82%;
-          max-width: 480px;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
-        }
-
-        .content h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 10px;
-        }
-
-        .content p {
-          font-size: 16px;
-          opacity: 0.55;
-          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -115,53 +110,63 @@ export default function Home() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+          margin-top: 10px;
         }
 
+        /* ---------- TASK CARD (ВИЗУАЛЬНО ШИРОКАЯ) ---------- */
+
         .task-card {
-          width: 100%; /* внутри content */
+          width: 100%;               /* <-- ровно шириной как content */
           background: #fff;
-          padding: 18px 20px;
-          border-radius: 24px;
+          border-radius: 26px;
+
+          padding: 26px 24px;        /* увеличен padding для визуальной ширины */
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+
           display: flex;
           align-items: center;
           justify-content: space-between;
         }
 
         .task-start {
-          width: 38px;
-          height: 38px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           background: #efefef;
           border: none;
+
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 20px;
+
+          font-size: 24px;
         }
 
         .task-info {
           flex: 1;
-          margin-left: 14px;
+          margin-left: 18px;
           text-align: left;
         }
 
         .task-title {
-          font-size: 17px;
-          font-weight: 600;
+          font-size: 20px;
+          font-weight: 700;
         }
 
         .task-sub {
-          font-size: 14px;
+          font-size: 15px;
           opacity: 0.6;
-          margin-top: 4px;
+          margin-top: 6px;
         }
 
         .task-menu {
-          font-size: 28px;
-          padding: 6px 10px;
+          font-size: 32px;
+          padding: 6px 12px;
           cursor: pointer;
+          opacity: 0.75;
         }
+
+        /* ---------- BOTTOM NAV ---------- */
 
         .nav-wrapper {
           width: 100%;
@@ -174,6 +179,7 @@ export default function Home() {
           width: 92%;
           max-width: 520px;
           height: 75px;
+
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
@@ -181,6 +187,7 @@ export default function Home() {
           display: flex;
           justify-content: space-between;
           align-items: center;
+
           padding: 0 30px;
         }
 
@@ -204,18 +211,13 @@ export default function Home() {
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
         }
 
-        .nav-item:active svg {
-          transform: scale(1.15);
-        }
       `}</style>
 
       <div className="home-screen">
 
-
-        {/* ========= TOP ========= */}
+        {/* ---------- TOP ---------- */}
         <div className="top-pill-container">
           <div className="top-pill">
 
@@ -239,8 +241,7 @@ export default function Home() {
           </div>
         </div>
 
-
-        {/* ========= CONTENT ========= */}
+        {/* ---------- CONTENT ---------- */}
         <div className="content">
 
           {tasks.length === 0 ? (
@@ -266,7 +267,9 @@ export default function Home() {
 
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
-                <div className="task-sub">+{tasks[0].od} ОД • {tasks[0].hp} xp</div>
+                <div className="task-sub">
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
+                </div>
               </div>
 
               <div className="task-menu">⋯</div>
@@ -276,8 +279,7 @@ export default function Home() {
 
         </div>
 
-
-        {/* ========= NAVIGATION ========= */}
+        {/* ---------- NAV ---------- */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -312,7 +314,6 @@ export default function Home() {
 
           </div>
         </div>
-
 
       </div>
     </>
