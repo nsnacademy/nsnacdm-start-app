@@ -7,9 +7,11 @@ export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
 
+  // задачи
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);
 
+  // меню точек
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -41,8 +43,6 @@ export default function Home() {
           max-width: 520px;
           margin: 0 auto;
         }
-
-        /* ========= TOP ========= */
 
         .top-pill-container {
           width: 100%;
@@ -90,16 +90,10 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ========= CONTENT ========= */
-
         .content {
           text-align: center;
           margin-top: 0;
           margin-bottom: 0;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
         }
 
         .empty-img {
@@ -132,28 +126,18 @@ export default function Home() {
         }
 
         /* ========= TASK CARD ========= */
-
         .task-card {
-          width: 82%;
+          width: 82%; /* ровно как твой content */
           max-width: 480px;
-
           background: #fff;
           padding: 22px 24px;
           border-radius: 24px;
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-
-          display: block;      /* Жёсткая ширина */
-          flex-shrink: 0;      /* запрещаем сжатие */
-          position: relative;
-          margin-bottom: 20px;
-        }
-
-        .task-inner {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 18px;
-          width: 100%;
+          margin-bottom: 20px;
+          position: relative;
         }
 
         .task-start {
@@ -163,62 +147,47 @@ export default function Home() {
           background: #efefef;
           border: none;
           font-size: 20px;
-
           display: flex;
           justify-content: center;
           align-items: center;
-
-          flex-shrink: 0;
         }
 
         .task-info {
           flex: 1;
           text-align: left;
-          min-width: 0;
-          overflow: hidden;
+          margin-left: 16px;
         }
 
         .task-title {
           font-size: 18px;
           font-weight: 600;
           word-break: break-word;
-          overflow-wrap: break-word;
-          white-space: normal;
-          line-height: 1.3;
-          max-width: 100%;
         }
 
         .task-sub {
           font-size: 14px;
           opacity: 0.6;
           white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 100%;
         }
 
         .task-menu {
           font-size: 28px;
+          padding: 0 8px;
           cursor: pointer;
-          flex-shrink: 0;
-          padding-left: 6px;
+          opacity: 0.7;
         }
 
-        /* ========= POPUP ========= */
-
+        /* POPUP MENU */
         .popup-menu {
           position: absolute;
           top: 14px;
-          right: 14px;
-
+          right: 18px;
           background: #fff;
           padding: 12px 18px;
           border-radius: 14px;
-
           box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-
-          animation: fadeIn .15s ease;
-          z-index: 30;
+          animation: fadeIn .15s ease forwards;
+          z-index: 20;
         }
 
         .popup-delete {
@@ -230,11 +199,11 @@ export default function Home() {
         }
 
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-6px); }
+          from { opacity: 0; transform: translateY(-4px); }
           to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========= NAVIGATION ========= */
+        /* ========= NAV ========= */
 
         .nav-wrapper {
           width: 100%;
@@ -258,8 +227,8 @@ export default function Home() {
         }
 
         .nav-item {
-          border: none;
           background: none;
+          border: none;
           opacity: 0.45;
         }
 
@@ -278,7 +247,6 @@ export default function Home() {
         {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -295,56 +263,47 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
-
           </div>
         </div>
 
         {/* ========= CONTENT ========= */}
+        {tasks.length === 0 ? (
+          <div className="content">
 
-        <div className="content">
+            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+            <h2>У вас пока нет задач</h2>
+            <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-          {/* --- нет задач --- */}
-          {tasks.length === 0 && (
-            <>
-              <img className="empty-img" src="/images/clipboard.png" alt="empty" />
-              <h2>У вас пока нет задач</h2>
-              <p>Добавьте первую задачу, чтобы начать свой путь</p>
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/new-task")}
+            >
+              Добавить задачу
+            </button>
+          </div>
+        ) : (
+          <div className="content">
 
-              <button
-                className="primary-btn"
-                onClick={() => navigate("/new-task")}
-              >
-                Добавить задачу
-              </button>
-            </>
-          )}
-
-          {/* --- есть задача --- */}
-          {tasks.length > 0 && (
             <div className="task-card">
+              <button className="task-start" onClick={() => navigate("/timer")}>
+                ▶
+              </button>
 
-              <div className="task-inner">
-
-                <button className="task-start" onClick={() => navigate("/timer")}>
-                  ▶
-                </button>
-
-                <div className="task-info">
-                  <div className="task-title">{tasks[0].title}</div>
-                  <div className="task-sub">
-                    +{tasks[0].od} ОД • {tasks[0].hp} xp
-                  </div>
+              <div className="task-info">
+                <div className="task-title">{tasks[0].title}</div>
+                <div className="task-sub">
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
                 </div>
+              </div>
 
-                <div
-                  className="task-menu"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setMenuOpen(!menuOpen);
-                  }}
-                >
-                  ⋯
-                </div>
+              <div
+                className="task-menu"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                ⋯
               </div>
 
               {menuOpen && (
@@ -360,13 +319,11 @@ export default function Home() {
                   </div>
                 </div>
               )}
-
             </div>
-          )}
+          </div>
+        )}
 
-        </div>
-
-        {/* ========= NAVIGATION ========= */}
+        {/* ========= NAV ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
