@@ -1,14 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { useTaskStore } from "../../store/taskStore";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
+
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);
 
-  const firstTask = tasks[0];
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const close = () => setMenuOpen(false);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, []);
 
   return (
     <>
@@ -33,6 +41,8 @@ export default function Home() {
           max-width: 520px;
           margin: 0 auto;
         }
+
+        /* ========= TOP ========= */
 
         .top-pill-container {
           width: 100%;
@@ -80,12 +90,16 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        /* ========= CONTENT ========= */
+
         .content {
           text-align: center;
           margin-top: 0;
           margin-bottom: 0;
-          width: 82%;
-          max-width: 480px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .empty-img {
@@ -117,18 +131,21 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD (fixed flex) ===== */
+        /* ========= TASK CARD ========= */
 
         .task-card {
           width: 82%;
           max-width: 480px;
+
           background: #fff;
           padding: 22px 24px;
           border-radius: 24px;
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
+
+          display: block;      /* Жёсткая ширина */
+          flex-shrink: 0;      /* запрещаем сжатие */
+          position: relative;
+          margin-bottom: 20px;
         }
 
         .task-inner {
@@ -136,53 +153,85 @@ export default function Home() {
           align-items: center;
           justify-content: space-between;
           gap: 18px;
-
           width: 100%;
-          min-width: 0; /* ключ! */
         }
 
         .task-start {
-          width: 42px;
-          height: 42px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: #efefef;
           border: none;
+          font-size: 20px;
+
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 22px;
+
           flex-shrink: 0;
         }
 
         .task-info {
           flex: 1;
-          min-width: 0; /* ключ! */
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
           text-align: left;
+          min-width: 0;
+          overflow: hidden;
         }
 
         .task-title {
           font-size: 18px;
           font-weight: 600;
-
+          word-break: break-word;
+          overflow-wrap: break-word;
           white-space: normal;
-          word-break: keep-all;     /* НЕ ломать буквы */
-          overflow-wrap: break-word; /* переносить только слова, если надо */
+          line-height: 1.3;
+          max-width: 100%;
         }
 
         .task-sub {
           font-size: 14px;
           opacity: 0.6;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
         }
 
         .task-menu {
-          font-size: 32px;
-          padding: 8px 12px;
+          font-size: 28px;
           cursor: pointer;
-          opacity: 0.7;
           flex-shrink: 0;
+          padding-left: 6px;
+        }
+
+        /* ========= POPUP ========= */
+
+        .popup-menu {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+
+          background: #fff;
+          padding: 12px 18px;
+          border-radius: 14px;
+
+          box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+
+          animation: fadeIn .15s ease;
+          z-index: 30;
+        }
+
+        .popup-delete {
+          color: #ff4d4d;
+          font-size: 15px;
+          font-weight: 500;
+          cursor: pointer;
+          text-align: right;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-6px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         /* ========= NAVIGATION ========= */
@@ -212,8 +261,6 @@ export default function Home() {
           border: none;
           background: none;
           opacity: 0.45;
-          padding: 0;
-          transition: transform .22s, opacity .22s;
         }
 
         .nav-item.active {
@@ -253,19 +300,29 @@ export default function Home() {
         </div>
 
         {/* ========= CONTENT ========= */}
+
         <div className="content">
-          {!firstTask ? (
+
+          {/* --- нет задач --- */}
+          {tasks.length === 0 && (
             <>
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
               <h2>У вас пока нет задач</h2>
               <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-              <button className="primary-btn" onClick={() => navigate("/new-task")}>
+              <button
+                className="primary-btn"
+                onClick={() => navigate("/new-task")}
+              >
                 Добавить задачу
               </button>
             </>
-          ) : (
+          )}
+
+          {/* --- есть задача --- */}
+          {tasks.length > 0 && (
             <div className="task-card">
+
               <div className="task-inner">
 
                 <button className="task-start" onClick={() => navigate("/timer")}>
@@ -273,17 +330,40 @@ export default function Home() {
                 </button>
 
                 <div className="task-info">
-                  <div className="task-title">{firstTask.title}</div>
-                  <div className="task-sub">+{firstTask.od} ОД • {firstTask.hp} xp</div>
+                  <div className="task-title">{tasks[0].title}</div>
+                  <div className="task-sub">
+                    +{tasks[0].od} ОД • {tasks[0].hp} xp
+                  </div>
                 </div>
 
-                <div className="task-menu" onClick={() => removeTask(firstTask.id)}>
+                <div
+                  className="task-menu"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMenuOpen(!menuOpen);
+                  }}
+                >
                   ⋯
                 </div>
-
               </div>
+
+              {menuOpen && (
+                <div className="popup-menu" onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className="popup-delete"
+                    onClick={() => {
+                      removeTask(tasks[0].id);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    Удалить
+                  </div>
+                </div>
+              )}
+
             </div>
           )}
+
         </div>
 
         {/* ========= NAVIGATION ========= */}
