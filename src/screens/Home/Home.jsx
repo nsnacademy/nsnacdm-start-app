@@ -36,7 +36,7 @@ export default function Home() {
           align-items: center;
           justify-content: space-between;
 
-          padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
+          padding: calc(env(safe-area-inset-top) + 50px) 20px 30px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
