@@ -210,18 +210,14 @@ export default function Home() {
 
         .nav-wrapper {
             position: fixed;
-            bottom: env(safe-area-inset-bottom, 20px); 
+            bottom: env(safe-area-inset-bottom, 20px);
             left: 50%;
             transform: translateX(-50%);
-
             width: 92%;
             max-width: 520px;
-
-            display: flex;
-            justify-content: center;
-
             z-index: 999;
-            }
+        }
+
 
 
         .nav-pill {
