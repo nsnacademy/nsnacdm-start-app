@@ -210,7 +210,7 @@ export default function Home() {
 
         .nav-wrapper {
             position: fixed;
-            bottom: env(safe-area-inset-bottom, 20px);
+            bottom: env(safe-area-inset-bottom, 10px);
             left: 50%;
             transform: translateX(-50%);
             width: 92%;
