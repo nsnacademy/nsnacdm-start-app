@@ -377,7 +377,7 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 60px;
+          margin-bottom: 0px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
