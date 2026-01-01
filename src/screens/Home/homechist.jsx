@@ -5,6 +5,8 @@ import { useTaskStore } from "../../store/taskStore";
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
+
+  // Подключаем список задач
   const tasks = useTaskStore((s) => s.tasks);
 
   return (
@@ -79,7 +81,7 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ---------- CONTENT WRAPPER (всегда фикс) ---------- */
+        /* ---------- CENTER BLOCK ---------- */
 
         .center-content {
           width: 100%;
@@ -88,15 +90,15 @@ export default function Home() {
           align-items: center;
           flex-direction: column;
 
-          margin-top: -20px; /* оригинальный визуальный баланс */
+          margin-top: -20px;
           margin-bottom: auto;
         }
 
-        /* ---------- ПУСТОЙ ЭКРАН (оригинальный) ---------- */
+        /* ---------- EMPTY CONTENT ---------- */
 
         .content {
-          text-align: center;
           width: 100%;
+          text-align: center;
         }
 
         .empty-img {
@@ -137,6 +139,7 @@ export default function Home() {
           border-radius: 50%;
           background: #efefef;
           border: none;
+
           display: flex;
           justify-content: center;
           align-items: center;
@@ -193,7 +196,7 @@ export default function Home() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: transform 0.22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
         }
 
         .nav-item.active {
@@ -203,6 +206,7 @@ export default function Home() {
         .nav-item:active svg {
           transform: scale(1.15);
         }
+
 
       `}</style>
 
@@ -232,9 +236,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ---------- CENTER ---------- */}
+        {/* ---------- CENTER (пусто или задача) ---------- */}
         <div className="center-content">
-
           {tasks.length === 0 ? (
             <div className="content">
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
@@ -265,7 +268,6 @@ export default function Home() {
 
             </div>
           )}
-
         </div>
 
         {/* ---------- NAV ---------- */}
