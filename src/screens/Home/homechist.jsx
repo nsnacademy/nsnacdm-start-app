@@ -1,11 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { useTaskStore } from "../../store/taskStore";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
+
+  // задачи
   const tasks = useTaskStore((s) => s.tasks);
+  const removeTask = useTaskStore((s) => s.removeTask);
+
+  // меню точек
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const close = () => setMenuOpen(false);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, []);
 
   return (
     <>
@@ -30,8 +43,6 @@ export default function Home() {
           max-width: 520px;
           margin: 0 auto;
         }
-
-        /* ===== TOP PILL ===== */
 
         .top-pill-container {
           width: 100%;
@@ -79,16 +90,10 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT WRAPPER ===== */
-
         .content {
-          width: 100%;
-          max-width: 520px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          gap: 20px;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 0;
         }
 
         .empty-img {
@@ -120,49 +125,42 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD ===== */
-
+        /* ========= TASK CARD ========= */
         .task-card {
-          width: 92%;
-          max-width: 520px;
+          width: 82%; /* ровно как твой content */
+          max-width: 480px;
           background: #fff;
           padding: 22px 24px;
           border-radius: 24px;
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 22px;
+          margin-bottom: 20px;
+          position: relative;
         }
 
         .task-start {
-          width: 42px;
-          height: 42px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: #efefef;
           border: none;
-
+          font-size: 20px;
           display: flex;
           justify-content: center;
           align-items: center;
-
-          font-size: 20px;
         }
 
         .task-info {
           flex: 1;
-          display: flex;
-          flex-direction: column;
           text-align: left;
-          gap: 4px;
+          margin-left: 16px;
         }
 
         .task-title {
           font-size: 18px;
           font-weight: 600;
-          line-height: 1.2;
-          white-space: normal;
           word-break: break-word;
         }
 
@@ -173,13 +171,39 @@ export default function Home() {
         }
 
         .task-menu {
-          font-size: 32px;
-          padding: 8px 12px;
+          font-size: 28px;
+          padding: 0 8px;
           cursor: pointer;
           opacity: 0.7;
         }
 
-        /* ===== NAVIGATION ===== */
+        /* POPUP MENU */
+        .popup-menu {
+          position: absolute;
+          top: 14px;
+          right: 18px;
+          background: #fff;
+          padding: 12px 18px;
+          border-radius: 14px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+          animation: fadeIn .15s ease forwards;
+          z-index: 20;
+        }
+
+        .popup-delete {
+          color: #ff4d4d;
+          font-size: 15px;
+          font-weight: 500;
+          cursor: pointer;
+          text-align: right;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========= NAV ========= */
 
         .nav-wrapper {
           width: 100%;
@@ -203,21 +227,18 @@ export default function Home() {
         }
 
         .nav-item {
-          border: none;
           background: none;
-          padding: 0;
+          border: none;
+          opacity: 0.45;
+        }
+
+        .nav-item.active {
           opacity: 1;
-          color: #6A6A6A;
-          transition: transform 0.22s cubic-bezier(.25,.46,.45,.94);
         }
 
         .nav-item svg {
           width: 32px;
           height: 32px;
-        }
-
-        .nav-item:active svg {
-          transform: scale(1.15);
         }
       `}</style>
 
@@ -227,7 +248,7 @@ export default function Home() {
         <div className="top-pill-container">
           <div className="top-pill">
             <div className="left">
-              <svg className="icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
@@ -246,28 +267,25 @@ export default function Home() {
         </div>
 
         {/* ========= CONTENT ========= */}
-        <div className="content">
-          {tasks.length === 0 ? (
-            <>
-              <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+        {tasks.length === 0 ? (
+          <div className="content">
 
-              <h2>У вас пока нет задач</h2>
-              <p>Добавьте первую задачу, чтобы начать свой путь</p>
+            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+            <h2>У вас пока нет задач</h2>
+            <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-              <button
-                className="primary-btn"
-                onClick={() => navigate("/new-task")}
-              >
-                Добавить задачу
-              </button>
-            </>
-          ) : (
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/new-task")}
+            >
+              Добавить задачу
+            </button>
+          </div>
+        ) : (
+          <div className="content">
+
             <div className="task-card">
-
-              <button
-                className="task-start"
-                onClick={() => navigate("/timer")}
-              >
+              <button className="task-start" onClick={() => navigate("/timer")}>
                 ▶
               </button>
 
@@ -278,24 +296,45 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="task-menu">⋯</div>
+              <div
+                className="task-menu"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                ⋯
+              </div>
 
+              {menuOpen && (
+                <div className="popup-menu" onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className="popup-delete"
+                    onClick={() => {
+                      removeTask(tasks[0].id);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    Удалить
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* ========= NAVIGATION ========= */}
+        {/* ========= NAV ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            <button className="nav-item">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+            <button className="nav-item active">
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
                 <circle cx="8.5" cy="14.8" r="1.3"/>
                 <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
@@ -304,14 +343,14 @@ export default function Home() {
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
                 <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
               </svg>
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
