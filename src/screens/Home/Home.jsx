@@ -23,20 +23,21 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
 
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
+
+          gap: 40px; /* ВАЖНО: правильные расстояния */
         }
+
+        /* ---------- TOP PILL ---------- */
 
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
-          margin-bottom: 60px;
         }
 
         .top-pill {
@@ -77,37 +78,24 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        /* ---------- MIDDLE ---------- */
+
         .middle {
           width: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-top: -20px;
-          margin-bottom: auto;
+          flex: 1;   /* ВАЖНО: middle не ломает layout */
         }
 
         .content {
           text-align: center;
-          margin-top: 0;
-          margin-bottom: 0;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
-        }
-
-        .content h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 10px;
-        }
-
-        .content p {
-          font-size: 16px;
-          opacity: 0.55;
-          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -119,9 +107,10 @@ export default function Home() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+          margin-top: 10px;
         }
 
-        /* ========== TASK CARD ========== */
+        /* ---------- TASK CARD ---------- */
 
         .task-card {
           width: 92%;
@@ -134,7 +123,7 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 40px;
+          margin-top: 10px;
         }
 
         .task-start {
@@ -171,11 +160,12 @@ export default function Home() {
           cursor: pointer;
         }
 
+        /* ---------- NAVIGATION ---------- */
+
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
         }
 
         .nav-pill {
@@ -197,36 +187,25 @@ export default function Home() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: 
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform 0.22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
         }
 
         .nav-item.active {
           opacity: 1;
         }
 
-        .nav-item:active {
-          transform: translateY(-4px) scale(1.15);
-          opacity: 0.85;
-        }
-
-        .nav-item svg {
-          width: 32px;
-          height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
-        }
-
         .nav-item:active svg {
           transform: scale(1.15);
         }
+
       `}</style>
 
       <div className="home-screen">
 
-        {/* ========= TOP ========= */}
+        {/* ---------- TOP ---------- */}
         <div className="top-pill-container">
           <div className="top-pill">
+
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -246,7 +225,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ========= MIDDLE AREA ========= */}
+        {/* ---------- MIDDLE ---------- */}
         <div className="middle">
           {tasks.length === 0 ? (
             <div className="content">
@@ -255,28 +234,19 @@ export default function Home() {
               <h2>У вас пока нет задач</h2>
               <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-              <button
-                className="primary-btn"
-                onClick={() => navigate("/new-task")}
-              >
+              <button className="primary-btn" onClick={() => navigate("/new-task")}>
                 Добавить задачу
               </button>
             </div>
           ) : (
             <div className="task-card">
-              <button
-                className="task-start"
-                onClick={() => navigate("/timer")}
-              >
+              <button className="task-start" onClick={() => navigate("/timer")}>
                 ▶
               </button>
 
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
-
-                <div className="task-sub">
-                  +{tasks[0].od} ОД • {tasks[0].hp} xp
-                </div>
+                <div className="task-sub">+{tasks[0].od} ОД • {tasks[0].hp} xp</div>
               </div>
 
               <div className="task-menu">⋯</div>
@@ -284,7 +254,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* ========= NAVIGATION ========= */}
+        {/* ---------- NAV ---------- */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -319,6 +289,7 @@ export default function Home() {
 
           </div>
         </div>
+
       </div>
     </>
   );
