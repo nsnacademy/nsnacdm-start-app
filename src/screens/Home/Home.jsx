@@ -212,7 +212,7 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: 70px;
         }
 
         .nav-pill {
