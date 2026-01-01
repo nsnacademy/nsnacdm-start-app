@@ -90,7 +90,7 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT ===== */
+        /* ===== CONTENT CENTERING ===== */
 
         .content {
           flex: 1;
@@ -135,6 +135,7 @@ export default function Home() {
           align-items: center;
           justify-content: center;
           gap: 22px;
+
           position: relative;
         }
 
@@ -158,6 +159,7 @@ export default function Home() {
           justify-content: center;
           gap: 6px;
           text-align: center;
+          margin: 0 10px;
         }
 
         .task-title {
@@ -214,15 +216,23 @@ export default function Home() {
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 0 30px;
         }
 
+        .nav-item {
+          background: none;
+          border: none;
+          padding: 0;
+        }
+
         .nav-item svg {
           width: 32px;
           height: 32px;
+          display: block;
         }
       `}</style>
 
@@ -306,18 +316,18 @@ export default function Home() {
           )}
         </div>
 
-        {/* === UPDATED NAVIGATION FROM SECOND CODE === */}
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
-
+            
             <button className="nav-item active">
-              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C3C3C3" strokeWidth="2">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
               </svg>
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C3C3C3" strokeWidth="2">
                 <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
                 <circle cx="8.5" cy="14.8" r="1.3"/>
                 <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
@@ -326,14 +336,14 @@ export default function Home() {
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C3C3C3" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
                 <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
               </svg>
             </button>
 
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C3C3C3" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
