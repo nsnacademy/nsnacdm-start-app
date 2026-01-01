@@ -1,15 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { useTaskStore } from "../../store/taskStore";
-import { useState } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
   const tasks = useTaskStore((s) => s.tasks);
-  const removeTask = useTaskStore((s) => s.removeTask);
-
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
@@ -33,10 +29,10 @@ export default function Home() {
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
-          position: relative;
         }
 
         /* ===== TOP PILL ===== */
+
         .top-pill-container {
           width: 100%;
           display: flex;
@@ -70,6 +66,7 @@ export default function Home() {
         .icon {
           width: 22px;
           height: 22px;
+          opacity: 0.9;
         }
 
         .separator {
@@ -82,20 +79,34 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT ===== */
+        /* ===== CONTENT WRAPPER ===== */
+
         .content {
-          text-align: center;
-          width: 82%;
-          max-width: 480px;
+          width: 100%;
+          max-width: 520px;
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: flex-start;
+          gap: 20px;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
+        }
+
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -109,10 +120,11 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD (идеально по центру) ===== */
+        /* ===== TASK CARD ===== */
 
         .task-card {
-          width: 100%;
+          width: 92%;
+          max-width: 520px;
           background: #fff;
           padding: 22px 24px;
           border-radius: 24px;
@@ -121,8 +133,7 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-
-          position: relative;
+          gap: 22px;
         }
 
         .task-start {
@@ -131,53 +142,41 @@ export default function Home() {
           border-radius: 50%;
           background: #efefef;
           border: none;
+
           display: flex;
           justify-content: center;
           align-items: center;
+
           font-size: 20px;
         }
 
         .task-info {
           flex: 1;
-          text-align: left;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          text-align: left;
+          gap: 4px;
         }
 
         .task-title {
-          font-size: 17px;
+          font-size: 18px;
           font-weight: 600;
+          line-height: 1.2;
+          white-space: normal;
+          word-break: break-word;
         }
 
         .task-sub {
-          font-size: 13px;
+          font-size: 14px;
           opacity: 0.6;
-          margin-top: 4px;
+          white-space: nowrap;
         }
 
         .task-menu {
-          font-size: 28px;
+          font-size: 32px;
+          padding: 8px 12px;
           cursor: pointer;
-          padding: 6px 10px;
-          opacity: 0.75;
-        }
-
-        /* ===== MINI MENU ===== */
-
-        .delete-menu {
-          position: absolute;
-          top: 54px;
-          right: 10px;
-          background: #fff;
-          padding: 10px 16px;
-          border-radius: 14px;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-          font-size: 15px;
-          color: #d33;
-          font-weight: 600;
-          cursor: pointer;
-          z-index: 5;
+          opacity: 0.7;
         }
 
         /* ===== NAVIGATION ===== */
@@ -208,6 +207,7 @@ export default function Home() {
           background: none;
           opacity: 0.45;
           padding: 0;
+          transition: transform 0.22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
         }
 
         .nav-item.active {
@@ -218,6 +218,10 @@ export default function Home() {
           width: 32px;
           height: 32px;
         }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
+        }
       `}</style>
 
       <div className="home-screen">
@@ -225,7 +229,6 @@ export default function Home() {
         {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -242,52 +245,44 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
-
           </div>
         </div>
 
-        {/* ========= CONTENT (Вариант C) ========= */}
+        {/* ========= CONTENT ========= */}
         <div className="content">
           {tasks.length === 0 ? (
             <>
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+
               <h2>У вас пока нет задач</h2>
               <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-              <button className="primary-btn" onClick={() => navigate("/new-task")}>
+              <button
+                className="primary-btn"
+                onClick={() => navigate("/new-task")}
+              >
                 Добавить задачу
               </button>
             </>
           ) : (
             <div className="task-card">
-              
-              {/* START BUTTON */}
-              <button className="task-start" onClick={() => navigate("/timer")}>
+
+              <button
+                className="task-start"
+                onClick={() => navigate("/timer")}
+              >
                 ▶
               </button>
 
-              {/* TEXT */}
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
-                <div className="task-sub">+{tasks[0].od} ОД • {tasks[0].hp} xp</div>
-              </div>
-
-              {/* MENU */}
-              <div className="task-menu" onClick={() => setMenuOpen(!menuOpen)}>
-                ⋯
-              </div>
-
-              {menuOpen && (
-                <div
-                  className="delete-menu"
-                  onClick={() => {
-                    removeTask(tasks[0].id);
-                    setMenuOpen(false);
-                  }}
-                >
-                  Удалить
+                <div className="task-sub">
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
                 </div>
-              )}
+              </div>
+
+              <div className="task-menu">⋯</div>
+
             </div>
           )}
         </div>
