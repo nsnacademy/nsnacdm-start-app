@@ -206,7 +206,7 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 40px;
+          margin-top: 60px;
         }
 
         .nav-pill {
@@ -223,9 +223,33 @@ export default function Home() {
           padding: 0 30px;
         }
 
+        .nav-item {
+          border: none;
+          background: none;
+          opacity: 0.45;
+          padding: 0;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
+        }
+
+        .nav-item.active {
+          opacity: 1;
+        }
+
+        .nav-item:active {
+          transform: translateY(-4px) scale(1.15);
+          opacity: 0.85;
+        }
+
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
         }
       `}</style>
 

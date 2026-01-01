@@ -385,7 +385,7 @@ export default function NewTask() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-bottom: 10px;
+          margin-top: 60px;
         }
 
         .nav-pill {
@@ -395,6 +395,7 @@ export default function NewTask() {
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -405,7 +406,10 @@ export default function NewTask() {
           border: none;
           background: none;
           opacity: 0.45;
-          transition: transform 0.22s, opacity .2s;
+          padding: 0;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
         }
 
         .nav-item.active {
@@ -420,6 +424,11 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
         }
       `}</style>
 
@@ -513,7 +522,7 @@ export default function NewTask() {
             }}
           >
 
-            Добавь
+            Добавить
           </button>
 
         </div>
