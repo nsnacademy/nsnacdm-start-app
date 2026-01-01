@@ -1,17 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
-
-// ← ДОБАВЛЕНО
 import { useTaskStore } from "../../store/taskStore";
 
 export default function Home() {
-  const navigate = useNavigate(); // ← ОБЯЗАТЕЛЬНО
+  const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
-
-  // ← ДОБАВЛЕНО
   const tasks = useTaskStore((s) => s.tasks);
-  console.log("TASKS:", tasks);
-
 
   return (
     <>
@@ -83,6 +77,15 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        .middle {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: -20px;
+          margin-bottom: auto;
+        }
+
         .content {
           text-align: center;
           margin-top: 0;
@@ -116,6 +119,56 @@ export default function Home() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+
+        /* ========== TASK CARD ========== */
+
+        .task-card {
+          width: 92%;
+          max-width: 480px;
+          background: #fff;
+          border-radius: 24px;
+          padding: 18px 20px;
+          box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 40px;
+        }
+
+        .task-start {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #efefef;
+          border: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 20px;
+        }
+
+        .task-info {
+          flex: 1;
+          margin-left: 14px;
+        }
+
+        .task-title {
+          font-size: 17px;
+          font-weight: 600;
+        }
+
+        .task-sub {
+          font-size: 14px;
+          opacity: 0.6;
+          margin-top: 4px;
+        }
+
+        .task-menu {
+          font-size: 28px;
+          padding: 6px 10px;
+          cursor: pointer;
         }
 
         .nav-wrapper {
@@ -193,77 +246,43 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ========= CONTENT (Условие задач) ========= */}
-        {tasks.length === 0 ? (
-          <div className="content">
-            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+        {/* ========= MIDDLE AREA ========= */}
+        <div className="middle">
+          {tasks.length === 0 ? (
+            <div className="content">
+              <img className="empty-img" src="/images/clipboard.png" alt="empty" />
 
-            <h2>У вас пока нет задач</h2>
-            <p>Добавьте первую задачу, чтобы начать свой путь</p>
+              <h2>У вас пока нет задач</h2>
+              <p>Добавьте первую задачу, чтобы начать свой путь</p>
 
-            <button
-              className="primary-btn"
-              onClick={() => navigate("/new-task")}
-            >
-              Добавить задачу
-            </button>
-          </div>
-        ) : (
-          <div
-            style={{
-              width: "92%",
-              maxWidth: "480px",
-              background: "#fff",
-              padding: "18px 20px",
-              borderRadius: "24px",
-              boxShadow: "0 8px 22px rgba(0,0,0,0.06)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "40px",
-            }}
-          >
-            {/* СТАРТ */}
-            <button
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: "50%",
-                background: "#efefef",
-                border: "none",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: 20,
-              }}
-              onClick={() => navigate("/timer")}
-            >
-              ▶
-            </button>
+              <button
+                className="primary-btn"
+                onClick={() => navigate("/new-task")}
+              >
+                Добавить задачу
+              </button>
+            </div>
+          ) : (
+            <div className="task-card">
+              <button
+                className="task-start"
+                onClick={() => navigate("/timer")}
+              >
+                ▶
+              </button>
 
-            {/* ТЕКСТ */}
-            <div style={{ flex: 1, marginLeft: 14 }}>
-              <div style={{ fontSize: 17, fontWeight: 600 }}>
-                {tasks[0].title}
+              <div className="task-info">
+                <div className="task-title">{tasks[0].title}</div>
+
+                <div className="task-sub">
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
+                </div>
               </div>
 
-              <div style={{ fontSize: 14, opacity: 0.6, marginTop: 4 }}>
-                +{tasks[0].od} ОД • {tasks[0].hp} xp
-              </div>
+              <div className="task-menu">⋯</div>
             </div>
-
-            {/* Три точки */}
-            <div
-              style={{
-                fontSize: 28,
-                padding: "6px 10px",
-                cursor: "pointer",
-              }}
-            >
-              ⋯
-            </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* ========= NAVIGATION ========= */}
         <div className="nav-wrapper">
