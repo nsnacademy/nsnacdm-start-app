@@ -114,7 +114,7 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD (only spacing changed) ===== */
+        /* ===== TASK CARD ===== */
 
         .task-card {
           width: 92%;
@@ -128,7 +128,9 @@ export default function Home() {
           align-items: center;
           justify-content: space-between;
 
-          gap: 22px; /* Главный фикс — расстояние между элементами */
+          gap: 22px;
+
+          flex-shrink: 0;     /* ADDED FIX */
         }
 
         .task-start {
@@ -147,15 +149,17 @@ export default function Home() {
 
         .task-info {
           flex: 1;
+          min-width: 0;       /* ADDED FIX */
           display: flex;
           flex-direction: column;
-          gap: 6px; /* расстояние между title и xp */
+          gap: 6px;
           text-align: left;
         }
 
         .task-title {
           font-size: 18px;
           font-weight: 600;
+          white-space: nowrap; /* ADDED FIX */
         }
 
         .task-sub {
