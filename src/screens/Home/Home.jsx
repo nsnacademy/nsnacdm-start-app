@@ -93,27 +93,22 @@ export default function Home() {
         /* ===== CONTENT CENTERING ===== */
 
         .content {
+          flex: 1;
+          width: 100%;
+          max-width: 520px;
+
+          display: flex;
           text-align: center;
-          margin-top: 0;
-          margin-bottom: 0;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center; /* ВЕРТИКАЛЬНЫЙ ЦЕНТР */
+          gap: 22px;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
-        }
-
-        .content h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 10px;
-        }
-
-        .content p {
-          font-size: 16px;
-          opacity: 0.55;
-          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -126,7 +121,7 @@ export default function Home() {
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
-          
+
         /* ===== TASK CARD ===== */
 
         .task-card {
