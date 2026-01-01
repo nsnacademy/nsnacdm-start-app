@@ -100,7 +100,7 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
+          justify-content: center; /* ВЕРТИКАЛЬНЫЙ ЦЕНТР */
           gap: 22px;
         }
 
@@ -133,7 +133,7 @@ export default function Home() {
 
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: center; /* ВСЁ В ЦЕНТРЕ */
           gap: 22px;
 
           position: relative;
@@ -155,22 +155,22 @@ export default function Home() {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: center;
-          justify-content: center;
+          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
+          justify-content: center;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
           gap: 6px;
           text-align: center;
           margin: 0 10px;
         }
 
         .task-title {
-          font-size: 16px;
+          font-size: 16px;      /* МЕНЬШЕ */
           font-weight: 600;
           line-height: 1.3;
           word-break: break-word;
         }
 
         .task-sub {
-          font-size: 13px;
+          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
           opacity: 0.6;
           white-space: nowrap;
         }
@@ -223,16 +223,9 @@ export default function Home() {
           padding: 0 30px;
         }
 
-        .nav-item {
-          background: none;
-          border: none;
-          padding: 0;
-        }
-
         .nav-item svg {
           width: 32px;
           height: 32px;
-          display: block;
         }
       `}</style>
 
@@ -350,7 +343,6 @@ export default function Home() {
 
           </div>
         </div>
-
 
       </div>
     </>
