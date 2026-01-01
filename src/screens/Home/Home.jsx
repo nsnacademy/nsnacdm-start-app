@@ -90,7 +90,7 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT CENTERING ===== */
+        /* ===== CONTENT ===== */
 
         .content {
           flex: 1;
@@ -100,7 +100,7 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center; /* ВЕРТИКАЛЬНЫЙ ЦЕНТР */
+          justify-content: center;
           gap: 22px;
         }
 
@@ -133,9 +133,8 @@ export default function Home() {
 
           display: flex;
           align-items: center;
-          justify-content: center; /* ВСЁ В ЦЕНТРЕ */
+          justify-content: center;
           gap: 22px;
-
           position: relative;
         }
 
@@ -155,22 +154,21 @@ export default function Home() {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
-          justify-content: center;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
+          align-items: center;
+          justify-content: center;
           gap: 6px;
           text-align: center;
-          margin: 0 10px;
         }
 
         .task-title {
-          font-size: 16px;      /* МЕНЬШЕ */
+          font-size: 16px;
           font-weight: 600;
           line-height: 1.3;
           word-break: break-word;
         }
 
         .task-sub {
-          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
+          font-size: 13px;
           opacity: 0.6;
           white-space: nowrap;
         }
@@ -216,7 +214,6 @@ export default function Home() {
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -309,9 +306,10 @@ export default function Home() {
           )}
         </div>
 
-        {/* NAV */}
+        {/* === UPDATED NAVIGATION FROM SECOND CODE === */}
         <div className="nav-wrapper">
           <div className="nav-pill">
+
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
@@ -340,6 +338,7 @@ export default function Home() {
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
             </button>
+
           </div>
         </div>
 
