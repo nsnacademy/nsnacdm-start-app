@@ -98,7 +98,7 @@ export default function Home() {
           max-width: 520px;
 
           display: flex;
-          text-align: center;
+          
           flex-direction: column;
           align-items: center;
           justify-content: center; /* ВЕРТИКАЛЬНЫЙ ЦЕНТР */
