@@ -7,9 +7,11 @@ export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
 
+  // задачи
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);
 
+  // меню точек
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -42,14 +44,12 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        /* ===== TOP PILL ===== */
-
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
           margin-top: 60px;
-          margin-bottom: 40px;
+          margin-bottom: 60px;
         }
 
         .top-pill {
@@ -90,24 +90,28 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT CENTERING ===== */
-
         .content {
-          flex: 1;
-          width: 100%;
-          max-width: 520px;
-
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center; /* ВЕРТИКАЛЬНЫЙ ЦЕНТР */
-          gap: 22px;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 0;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
+        }
+
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -121,31 +125,28 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD ===== */
-
+        /* ========= TASK CARD ========= */
         .task-card {
           width: 82%;
           max-width: 480px;
           background: #fff;
-          padding: 24px 26px;
-          border-radius: 26px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-
+          padding: 22px 24px;
+          border-radius: 24px;
+          box-shadow: 0 8px 22px rgba(0,0,0,0.06);
           display: flex;
           align-items: center;
-          justify-content: center; /* ВСЁ В ЦЕНТРЕ */
-          gap: 22px;
-
+          justify-content: space-between;
+          margin-bottom: 20px;
           position: relative;
         }
 
         .task-start {
-          width: 42px;
-          height: 42px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: #efefef;
           border: none;
-          font-size: 18px;
+          font-size: 20px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -153,24 +154,18 @@ export default function Home() {
 
         .task-info {
           flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
-          justify-content: center;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
-          gap: 6px;
-          text-align: center;
-          margin: 0 10px;
+          text-align: left;
+          margin-left: 16px;
         }
 
         .task-title {
-          font-size: 16px;      /* МЕНЬШЕ */
+          font-size: 18px;
           font-weight: 600;
-          line-height: 1.3;
           word-break: break-word;
         }
 
         .task-sub {
-          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
+          font-size: 14px;
           opacity: 0.6;
           white-space: nowrap;
         }
@@ -182,31 +177,39 @@ export default function Home() {
           opacity: 0.7;
         }
 
+        /* POPUP MENU */
         .popup-menu {
           position: absolute;
-          top: 10px;
+          top: 14px;
           right: 18px;
           background: #fff;
           padding: 12px 18px;
           border-radius: 14px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+          animation: fadeIn .15s ease forwards;
+          z-index: 20;
         }
 
         .popup-delete {
           color: #ff4d4d;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 500;
           cursor: pointer;
           text-align: right;
         }
 
-        /* ===== NAV ===== */
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========= NAV ========= */
 
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 40px;
+          margin-top: 60px;
         }
 
         .nav-pill {
@@ -223,6 +226,16 @@ export default function Home() {
           padding: 0 30px;
         }
 
+        .nav-item {
+          background: none;
+          border: none;
+          opacity: 0.45;
+        }
+
+        .nav-item.active {
+          opacity: 1;
+        }
+
         .nav-item svg {
           width: 32px;
           height: 32px;
@@ -231,10 +244,9 @@ export default function Home() {
 
       <div className="home-screen">
 
-        {/* TOP */}
+        {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -246,33 +258,33 @@ export default function Home() {
             <div className="separator"></div>
 
             <div className="right">
-              <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
+              <svg className="icon" viewBox="0 0 24 24" stroke="#FFC400" fill="none" strokeWidth="2">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
-
           </div>
         </div>
 
-        {/* CONTENT */}
-        <div className="content">
-          {tasks.length === 0 ? (
-            <>
-              <img className="empty-img" src="/images/clipboard.png" alt="empty" />
-              <h2>У вас пока нет задач</h2>
-              <p>Добавьте первую задачу, чтобы начать свой путь</p>
+        {/* ========= CONTENT ========= */}
+        {tasks.length === 0 ? (
+          <div className="content">
 
-              <button
-                className="primary-btn"
-                onClick={() => navigate("/new-task")}
-              >
-                Добавить задачу
-              </button>
-            </>
-          ) : (
+            <img className="empty-img" src="/images/clipboard.png" alt="empty" />
+            <h2>У вас пока нет задач</h2>
+            <p>Добавьте первую задачу, чтобы начать свой путь</p>
+
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/new-task")}
+            >
+              Добавить задачу
+            </button>
+          </div>
+        ) : (
+          <div className="content">
+
             <div className="task-card">
-
               <button className="task-start" onClick={() => navigate("/timer")}>
                 ▶
               </button>
@@ -295,38 +307,44 @@ export default function Home() {
               </div>
 
               {menuOpen && (
-                <div className="popup-menu">
+                <div className="popup-menu" onClick={(e) => e.stopPropagation()}>
                   <div
                     className="popup-delete"
-                    onClick={() => removeTask(tasks[0].id)}
+                    onClick={() => {
+                      removeTask(tasks[0].id);
+                      setMenuOpen(false);
+                    }}
                   >
                     Удалить
                   </div>
                 </div>
               )}
-
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* NAV */}
+        {/* ========= NAV ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
+
+            {/* Дом */}
             <button className="nav-item active">
-              <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+                <path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V11z"/>
               </svg>
             </button>
 
+            {/* Категории / фильтры */}
             <button className="nav-item">
-              <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
-                <circle cx="8.5" cy="14.8" r="1.3"/>
-                <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
-                <circle cx="16.6" cy="18.5" r="1.3"/>
+              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+                <circle cx="6" cy="7" r="2.5"/>
+                <line x1="10" y1="7" x2="20" y2="7"/>
+                <circle cx="6" cy="17" r="2.5"/>
+                <line x1="10" y1="17" x2="20" y2="17"/>
               </svg>
             </button>
 
+            {/* Магазин */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <rect x="4" y="7" width="16" height="13" rx="3"/>
@@ -334,12 +352,14 @@ export default function Home() {
               </svg>
             </button>
 
+            {/* Профиль */}
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
             </button>
+
           </div>
         </div>
 
