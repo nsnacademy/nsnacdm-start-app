@@ -31,6 +31,8 @@ export default function Home() {
           margin: 0 auto;
         }
 
+        /* ===== TOP PILL ===== */
+
         .top-pill-container {
           width: 100%;
           display: flex;
@@ -77,12 +79,16 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        /* ===== CONTENT WRAPPER ===== */
+
         .content {
-          text-align: center;
-          margin-top: 0;
-          margin-bottom: 0;
-          width: 82%;
-          max-width: 480px;
+          width: 100%;
+          max-width: 520px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 20px;
         }
 
         .empty-img {
@@ -127,10 +133,7 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-
           gap: 22px;
-
-          flex-shrink: 0;     /* ADDED FIX */
         }
 
         .task-start {
@@ -144,27 +147,29 @@ export default function Home() {
           justify-content: center;
           align-items: center;
 
-          font-size: 22px;
+          font-size: 20px;
         }
 
         .task-info {
           flex: 1;
-          min-width: 0;       /* ADDED FIX */
           display: flex;
           flex-direction: column;
-          gap: 6px;
           text-align: left;
+          gap: 4px;
         }
 
         .task-title {
           font-size: 18px;
           font-weight: 600;
-          white-space: nowrap; /* ADDED FIX */
+          line-height: 1.2;
+          white-space: normal;
+          word-break: break-word;
         }
 
         .task-sub {
           font-size: 14px;
           opacity: 0.6;
+          white-space: nowrap;
         }
 
         .task-menu {
@@ -209,13 +214,13 @@ export default function Home() {
           opacity: 1;
         }
 
-        .nav-item:active svg {
-          transform: scale(1.15);
-        }
-
         .nav-item svg {
           width: 32px;
           height: 32px;
+        }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
         }
       `}</style>
 
@@ -224,7 +229,6 @@ export default function Home() {
         {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -241,7 +245,6 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
-
           </div>
         </div>
 
@@ -264,13 +267,18 @@ export default function Home() {
           ) : (
             <div className="task-card">
 
-              <button className="task-start" onClick={() => navigate("/timer")}>
+              <button
+                className="task-start"
+                onClick={() => navigate("/timer")}
+              >
                 ▶
               </button>
 
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
-                <div className="task-sub">+{tasks[0].od} ОД • {tasks[0].hp} xp</div>
+                <div className="task-sub">
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
+                </div>
               </div>
 
               <div className="task-menu">⋯</div>
