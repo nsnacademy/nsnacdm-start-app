@@ -117,7 +117,7 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD (FIXED WIDTH + FIXED FLEX) ===== */
+        /* ===== TASK CARD (fixed flex) ===== */
 
         .task-card {
           width: 82%;
@@ -126,7 +126,6 @@ export default function Home() {
           padding: 22px 24px;
           border-radius: 24px;
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-
           display: flex;
           flex-direction: column;
           gap: 18px;
@@ -139,7 +138,7 @@ export default function Home() {
           gap: 18px;
 
           width: 100%;
-          min-width: 0;
+          min-width: 0; /* ключ! */
         }
 
         .task-start {
@@ -148,18 +147,16 @@ export default function Home() {
           border-radius: 50%;
           background: #efefef;
           border: none;
-
           display: flex;
           justify-content: center;
           align-items: center;
-
           font-size: 22px;
           flex-shrink: 0;
         }
 
         .task-info {
           flex: 1;
-          min-width: 0;
+          min-width: 0; /* ключ! */
           display: flex;
           flex-direction: column;
           gap: 4px;
@@ -169,7 +166,10 @@ export default function Home() {
         .task-title {
           font-size: 18px;
           font-weight: 600;
-          word-break: break-word;
+
+          white-space: normal;
+          word-break: keep-all;     /* НЕ ломать буквы */
+          overflow-wrap: break-word; /* переносить только слова, если надо */
         }
 
         .task-sub {
@@ -183,18 +183,6 @@ export default function Home() {
           cursor: pointer;
           opacity: 0.7;
           flex-shrink: 0;
-        }
-
-        .delete-btn {
-          margin-top: -8px;
-          margin-left: auto;
-          padding: 6px 12px;
-          background: #ff3b30;
-          color: white;
-          border-radius: 12px;
-          font-size: 14px;
-          cursor: pointer;
-          width: fit-content;
         }
 
         /* ========= NAVIGATION ========= */
@@ -260,6 +248,7 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
+
           </div>
         </div>
 
@@ -277,8 +266,8 @@ export default function Home() {
             </>
           ) : (
             <div className="task-card">
-
               <div className="task-inner">
+
                 <button className="task-start" onClick={() => navigate("/timer")}>
                   ▶
                 </button>
@@ -291,8 +280,8 @@ export default function Home() {
                 <div className="task-menu" onClick={() => removeTask(firstTask.id)}>
                   ⋯
                 </div>
-              </div>
 
+              </div>
             </div>
           )}
         </div>
