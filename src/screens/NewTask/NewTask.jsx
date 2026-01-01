@@ -377,25 +377,16 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 0px;
+          margin-bottom: 60px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
         .nav-wrapper {
-            position: fixed;
-            bottom: env(safe-area-inset-bottom, 20px); 
-            left: 50%;
-            transform: translateX(-50%);
-
-            width: 92%;
-            max-width: 520px;
-
-            display: flex;
-            justify-content: center;
-
-             z-index: 999;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 10px;
         }
-
 
         .nav-pill {
           width: 92%;
@@ -404,7 +395,6 @@ export default function NewTask() {
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -415,10 +405,7 @@ export default function NewTask() {
           border: none;
           background: none;
           opacity: 0.45;
-          padding: 0;
-          transition: 
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform 0.22s, opacity .2s;
         }
 
         .nav-item.active {
@@ -433,11 +420,6 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
-        }
-
-        .nav-item:active svg {
-          transform: scale(1.15);
         }
       `}</style>
 
