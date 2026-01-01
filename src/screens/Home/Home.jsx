@@ -22,7 +22,7 @@ export default function Home() {
     <>
       <style>{`
         * {
-          -webkit-tap-highlight-color: transparent !important; /* Убираем квадрат */
+          -webkit-tap-highlight-color: transparent;
         }
 
         .home-screen {
@@ -42,7 +42,7 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        /* ========= TOP ========= */
+        /* ===== TOP PILL ===== */
 
         .top-pill-container {
           width: 100%;
@@ -90,7 +90,7 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ========= CONTENT ========= */
+        /* ===== CONTENT CENTERING ===== */
 
         .content {
           flex: 1;
@@ -107,61 +107,72 @@ export default function Home() {
         .empty-img {
           width: 270px;
           opacity: 0.95;
+          margin-bottom: 25px;
         }
 
-        /* ========= TASK CARD ========= */
+        .primary-btn {
+          width: 240px;
+          height: 52px;
+          border: none;
+          border-radius: 16px;
+          background: #222;
+          color: white;
+          font-size: 17px;
+          box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+
+        /* ===== TASK CARD ===== */
 
         .task-card {
           width: 82%;
           max-width: 480px;
           background: #fff;
-          padding: 26px 26px;
+          padding: 24px 26px;
           border-radius: 26px;
-          box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: center; /* ВСЁ В ЦЕНТРЕ */
           gap: 22px;
+
           position: relative;
         }
 
         .task-start {
-          width: 44px;
-          height: 44px;
+          width: 42px;
+          height: 42px;
           border-radius: 50%;
-          background: #222;              /* Новый стиль */
-          color: #fff;
+          background: #efefef;
           border: none;
-          font-size: 16px;
-
+          font-size: 18px;
           display: flex;
           justify-content: center;
           align-items: center;
-
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .task-info {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: center;    /* текст строго по центру */
-          justify-content: center;
-          gap: 3px;
+          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
+          justify-content: center;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
+          gap: 6px;
           text-align: center;
+          margin: 0 10px;
         }
 
         .task-title {
-          font-size: 16px;
+          font-size: 16px;      /* МЕНЬШЕ */
           font-weight: 600;
           line-height: 1.3;
+          word-break: break-word;
         }
 
         .task-sub {
-          font-size: 14px;
+          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
           opacity: 0.6;
-          white-space: nowrap; /* В одну строку */
+          white-space: nowrap;
         }
 
         .task-menu {
@@ -171,11 +182,9 @@ export default function Home() {
           opacity: 0.7;
         }
 
-        /* POPUP MENU */
-
         .popup-menu {
           position: absolute;
-          top: 12px;
+          top: 10px;
           right: 18px;
           background: #fff;
           padding: 12px 18px;
@@ -191,7 +200,7 @@ export default function Home() {
           text-align: right;
         }
 
-        /* ========= NAVIGATION ========= */
+        /* ===== NAV ===== */
 
         .nav-wrapper {
           width: 100%;
@@ -214,27 +223,18 @@ export default function Home() {
           padding: 0 30px;
         }
 
-        .nav-item {
-          border: none;
-          background: none;
-          opacity: 0.45;
-        }
-
         .nav-item svg {
           width: 32px;
           height: 32px;
-        }
-
-        .nav-item.active {
-          opacity: 1;
         }
       `}</style>
 
       <div className="home-screen">
 
-        {/* ========= TOP ========= */}
+        {/* TOP */}
         <div className="top-pill-container">
           <div className="top-pill">
+
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -251,12 +251,12 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
+
           </div>
         </div>
 
-        {/* ========= CONTENT ========= */}
+        {/* CONTENT */}
         <div className="content">
-
           {tasks.length === 0 ? (
             <>
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
@@ -273,18 +273,17 @@ export default function Home() {
           ) : (
             <div className="task-card">
 
-              {/* Start button */}
               <button className="task-start" onClick={() => navigate("/timer")}>
                 ▶
               </button>
 
-              {/* Centered task text */}
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
-                <div className="task-sub">+{tasks[0].od} ОД • {tasks[0].hp} xp</div>
+                <div className="task-sub">
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
+                </div>
               </div>
 
-              {/* ⋯ menu */}
               <div
                 className="task-menu"
                 onClick={(e) => {
@@ -295,7 +294,6 @@ export default function Home() {
                 ⋯
               </div>
 
-              {/* Popup */}
               {menuOpen && (
                 <div className="popup-menu">
                   <div
@@ -309,10 +307,9 @@ export default function Home() {
 
             </div>
           )}
-
         </div>
 
-        {/* ========= NAV ========= */}
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
             <button className="nav-item active">
