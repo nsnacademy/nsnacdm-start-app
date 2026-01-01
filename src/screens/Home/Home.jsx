@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
-import { useTaskStore } from "../../store/taskStore";
+import { useTaskStore } from "../../store/taskStore"; // ← добавлено
 
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
 
-  // Подключаем список задач
-  const tasks = useTaskStore((s) => s.tasks);
+  const tasks = useTaskStore((s) => s.tasks); // ← добавлено
 
   return (
     <>
@@ -32,8 +31,6 @@ export default function Home() {
           max-width: 520px;
           margin: 0 auto;
         }
-
-        /* ---------- TOP (оригинал, 82%) ---------- */
 
         .top-pill-container {
           width: 100%;
@@ -81,30 +78,32 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ---------- CENTER BLOCK ---------- */
-
-        .center-content {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-
-          margin-top: -20px;
-          margin-bottom: auto;
-        }
-
-        /* ---------- EMPTY CONTENT ---------- */
-
         .content {
-          width: 100%;
           text-align: center;
+          margin-top: 0;
+          margin-bottom: 0;
+
+          /* --- ВАЖНО: оставляем те же размеры --- */
+          width: 82%;
+          max-width: 480px;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
+        }
+
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -118,16 +117,12 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ---------- TASK CARD (92%) ---------- */
-
         .task-card {
-          width: 92%;
-          max-width: 480px;
+          width: 100%; /* внутри content */
           background: #fff;
           padding: 18px 20px;
           border-radius: 24px;
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -139,7 +134,6 @@ export default function Home() {
           border-radius: 50%;
           background: #efefef;
           border: none;
-
           display: flex;
           justify-content: center;
           align-items: center;
@@ -149,6 +143,7 @@ export default function Home() {
         .task-info {
           flex: 1;
           margin-left: 14px;
+          text-align: left;
         }
 
         .task-title {
@@ -167,8 +162,6 @@ export default function Home() {
           padding: 6px 10px;
           cursor: pointer;
         }
-
-        /* ---------- NAVIGATION (оригинал 92%) ---------- */
 
         .nav-wrapper {
           width: 100%;
@@ -196,23 +189,33 @@ export default function Home() {
           background: none;
           opacity: 0.45;
           padding: 0;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
+          transition: transform 0.22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
         }
 
         .nav-item.active {
           opacity: 1;
         }
 
+        .nav-item:active {
+          transform: translateY(-4px) scale(1.15);
+          opacity: 0.85;
+        }
+
+        .nav-item svg {
+          width: 32px;
+          height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
         .nav-item:active svg {
           transform: scale(1.15);
         }
-
-
       `}</style>
 
       <div className="home-screen">
 
-        {/* ---------- TOP ---------- */}
+
+        {/* ========= TOP ========= */}
         <div className="top-pill-container">
           <div className="top-pill">
 
@@ -236,10 +239,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ---------- CENTER (пусто или задача) ---------- */}
-        <div className="center-content">
+
+        {/* ========= CONTENT ========= */}
+        <div className="content">
+
           {tasks.length === 0 ? (
-            <div className="content">
+            <>
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
 
               <h2>У вас пока нет задач</h2>
@@ -251,7 +256,7 @@ export default function Home() {
               >
                 Добавить задачу
               </button>
-            </div>
+            </>
           ) : (
             <div className="task-card">
 
@@ -268,9 +273,11 @@ export default function Home() {
 
             </div>
           )}
+
         </div>
 
-        {/* ---------- NAV ---------- */}
+
+        {/* ========= NAVIGATION ========= */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -305,6 +312,7 @@ export default function Home() {
 
           </div>
         </div>
+
 
       </div>
     </>
