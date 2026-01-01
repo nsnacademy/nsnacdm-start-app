@@ -31,20 +31,24 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        /* ---------- TOP PILL ---------- */
+        /* ---------- ЕДИНЫЙ КОНТЕЙНЕР ---------- */
 
-        .top-pill-container {
+        .center-wrapper {
           width: 100%;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
+          align-items: center;
 
-          margin-bottom: 55px;
+          margin-bottom: auto; /* чтобы навигация не сжимала контент */
         }
 
+        /* ---------- TOP PILL (92%) ---------- */
+
         .top-pill {
-          width: 82%;
+          width: 92%;
           max-width: 480px;
           height: 48px;
+
           background: #fff;
           border-radius: 30px;
 
@@ -53,6 +57,9 @@ export default function Home() {
           justify-content: space-between;
 
           padding: 0 16px;
+
+          margin-bottom: 50px;
+
           box-shadow: 0 6px 18px rgba(0,0,0,0.08);
         }
 
@@ -81,15 +88,6 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ---------- WRAPPER (ОСНОВНОЙ ФИКС) ---------- */
-
-        .middle-wrapper {
-          width: 100%;
-          display: flex;
-          justify-content: center; /* ВСЕГДА центрирует */
-          margin-bottom: auto;      /* НЕ даёт сжимать контент */
-        }
-
         /* ---------- EMPTY CONTENT ---------- */
 
         .content {
@@ -108,23 +106,30 @@ export default function Home() {
         .primary-btn {
           width: 240px;
           height: 52px;
+
           border: none;
           border-radius: 16px;
           background: #222;
           color: white;
           font-size: 17px;
-          box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+
           margin-top: 10px;
+
+          box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ---------- TASK CARD ---------- */
+        /* ---------- TASK CARD (92%) ---------- */
 
         .task-card {
           width: 92%;
           max-width: 480px;
+
           background: #fff;
           border-radius: 24px;
+
           padding: 18px 20px;
+          margin-bottom: 20px;
+
           box-shadow: 0 8px 22px rgba(0,0,0,0.06);
 
           display: flex;
@@ -136,6 +141,7 @@ export default function Home() {
           width: 38px;
           height: 38px;
           border-radius: 50%;
+
           background: #efefef;
           border: none;
 
@@ -168,7 +174,7 @@ export default function Home() {
           cursor: pointer;
         }
 
-        /* ---------- NAVIGATION ---------- */
+        /* ---------- NAVIGATION (92%) ---------- */
 
         .nav-wrapper {
           width: 100%;
@@ -179,18 +185,19 @@ export default function Home() {
 
         .nav-pill {
           width: 92%;
-          max-width: 520px;
+          max-width: 480px;
           height: 75px;
 
           background: #ffffff;
           border-radius: 28px;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 
           display: flex;
           justify-content: space-between;
           align-items: center;
 
           padding: 0 30px;
+
+          box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
         .nav-item {
@@ -213,8 +220,9 @@ export default function Home() {
 
       <div className="home-screen">
 
-        {/* ---------- TOP ---------- */}
-        <div className="top-pill-container">
+        <div className="center-wrapper">
+
+          {/* ---------- TOP PILL ---------- */}
           <div className="top-pill">
 
             <div className="left">
@@ -235,14 +243,10 @@ export default function Home() {
             </div>
 
           </div>
-        </div>
 
-        {/* ---------- CENTER WRAPPER ---------- */}
-        <div className="middle-wrapper">
-
+          {/* ---------- CENTER CONTENT ---------- */}
           {tasks.length === 0 ? (
             <div className="content">
-
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
 
               <h2>У вас пока нет задач</h2>
@@ -251,14 +255,10 @@ export default function Home() {
               <button className="primary-btn" onClick={() => navigate("/new-task")}>
                 Добавить задачу
               </button>
-
             </div>
           ) : (
             <div className="task-card">
-
-              <button className="task-start" onClick={() => navigate("/timer")}>
-                ▶
-              </button>
+              <button className="task-start" onClick={() => navigate("/timer")}>▶</button>
 
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
@@ -266,7 +266,6 @@ export default function Home() {
               </div>
 
               <div className="task-menu">⋯</div>
-
             </div>
           )}
 
