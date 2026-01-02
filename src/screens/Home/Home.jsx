@@ -162,7 +162,7 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
-          justify-content: center;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
+          justify-content: flex-start;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
           gap: 6px;
           text-align: center;
           margin: 0 10px;
