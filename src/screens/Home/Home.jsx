@@ -143,6 +143,8 @@ export default function Home() {
           gap: 22px;
 
           position: relative;
+
+          margin: 0 auto;
         }
 
         .task-start {
@@ -169,11 +171,15 @@ export default function Home() {
         }
 
         .task-title {
-          font-size: 16px;      /* МЕНЬШЕ */
+          font-size: 16px;
           font-weight: 600;
           line-height: 1.3;
-          word-break: break-word;
+
+          white-space: normal;        /* нормальный перенос строк */
+          word-break: normal;         /* не ломать слова */
+          overflow-wrap: break-word;  /* переносить только если слишком длинное слово */
         }
+
 
         .task-sub {
           font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
