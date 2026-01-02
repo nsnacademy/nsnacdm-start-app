@@ -138,7 +138,7 @@ export default function Home() {
             padding: 16px 20px;
 
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 14px;
 
           box-shadow: 0 12px 30px rgba(0,0,0,0.06);
