@@ -113,7 +113,77 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        
+        /* ===== TASK CARD (FIXED HEIGHT) ===== */
+
+        .task-card {
+          width: 88%;
+          max-width: 520px;
+
+          height: 88px;          /* 🔒 ФИКС ВЫСОТЫ */
+          min-height: 88px;
+
+          background: #ffffff;
+          border-radius: 28px;
+          padding: 0 22px;
+
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+
+          position: relative;
+          margin: 0 auto;
+        }
+
+        .task-start {
+          width: 48px;
+          height: 48px;
+          padding: 0;
+
+          border-radius: 999px;
+          background: #f1f1f1;
+          border: none;
+
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+
+          font-size: 18px;
+          line-height: 1;
+        }
+
+        .task-info {
+          flex: 1;
+          min-height: 0;          /* 🔒 НЕ ДАЁТ ТЯНУТЬ КАРТОЧКУ */
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .task-title {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.25;
+
+          white-space: nowrap;     /* ❗ ТОЛЬКО ГОРИЗОНТАЛЬ */
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .task-sub {
+          font-size: 13px;
+          opacity: 0.55;
+          font-weight: 400;
+        }
+
+        .task-menu {
+          font-size: 22px;
+          opacity: 0.6;
+          padding: 4px;
+          cursor: pointer;
+        }
 
         .popup-menu {
           position: absolute;
@@ -164,10 +234,6 @@ export default function Home() {
           transition: transform .22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
         }
 
-        .nav-item.active {
-          opacity: 1;
-        }
-
         .nav-item:active {
           transform: translateY(-4px) scale(1.15);
           opacity: 0.85;
@@ -176,11 +242,6 @@ export default function Home() {
         .nav-item svg {
           width: 32px;
           height: 32px;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
-        }
-
-        .nav-item:active svg {
-          transform: scale(1.15);
         }
       `}</style>
 
@@ -189,7 +250,6 @@ export default function Home() {
         {/* TOP */}
         <div className="top-pill-container">
           <div className="top-pill">
-
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -206,7 +266,6 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
-
           </div>
         </div>
 
@@ -217,11 +276,7 @@ export default function Home() {
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
               <h2>У вас пока нет задач</h2>
               <p>Добавьте первую задачу, чтобы начать свой путь</p>
-
-              <button
-                className="primary-btn"
-                onClick={() => navigate("/new-task")}
-              >
+              <button className="primary-btn" onClick={() => navigate("/new-task")}>
                 Добавить задачу
               </button>
             </>
@@ -235,7 +290,7 @@ export default function Home() {
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
                 <div className="task-sub">
-                  +{tasks[0].od} ОД • {tasks[0].hp} xp
+                  +{tasks[0].od} ОД · {tasks[0].hp} xp
                 </div>
               </div>
 
@@ -264,10 +319,9 @@ export default function Home() {
           )}
         </div>
 
-        {/* NAVIGATION */}
+        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
-
             <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
@@ -296,7 +350,6 @@ export default function Home() {
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
             </button>
-
           </div>
         </div>
 
