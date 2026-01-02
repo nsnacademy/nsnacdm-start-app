@@ -90,30 +90,16 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT CENTERING ===== */
+        /* ===== CONTENT ===== */
 
         .content {
           text-align: center;
-          margin-top: 0;
-          margin-bottom: 0;
         }
 
         .empty-img {
           width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
-        }
-
-        .content h2 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 10px;
-        }
-
-        .content p {
-          font-size: 16px;
-          opacity: 0.55;
-          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -127,24 +113,24 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD ===== */
+        /* ===== TASK CARD — ОБНОВЛЁННЫЙ ВАРИАНТ ===== */
 
         .task-card {
           width: 82%;
           max-width: 480px;
           background: #fff;
-          padding: 24px 26px;
+          padding: 22px 24px;
           border-radius: 26px;
           box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 
           display: flex;
           align-items: center;
-          justify-content: space-between; /* ВСЁ В ЦЕНТРЕ */
-          gap: 22px;
+          justify-content: space-between;
+          gap: 18px;
 
           position: relative;
-
           margin: 0 auto;
+          min-height: 90px;
         }
 
         .task-start {
@@ -163,28 +149,32 @@ export default function Home() {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
-          justify-content: flex-start;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
-          gap: 6px;
-          text-align: center;
-          margin: 0 10px;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 4px;
+          margin: 0 6px;
         }
 
         .task-title {
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 600;
-          line-height: 1.3;
+          line-height: 1.25;
 
-          white-space: normal;        /* нормальный перенос строк */
-          word-break: normal;         /* не ломать слова */
-          overflow-wrap: break-word;  /* переносить только если слишком длинное слово */
+          white-space: normal;
+          word-break: normal;
+          overflow-wrap: break-word;
+
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
         }
 
-
         .task-sub {
-          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
-          opacity: 0.6;
-          white-space: nowrap;
+          font-size: 13px;
+          opacity: 0.55;
+          font-weight: 400;
+          margin-top: 2px;
         }
 
         .task-menu {
@@ -240,9 +230,7 @@ export default function Home() {
           background: #ffffff;
           opacity: 0.45;
           padding: 0;
-          transition: 
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
         }
 
         .nav-item.active {
@@ -345,6 +333,7 @@ export default function Home() {
           )}
         </div>
 
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
