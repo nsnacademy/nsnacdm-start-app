@@ -117,7 +117,7 @@ export default function Home() {
 
         .task-card {
           width: 480px;
-          max-width: 520px;
+          max-width: 480px;
 
           height: 88px;          /* 🔒 ФИКС ВЫСОТЫ */
           min-height: 88px;
