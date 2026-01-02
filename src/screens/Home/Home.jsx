@@ -53,7 +53,7 @@ export default function Home() {
         }
 
         .top-pill {
-          width: 82%;
+          width: 100%;
           max-width: 480px;
           height: 48px;
           background: #fff;
@@ -93,11 +93,13 @@ export default function Home() {
         /* ===== CONTENT ===== */
 
         .content {
+          width: 100%;
           text-align: center;
         }
 
         .empty-img {
-          width: 270px;
+          width: 260px;
+          max-width: 80%;
           opacity: 0.95;
           margin-bottom: 25px;
         }
@@ -113,39 +115,35 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD (FIXED HEIGHT) ===== */
+        /* ===== TASK CARD — FULL RESPONSIVE ===== */
 
         .task-card {
-          width: 480px;
-          max-width: 480px;
-
-          height: 88px;          /* 🔒 ФИКС ВЫСОТЫ */
-          min-height: 88px;
-
+          width: 100%;
           background: #ffffff;
           border-radius: 28px;
-          padding: 0 22px;
+          padding: 16px 20px;
 
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 14px;
 
           box-shadow: 0 12px 30px rgba(0,0,0,0.06);
 
           position: relative;
           margin: 0 auto;
+
+          overflow: hidden;
         }
 
         .task-start {
-          width: 48px;
-          height: 48px;
-          padding: 0;
-
-          border-radius: 999px;
+          flex-shrink: 0;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
           background: #f1f1f1;
           border: none;
 
-          display: inline-flex;
+          display: flex;
           align-items: center;
           justify-content: center;
 
@@ -155,7 +153,8 @@ export default function Home() {
 
         .task-info {
           flex: 1;
-          min-height: 0;          /* 🔒 НЕ ДАЁТ ТЯНУТЬ КАРТОЧКУ */
+          min-width: 0;
+
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -163,14 +162,17 @@ export default function Home() {
         }
 
         .task-title {
-          max-width: 100%;
-          overflow: hidden;
           font-size: 16px;
           font-weight: 600;
           line-height: 1.25;
 
-          white-space: nowrap;     /* ❗ ТОЛЬКО ГОРИЗОНТАЛЬ */
+          white-space: normal;
           overflow: hidden;
+
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+
           text-overflow: ellipsis;
         }
 
@@ -181,6 +183,7 @@ export default function Home() {
         }
 
         .task-menu {
+          flex-shrink: 0;
           font-size: 22px;
           opacity: 0.6;
           padding: 4px;
@@ -211,12 +214,11 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
+          margin-top: 40px;
         }
 
         .nav-pill {
-          width: 92%;
-          max-width: 520px;
+          width: 100%;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -284,7 +286,6 @@ export default function Home() {
             </>
           ) : (
             <div className="task-card">
-
               <button className="task-start" onClick={() => navigate("/timer")}>
                 ▶
               </button>
@@ -316,7 +317,6 @@ export default function Home() {
                   </div>
                 </div>
               )}
-
             </div>
           )}
         </div>
