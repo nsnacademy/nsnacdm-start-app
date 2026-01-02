@@ -26,7 +26,7 @@ export default function Home() {
         }
 
         .home-screen {
-          width: 100%;
+          width: 92%;
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
