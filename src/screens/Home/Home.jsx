@@ -53,7 +53,7 @@ export default function Home() {
         }
 
         .top-pill {
-          width: 82%;
+          width: 92%;
           max-width: 480px;
           height: 48px;
           background: #fff;
@@ -167,7 +167,8 @@ export default function Home() {
 
         .task-info {
           flex: 1;
-          min-width: 100%;
+           min-width: 0;
+           width: 100%;
 
           display: flex;
           flex-direction: column;
