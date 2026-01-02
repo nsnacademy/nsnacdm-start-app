@@ -131,7 +131,7 @@ export default function Home() {
 
         
         .task-card {
-          width: 92%;
+        width: 92%;
           max-width: 520px;
           background: #ffffff;
           border-radius: 28px;
