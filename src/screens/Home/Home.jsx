@@ -158,7 +158,6 @@ export default function Home() {
           border: none;
 
           display: flex;
-          margin-top: 6px;
           align-items: center;
           justify-content: center;
 
