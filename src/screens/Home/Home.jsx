@@ -167,7 +167,7 @@ export default function Home() {
 
         .task-info {
           flex: 1;
-          width: 100%;
+          min-width: 100%;
 
           display: flex;
           flex-direction: column;
