@@ -160,9 +160,9 @@ export default function Home() {
           font-weight: 600;
           line-height: 1.25;
 
-          white-space: normal;
-          word-break: normal;
-          overflow-wrap: break-word;
+          white-space: nowrap;
+          word-break: hidden;
+          overflow-wrap: ellipsis;
 
           display: -webkit-box;
           -webkit-box-orient: vertical;
