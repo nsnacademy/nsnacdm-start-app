@@ -175,8 +175,7 @@ export default function Home() {
           font-weight: 600;
           line-height: 1.3;
 
-          white-space: normal;        /* нормальный перенос строк */
-          
+          white-space: nowrap;   
         }
 
 
