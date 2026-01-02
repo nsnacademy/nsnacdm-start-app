@@ -26,7 +26,7 @@ export default function Home() {
         }
 
         .home-screen {
-          width: 88%;
+          width: 100%;
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -53,7 +53,7 @@ export default function Home() {
         }
 
         .top-pill {
-          width: 100%;
+          width: 82%;
           max-width: 480px;
           height: 48px;
           background: #fff;
@@ -90,18 +90,30 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        /* ===== CONTENT ===== */
+        /* ===== CONTENT CENTERING ===== */
 
         .content {
-          width: 100%;
           text-align: center;
+          margin-top: 0;
+          margin-bottom: 0;
         }
 
         .empty-img {
-          width: 260px;
-          max-width: 80%;
+          width: 270px;
           opacity: 0.95;
           margin-bottom: 25px;
+        }
+
+        .content h2 {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .content p {
+          font-size: 16px;
+          opacity: 0.55;
+          margin-bottom: 20px;
         }
 
         .primary-btn {
@@ -115,79 +127,71 @@ export default function Home() {
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        /* ===== TASK CARD — FULL RESPONSIVE ===== */
+        /* ===== TASK CARD ===== */
 
         .task-card {
-          width: 100%;
-          background: #ffffff;
-          border-radius: 28px;
-          padding: 16px 20px;
+          width: 82%;
+          max-width: 480px;
+          background: #fff;
+          padding: 24px 26px;
+          border-radius: 26px;
+          box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 
           display: flex;
           align-items: center;
-          gap: 14px;
-
-          box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+          justify-content: space-between; /* ВСЁ В ЦЕНТРЕ */
+          gap: 22px;
 
           position: relative;
-          margin: 0 auto;
 
-          overflow: hidden;
+          margin: 0 auto;
         }
 
         .task-start {
-          flex-shrink: 0;
-          width: 44px;
-          height: 44px;
+          width: 42px;
+          height: 42px;
           border-radius: 50%;
-          background: #f1f1f1;
+          background: #efefef;
           border: none;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
           font-size: 18px;
-          line-height: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .task-info {
           flex: 1;
-          min-width: 0;
-
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          gap: 4px;
+          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
+          justify-content: flex-start;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
+          gap: 6px;
+          text-align: center;
+          margin: 0 10px;
         }
 
         .task-title {
           font-size: 16px;
           font-weight: 600;
-          line-height: 1.25;
+          line-height: 1.3;
 
-          white-space: normal;
-          overflow: hidden;
-
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-
-          text-overflow: ellipsis;
+          white-space: normal;        /* нормальный перенос строк */
+          word-break: normal;         /* не ломать слова */
+          overflow-wrap: break-word;  /* переносить только если слишком длинное слово */
         }
 
+
         .task-sub {
-          font-size: 13px;
-          opacity: 0.55;
-          font-weight: 400;
+          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
+          opacity: 0.6;
+          white-space: nowrap;
         }
 
         .task-menu {
-          flex-shrink: 0;
-          font-size: 22px;
-          opacity: 0.6;
-          padding: 4px;
+          font-size: 28px;
+          padding: 0 8px;
           cursor: pointer;
+          opacity: 0.7;
         }
 
         .popup-menu {
@@ -214,11 +218,12 @@ export default function Home() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 40px;
+          margin-top: 60px;
         }
 
         .nav-pill {
-          width: 100%;
+          width: 92%;
+          max-width: 520px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -235,7 +240,13 @@ export default function Home() {
           background: #ffffff;
           opacity: 0.45;
           padding: 0;
-          transition: transform .22s cubic-bezier(.25,.46,.45,.94), opacity .2s ease;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
+        }
+
+        .nav-item.active {
+          opacity: 1;
         }
 
         .nav-item:active {
@@ -246,6 +257,11 @@ export default function Home() {
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
         }
       `}</style>
 
@@ -254,6 +270,7 @@ export default function Home() {
         {/* TOP */}
         <div className="top-pill-container">
           <div className="top-pill">
+
             <div className="left">
               <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
                 <circle cx="12" cy="8" r="4"/>
@@ -270,6 +287,7 @@ export default function Home() {
               </svg>
               <span>{user?.od ?? 0} ОД</span>
             </div>
+
           </div>
         </div>
 
@@ -280,12 +298,17 @@ export default function Home() {
               <img className="empty-img" src="/images/clipboard.png" alt="empty" />
               <h2>У вас пока нет задач</h2>
               <p>Добавьте первую задачу, чтобы начать свой путь</p>
-              <button className="primary-btn" onClick={() => navigate("/new-task")}>
+
+              <button
+                className="primary-btn"
+                onClick={() => navigate("/new-task")}
+              >
                 Добавить задачу
               </button>
             </>
           ) : (
             <div className="task-card">
+
               <button className="task-start" onClick={() => navigate("/timer")}>
                 ▶
               </button>
@@ -293,7 +316,7 @@ export default function Home() {
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
                 <div className="task-sub">
-                  +{tasks[0].od} ОД · {tasks[0].hp} xp
+                  +{tasks[0].od} ОД • {tasks[0].hp} xp
                 </div>
               </div>
 
@@ -317,13 +340,14 @@ export default function Home() {
                   </div>
                 </div>
               )}
+
             </div>
           )}
         </div>
 
-        {/* NAV */}
         <div className="nav-wrapper">
           <div className="nav-pill">
+
             <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
@@ -352,6 +376,7 @@ export default function Home() {
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
             </button>
+
           </div>
         </div>
 
@@ -359,3 +384,4 @@ export default function Home() {
     </>
   );
 }
+
