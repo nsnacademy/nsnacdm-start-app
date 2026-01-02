@@ -53,7 +53,7 @@ export default function Home() {
         }
 
         .top-pill {
-          width: 92%;
+          width: 82%;
           max-width: 480px;
           height: 48px;
           background: #fff;
