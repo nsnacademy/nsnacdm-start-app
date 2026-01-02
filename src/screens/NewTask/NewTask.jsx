@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import confetti from "canvas-confetti"; // 🎉 конфетти библиотека
 import { useTaskStore } from "../../store/taskStore";
 
+
 export default function NewTask() {
   const navigate = useNavigate();
   const addTask = useTaskStore((s) => s.addTask);
+
 
   // ===== REWARD VALUES =====
   const [task, setTask] = useState("");
@@ -439,7 +441,7 @@ export default function NewTask() {
           <div className="task-box">
             <input
               className="input"
-              placeholder="Введите задачу (минимум 6 символов)"
+              placeholder="Введите задачу"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
@@ -487,32 +489,30 @@ export default function NewTask() {
           <button
             className="add-btn"
             onClick={() => {
-              const title = task.trim();
+              if (!task.trim()) return; // Защита от пустого
 
-              // ❗ Защита: минимум 6 символов
-              if (title.length < 6) return;
-
-              // Создаём объект задачи
+    // Создаём объект задачи
               const newTask = {
                 id: Date.now(),
-                title: title,          // ← используем уже очищенный title
+                title: task,
                 time: selectedTime,
                 od: animatedReward,
                 hp: animatedHp,
               };
 
-              // Сохраняем задачу в Zustand
+    // Сохраняем задачу в Zustand
               addTask(newTask);
 
-              // Конфетти
+    // Конфетти
               fireConfettiByTime(selectedTime);
 
-              // Переход домой
+    // Переход домой
               setTimeout(() => {
                 navigate("/home");
               }, 400);
             }}
           >
+
             Добавить
           </button>
 
