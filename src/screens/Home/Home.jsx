@@ -129,67 +129,78 @@ export default function Home() {
 
         /* ===== TASK CARD ===== */
 
-        .task-card {
-          width: 82%;
-          max-width: 480px;
-          background: #fff;
-          padding: 24px 26px;
-          border-radius: 26px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        
+          .task-card {
+          width: 100%;
+          background: #ffffff;
+          border-radius: 28px;
+          padding: 16px 20px;
 
           display: flex;
           align-items: center;
-          justify-content: space-between; /* ВСЁ В ЦЕНТРЕ */
-          gap: 22px;
+          gap: 14px;
+
+          box-shadow: 0 12px 30px rgba(0,0,0,0.06);
 
           position: relative;
-
           margin: 0 auto;
+
+          overflow: hidden;
         }
 
         .task-start {
-          width: 42px;
-          height: 42px;
+          flex-shrink: 0;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background: #efefef;
+          background: #f1f1f1;
           border: none;
-          font-size: 18px;
+
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
+
+          font-size: 18px;
+          line-height: 1;
         }
 
         .task-info {
           flex: 1;
+          min-width: 0;
+
           display: flex;
           flex-direction: column;
-          align-items: flex-start;      /* ТЕКСТ ПО ЦЕНТРУ */
-          justify-content: flex-start;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
-          gap: 6px;
-          text-align: left;
-          margin: 0 10px;
+          justify-content: center;
+          gap: 4px;
         }
 
         .task-title {
           font-size: 16px;
           font-weight: 600;
-          line-height: 1.3;
+          line-height: 1.25;
 
-          white-space: nowrap;   
+          white-space: normal;
+          overflow: hidden;
+
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+
+          text-overflow: ellipsis;
         }
 
-
         .task-sub {
-          font-size: 13px;      /* МЕНЬШЕ И АККУРАТНО */
-          opacity: 0.6;
-          white-space: nowrap;
+          font-size: 13px;
+          opacity: 0.55;
+          font-weight: 400;
         }
 
         .task-menu {
-          font-size: 28px;
-          padding: 0 8px;
+          flex-shrink: 0;
+          font-size: 22px;
+          opacity: 0.6;
+          padding: 4px;
           cursor: pointer;
-          opacity: 0.7;
         }
 
         .popup-menu {
