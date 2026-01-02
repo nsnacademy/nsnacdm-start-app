@@ -93,9 +93,10 @@ export default function Home() {
         /* ===== CONTENT CENTERING ===== */
 
         .content {
-          text-align: center;
-          margin-top: 0;
-          margin-bottom: 0;
+         width: 100%;
+         display: flex;
+         justify-content: center;
+         text-align: center;
         }
 
         .empty-img {
