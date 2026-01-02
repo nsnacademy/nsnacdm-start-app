@@ -131,11 +131,11 @@ export default function Home() {
 
         
         .task-card {
-        width: 92%;
-          max-width: 520px;
-          background: #ffffff;
-          border-radius: 28px;
-          padding: 16px 20px;
+            width: 92%;
+            max-width: 520px;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 16px 20px;
 
           display: flex;
           align-items: center;
@@ -147,7 +147,7 @@ export default function Home() {
           margin: 0 auto;
 
           overflow: hidden;
-         
+          
         }
 
         .task-start {
