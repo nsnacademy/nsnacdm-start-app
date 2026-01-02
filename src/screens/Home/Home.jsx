@@ -130,14 +130,15 @@ export default function Home() {
         /* ===== TASK CARD ===== */
 
         
-          .task-card {
-          width: 100%;
-          background: #ffffff;
-          border-radius: 28px;
-          padding: 16px 20px;
+        .task-card {
+            width: 92%;
+            max-width: 520px;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 16px 20px;
 
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           gap: 14px;
 
           box-shadow: 0 12px 30px rgba(0,0,0,0.06);
@@ -157,6 +158,7 @@ export default function Home() {
           border: none;
 
           display: flex;
+          margin-top: 6px;
           align-items: center;
           justify-content: center;
 
