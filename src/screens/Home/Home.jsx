@@ -139,7 +139,7 @@ export default function Home() {
 
           display: flex;
           align-items: center;
-          justify-content: center; /* ВСЁ В ЦЕНТРЕ */
+          justify-content: space-between; /* ВСЁ В ЦЕНТРЕ */
           gap: 22px;
 
           position: relative;
