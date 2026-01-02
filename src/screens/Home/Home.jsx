@@ -176,8 +176,7 @@ export default function Home() {
           line-height: 1.3;
 
           white-space: normal;        /* нормальный перенос строк */
-          word-break: normal;         /* не ломать слова */
-          overflow-wrap: break-word;  /* переносить только если слишком длинное слово */
+          
         }
 
 
