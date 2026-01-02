@@ -147,7 +147,7 @@ export default function Home() {
           margin: 0 auto;
 
           overflow: hidden;
-         box-sizing: border-box;
+         
         }
 
         .task-start {
