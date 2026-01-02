@@ -93,7 +93,7 @@ export default function Home() {
         /* ===== CONTENT ===== */
 
         .content {
-          width: 100%;
+          width: 92%;
           text-align: center;
         }
 
