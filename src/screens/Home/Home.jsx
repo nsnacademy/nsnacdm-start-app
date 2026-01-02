@@ -26,7 +26,7 @@ export default function Home() {
         }
 
         .home-screen {
-          width: 92%;
+          width: 88%;
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -93,7 +93,7 @@ export default function Home() {
         /* ===== CONTENT ===== */
 
         .content {
-          width: 92%;
+          width: 100%;
           text-align: center;
         }
 
