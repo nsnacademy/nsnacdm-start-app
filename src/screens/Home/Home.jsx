@@ -163,10 +163,10 @@ export default function Home() {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: center;      /* ТЕКСТ ПО ЦЕНТРУ */
+          align-items: flex-start;      /* ТЕКСТ ПО ЦЕНТРУ */
           justify-content: flex-start;  /* ПО ВЕРТИКАЛИ К ЦЕНТРУ */
           gap: 6px;
-          text-align: center;
+          text-align: left;
           margin: 0 10px;
         }
 
