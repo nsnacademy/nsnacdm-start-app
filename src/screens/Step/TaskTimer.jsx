@@ -16,7 +16,7 @@ export default function TaskTimer({ task }) {
   const [mode, setMode] = useState("running");
 
   const [exitLeft, setExitLeft] = useState(10);
-  const [thanksLeft, setThanksLeft] = useState(2);
+  const [thanksLeft, setThanksLeft] = useState(5);
 
   const circleRef = useRef(null);
   const radius = 100;
@@ -28,7 +28,7 @@ export default function TaskTimer({ task }) {
     setPaused(false);
     setMode("running");
     setExitLeft(10);
-    setThanksLeft(2);
+    setThanksLeft(5);
   }, [task]);
 
   /* ===== TIMER RUN ===== */
@@ -64,7 +64,7 @@ export default function TaskTimer({ task }) {
     circleRef.current.style.strokeDashoffset = offset;
   }, [remaining, TOTAL_SECONDS, circumference, mode]);
 
-  /* ===== EXIT TIMER ===== */
+  /* ===== EXIT AUTO REMOVE ===== */
   useEffect(() => {
     if (mode !== "exit") return;
 
@@ -83,7 +83,7 @@ export default function TaskTimer({ task }) {
     return () => clearInterval(interval);
   }, [mode, removeTask, finishTask, task.id]);
 
-  /* ===== THANKS TIMER ===== */
+  /* ===== THANKS AUTO REMOVE ===== */
   useEffect(() => {
     if (mode !== "thanks") return;
 
@@ -105,81 +105,228 @@ export default function TaskTimer({ task }) {
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
 
-  /* ========================= */
-  /* ===== EXIT SCREEN ======= */
-  /* ========================= */
+  /* ================= EXIT SCREEN ================= */
 
   if (mode === "exit") {
     return (
-      <Screen>
-        <Card>
-          <Title>Попытка не завершена</Title>
-          <Text>
-            <strong>Ты уже попробовал — и это важно.</strong><br />
-            Этот шаг был опытом, а не ошибкой.<br />
-            Мы уберём задачу, чтобы ты мог начать с начала,<br />
-            когда будет подходящий момент.
-          </Text>
+      <>
+        <style>{`
+          .exit-screen {
+            width: 100%;
+            height: 100vh;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+          }
 
-          <MiniLink onClick={() => setMode("diagnose")}>
-            Понять, что помешало
-          </MiniLink>
+          .exit-card {
+            width: 320px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 26px 22px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+          }
 
-          <Timer>{exitLeft}</Timer>
-        </Card>
-      </Screen>
+          .exit-text {
+            font-size: 15px;
+            line-height: 1.5;
+            opacity: 0.75;
+            margin-bottom: 18px;
+          }
+
+          .exit-link {
+            font-size: 13px;
+            opacity: 0.5;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+
+          .exit-timer {
+            margin-top: 16px;
+            font-size: 28px;
+            font-weight: 600;
+          }
+        `}</style>
+
+        <div className="exit-screen">
+          <div className="exit-card">
+            <div className="exit-text">
+              <strong>Ты уже попробовал — и это важно.</strong><br />
+              Этот шаг был опытом, а не ошибкой.<br />
+              Мы уберём задачу, чтобы ты мог начать с начала,<br />
+              когда будет подходящий момент.
+            </div>
+
+            <div
+              className="exit-link"
+              onClick={() => setMode("diagnose")}
+            >
+              Понять, что помешало
+            </div>
+
+            <div className="exit-timer">{exitLeft}</div>
+          </div>
+        </div>
+      </>
     );
   }
 
-  /* ========================= */
-  /* ===== DIAGNOSE ========= */
-  /* ========================= */
+  /* ================= DIAGNOSE SCREEN ================= */
 
   if (mode === "diagnose") {
     return (
-      <Screen>
-        <Card>
-          <Title>Что больше всего повлияло?</Title>
+      <>
+        <style>{`
+          .diag-btn {
+            width: 100%;
+            height: 44px;
+            border-radius: 14px;
+            border: none;
+            background: #f1f1f1;
+            font-size: 14px;
+            margin-bottom: 10px;
+          }
+        `}</style>
 
-          <Button onClick={() => setMode("thanks")}>
-            Сейчас не лучшее время
-          </Button>
-          <Button onClick={() => setMode("thanks")}>
-            Оказалось сложнее, чем ожидал
-          </Button>
-          <Button onClick={() => setMode("thanks")}>
-            Это было не так важно
-          </Button>
-        </Card>
-      </Screen>
+        <div className="exit-screen">
+          <div className="exit-card">
+            <div className="exit-text">
+              Что больше всего повлияло?
+            </div>
+
+            <button className="diag-btn" onClick={() => setMode("thanks")}>
+              Сейчас не лучшее время
+            </button>
+            <button className="diag-btn" onClick={() => setMode("thanks")}>
+              Оказалось сложнее, чем ожидал
+            </button>
+            <button className="diag-btn" onClick={() => setMode("thanks")}>
+              Это было не так важно
+            </button>
+          </div>
+        </div>
+      </>
     );
   }
 
-  /* ========================= */
-  /* ===== THANKS ============ */
-  /* ========================= */
+  /* ================= THANKS SCREEN ================= */
 
   if (mode === "thanks") {
     return (
-      <Screen>
-        <Card>
-          <Text>
-            Спасибо. Этого достаточно,<br />
-            чтобы идти дальше.
-          </Text>
-          <Timer>{thanksLeft}</Timer>
-        </Card>
-      </Screen>
+      <div className="exit-screen">
+        <div className="exit-card">
+          <div className="exit-text">
+            Спасибо. Этого достаточно.<br />
+            Можно идти дальше.
+          </div>
+          <div className="exit-timer">{thanksLeft}</div>
+        </div>
+      </div>
     );
   }
 
-  /* ========================= */
-  /* ===== RUNNING TIMER ===== */
-  /* ========================= */
+  /* ================= RUNNING TIMER ================= */
 
   return (
     <>
-      <style>{baseStyles}</style>
+      <style>{`
+        * {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .timer-screen {
+          width: 100%;
+          height: 100vh;
+          background: #f4f4f4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .card {
+          width: 320px;
+          background: #ffffff;
+          border-radius: 24px;
+          padding: 20px 18px 22px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .title {
+          font-size: 15px;
+          color: #555;
+          margin-bottom: 18px;
+        }
+
+        .timer-wrap {
+          position: relative;
+          width: 220px;
+          height: 220px;
+          margin: 0 auto 20px;
+        }
+
+        svg {
+          transform: rotate(-90deg);
+        }
+
+        .bg-circle {
+          stroke: #e6e6e6;
+        }
+
+        .progress-circle {
+          stroke: #bdbdbd;
+          stroke-linecap: round;
+          transition: stroke-dashoffset 0.4s ease;
+        }
+
+        .time {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .time-main {
+          font-size: 42px;
+          font-weight: 500;
+        }
+
+        .reward {
+          font-size: 13px;
+          color: #9e9e9e;
+          margin-top: 6px;
+        }
+
+        .buttons {
+          display: flex;
+          gap: 12px;
+        }
+
+        .btn {
+          flex: 1;
+          height: 46px;
+          border-radius: 16px;
+          border: none;
+          font-size: 15px;
+        }
+
+        .pause {
+          background: #2b2b2b;
+          color: white;
+        }
+
+        .stop {
+          background: #f1f1f1;
+          color: #777;
+        }
+      `}</style>
 
       <div className="timer-screen">
         <div className="card">
@@ -212,6 +359,9 @@ export default function TaskTimer({ task }) {
               <div className="time-main">
                 {minutes}:{seconds}
               </div>
+              <div className="reward">
+                +{task.od} ОД • маленькая победа
+              </div>
             </div>
           </div>
 
@@ -229,90 +379,3 @@ export default function TaskTimer({ task }) {
     </>
   );
 }
-
-/* ===== UI HELPERS ===== */
-
-const Screen = ({ children }) => (
-  <>
-    <style>{baseStyles}</style>
-    <div className="timer-screen">{children}</div>
-  </>
-);
-
-const Card = ({ children }) => (
-  <div className="card">{children}</div>
-);
-
-const Title = ({ children }) => (
-  <div style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>
-    {children}
-  </div>
-);
-
-const Text = ({ children }) => (
-  <div style={{ fontSize: 15, opacity: 0.65, marginBottom: 18 }}>
-    {children}
-  </div>
-);
-
-const MiniLink = ({ children, onClick }) => (
-  <div
-    onClick={onClick}
-    style={{
-      fontSize: 13,
-      opacity: 0.45,
-      cursor: "pointer",
-      marginBottom: 16,
-    }}
-  >
-    {children}
-  </div>
-);
-
-const Button = ({ children, onClick }) => (
-  <button
-    onClick={onClick}
-    style={{
-      width: "100%",
-      height: 46,
-      borderRadius: 14,
-      border: "none",
-      marginBottom: 10,
-      background: "#f1f1f1",
-      fontSize: 15,
-    }}
-  >
-    {children}
-  </button>
-);
-
-const Timer = ({ children }) => (
-  <div style={{ fontSize: 34, fontWeight: 600 }}>{children}</div>
-);
-
-const baseStyles = `
-  * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .timer-screen {
-    width: 100%;
-    height: 100vh;
-    background: #f4f4f4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  .card {
-    width: 320px;
-    background: #fff;
-    border-radius: 24px;
-    padding: 24px 22px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  }
-`;
