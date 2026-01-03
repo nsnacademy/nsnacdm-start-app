@@ -11,21 +11,24 @@ export default function TaskTimer({ task }) {
 
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [paused, setPaused] = useState(false);
-  const [mode, setMode] = useState("running"); 
-  // running | failed
 
-  const [failLeft, setFailLeft] = useState(7);
+  // running | exit | diagnose | thanks
+  const [mode, setMode] = useState("running");
+
+  const [exitLeft, setExitLeft] = useState(10);
+  const [thanksLeft, setThanksLeft] = useState(2);
 
   const circleRef = useRef(null);
   const radius = 100;
   const circumference = 2 * Math.PI * radius;
 
-  /* ===== INIT / RESET ===== */
+  /* ===== INIT ===== */
   useEffect(() => {
     setRemaining(task.time * 60);
     setPaused(false);
     setMode("running");
-    setFailLeft(7);
+    setExitLeft(10);
+    setThanksLeft(2);
   }, [task]);
 
   /* ===== TIMER RUN ===== */
@@ -49,7 +52,6 @@ export default function TaskTimer({ task }) {
   /* ===== CIRCLE INIT ===== */
   useEffect(() => {
     if (!circleRef.current) return;
-
     circleRef.current.style.strokeDasharray = `${circumference}`;
     circleRef.current.style.strokeDashoffset = "0";
   }, [circumference]);
@@ -57,22 +59,40 @@ export default function TaskTimer({ task }) {
   /* ===== CIRCLE PROGRESS ===== */
   useEffect(() => {
     if (!circleRef.current || mode !== "running") return;
-
     const progress = remaining / TOTAL_SECONDS;
     const offset = circumference * (1 - progress);
     circleRef.current.style.strokeDashoffset = offset;
   }, [remaining, TOTAL_SECONDS, circumference, mode]);
 
-  /* ===== FAIL SCREEN COUNTDOWN ===== */
+  /* ===== EXIT TIMER ===== */
   useEffect(() => {
-    if (mode !== "failed") return;
+    if (mode !== "exit") return;
 
     const interval = setInterval(() => {
-      setFailLeft((prev) => {
+      setExitLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          removeTask(task.id);   // ❌ удаляем задачу
-          finishTask();          // ⬅️ выход на Home
+          removeTask(task.id);
+          finishTask();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [mode, removeTask, finishTask, task.id]);
+
+  /* ===== THANKS TIMER ===== */
+  useEffect(() => {
+    if (mode !== "thanks") return;
+
+    const interval = setInterval(() => {
+      setThanksLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          removeTask(task.id);
+          finishTask();
           return 0;
         }
         return prev - 1;
@@ -86,60 +106,70 @@ export default function TaskTimer({ task }) {
   const seconds = String(remaining % 60).padStart(2, "0");
 
   /* ========================= */
-  /* ===== FAIL SCREEN ======= */
+  /* ===== EXIT SCREEN ======= */
   /* ========================= */
 
-  if (mode === "failed") {
+  if (mode === "exit") {
     return (
-      <>
-        <style>{`
-          .fail-screen {
-            width: 100%;
-            height: 100vh;
-            background: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-          }
+      <Screen>
+        <Card>
+          <Title>Попытка не завершена</Title>
+          <Text>
+            <strong>Ты уже попробовал — и это важно.</strong><br />
+            Этот шаг был опытом, а не ошибкой.<br />
+            Мы уберём задачу, чтобы ты мог начать с начала,<br />
+            когда будет подходящий момент.
+          </Text>
 
-          .fail-card {
-            width: 320px;
-            background: #fff;
-            border-radius: 24px;
-            padding: 28px 22px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-          }
+          <MiniLink onClick={() => setMode("diagnose")}>
+            Понять, что помешало
+          </MiniLink>
 
-          .fail-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-          }
+          <Timer>{exitLeft}</Timer>
+        </Card>
+      </Screen>
+    );
+  }
 
-          .fail-text {
-            font-size: 15px;
-            opacity: 0.65;
-            margin-bottom: 20px;
-          }
+  /* ========================= */
+  /* ===== DIAGNOSE ========= */
+  /* ========================= */
 
-          .fail-timer {
-            font-size: 36px;
-            font-weight: 600;
-          }
-        `}</style>
+  if (mode === "diagnose") {
+    return (
+      <Screen>
+        <Card>
+          <Title>Что больше всего повлияло?</Title>
 
-        <div className="fail-screen">
-          <div className="fail-card">
-            <div className="fail-title">Попытка не завершена</div>
-            <div className="fail-text">
-              Мы сохранили факт попытки. Задача будет удалена.
-            </div>
-            <div className="fail-timer">{failLeft}</div>
-          </div>
-        </div>
-      </>
+          <Button onClick={() => setMode("thanks")}>
+            Сейчас не лучшее время
+          </Button>
+          <Button onClick={() => setMode("thanks")}>
+            Оказалось сложнее, чем ожидал
+          </Button>
+          <Button onClick={() => setMode("thanks")}>
+            Это было не так важно
+          </Button>
+        </Card>
+      </Screen>
+    );
+  }
+
+  /* ========================= */
+  /* ===== THANKS ============ */
+  /* ========================= */
+
+  if (mode === "thanks") {
+    return (
+      <Screen>
+        <Card>
+          <Text>
+            Спасибо. Этого достаточно,<br />
+            чтобы идти дальше.
+          </Text>
+          <Timer>{thanksLeft}</Timer>
+        </Card>
+      </Screen>
     );
   }
 
@@ -149,101 +179,7 @@ export default function TaskTimer({ task }) {
 
   return (
     <>
-      <style>{`
-        * {
-          box-sizing: border-box;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        .timer-screen {
-          width: 100%;
-          height: 100vh;
-          background: #f4f4f4;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        .card {
-          width: 320px;
-          background: #ffffff;
-          border-radius: 24px;
-          padding: 20px 18px 22px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .title {
-          font-size: 15px;
-          color: #555;
-          margin-bottom: 18px;
-        }
-
-        .timer-wrap {
-          position: relative;
-          width: 220px;
-          height: 220px;
-          margin: 0 auto 20px;
-        }
-
-        svg {
-          transform: rotate(-90deg);
-        }
-
-        .bg-circle {
-          stroke: #e6e6e6;
-        }
-
-        .progress-circle {
-          stroke: #bdbdbd;
-          stroke-linecap: round;
-          transition: stroke-dashoffset 0.4s ease;
-        }
-
-        .time {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .time-main {
-          font-size: 42px;
-          font-weight: 500;
-        }
-
-        .reward {
-          font-size: 13px;
-          color: #9e9e9e;
-          margin-top: 6px;
-        }
-
-        .buttons {
-          display: flex;
-          gap: 12px;
-        }
-
-        .btn {
-          flex: 1;
-          height: 46px;
-          border-radius: 16px;
-          border: none;
-          font-size: 15px;
-        }
-
-        .pause {
-          background: #2b2b2b;
-          color: white;
-        }
-
-        .stop {
-          background: #f1f1f1;
-          color: #777;
-        }
-      `}</style>
+      <style>{baseStyles}</style>
 
       <div className="timer-screen">
         <div className="card">
@@ -276,24 +212,15 @@ export default function TaskTimer({ task }) {
               <div className="time-main">
                 {minutes}:{seconds}
               </div>
-              <div className="reward">
-                +{task.od} ОД • маленькая победа
-              </div>
             </div>
           </div>
 
           <div className="buttons">
-            <button
-              className="btn pause"
-              onClick={() => setPaused(!paused)}
-            >
+            <button className="btn pause" onClick={() => setPaused(!paused)}>
               {paused ? "Продолжить" : "Пауза"}
             </button>
 
-            <button
-              className="btn stop"
-              onClick={() => setMode("failed")}
-            >
+            <button className="btn stop" onClick={() => setMode("exit")}>
               Выйти
             </button>
           </div>
@@ -302,3 +229,90 @@ export default function TaskTimer({ task }) {
     </>
   );
 }
+
+/* ===== UI HELPERS ===== */
+
+const Screen = ({ children }) => (
+  <>
+    <style>{baseStyles}</style>
+    <div className="timer-screen">{children}</div>
+  </>
+);
+
+const Card = ({ children }) => (
+  <div className="card">{children}</div>
+);
+
+const Title = ({ children }) => (
+  <div style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>
+    {children}
+  </div>
+);
+
+const Text = ({ children }) => (
+  <div style={{ fontSize: 15, opacity: 0.65, marginBottom: 18 }}>
+    {children}
+  </div>
+);
+
+const MiniLink = ({ children, onClick }) => (
+  <div
+    onClick={onClick}
+    style={{
+      fontSize: 13,
+      opacity: 0.45,
+      cursor: "pointer",
+      marginBottom: 16,
+    }}
+  >
+    {children}
+  </div>
+);
+
+const Button = ({ children, onClick }) => (
+  <button
+    onClick={onClick}
+    style={{
+      width: "100%",
+      height: 46,
+      borderRadius: 14,
+      border: "none",
+      marginBottom: 10,
+      background: "#f1f1f1",
+      fontSize: 15,
+    }}
+  >
+    {children}
+  </button>
+);
+
+const Timer = ({ children }) => (
+  <div style={{ fontSize: 34, fontWeight: 600 }}>{children}</div>
+);
+
+const baseStyles = `
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .timer-screen {
+    width: 100%;
+    height: 100vh;
+    background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .card {
+    width: 320px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 24px 22px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+`;
