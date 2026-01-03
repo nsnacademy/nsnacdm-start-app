@@ -17,8 +17,8 @@ export default function Home() {
 
   // ✅ ВОТ ЭТО ДОБАВИЛИ
   if (activeTask) {
-    return <TaskTimer />;
-  }
+  return <TaskTimer task={activeTask} />;
+}
 
 
   const [menuOpen, setMenuOpen] = useState(false);
