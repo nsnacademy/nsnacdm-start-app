@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTaskStore } from "../../store/taskStore";
+import rewardChest from "../../assets/reward-chest.png";
 
 export default function TaskTimer({ task }) {
   if (!task) return null;
@@ -39,7 +40,7 @@ export default function TaskTimer({ task }) {
       setRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          setMode("complete");
+          setMode("complete"); // ← ВОТ ГДЕ ЗАВЕРШЕНИЕ
           return 0;
         }
         return prev - 1;
@@ -63,47 +64,6 @@ export default function TaskTimer({ task }) {
       circumference * (1 - progress);
   }, [remaining, TOTAL_SECONDS, circumference, mode]);
 
-  /* ===== EXIT AUTO REMOVE ===== */
-  useEffect(() => {
-    if (mode !== "exit") return;
-
-    const interval = setInterval(() => {
-      setExitLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          removeTask(task.id);
-          finishTask();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [mode, task.id]);
-
-  /* ===== THANKS AUTO REMOVE ===== */
-  useEffect(() => {
-    if (mode !== "thanks") return;
-
-    const interval = setInterval(() => {
-      setThanksLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          removeTask(task.id);
-          finishTask();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [mode, task.id]);
-
-  const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
-  const seconds = String(remaining % 60).padStart(2, "0");
-
   /* ================= COMPLETE ================= */
 
   if (mode === "complete") {
@@ -125,7 +85,7 @@ export default function TaskTimer({ task }) {
             <div className="complete-hp">+{hp} ХП</div>
 
             <img
-              src="/src/assets/reward-chest.png"
+              src={rewardChest}
               alt="Награда"
               className="complete-image"
             />
@@ -134,10 +94,10 @@ export default function TaskTimer({ task }) {
               className="btn pause"
               onClick={() => {
                 removeTask(task.id);
-                finishTask();
+                finishTask(); // ← ВОЗВРАТ В HOME
               }}
             >
-              Завершить задачу
+              Следующий шаг
             </button>
           </div>
         </div>
@@ -159,16 +119,23 @@ export default function TaskTimer({ task }) {
               Давай сделаем его совсем маленьким.
             </div>
 
-            <div className="exit-text">
+            <div className="exit-text" style={{ marginTop: 12 }}>
               <strong>2 минуты.</strong><br />
-              Просто сделай один простой шаг — любой.
+              Просто сделай один очень простой шаг —
+              любой, без цели закончить.
             </div>
 
-            <div className="buttons">
-              <button className="btn pause" onClick={() => setMode("realize")}>
+            <div className="buttons" style={{ marginTop: 18 }}>
+              <button
+                className="btn pause"
+                onClick={() => setMode("realize")}
+              >
                 Я сделал
               </button>
-              <button className="btn stop" onClick={() => setMode("exit")}>
+              <button
+                className="btn stop"
+                onClick={() => setMode("exit")}
+              >
                 Всё равно выйти
               </button>
             </div>
@@ -189,13 +156,21 @@ export default function TaskTimer({ task }) {
             <div className="exit-text">
               <strong>Видишь?</strong><br />
               Ты уже сделал шаг — и даже не заметил этого.
+              <br /><br />
+              Иногда начать — сложнее, чем продолжить.
             </div>
 
             <div className="buttons">
-              <button className="btn pause" onClick={() => setMode("running")}>
+              <button
+                className="btn pause"
+                onClick={() => setMode("running")}
+              >
                 Вернуться к задаче
               </button>
-              <button className="btn stop" onClick={() => setMode("exit")}>
+              <button
+                className="btn stop"
+                onClick={() => setMode("exit")}
+              >
                 Выйти
               </button>
             </div>
@@ -215,8 +190,11 @@ export default function TaskTimer({ task }) {
           <div className="exit-card">
             <div className="exit-text">
               <strong>Ты уже попробовал — и это важно.</strong><br />
-              Этот шаг был опытом, а не ошибкой.
+              Этот шаг был опытом, а не ошибкой.<br />
+              Мы уберём задачу, чтобы ты мог начать с начала,
+              когда будет подходящий момент.
             </div>
+
             <div className="exit-timer">{exitLeft}</div>
           </div>
         </div>
@@ -268,10 +246,16 @@ export default function TaskTimer({ task }) {
           </div>
 
           <div className="buttons">
-            <button className="btn pause" onClick={() => setPaused(!paused)}>
+            <button
+              className="btn pause"
+              onClick={() => setPaused(!paused)}
+            >
               {paused ? "Продолжить" : "Пауза"}
             </button>
-            <button className="btn stop" onClick={() => setMode("micro")}>
+            <button
+              className="btn stop"
+              onClick={() => setMode("micro")}
+            >
               Выйти
             </button>
           </div>
@@ -361,6 +345,7 @@ const exitStyles = `
 }
 
 .exit-timer {
+  margin-top: 16px;
   font-size: 28px;
   font-weight: 600;
 }
@@ -445,9 +430,9 @@ svg {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 
 .time-main {
