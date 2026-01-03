@@ -289,7 +289,7 @@ const exitStyles = `
 .exit-screen {
   width: 100%;
   height: 100vh;
-  background: #f4f4f4;
+  background: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: center;
