@@ -181,6 +181,10 @@ export default function Home() {
           font-weight: 600;
           line-height: 1.25;
 
+
+          overflow-wrap: anywhere;
+          word-break: break-word;
+
           white-space: normal;
           overflow: hidden;
 
