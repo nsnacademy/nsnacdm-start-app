@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { useTaskStore } from "../../store/taskStore";
 import { useState, useEffect } from "react";
+import TaskTimer from "../Step/TaskTimer";
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -9,6 +11,10 @@ export default function Home() {
 
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);
+
+  const startTask = useTaskStore((s) => s.startTask);
+  const activeTask = useTaskStore((s) => s.activeTask);
+
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -281,6 +287,7 @@ export default function Home() {
       `}</style>
 
       <div className="home-screen">
+        {activeTask && <TaskTimer />}
 
         {/* TOP */}
         <div className="top-pill-container">
@@ -324,9 +331,13 @@ export default function Home() {
           ) : (
             <div className="task-card">
 
-              <button className="task-start" onClick={() => navigate("/timer")}>
-                ▶
-              </button>
+              <button
+                className="task-start"
+                onClick={() => startTask(tasks[0])}
+            >
+                 ▶
+                </button>
+
 
               <div className="task-info">
                 <div className="task-title">{tasks[0].title}</div>
