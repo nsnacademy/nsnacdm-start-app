@@ -1,53 +1,87 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTaskStore } from "../../store/taskStore";
 
 export default function TaskTimer() {
   const activeTask = useTaskStore((s) => s.activeTask);
-  const clearActiveTask = useTaskStore((s) => s.clearActiveTask);
+  const finishTask = useTaskStore((s) => s.finishTask);
 
   if (!activeTask) return null;
 
-  const [seconds, setSeconds] = useState(activeTask.time * 60);
+  const TOTAL_SECONDS = activeTask.time * 60;
+
+  const [remaining, setRemaining] = useState(TOTAL_SECONDS);
+  const [paused, setPaused] = useState(false);
+
+  const radius = 100;
+  const circumference = 2 * Math.PI * radius;
+  const circleRef = useRef(null);
 
   useEffect(() => {
+    if (!circleRef.current) return;
+    circleRef.current.style.strokeDasharray = `${circumference}`;
+    circleRef.current.style.strokeDashoffset = 0;
+  }, []);
+
+  useEffect(() => {
+    if (paused) return;
+
     const interval = setInterval(() => {
-      setSeconds((s) => {
-        if (s <= 1) {
+      setRemaining((prev) => {
+        if (prev <= 1) {
           clearInterval(interval);
-          clearActiveTask();
+          finishTask();
           return 0;
         }
-        return s - 1;
+        return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
 
-  const mm = Math.floor(seconds / 60);
-  const ss = String(seconds % 60).padStart(2, "0");
+  useEffect(() => {
+    if (!circleRef.current) return;
+    const progress = remaining / TOTAL_SECONDS;
+    circleRef.current.style.strokeDashoffset =
+      circumference * (1 - progress);
+  }, [remaining]);
+
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "#fff",
-        zIndex: 1000,
-        padding: 24,
-      }}
-    >
+    <div style={{ padding: 20 }}>
       <h3>{activeTask.title}</h3>
 
-      <div style={{ fontSize: 40, margin: "20px 0" }}>
-        {mm}:{ss}
-      </div>
+      <svg width="220" height="220" style={{ transform: "rotate(-90deg)" }}>
+        <circle
+          r={radius}
+          cx="110"
+          cy="110"
+          stroke="#e6e6e6"
+          strokeWidth="10"
+          fill="none"
+        />
+        <circle
+          ref={circleRef}
+          r={radius}
+          cx="110"
+          cy="110"
+          stroke="#bdbdbd"
+          strokeWidth="10"
+          fill="none"
+          strokeLinecap="round"
+        />
+      </svg>
 
-      <div>+{activeTask.od} ОД</div>
+      <div style={{ fontSize: 40 }}>{mm}:{ss}</div>
+      <div>+{activeTask.od} ОД маленькая победа</div>
 
-      <button onClick={clearActiveTask}>
-        Остановить
+      <button onClick={() => setPaused(!paused)}>
+        {paused ? "Продолжить" : "Пауза"}
       </button>
+
+      <button onClick={finishTask}>Остановить</button>
     </div>
   );
 }
