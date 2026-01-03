@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useTaskStore } from "../../store/taskStore";
-
-// ✅ ПРАВИЛЬНЫЙ IMPORT КАРТИНКИ
 import rewardChest from "../../assets/reward-chest.png";
 
 export default function TaskTimer({ task }) {
@@ -86,7 +84,7 @@ export default function TaskTimer({ task }) {
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
 
-  /* ================= COMPLETE ================= */
+  /* ================= COMPLETE (FULLSCREEN) ================= */
 
   if (mode === "complete") {
     const od = task.od;
@@ -97,7 +95,7 @@ export default function TaskTimer({ task }) {
         <style>{completeStyles}</style>
 
         <div className="complete-screen">
-          <div className="complete-card">
+          <div className="complete-content">
             <div className="complete-title">Маленькая победа!</div>
             <div className="complete-sub">
               Ты выполнил задачу и заработал
@@ -113,7 +111,7 @@ export default function TaskTimer({ task }) {
             />
 
             <button
-              className="btn pause"
+              className="complete-btn"
               onClick={() => {
                 removeTask(task.id);
                 finishTask();
@@ -276,42 +274,51 @@ const completeStyles = `
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.complete-card {
-  width: 320px;
-  background: #fff;
-  border-radius: 24px;
-  padding: 28px 22px;
+.complete-content {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px 40px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .complete-title {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .complete-sub {
-  font-size: 14px;
+  font-size: 16px;
   opacity: 0.6;
-  margin-bottom: 18px;
+  margin-bottom: 28px;
 }
 
 .complete-reward {
-  font-size: 34px;
+  font-size: 42px;
   font-weight: 600;
 }
 
 .complete-hp {
-  font-size: 16px;
+  font-size: 18px;
   opacity: 0.7;
-  margin-bottom: 16px;
+  margin-bottom: 28px;
 }
 
 .complete-image {
-  width: 180px;
-  margin: 0 auto 22px;
+  width: 220px;
+  margin: 0 auto 32px;
   display: block;
+}
+
+.complete-btn {
+  width: 100%;
+  height: 56px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  background: #2b2b2b;
+  color: white;
 }
 `;
 
