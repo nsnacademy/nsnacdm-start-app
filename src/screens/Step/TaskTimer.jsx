@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { useTaskStore } from "../../store/taskStore";
 
-export default function TaskTimer() {
-  const TOTAL_SECONDS = 10 * 60;
+export default function TaskTimer({ task }) {
+  // 🛡 защита
+  if (!task) return null;
+
+  const finishTask = useTaskStore((s) => s.finishTask);
+
+  const TOTAL_SECONDS = task.time * 60;
 
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [paused, setPaused] = useState(false);
@@ -10,13 +16,21 @@ export default function TaskTimer() {
   const radius = 100;
   const circumference = 2 * Math.PI * radius;
 
+  // ⏱ сбрасываем таймер при новой задаче
+  useEffect(() => {
+    setRemaining(task.time * 60);
+    setPaused(false);
+  }, [task]);
+
+  // 🎯 инициализация круга
   useEffect(() => {
     if (!circleRef.current) return;
 
     circleRef.current.style.strokeDasharray = `${circumference}`;
     circleRef.current.style.strokeDashoffset = "0";
-  }, []);
+  }, [circumference]);
 
+  // ⏳ ход таймера
   useEffect(() => {
     if (paused) return;
 
@@ -24,6 +38,7 @@ export default function TaskTimer() {
       setRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
+          finishTask(); // ⬅️ возвращаемся в Home
           return 0;
         }
         return prev - 1;
@@ -31,15 +46,16 @@ export default function TaskTimer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [paused]);
+  }, [paused, finishTask]);
 
+  // 🔄 прогресс круга
   useEffect(() => {
     if (!circleRef.current) return;
 
     const progress = remaining / TOTAL_SECONDS;
     const offset = circumference * (1 - progress);
     circleRef.current.style.strokeDashoffset = offset;
-  }, [remaining]);
+  }, [remaining, TOTAL_SECONDS, circumference]);
 
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
@@ -52,8 +68,16 @@ export default function TaskTimer() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        body {
+        .timer-screen {
+          width: 100%;
+          height: 100vh;
           background: #f4f4f4;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          padding: 20px;
         }
 
         .card {
@@ -138,45 +162,54 @@ export default function TaskTimer() {
         }
       `}</style>
 
-      <div className="card">
-        <div className="title">Разобрать стол — 10 минут</div>
-
-        <div className="timer-wrap">
-          <svg width="220" height="220">
-            <circle
-              className="bg-circle"
-              strokeWidth="10"
-              fill="transparent"
-              r={radius}
-              cx="110"
-              cy="110"
-            />
-            <circle
-              ref={circleRef}
-              className="progress-circle"
-              strokeWidth="10"
-              fill="transparent"
-              r={radius}
-              cx="110"
-              cy="110"
-            />
-          </svg>
-
-          <div className="time">
-            <div className="time-main">
-              {minutes}:{seconds}
-            </div>
-            <div className="reward">+12 ОД маленькая победа</div>
+      <div className="timer-screen">
+        <div className="card">
+          <div className="title">
+            {task.title} — {task.time} минут
           </div>
-        </div>
 
-        <div className="buttons">
-          <button className="btn pause" onClick={() => setPaused(!paused)}>
-            {paused ? "Продолжить" : "Пауза"}
-          </button>
-          <button className="btn stop" onClick={() => setRemaining(0)}>
-            Остановить
-          </button>
+          <div className="timer-wrap">
+            <svg width="220" height="220">
+              <circle
+                className="bg-circle"
+                strokeWidth="10"
+                fill="transparent"
+                r={radius}
+                cx="110"
+                cy="110"
+              />
+              <circle
+                ref={circleRef}
+                className="progress-circle"
+                strokeWidth="10"
+                fill="transparent"
+                r={radius}
+                cx="110"
+                cy="110"
+              />
+            </svg>
+
+            <div className="time">
+              <div className="time-main">
+                {minutes}:{seconds}
+              </div>
+              <div className="reward">
+                +{task.od} ОД • маленькая победа
+              </div>
+            </div>
+          </div>
+
+          <div className="buttons">
+            <button className="btn pause" onClick={() => setPaused(!paused)}>
+              {paused ? "Продолжить" : "Пауза"}
+            </button>
+            <button
+              className="btn stop"
+              onClick={() => finishTask()}
+            >
+              Выйти
+            </button>
+          </div>
         </div>
       </div>
     </>
