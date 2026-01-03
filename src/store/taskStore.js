@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export const useTaskStore = create((set) => ({
   tasks: [],
-  activeTask: null, // ← ДОБАВИЛИ
+  activeTask: null,
 
   addTask: (task) =>
     set((state) => ({
@@ -20,13 +20,19 @@ export const useTaskStore = create((set) => ({
       activeTask: null,
     })),
 
-  // ===== НОВОЕ =====
+  // ===== TIMER FLOW =====
   startTask: (task) =>
     set(() => ({
       activeTask: task,
     })),
 
   clearActiveTask: () =>
+    set(() => ({
+      activeTask: null,
+    })),
+
+  // ✅ ДОБАВИТЬ ВОТ ЭТО
+  finishTask: () =>
     set(() => ({
       activeTask: null,
     })),

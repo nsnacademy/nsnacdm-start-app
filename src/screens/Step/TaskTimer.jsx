@@ -2,43 +2,41 @@ import { useEffect, useRef, useState } from "react";
 import { useTaskStore } from "../../store/taskStore";
 
 export default function TaskTimer({ task }) {
-  // 🛡 защита
   if (!task) return null;
 
   const finishTask = useTaskStore((s) => s.finishTask);
+  const removeTask = useTaskStore((s) => s.removeTask);
 
   const TOTAL_SECONDS = task.time * 60;
 
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [paused, setPaused] = useState(false);
+  const [mode, setMode] = useState("running"); 
+  // running | failed
+
+  const [failLeft, setFailLeft] = useState(7);
 
   const circleRef = useRef(null);
   const radius = 100;
   const circumference = 2 * Math.PI * radius;
 
-  // ⏱ сбрасываем таймер при новой задаче
+  /* ===== INIT / RESET ===== */
   useEffect(() => {
     setRemaining(task.time * 60);
     setPaused(false);
+    setMode("running");
+    setFailLeft(7);
   }, [task]);
 
-  // 🎯 инициализация круга
+  /* ===== TIMER RUN ===== */
   useEffect(() => {
-    if (!circleRef.current) return;
-
-    circleRef.current.style.strokeDasharray = `${circumference}`;
-    circleRef.current.style.strokeDashoffset = "0";
-  }, [circumference]);
-
-  // ⏳ ход таймера
-  useEffect(() => {
-    if (paused) return;
+    if (paused || mode !== "running") return;
 
     const interval = setInterval(() => {
       setRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          finishTask(); // ⬅️ возвращаемся в Home
+          finishTask();
           return 0;
         }
         return prev - 1;
@@ -46,19 +44,108 @@ export default function TaskTimer({ task }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [paused, finishTask]);
+  }, [paused, mode, finishTask]);
 
-  // 🔄 прогресс круга
+  /* ===== CIRCLE INIT ===== */
   useEffect(() => {
     if (!circleRef.current) return;
+
+    circleRef.current.style.strokeDasharray = `${circumference}`;
+    circleRef.current.style.strokeDashoffset = "0";
+  }, [circumference]);
+
+  /* ===== CIRCLE PROGRESS ===== */
+  useEffect(() => {
+    if (!circleRef.current || mode !== "running") return;
 
     const progress = remaining / TOTAL_SECONDS;
     const offset = circumference * (1 - progress);
     circleRef.current.style.strokeDashoffset = offset;
-  }, [remaining, TOTAL_SECONDS, circumference]);
+  }, [remaining, TOTAL_SECONDS, circumference, mode]);
+
+  /* ===== FAIL SCREEN COUNTDOWN ===== */
+  useEffect(() => {
+    if (mode !== "failed") return;
+
+    const interval = setInterval(() => {
+      setFailLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          removeTask(task.id);   // ❌ удаляем задачу
+          finishTask();          // ⬅️ выход на Home
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [mode, removeTask, finishTask, task.id]);
 
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
+
+  /* ========================= */
+  /* ===== FAIL SCREEN ======= */
+  /* ========================= */
+
+  if (mode === "failed") {
+    return (
+      <>
+        <style>{`
+          .fail-screen {
+            width: 100%;
+            height: 100vh;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+          }
+
+          .fail-card {
+            width: 320px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 28px 22px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+          }
+
+          .fail-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+          }
+
+          .fail-text {
+            font-size: 15px;
+            opacity: 0.65;
+            margin-bottom: 20px;
+          }
+
+          .fail-timer {
+            font-size: 36px;
+            font-weight: 600;
+          }
+        `}</style>
+
+        <div className="fail-screen">
+          <div className="fail-card">
+            <div className="fail-title">Попытка не завершена</div>
+            <div className="fail-text">
+              Мы сохранили факт попытки. Задача будет удалена.
+            </div>
+            <div className="fail-timer">{failLeft}</div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  /* ========================= */
+  /* ===== RUNNING TIMER ===== */
+  /* ========================= */
 
   return (
     <>
@@ -72,12 +159,11 @@ export default function TaskTimer({ task }) {
           width: 100%;
           height: 100vh;
           background: #f4f4f4;
-
           display: flex;
           align-items: center;
           justify-content: center;
-
           padding: 20px;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .card {
@@ -86,7 +172,6 @@ export default function TaskTimer({ task }) {
           border-radius: 24px;
           padding: 20px 18px 22px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
         }
 
         .title {
@@ -128,7 +213,6 @@ export default function TaskTimer({ task }) {
         .time-main {
           font-size: 42px;
           font-weight: 500;
-          letter-spacing: 1px;
         }
 
         .reward {
@@ -148,7 +232,6 @@ export default function TaskTimer({ task }) {
           border-radius: 16px;
           border: none;
           font-size: 15px;
-          cursor: pointer;
         }
 
         .pause {
@@ -200,12 +283,16 @@ export default function TaskTimer({ task }) {
           </div>
 
           <div className="buttons">
-            <button className="btn pause" onClick={() => setPaused(!paused)}>
+            <button
+              className="btn pause"
+              onClick={() => setPaused(!paused)}
+            >
               {paused ? "Продолжить" : "Пауза"}
             </button>
+
             <button
               className="btn stop"
-              onClick={() => finishTask()}
+              onClick={() => setMode("failed")}
             >
               Выйти
             </button>
