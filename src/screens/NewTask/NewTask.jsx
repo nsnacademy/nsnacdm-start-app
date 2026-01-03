@@ -17,7 +17,7 @@ export default function NewTask() {
   const [animatedReward, setAnimatedReward] = useState(10);
   const [animatedHp, setAnimatedHp] = useState(25);
 
-  const times = [10, 20, 30, 40, 50, 60];
+  const times = [1, 20, 30, 40, 50, 60];
 
   // ===== SMOOTH NUMBER ANIMATION =====
   function animateValue(from, to, setter, duration = 350) {
@@ -67,7 +67,7 @@ export default function NewTask() {
   function fireConfettiByTime(t) {
     const origin = getOrigin();
 
-    if (t === 10) {
+    if (t === 1) {
       confetti({
         particleCount: 40,
         spread: 45,
@@ -510,7 +510,7 @@ export default function NewTask() {
           {/* ADD BUTTON → FIRE CONFETTI */}
           <button
             className="add-btn"
-            disabled={task.trim().length < 6}
+            disabled={task.trim().length < 23}
             onClick={() => {
               const title = task.trim();
 
