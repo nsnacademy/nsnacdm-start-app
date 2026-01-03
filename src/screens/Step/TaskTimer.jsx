@@ -305,7 +305,7 @@ const completeStyles = `
 }
 
 .complete-image {
-  width: 220px;
+  width: 270px;
   margin: 0 auto 32px;
   display: block;
 }
