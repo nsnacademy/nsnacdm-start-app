@@ -3,6 +3,7 @@ import "./Splash.css";
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
+import { preloadImages } from "../../lib/preloadImages"; // 👈 ДОБАВИЛИ
 
 export default function Splash() {
   const { user: tgUser } = useTelegram();
@@ -30,11 +31,19 @@ export default function Splash() {
 
       console.log("TG USER:", tgUser);
 
+      // 🔥 ПРЕДЗАГРУЗКА ВСЕХ КАРТИНОК
+      try {
+        await preloadImages();
+      } catch (e) {
+        console.log("Image preload error:", e);
+      }
+
       const user = await findOrCreateUser(tgUser);
       if (!user) return;
 
       setUser(user);
 
+      // ⏳ оставляем твою задержку (Splash ощущение)
       await new Promise((res) => setTimeout(res, 3200));
 
       if (user.has_onboarded === true) {
@@ -50,7 +59,6 @@ export default function Splash() {
   return (
     <section className="screen splash">
       <div className="splash-inner">
-        
         <div className="splash-title">НАЧАТЬ С НАЧАЛА</div>
 
         <div className="splash-sub">
@@ -61,14 +69,13 @@ export default function Splash() {
           <div className="splash-line"></div>
         </div>
 
-        {/* 🔥 Минималистичная кнопка пропуска */}
+        {/* Минималистичная кнопка пропуска */}
         <button
           className="skip-btn"
-          onClick={() => (window.location.href = "/Home")}
+          onClick={() => (window.location.href = "/home")}
         >
           Пропустить вступление →
         </button>
-
       </div>
     </section>
   );
