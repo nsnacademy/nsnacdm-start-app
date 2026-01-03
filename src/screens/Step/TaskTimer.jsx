@@ -12,7 +12,7 @@ export default function TaskTimer({ task }) {
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [paused, setPaused] = useState(false);
 
-  // running | exit | diagnose | thanks
+  // running | exit | micro | realize | thanks
   const [mode, setMode] = useState("running");
 
   const [exitLeft, setExitLeft] = useState(10);
@@ -49,19 +49,18 @@ export default function TaskTimer({ task }) {
     return () => clearInterval(interval);
   }, [paused, mode, finishTask]);
 
-  /* ===== CIRCLE INIT ===== */
+  /* ===== CIRCLE ===== */
   useEffect(() => {
     if (!circleRef.current) return;
     circleRef.current.style.strokeDasharray = `${circumference}`;
     circleRef.current.style.strokeDashoffset = "0";
   }, [circumference]);
 
-  /* ===== CIRCLE PROGRESS ===== */
   useEffect(() => {
     if (!circleRef.current || mode !== "running") return;
     const progress = remaining / TOTAL_SECONDS;
-    const offset = circumference * (1 - progress);
-    circleRef.current.style.strokeDashoffset = offset;
+    circleRef.current.style.strokeDashoffset =
+      circumference * (1 - progress);
   }, [remaining, TOTAL_SECONDS, circumference, mode]);
 
   /* ===== EXIT AUTO REMOVE ===== */
@@ -105,66 +104,94 @@ export default function TaskTimer({ task }) {
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
 
-  /* ================= EXIT SCREEN ================= */
+  /* ================= MICRO STEP ================= */
+
+  if (mode === "micro") {
+    return (
+      <>
+        <style>{exitStyles}</style>
+        <div className="exit-screen">
+          <div className="exit-card">
+            <div className="exit-text">
+              Похоже, этот шаг оказался слишком большим для этого момента.
+              <br />
+              Давай сделаем его совсем маленьким.
+            </div>
+
+            <div className="exit-text" style={{ marginTop: 12 }}>
+              <strong>2 минуты.</strong><br />
+              Просто сделай один очень простой шаг —
+              любой, без цели закончить.
+            </div>
+
+            <div className="buttons" style={{ marginTop: 18 }}>
+              <button
+                className="btn pause"
+                onClick={() => setMode("realize")}
+              >
+                Я сделал
+              </button>
+              <button
+                className="btn stop"
+                onClick={() => setMode("exit")}
+              >
+                Всё равно выйти
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  /* ================= REALIZE ================= */
+
+  if (mode === "realize") {
+    return (
+      <>
+        <style>{exitStyles}</style>
+        <div className="exit-screen">
+          <div className="exit-card">
+            <div className="exit-text">
+              <strong>Видишь?</strong><br />
+              Ты уже сделал шаг — и даже не заметил этого.
+              <br /><br />
+              Иногда начать — сложнее, чем продолжить.
+            </div>
+
+            <div className="buttons">
+              <button
+                className="btn pause"
+                onClick={() => setMode("running")}
+              >
+                Вернуться к задаче
+              </button>
+              <button
+                className="btn stop"
+                onClick={() => setMode("exit")}
+              >
+                Выйти
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  /* ================= EXIT ================= */
 
   if (mode === "exit") {
     return (
       <>
-        <style>{`
-          .exit-screen {
-            width: 100%;
-            height: 100vh;
-            background: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-          }
-
-          .exit-card {
-            width: 320px;
-            background: #fff;
-            border-radius: 24px;
-            padding: 26px 22px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-          }
-
-          .exit-text {
-            font-size: 15px;
-            line-height: 1.5;
-            opacity: 0.75;
-            margin-bottom: 18px;
-          }
-
-          .exit-link {
-            font-size: 13px;
-            opacity: 0.5;
-            text-decoration: underline;
-            cursor: pointer;
-          }
-
-          .exit-timer {
-            margin-top: 16px;
-            font-size: 28px;
-            font-weight: 600;
-          }
-        `}</style>
-
+        <style>{exitStyles}</style>
         <div className="exit-screen">
           <div className="exit-card">
             <div className="exit-text">
               <strong>Ты уже попробовал — и это важно.</strong><br />
               Этот шаг был опытом, а не ошибкой.<br />
-              Мы уберём задачу, чтобы ты мог начать с начала,<br />
+              Мы уберём задачу, чтобы ты мог начать с начала,
               когда будет подходящий момент.
-            </div>
-
-            <div
-              className="exit-link"
-              onClick={() => setMode("diagnose")}
-            >
-              Понять, что помешало
             </div>
 
             <div className="exit-timer">{exitLeft}</div>
@@ -174,57 +201,22 @@ export default function TaskTimer({ task }) {
     );
   }
 
-  /* ================= DIAGNOSE SCREEN ================= */
-
-  if (mode === "diagnose") {
-    return (
-      <>
-        <style>{`
-          .diag-btn {
-            width: 100%;
-            height: 44px;
-            border-radius: 14px;
-            border: none;
-            background: #f1f1f1;
-            font-size: 14px;
-            margin-bottom: 10px;
-          }
-        `}</style>
-
-        <div className="exit-screen">
-          <div className="exit-card">
-            <div className="exit-text">
-              Что больше всего повлияло?
-            </div>
-
-            <button className="diag-btn" onClick={() => setMode("thanks")}>
-              Сейчас не лучшее время
-            </button>
-            <button className="diag-btn" onClick={() => setMode("thanks")}>
-              Оказалось сложнее, чем ожидал
-            </button>
-            <button className="diag-btn" onClick={() => setMode("thanks")}>
-              Это было не так важно
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  /* ================= THANKS SCREEN ================= */
+  /* ================= THANKS ================= */
 
   if (mode === "thanks") {
     return (
-      <div className="exit-screen">
-        <div className="exit-card">
-          <div className="exit-text">
-            Спасибо. Этого достаточно.<br />
-            Можно идти дальше.
+      <>
+        <style>{exitStyles}</style>
+        <div className="exit-screen">
+          <div className="exit-card">
+            <div className="exit-text">
+              Этого достаточно.<br />
+              Можно идти дальше.
+            </div>
+            <div className="exit-timer">{thanksLeft}</div>
           </div>
-          <div className="exit-timer">{thanksLeft}</div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -232,101 +224,7 @@ export default function TaskTimer({ task }) {
 
   return (
     <>
-      <style>{`
-        * {
-          box-sizing: border-box;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        .timer-screen {
-          width: 100%;
-          height: 100vh;
-          background: #f4f4f4;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        .card {
-          width: 320px;
-          background: #ffffff;
-          border-radius: 24px;
-          padding: 20px 18px 22px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .title {
-          font-size: 15px;
-          color: #555;
-          margin-bottom: 18px;
-        }
-
-        .timer-wrap {
-          position: relative;
-          width: 220px;
-          height: 220px;
-          margin: 0 auto 20px;
-        }
-
-        svg {
-          transform: rotate(-90deg);
-        }
-
-        .bg-circle {
-          stroke: #e6e6e6;
-        }
-
-        .progress-circle {
-          stroke: #bdbdbd;
-          stroke-linecap: round;
-          transition: stroke-dashoffset 0.4s ease;
-        }
-
-        .time {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .time-main {
-          font-size: 42px;
-          font-weight: 500;
-        }
-
-        .reward {
-          font-size: 13px;
-          color: #9e9e9e;
-          margin-top: 6px;
-        }
-
-        .buttons {
-          display: flex;
-          gap: 12px;
-        }
-
-        .btn {
-          flex: 1;
-          height: 46px;
-          border-radius: 16px;
-          border: none;
-          font-size: 15px;
-        }
-
-        .pause {
-          background: #2b2b2b;
-          color: white;
-        }
-
-        .stop {
-          background: #f1f1f1;
-          color: #777;
-        }
-      `}</style>
+      <style>{timerStyles}</style>
 
       <div className="timer-screen">
         <div className="card">
@@ -366,11 +264,16 @@ export default function TaskTimer({ task }) {
           </div>
 
           <div className="buttons">
-            <button className="btn pause" onClick={() => setPaused(!paused)}>
+            <button
+              className="btn pause"
+              onClick={() => setPaused(!paused)}
+            >
               {paused ? "Продолжить" : "Пауза"}
             </button>
-
-            <button className="btn stop" onClick={() => setMode("exit")}>
+            <button
+              className="btn stop"
+              onClick={() => setMode("micro")}
+            >
               Выйти
             </button>
           </div>
@@ -379,3 +282,158 @@ export default function TaskTimer({ task }) {
     </>
   );
 }
+
+/* ===== STYLES ===== */
+
+const exitStyles = `
+.exit-screen {
+  width: 100%;
+  height: 100vh;
+  background: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.exit-card {
+  width: 320px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 26px 22px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.exit-text {
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: 0.75;
+  margin-bottom: 18px;
+}
+
+.exit-timer {
+  margin-top: 16px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  flex: 1;
+  height: 46px;
+  border-radius: 16px;
+  border: none;
+  font-size: 15px;
+}
+
+.pause {
+  background: #2b2b2b;
+  color: white;
+}
+
+.stop {
+  background: #f1f1f1;
+  color: #777;
+}
+`;
+
+const timerStyles = `
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.timer-screen {
+  width: 100%;
+  height: 100vh;
+  background: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.card {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px 18px 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.title {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 18px;
+}
+
+.timer-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 20px;
+}
+
+svg {
+  transform: rotate(-90deg);
+}
+
+.bg-circle {
+  stroke: #e6e6e6;
+}
+
+.progress-circle {
+  stroke: #bdbdbd;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.time {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-main {
+  font-size: 42px;
+  font-weight: 500;
+}
+
+.reward {
+  font-size: 13px;
+  color: #9e9e9e;
+  margin-top: 6px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  flex: 1;
+  height: 46px;
+  border-radius: 16px;
+  border: none;
+  font-size: 15px;
+}
+
+.pause {
+  background: #2b2b2b;
+  color: white;
+}
+
+.stop {
+  background: #f1f1f1;
+  color: #777;
+}
+`;
