@@ -290,7 +290,7 @@ const exitStyles = `
   width: 100%;
   height: 100vh;
   background: #f8f8f8;
-  display: flex;
+  display: flex; 
   align-items: center;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -351,7 +351,7 @@ const timerStyles = `
 .timer-screen {
   width: 100%;
   height: 100vh;
-  background: #f4f4f4;
+  background: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: center;
