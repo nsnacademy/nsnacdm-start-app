@@ -15,10 +15,6 @@ export default function Home() {
   const startTask = useTaskStore((s) => s.startTask);
   const activeTask = useTaskStore((s) => s.activeTask);
 
-  // ✅ ВОТ ЭТО ДОБАВИЛИ
-  if (activeTask) {
-  return <TaskTimer task={activeTask} />;
-}
 
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,6 +24,10 @@ export default function Home() {
     document.addEventListener("click", close);
     return () => document.removeEventListener("click", close);
   }, []);
+
+  if (activeTask) {
+    return <TaskTimer task={activeTask} />;
+  }
 
   return (
     <>
