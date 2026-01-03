@@ -439,7 +439,7 @@ export default function NewTask() {
           <div className="task-box">
             <input
               className="input"
-              placeholder="Введите задачу (минимум 23 символа)"
+              placeholder="Ввод минимум 23 символа"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
