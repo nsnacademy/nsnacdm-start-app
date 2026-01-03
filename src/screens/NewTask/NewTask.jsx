@@ -272,6 +272,7 @@ export default function NewTask() {
           padding: 22px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
           margin-bottom: 25px;
+          position: relative;
         }
 
         .input {
@@ -283,7 +284,20 @@ export default function NewTask() {
           padding: 0 16px;
           font-size: 16px;
           outline: none;
+          margin-bottom: 8px;
+        }
+
+        .char-counter {
+          font-size: 13px;
+          color: #999;
+          text-align: right;
+          padding-right: 4px;
           margin-bottom: 20px;
+          height: 18px;
+        }
+
+        .char-counter.warning {
+          color: #ff6b6b;
         }
 
         .label {
@@ -379,6 +393,12 @@ export default function NewTask() {
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
+        .add-btn:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -439,10 +459,14 @@ export default function NewTask() {
           <div className="task-box">
             <input
               className="input"
-              placeholder="Ввод минимум 23 символа"
+              placeholder="минимум 23 символа)"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
+            
+            <div className={`char-counter ${task.trim().length < 23 ? 'warning' : ''}`}>
+              {task.trim().length}/23 символов
+            </div>
 
             <div className="label">Запланированное время</div>
 
@@ -486,6 +510,7 @@ export default function NewTask() {
           {/* ADD BUTTON → FIRE CONFETTI */}
           <button
             className="add-btn"
+            disabled={task.trim().length < 6}
             onClick={() => {
               const title = task.trim();
 

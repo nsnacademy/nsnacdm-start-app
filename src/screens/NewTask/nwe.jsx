@@ -1,14 +1,202 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import confetti from "canvas-confetti"; // 🎉 конфетти библиотека
+import { useTaskStore } from "../../store/taskStore";
 
 export default function NewTask() {
   const navigate = useNavigate();
+  const addTask = useTaskStore((s) => s.addTask);
 
+  // ===== REWARD VALUES =====
   const [task, setTask] = useState("");
   const [selectedTime, setSelectedTime] = useState(10);
 
-  // интервалы времени
+  const [reward, setReward] = useState(10); // ОД = время
+  const [hp, setHp] = useState(25);        // ХП = время * 2.5
+
+  const [animatedReward, setAnimatedReward] = useState(10);
+  const [animatedHp, setAnimatedHp] = useState(25);
+
   const times = [10, 20, 30, 40, 50, 60];
+
+  // ===== SMOOTH NUMBER ANIMATION =====
+  function animateValue(from, to, setter, duration = 350) {
+    const start = performance.now();
+
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const value = from + (to - from) * progress;
+      setter(Math.round(value));
+
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  // animate on first render
+  useEffect(() => {
+    const initialReward = selectedTime;
+    const initialHp = Math.round(selectedTime * 2.5);
+
+    setReward(initialReward);
+    setHp(initialHp);
+
+    animateValue(0, initialReward, setAnimatedReward);
+    animateValue(0, initialHp, setAnimatedHp);
+  }, []);
+
+  // =====================================================
+  // 🎯 ВЫЛЕТ ИЗ КНОПКИ "Добавить"
+  // =====================================================
+  function getOrigin() {
+    const btn = document.querySelector(".add-btn");
+    if (!btn) return { x: 0.5, y: 0.5 };
+
+    const rect = btn.getBoundingClientRect();
+
+    return {
+      x: (rect.left + rect.width / 2) / window.innerWidth,
+      y: (rect.top + rect.height / 2) / window.innerHeight
+    };
+  }
+
+  // =====================================================
+  // 🎉 УРОВНИ КОНФЕТТИ ПО ВРЕМЕНИ (10 → 60 минут)
+  // =====================================================
+  function fireConfettiByTime(t) {
+    const origin = getOrigin();
+
+    if (t === 10) {
+      confetti({
+        particleCount: 40,
+        spread: 45,
+        startVelocity: 18,
+        scalar: 0.7,
+        origin
+      });
+    }
+
+    if (t === 20) {
+      confetti({
+        particleCount: 70,
+        spread: 60,
+        startVelocity: 25,
+        scalar: 0.8,
+        origin
+      });
+    }
+
+    if (t === 30) {
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        startVelocity: 32,
+        gravity: 0.9,
+        scalar: 1,
+        origin
+      });
+    }
+
+    if (t === 40) {
+      confetti({
+        particleCount: 140,
+        spread: 100,
+        startVelocity: 38,
+        scalar: 1.1,
+        origin
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 60,
+          spread: 140,
+          startVelocity: 28,
+          scalar: 1,
+          origin
+        });
+      }, 250);
+    }
+
+    if (t === 50) {
+      confetti({
+        particleCount: 160,
+        spread: 120,
+        startVelocity: 45,
+        scalar: 1.2,
+        gravity: 0.85,
+        origin
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 130,
+          spread: 160,
+          startVelocity: 32,
+          scalar: 1.2,
+          gravity: 0.9,
+          origin
+        });
+      }, 220);
+    }
+
+    if (t === 60) {
+      // основной золотой взрыв
+      confetti({
+        particleCount: 200,
+        spread: 130,
+        startVelocity: 55,
+        scalar: 1.3,
+        gravity: 0.8,
+        colors: ["#FFD700", "#FFE680", "#FFF2B0"],
+        origin
+      });
+
+      // золотые лучи слева
+      setTimeout(() => {
+        confetti({
+          particleCount: 130,
+          spread: 160,
+          startVelocity: 40,
+          scalar: 1.3,
+          gravity: 0.9,
+          colors: ["#FFD700", "#FFF4B8"],
+          origin
+        });
+      }, 200);
+
+      // золотые лучи справа
+      setTimeout(() => {
+        confetti({
+          particleCount: 120,
+          spread: 160,
+          startVelocity: 40,
+          scalar: 1.25,
+          gravity: 0.9,
+          colors: ["#FFD700", "#FFF4B8"],
+          origin
+        });
+      }, 380);
+
+      // золотая пыль (эпилог)
+      setTimeout(() => {
+        confetti({
+          particleCount: 80,
+          spread: 90,
+          startVelocity: 22,
+          scalar: 0.9,
+          gravity: 1.1,
+          ticks: 260,
+          colors: ["#FFF9D6", "#FFD700"],
+          origin
+        });
+      }, 600);
+    }
+  }
+
+  // =====================================================
+  // UI
+  // =====================================================
 
   return (
     <>
@@ -22,37 +210,32 @@ export default function NewTask() {
           height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-
           padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* ===== HEADER (идеальное выравнивание) ===== */
         .header-zone {
           width: 92%;
           max-width: 520px;
-
           display: flex;
-          align-items: center;          /* по вертикали центр */
-          justify-content: center;      /* заголовок центр */
-
-          position: relative;           /* чтобы стрелка была абсолютной */
+          align-items: center;
+          justify-content: center;
+          position: relative;
           margin-top: 90px;
           margin-bottom: 15px;
         }
 
         .back-btn {
           position: absolute;
-          left: 0;                      /* слева */
-          top: 50%;                     /* центр по вертикали */
-          transform: translateY(-50%);  /* ровно посередине */
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
           display: flex;
           align-items: center;
           cursor: pointer;
@@ -62,7 +245,6 @@ export default function NewTask() {
           width: 28px;
           height: 28px;
           stroke: #444;
-          transition: 0.2s;
         }
 
         .screen-title {
@@ -70,19 +252,16 @@ export default function NewTask() {
           font-weight: 600;
           color: #2c2c2c;
           text-align: center;
-          line-height: 28px;            /* идеальное совпадение со стрелкой */
+          line-height: 28px;
         }
 
-        /* ===== CENTER CONTENT ===== */
         .center-wrapper {
           width: 92%;
           flex: 1;
-
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-
           margin-top: 40px;
         }
 
@@ -120,7 +299,6 @@ export default function NewTask() {
           justify-content: center;
           align-items: center;
           gap: 10px;
-          text-align: center;
         }
 
         .time-btn {
@@ -139,20 +317,17 @@ export default function NewTask() {
           color: white;
         }
 
-        /* ===== REWARD BLOCK ===== */
         .reward-box {
           width: 100%;
           background: #fff;
           border-radius: 26px;
           padding: 20px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: center;
           gap: 14px;
-
           margin-bottom: 30px;
         }
 
@@ -189,7 +364,6 @@ export default function NewTask() {
           color: #777;
         }
 
-        /* ===== BUTTON ===== */
         .add-btn {
           width: 70%;
           height: 54px;
@@ -205,7 +379,6 @@ export default function NewTask() {
           box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        /* ===== NAVIGATION ===== */
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -220,7 +393,6 @@ export default function NewTask() {
           background: #ffffff;
           border-radius: 28px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -231,9 +403,7 @@ export default function NewTask() {
           border: none;
           background: none;
           opacity: 0.45;
-          transition:
-            transform 0.22s cubic-bezier(.25,.46,.45,.94),
-            opacity .2s ease;
+          transition: transform 0.22s, opacity .2s;
         }
 
         .nav-item.active {
@@ -253,24 +423,23 @@ export default function NewTask() {
 
       <div className="new-screen">
 
-        {/* === HEADER === */}
+        {/* HEADER */}
         <div className="header-zone">
           <div className="back-btn" onClick={() => navigate(-1)}>
             <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
               <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-
           <div className="screen-title">Новая задача</div>
         </div>
 
-        {/* === CENTER CONTENT === */}
+        {/* CENTER */}
         <div className="center-wrapper">
 
           <div className="task-box">
             <input
               className="input"
-              placeholder="Введите задачу"
+              placeholder="Ввод минимум 23 символа"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
@@ -282,7 +451,17 @@ export default function NewTask() {
                 <button
                   key={t}
                   className={`time-btn ${selectedTime === t ? "active" : ""}`}
-                  onClick={() => setSelectedTime(t)}
+                  onClick={() => {
+                    const newReward = t;
+                    const newHp = Math.round(t * 2.5);
+
+                    setSelectedTime(t);
+                    setReward(newReward);
+                    setHp(newHp);
+
+                    animateValue(animatedReward, newReward, setAnimatedReward);
+                    animateValue(animatedHp, newHp, setAnimatedHp);
+                  }}
                 >
                   {t} мин
                 </button>
@@ -290,6 +469,7 @@ export default function NewTask() {
             </div>
           </div>
 
+          {/* REWARD BLOCK */}
           <div className="reward-box">
             <div className="reward-icon">
               <svg viewBox="0 0 24 24">
@@ -298,20 +478,50 @@ export default function NewTask() {
             </div>
 
             <div className="reward-text-group">
-              <div className="reward-main">+12 ОД маленькая победа</div>
-              <div className="reward-sub">Уменьшее свет одостонить</div>
+              <div className="reward-main">+{animatedReward} ОД маленькая победа</div>
+              <div className="reward-sub">{animatedHp} xp</div>
             </div>
           </div>
 
-          <button className="add-btn">Добавить</button>
+          {/* ADD BUTTON → FIRE CONFETTI */}
+          <button
+            className="add-btn"
+            onClick={() => {
+              const title = task.trim();
+
+              // ❗ Защита: минимум 6 символов
+              if (title.length < 23) return;
+
+              // Создаём объект задачи
+              const newTask = {
+                id: Date.now(),
+                title: title,          // ← используем уже очищенный title
+                time: selectedTime,
+                od: animatedReward,
+                hp: animatedHp,
+              };
+
+              // Сохраняем задачу в Zustand
+              addTask(newTask);
+
+              // Конфетти
+              fireConfettiByTime(selectedTime);
+
+              // Переход домой
+              setTimeout(() => {
+                navigate("/home");
+              }, 400);
+            }}
+          >
+            Добавить
+          </button>
 
         </div>
 
-        {/* === NAVIGATION === */}
+        {/* NAVIGATION */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
-            {/* переход на /home */}
             <button className="nav-item" onClick={() => navigate("/home")}>
               <svg viewBox="0 0 24 24" fill="#6A6A6A">
                 <path d="M12 3l8 7v10a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1V10l8-7z"/>
