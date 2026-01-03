@@ -12,7 +12,7 @@ export default function TaskTimer({ task }) {
   const [remaining, setRemaining] = useState(TOTAL_SECONDS);
   const [paused, setPaused] = useState(false);
 
-  // running | exit | micro | realize | thanks
+  // running | micro | realize | exit | thanks | complete
   const [mode, setMode] = useState("running");
 
   const [exitLeft, setExitLeft] = useState(10);
@@ -39,7 +39,7 @@ export default function TaskTimer({ task }) {
       setRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          finishTask();
+          setMode("complete");
           return 0;
         }
         return prev - 1;
@@ -47,7 +47,7 @@ export default function TaskTimer({ task }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [paused, mode, finishTask]);
+  }, [paused, mode]);
 
   /* ===== CIRCLE ===== */
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function TaskTimer({ task }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [mode, removeTask, finishTask, task.id]);
+  }, [mode, task.id]);
 
   /* ===== THANKS AUTO REMOVE ===== */
   useEffect(() => {
@@ -99,12 +99,53 @@ export default function TaskTimer({ task }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [mode, removeTask, finishTask, task.id]);
+  }, [mode, task.id]);
 
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
 
-  /* ================= MICRO STEP ================= */
+  /* ================= COMPLETE ================= */
+
+  if (mode === "complete") {
+    const od = task.od;
+    const hp = Math.round(task.time * 2.5);
+
+    return (
+      <>
+        <style>{completeStyles}</style>
+
+        <div className="complete-screen">
+          <div className="complete-card">
+            <div className="complete-title">Маленькая победа!</div>
+            <div className="complete-sub">
+              Ты выполнил задачу и заработал
+            </div>
+
+            <div className="complete-reward">+{od} ОД</div>
+            <div className="complete-hp">+{hp} ХП</div>
+
+            <img
+              src="/src/assets/reward-chest.png"
+              alt="Награда"
+              className="complete-image"
+            />
+
+            <button
+              className="btn pause"
+              onClick={() => {
+                removeTask(task.id);
+                finishTask();
+              }}
+            >
+              Завершить задачу
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  /* ================= MICRO ================= */
 
   if (mode === "micro") {
     return (
@@ -118,23 +159,16 @@ export default function TaskTimer({ task }) {
               Давай сделаем его совсем маленьким.
             </div>
 
-            <div className="exit-text" style={{ marginTop: 12 }}>
+            <div className="exit-text">
               <strong>2 минуты.</strong><br />
-              Просто сделай один очень простой шаг —
-              любой, без цели закончить.
+              Просто сделай один простой шаг — любой.
             </div>
 
-            <div className="buttons" style={{ marginTop: 18 }}>
-              <button
-                className="btn pause"
-                onClick={() => setMode("realize")}
-              >
+            <div className="buttons">
+              <button className="btn pause" onClick={() => setMode("realize")}>
                 Я сделал
               </button>
-              <button
-                className="btn stop"
-                onClick={() => setMode("exit")}
-              >
+              <button className="btn stop" onClick={() => setMode("exit")}>
                 Всё равно выйти
               </button>
             </div>
@@ -155,21 +189,13 @@ export default function TaskTimer({ task }) {
             <div className="exit-text">
               <strong>Видишь?</strong><br />
               Ты уже сделал шаг — и даже не заметил этого.
-              <br /><br />
-              Иногда начать — сложнее, чем продолжить.
             </div>
 
             <div className="buttons">
-              <button
-                className="btn pause"
-                onClick={() => setMode("running")}
-              >
+              <button className="btn pause" onClick={() => setMode("running")}>
                 Вернуться к задаче
               </button>
-              <button
-                className="btn stop"
-                onClick={() => setMode("exit")}
-              >
+              <button className="btn stop" onClick={() => setMode("exit")}>
                 Выйти
               </button>
             </div>
@@ -189,31 +215,9 @@ export default function TaskTimer({ task }) {
           <div className="exit-card">
             <div className="exit-text">
               <strong>Ты уже попробовал — и это важно.</strong><br />
-              Этот шаг был опытом, а не ошибкой.<br />
-              Мы уберём задачу, чтобы ты мог начать с начала,
-              когда будет подходящий момент.
+              Этот шаг был опытом, а не ошибкой.
             </div>
-
             <div className="exit-timer">{exitLeft}</div>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  /* ================= THANKS ================= */
-
-  if (mode === "thanks") {
-    return (
-      <>
-        <style>{exitStyles}</style>
-        <div className="exit-screen">
-          <div className="exit-card">
-            <div className="exit-text">
-              Этого достаточно.<br />
-              Можно идти дальше.
-            </div>
-            <div className="exit-timer">{thanksLeft}</div>
           </div>
         </div>
       </>
@@ -264,16 +268,10 @@ export default function TaskTimer({ task }) {
           </div>
 
           <div className="buttons">
-            <button
-              className="btn pause"
-              onClick={() => setPaused(!paused)}
-            >
+            <button className="btn pause" onClick={() => setPaused(!paused)}>
               {paused ? "Продолжить" : "Пауза"}
             </button>
-            <button
-              className="btn stop"
-              onClick={() => setMode("micro")}
-            >
+            <button className="btn stop" onClick={() => setMode("micro")}>
               Выйти
             </button>
           </div>
@@ -285,12 +283,62 @@ export default function TaskTimer({ task }) {
 
 /* ===== STYLES ===== */
 
+const completeStyles = `
+.complete-screen {
+  width: 100%;
+  height: 100vh;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.complete-card {
+  width: 320px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px 22px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.complete-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.complete-sub {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 18px;
+}
+
+.complete-reward {
+  font-size: 34px;
+  font-weight: 600;
+}
+
+.complete-hp {
+  font-size: 16px;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.complete-image {
+  width: 180px;
+  margin: 0 auto 22px;
+  display: block;
+}
+`;
+
 const exitStyles = `
 .exit-screen {
   width: 100%;
   height: 100vh;
   background: #f8f8f8;
-  display: flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -313,7 +361,6 @@ const exitStyles = `
 }
 
 .exit-timer {
-  margin-top: 16px;
   font-size: 28px;
   font-weight: 600;
 }
@@ -398,9 +445,9 @@ svg {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .time-main {
