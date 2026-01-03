@@ -439,7 +439,7 @@ export default function NewTask() {
           <div className="task-box">
             <input
               className="input"
-              placeholder="Введите задачу (минимум 6 символов)"
+              placeholder="Введите задачу (минимум 23 символа)"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
@@ -490,7 +490,7 @@ export default function NewTask() {
               const title = task.trim();
 
               // ❗ Защита: минимум 6 символов
-              if (title.length < 6) return;
+              if (title.length < 23) return;
 
               // Создаём объект задачи
               const newTask = {
