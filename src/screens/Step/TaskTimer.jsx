@@ -119,6 +119,12 @@ export default function TaskTimer({ task }) {
     hp: user.hp + hp,
   });
 
+  saveUser({
+    ...user,
+    od: user.od + od,
+    hp: user.hp + hp,
+  });
+
   console.log("✅ updateUser CALLED");
 }, [mode, task, user, updateUser]);
 
