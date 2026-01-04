@@ -95,10 +95,12 @@ export default function TaskTimer({ task }) {
     return () => clearInterval(interval);
   }, [mode, task.id]);
 
-  /* ===== COMPLETE REWARD APPLY ===== */
-useEffect(() => {
+  useEffect(() => {
   if (mode !== "complete") return;
   if (rewardAppliedRef.current) return;
+
+  console.log("🔥 НАЧИСЛЕНИЕ ЗАПУСТИЛОСЬ", user);
+
   if (!user) return;
 
   rewardAppliedRef.current = true;
@@ -106,19 +108,10 @@ useEffect(() => {
   const od = task.od;
   const hp = Math.round(task.time * 2.5);
 
-  // обновляем локальный стор
   updateUser({
     od: user.od + od,
     hp: user.hp + hp,
   });
-
-  // сохраняем в Supabase
-  saveUser({
-    ...user,
-    od: user.od + od,
-    hp: user.hp + hp,
-  });
-
 }, [mode, task, user, updateUser]);
 
 
