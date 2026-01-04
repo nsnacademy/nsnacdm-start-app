@@ -320,7 +320,7 @@ export default function Home() {
         ((user?.xp ?? 0) / xpToNextLevel(user?.level ?? 1)) * 100
       )}%`,
       height: "100%",
-      background: "#9e9e9e",
+      background: "#fcff35ff",
       borderRadius: "2px",
       transition: "width 0.35s ease",
     }}
