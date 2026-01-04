@@ -14,9 +14,9 @@ export default function Home() {
   if (!user) return;
   console.log(
     "📊 XP:",
-    user.xp,
+    user.hp,
     "/",
-    xpToNextLevel(user.level)
+    hpToNextLevel(user.level)
   );
 }, [user]);
 
@@ -27,7 +27,7 @@ export default function Home() {
   const startTask = useTaskStore((s) => s.startTask);
   const activeTask = useTaskStore((s) => s.activeTask);
 
-    const xpToNextLevel = (level) => {
+    const hpToNextLevel = (level) => {
     return Math.round(100 * Math.pow(1.35, level - 1));
   };
 
@@ -328,7 +328,7 @@ export default function Home() {
     style={{
       width: `${Math.min(
         100,
-        ((user?.xp ?? 0) / xpToNextLevel(user?.level ?? 1)) * 100
+        ((user?.xp ?? 0) / hpToNextLevel(user?.level ?? 1)) * 100
       )}%`,
       height: "100%",
       background: "#fcff35ff",

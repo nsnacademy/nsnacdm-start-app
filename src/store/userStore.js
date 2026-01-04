@@ -10,7 +10,8 @@ export const useUserStore = create((set, get) => ({
     set(() => ({
       user: {
         telegram_id: userData.telegram_id,
-        level: userData.level ?? 1,
+        level: userData.level && userData.level >= 1 ? userData.level : 1,
+
         xp: userData.xp ?? 0,
         od: userData.od ?? 0,
         hp: userData.hp ?? 0,
