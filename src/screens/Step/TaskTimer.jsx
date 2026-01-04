@@ -141,7 +141,7 @@ export default function TaskTimer({ task }) {
 
 if (mode === "complete") {
   const od = task.od;
-  const hp = Math.round(task.time * 2.5);
+  const hp = Math.round(task.time * 30);
 
   return (
     <>

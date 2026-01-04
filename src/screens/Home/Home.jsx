@@ -102,29 +102,6 @@ export default function Home() {
           opacity: 0.55;
         }
 
-        .level-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.xp-bar {
-  width: 68px;
-  height: 4px;
-  background: #d4d4d4; /* тот же цвет, что separator */
-  border-radius: 2px;
-  overflow: hidden;
-  opacity: 0.6;
-}
-
-.xp-fill {
-  height: 100%;
-  background: #2b2b2b; /* тот же тёмный, что кнопки */
-  border-radius: 2px;
-  transition: width 0.35s ease;
-}
-
-
         /* ===== CONTENT CENTERING ===== */
 
         .content {
@@ -161,6 +138,24 @@ export default function Home() {
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
+
+        .xp-bar {
+  flex: 1;
+  height: 4px;
+  max-width: 90px;
+  background: #e5e5e5;
+  border-radius: 2px;
+  margin: 0 14px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffc400, #ffb000);
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
 
         /* ===== TASK CARD ===== */
 
@@ -323,30 +318,27 @@ export default function Home() {
           <div className="top-pill">
 
             <div className="left">
-  <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
-    <circle cx="12" cy="8" r="4"/>
-    <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
-  </svg>
+              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+              </svg>
+              <span>Уровень {user?.level ?? 1}</span>
+            </div>
 
-  <div className="level-wrap">
-    <span>Уровень {user?.level ?? 1}</span>
-
-    <div className="xp-bar">
-      <div
-        className="xp-fill"
-        style={{
-          width: user?.xpToNext
-            ? `${Math.min(100, (user.xp / user.xpToNext) * 100)}%`
-            : "0%",
-        }}
-      />
-    </div>
-  </div>
+            <div className="xp-bar">
+  <div
+    className="xp-fill"
+    style={{
+      width: user
+        ? `${Math.min(
+            100,
+            (user.xp / xpToNextLevel(user.level)) * 100
+          )}%`
+        : "0%",
+    }}
+  />
 </div>
 
-
-
-            <div className="separator"></div>
 
             <div className="right">
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
