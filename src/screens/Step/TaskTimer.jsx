@@ -98,40 +98,24 @@ export default function TaskTimer({ task }) {
   /* ================= COMPLETE (FULLSCREEN) ================= */
 
 if (mode === "complete") {
-     console.log("✅ COMPLETE MODE");
-  const reward = applyTaskReward(task);
+  console.log("✅ COMPLETE MODE RENDER");
 
   return (
-    <>
-      <style>{completeStyles}</style>
-
-      <div className="complete-screen">
-        <div className="complete-content">
-          <div className="complete-title">Маленькая победа!</div>
-
-          <div className="complete-reward">
-            +{reward?.od ?? 0} ОД
-          </div>
-
-          <div className="complete-hp">
-            +{reward?.hp ?? 0} ХП
-          </div>
-
-          <button
-            className="complete-btn"
-            onClick={() => {
-              // 🔒 временно только выход
-              removeTask(task.id);
-              finishTask();
-            }}
-          >
-            Завершить
-          </button>
-        </div>
-      </div>
-    </>
+    <div
+      style={{
+        height: "100vh",
+        background: "#f8f8f8",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 24,
+      }}
+    >
+      COMPLETE SCREEN WORKS
+    </div>
   );
 }
+
 
 
   /* ================= MICRO ================= */
