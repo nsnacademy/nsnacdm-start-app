@@ -111,7 +111,7 @@ export default function TaskTimer({ task }) {
   rewardAppliedRef.current = true;
 
   const odReward = task.od;
-  const hpReward = Math.round(task.time * 2.5);
+  const hpReward = Math.round(task.time * 40);
   addXp(hpReward);
 
 

@@ -102,6 +102,29 @@ export default function Home() {
           opacity: 0.55;
         }
 
+        .level-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.xp-bar {
+  width: 68px;
+  height: 4px;
+  background: #d4d4d4; /* тот же цвет, что separator */
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+.xp-fill {
+  height: 100%;
+  background: #2b2b2b; /* тот же тёмный, что кнопки */
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
+
         /* ===== CONTENT CENTERING ===== */
 
         .content {
@@ -305,30 +328,22 @@ export default function Home() {
     <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
   </svg>
 
-  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+  <div className="level-wrap">
     <span>Уровень {user?.level ?? 1}</span>
 
-    {/* XP BAR */}
-    <div style={{
-      width: 80,
-      height: 5,
-      background: "#e6e6e6",
-      borderRadius: 4,
-      overflow: "hidden"
-    }}>
-      <div style={{
-        width: `${
-          user?.xpToNext
-            ? Math.min(100, (user.xp / user.xpToNext) * 100)
-            : 0
-        }%`,
-        height: "100%",
-        background: "#2b2b2b",
-        transition: "width 0.35s ease"
-      }} />
+    <div className="xp-bar">
+      <div
+        className="xp-fill"
+        style={{
+          width: user?.xpToNext
+            ? `${Math.min(100, (user.xp / user.xpToNext) * 100)}%`
+            : "0%",
+        }}
+      />
     </div>
   </div>
 </div>
+
 
 
             <div className="separator"></div>
