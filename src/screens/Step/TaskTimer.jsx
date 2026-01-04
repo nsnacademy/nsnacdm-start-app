@@ -98,35 +98,26 @@ export default function TaskTimer({ task }) {
   useEffect(() => {
   if (mode !== "complete") return;
   if (rewardAppliedRef.current) return;
-
-  console.log("🔥 COMPLETE EFFECT TRIGGERED");
-  console.log("👤 USER BEFORE:", user);
-
-  if (!user) {
-    console.log("❌ USER IS NULL, ЖДЁМ");
-    return;
-  }
+  if (!user) return;
 
   rewardAppliedRef.current = true;
 
-  const od = task.od;
-  const hp = Math.round(task.time * 2.5);
+  const odReward = task.od;
+  const hpReward = Math.round(task.time * 2.5);
 
-  console.log("➕ ADDING:", { od, hp });
-
-  updateUser({
-    od: user.od + od,
-    hp: user.hp + hp,
-  });
-
-  saveUser({
+  const updatedUser = {
     ...user,
-    od: user.od + od,
-    hp: user.hp + hp,
-  });
+    od: user.od + odReward,
+    hp: user.hp + hpReward,
+  };
 
-  console.log("✅ updateUser CALLED");
-}, [mode, task, user, updateUser]);
+  console.log("💾 SAVING USER:", updatedUser);
+
+  updateUser(updatedUser);
+  saveUser(updatedUser);
+
+}, [mode, user, task, updateUser]);
+
 
 
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
