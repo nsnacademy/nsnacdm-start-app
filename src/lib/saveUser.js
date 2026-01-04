@@ -21,7 +21,9 @@ export async function saveUser(user) {
   const { data, error } = await supabase
     .from("users")
     .update(payload)
-    .eq("telegram_id", String(user.telegram_id)); // 🔥 ВОТ ЭТО КЛЮЧ
+    .eq("telegram_id", String(user.telegram_id))
+    .select();
+
 
   if (error) {
     console.error("❌ SUPABASE ERROR:", error);
