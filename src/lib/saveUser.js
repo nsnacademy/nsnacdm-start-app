@@ -21,11 +21,11 @@ export async function saveUser(user) {
   const { data, error } = await supabase
     .from("users")
     .update(payload)
-    .eq("telegram_id", user.telegram_id);
+    .eq("telegram_id", String(user.telegram_id)); // 🔥 ВОТ ЭТО КЛЮЧ
 
   if (error) {
     console.error("❌ SUPABASE ERROR:", error);
   } else {
-    console.log("✅ SUPABASE OK:", data);
+    console.log("✅ SUPABASE UPDATED ROWS:", data);
   }
 }
