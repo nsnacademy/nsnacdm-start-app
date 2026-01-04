@@ -328,15 +328,16 @@ export default function Home() {
     style={{
       width: `${Math.min(
         100,
-        ((user?.xp ?? 0) / hpToNextLevel(user?.level ?? 1)) * 100
+        ((user?.hp ?? 0) / hpToNextLevel(user?.level ?? 1)) * 100
       )}%`,
       height: "100%",
-      background: "#fcff35ff",
+      background: "#ffc400", // тот же цвет, что у ОД
       borderRadius: "2px",
       transition: "width 0.35s ease",
     }}
   />
 </div>
+
 
 
             <div className="right">
