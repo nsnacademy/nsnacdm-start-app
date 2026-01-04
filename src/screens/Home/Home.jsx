@@ -20,6 +20,36 @@ export default function Home() {
   );
 }, [user]);
 
+const LEVELS = [
+  { level: 1, from: 0, to: 150 },
+  { level: 2, from: 150, to: 370 },
+  { level: 3, from: 370, to: 656 },
+  { level: 4, from: 656, to: 1028 },
+  { level: 5, from: 1028, to: 1511 },
+  { level: 6, from: 1511, to: 2139 },
+  { level: 7, from: 2139, to: 2955 },
+  { level: 8, from: 2955, to: 4016 },
+  { level: 9, from: 4016, to: 5395 },
+  { level: 10, from: 5395, to: 7189 },
+];
+
+  const hp = user?.hp ?? 0;
+
+    const currentLevel =
+  LEVELS.find(
+    (l) => hp >= l.from && hp < l.to
+  ) || LEVELS[LEVELS.length - 1];
+
+const progress =
+  ((hp - currentLevel.from) /
+    (currentLevel.to - currentLevel.from)) *
+  100;
+
+const safeProgress = Math.min(
+  Math.max(progress, 0),
+  100
+);
+
 
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);
@@ -320,23 +350,21 @@ export default function Home() {
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
-              <span>Уровень {user?.level ?? 1}</span>
+              <span>Уровень {currentLevel.level}</span>
             </div>
 
             <div className="separator">
   <div
     style={{
-      width: `${Math.min(
-        100,
-        ((user?.hp ?? 0) / hpToNextLevel(user?.level ?? 1)) * 100
-      )}%`,
+      width: `${safeProgress}%`,
       height: "100%",
-      background: "#ffc400", // тот же цвет, что у ОД
+      background: "#ffc400",
       borderRadius: "2px",
       transition: "width 0.35s ease",
     }}
   />
 </div>
+
 
 
 
