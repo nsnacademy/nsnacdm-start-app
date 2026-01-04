@@ -15,7 +15,10 @@ export default function TaskTimer({ task }) {
   const applyReward = useUserStore((s) => s.applyReward);
   const user = useUserStore((s) => s.user);
 
+  
+  const updateUser = useUserStore((s) => s.updateUser);
   const rewardAppliedRef = useRef(false);
+
 
 
 
@@ -92,29 +95,78 @@ export default function TaskTimer({ task }) {
     return () => clearInterval(interval);
   }, [mode, task.id]);
 
+  /* ===== COMPLETE REWARD APPLY ===== */
+useEffect(() => {
+  if (mode !== "complete") return;
+  if (rewardAppliedRef.current) return;
+  if (!user) return;
+
+  rewardAppliedRef.current = true;
+
+  const od = task.od;
+  const hp = Math.round(task.time * 2.5);
+
+  // обновляем локальный стор
+  updateUser({
+    od: user.od + od,
+    hp: user.hp + hp,
+  });
+
+  // сохраняем в Supabase
+  saveUser({
+    ...user,
+    od: user.od + od,
+    hp: user.hp + hp,
+  });
+
+}, [mode, task, user, updateUser]);
+
+
   const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
   const seconds = String(remaining % 60).padStart(2, "0");
 
   /* ================= COMPLETE (FULLSCREEN) ================= */
 
 if (mode === "complete") {
-  console.log("✅ COMPLETE MODE RENDER");
+  const od = task.od;
+  const hp = Math.round(task.time * 2.5);
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        background: "#f8f8f8",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: 24,
-      }}
-    >
-      COMPLETE SCREEN WORKS
-    </div>
+    <>
+      <style>{completeStyles}</style>
+
+      <div className="complete-screen">
+        <div className="complete-content">
+          <div className="complete-title">Маленькая победа!</div>
+
+          <div className="complete-sub">
+            Ты выполнил задачу и заработал
+          </div>
+
+          <div className="complete-reward">+{od} ОД</div>
+          <div className="complete-hp">+{hp} ХП</div>
+
+          <img
+            src={rewardChest}
+            alt="Награда"
+            className="complete-image"
+          />
+
+          <button
+            className="complete-btn"
+            onClick={() => {
+              removeTask(task.id);
+              finishTask();
+            }}
+          >
+            Завершить задачу
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
+
 
 
 
