@@ -97,25 +97,9 @@ export default function TaskTimer({ task }) {
 
   /* ================= COMPLETE (FULLSCREEN) ================= */
 
-   if (mode === "complete") {
-  // 🔹 считаем награду в одном месте
+if (mode === "complete") {
+     console.log("✅ COMPLETE MODE");
   const reward = applyTaskReward(task);
-
-  // 🔒 применяем награду ОДИН РАЗ
-  if (!rewardAppliedRef.current) {
-    applyReward(reward, task.id);
-    rewardAppliedRef.current = true;
-
-    // 💾 сохраняем пользователя
-    if (user) {
-      saveUser({
-        ...user,
-        od: user.od + reward.od,
-        xp: (user.xp + reward.xp) % 100,
-        hp: user.hp + reward.hp,
-      });
-    }
-  }
 
   return (
     <>
@@ -125,32 +109,23 @@ export default function TaskTimer({ task }) {
         <div className="complete-content">
           <div className="complete-title">Маленькая победа!</div>
 
-          <div className="complete-sub">
-            Ты выполнил задачу и заработал
-          </div>
-
           <div className="complete-reward">
-            +{reward.od} ОД
+            +{reward?.od ?? 0} ОД
           </div>
 
           <div className="complete-hp">
-            +{reward.hp} ХП
+            +{reward?.hp ?? 0} ХП
           </div>
-
-          <img
-            src={rewardChest}
-            alt="Награда"
-            className="complete-image"
-          />
 
           <button
             className="complete-btn"
             onClick={() => {
+              // 🔒 временно только выход
               removeTask(task.id);
               finishTask();
             }}
           >
-            Завершить задачу
+            Завершить
           </button>
         </div>
       </div>
