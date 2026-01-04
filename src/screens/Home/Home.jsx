@@ -10,6 +10,17 @@ export default function Home() {
   const user = useUserStore((s) => s.user);
   console.log("🏠 HOME USER:", user);
 
+  useEffect(() => {
+  if (!user) return;
+  console.log(
+    "📊 XP:",
+    user.xp,
+    "/",
+    xpToNextLevel(user.level)
+  );
+}, [user]);
+
+
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);
 
