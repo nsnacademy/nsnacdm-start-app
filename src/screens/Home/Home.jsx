@@ -8,6 +8,7 @@ import TaskTimer from "../Step/TaskTimer";
 export default function Home() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
+  console.log("🏠 HOME USER:", user);
 
   const tasks = useTaskStore((s) => s.tasks);
   const removeTask = useTaskStore((s) => s.removeTask);

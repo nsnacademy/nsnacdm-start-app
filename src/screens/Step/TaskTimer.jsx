@@ -98,18 +98,28 @@ export default function TaskTimer({ task }) {
   useEffect(() => {
   if (mode !== "complete") return;
   if (rewardAppliedRef.current) return;
-  if (!user) return; // ← ВАЖНО
+
+  console.log("🔥 COMPLETE EFFECT TRIGGERED");
+  console.log("👤 USER BEFORE:", user);
+
+  if (!user) {
+    console.log("❌ USER IS NULL, ЖДЁМ");
+    return;
+  }
 
   rewardAppliedRef.current = true;
 
   const od = task.od;
   const hp = Math.round(task.time * 2.5);
 
+  console.log("➕ ADDING:", { od, hp });
+
   updateUser({
     od: user.od + od,
     hp: user.hp + hp,
   });
 
+  console.log("✅ updateUser CALLED");
 }, [mode, task, user, updateUser]);
 
 
