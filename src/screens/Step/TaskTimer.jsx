@@ -98,7 +98,13 @@ export default function TaskTimer({ task }) {
   useEffect(() => {
   if (mode !== "complete") return;
   if (rewardAppliedRef.current) return;
-  if (!user) return;
+
+  console.log("🔥 COMPLETE EFFECT");
+
+  if (!user) {
+    console.log("❌ USER IS NULL");
+    return;
+  }
 
   rewardAppliedRef.current = true;
 
@@ -111,10 +117,14 @@ export default function TaskTimer({ task }) {
     hp: user.hp + hpReward,
   };
 
-  console.log("💾 SAVING USER:", updatedUser);
+  console.log("📦 UPDATED USER (LOCAL):", updatedUser);
 
   updateUser(updatedUser);
-  saveUser(updatedUser);
+  console.log("🟢 updateUser CALLED");
+
+  saveUser(updatedUser)
+    .then(() => console.log("🟢 saveUser FINISHED"))
+    .catch((e) => console.log("🔴 saveUser ERROR:", e));
 
 }, [mode, user, task, updateUser]);
 
