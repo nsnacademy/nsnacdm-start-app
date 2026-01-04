@@ -16,6 +16,10 @@ export default function Home() {
   const startTask = useTaskStore((s) => s.startTask);
   const activeTask = useTaskStore((s) => s.activeTask);
 
+    const xpToNextLevel = (level) => {
+    return Math.round(100 * Math.pow(1.35, level - 1));
+  };
+
 
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -93,14 +97,15 @@ export default function Home() {
         }
 
         .separator {
-          flex: 1;
-          height: 4px;
-          max-width: 90px;
-          background: #d4d4d4;
-          border-radius: 2px;
-          margin: 0 14px;
-          opacity: 0.55;
-        }
+  flex: 1;
+  height: 4px;
+  max-width: 90px;
+  background: #d4d4d4;
+  border-radius: 2px;
+  margin: 0 14px;
+  opacity: 0.55;
+}
+
 
         /* ===== CONTENT CENTERING ===== */
 
@@ -138,24 +143,6 @@ export default function Home() {
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
-
-        .xp-bar {
-  flex: 1;
-  height: 4px;
-  max-width: 90px;
-  background: #e5e5e5;
-  border-radius: 2px;
-  margin: 0 14px;
-  overflow: hidden;
-}
-
-.xp-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #ffc400, #ffb000);
-  border-radius: 2px;
-  transition: width 0.35s ease;
-}
-
 
         /* ===== TASK CARD ===== */
 
@@ -325,16 +312,17 @@ export default function Home() {
               <span>Уровень {user?.level ?? 1}</span>
             </div>
 
-            <div className="xp-bar">
+            <div className="separator">
   <div
-    className="xp-fill"
     style={{
-      width: user
-        ? `${Math.min(
-            100,
-            (user.xp / xpToNextLevel(user.level)) * 100
-          )}%`
-        : "0%",
+      width: `${Math.min(
+        100,
+        ((user?.xp ?? 0) / xpToNextLevel(user?.level ?? 1)) * 100
+      )}%`,
+      height: "100%",
+      background: "#9e9e9e",
+      borderRadius: "2px",
+      transition: "width 0.35s ease",
     }}
   />
 </div>
