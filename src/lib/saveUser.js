@@ -28,6 +28,6 @@ export async function saveUser(user) {
   if (error) {
     console.error("❌ SUPABASE ERROR:", error);
   } else {
-    console.log("✅ SUPABASE UPDATED ROWS:", data);
+    console.log("✅ SUPABAS UPDATED ROWS:", data);
   }
 }
