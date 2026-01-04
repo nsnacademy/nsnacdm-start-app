@@ -68,18 +68,21 @@ export const useUserStore = create((set, get) => ({
    * Будет удалено после полного перехода на applyReward
    */
   addXp: (amount) =>
-    set((state) => {
-      if (!state.user) return state;
+  set((state) => {
+    if (!state.user) return {};
 
-      const totalXp = state.user.xp + amount;
-      const levelUp = Math.floor(totalXp / 100);
+    const totalXp = state.user.xp + amount;
 
-      return {
-        user: {
-          ...state.user,
-          xp: totalXp % 100,
-          level: state.user.level + levelUp,
-        },
-      };
-    }),
+    const newLevel = state.user.level + Math.floor(totalXp / 100);
+    const newXp = totalXp % 100;
+
+    return {
+      user: {
+        ...state.user,
+        level: newLevel,
+        xp: newXp,
+      },
+    };
+  }),
+
 }));

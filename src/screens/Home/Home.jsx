@@ -300,12 +300,36 @@ export default function Home() {
           <div className="top-pill">
 
             <div className="left">
-              <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
-              </svg>
-              <span>Уровень {user?.level ?? 1}</span>
-            </div>
+  <svg className="icon" viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+    <circle cx="12" cy="8" r="4"/>
+    <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+  </svg>
+
+  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+    <span>Уровень {user?.level ?? 1}</span>
+
+    {/* XP BAR */}
+    <div style={{
+      width: 80,
+      height: 5,
+      background: "#e6e6e6",
+      borderRadius: 4,
+      overflow: "hidden"
+    }}>
+      <div style={{
+        width: `${
+          user?.xpToNext
+            ? Math.min(100, (user.xp / user.xpToNext) * 100)
+            : 0
+        }%`,
+        height: "100%",
+        background: "#2b2b2b",
+        transition: "width 0.35s ease"
+      }} />
+    </div>
+  </div>
+</div>
+
 
             <div className="separator"></div>
 

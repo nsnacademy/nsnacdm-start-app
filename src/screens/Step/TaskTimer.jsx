@@ -15,6 +15,8 @@ export default function TaskTimer({ task }) {
   const applyReward = useUserStore((s) => s.applyReward);
   const user = useUserStore((s) => s.user);
 
+  const addXp = useUserStore((s) => s.addXp);
+
   
   const updateUser = useUserStore((s) => s.updateUser);
   const rewardAppliedRef = useRef(false);
@@ -110,6 +112,8 @@ export default function TaskTimer({ task }) {
 
   const odReward = task.od;
   const hpReward = Math.round(task.time * 2.5);
+  addXp(hpReward);
+
 
   const updatedUser = {
     ...user,
