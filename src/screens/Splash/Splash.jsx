@@ -1,13 +1,16 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./Splash.css";
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
-import { preloadImages } from "../../lib/preloadImages"; // 👈 ДОБАВИЛИ
+import { preloadImages } from "../../lib/preloadImages";
 
 export default function Splash() {
   const { user: tgUser } = useTelegram();
   const setUser = useUserStore((s) => s.setUser);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
@@ -31,30 +34,33 @@ export default function Splash() {
 
       console.log("TG USER:", tgUser);
 
-      // 🔥 ПРЕДЗАГРУЗКА ВСЕХ КАРТИНОК
+      // 🔥 Предзагрузка всех изображений
       try {
         await preloadImages();
       } catch (e) {
         console.log("Image preload error:", e);
       }
 
+      // 👤 Получаем или создаём пользователя
       const user = await findOrCreateUser(tgUser);
       if (!user) return;
 
+      // 🧠 КЛЮЧЕВОЕ: сохраняем пользователя в zustand
       setUser(user);
 
-      // ⏳ оставляем твою задержку (Splash ощущение)
+      // ⏳ Оставляем задержку для ощущения Splash
       await new Promise((res) => setTimeout(res, 3200));
 
+      // 🚀 ПЕРЕХОД БЕЗ ПЕРЕЗАГРУЗКИ
       if (user.has_onboarded === true) {
-        window.location.href = "/home";
+        navigate("/home", { replace: true });
       } else {
-        window.location.href = "/intro";
+        navigate("/intro", { replace: true });
       }
     }
 
     load();
-  }, [tgUser, setUser]);
+  }, [tgUser, setUser, navigate]);
 
   return (
     <section className="screen splash">
@@ -72,7 +78,7 @@ export default function Splash() {
         {/* Минималистичная кнопка пропуска */}
         <button
           className="skip-btn"
-          onClick={() => (window.location.href = "/home")}
+          onClick={() => navigate("/home")}
         >
           Пропустить вступление →
         </button>
