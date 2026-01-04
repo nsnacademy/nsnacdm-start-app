@@ -98,10 +98,7 @@ export default function TaskTimer({ task }) {
   useEffect(() => {
   if (mode !== "complete") return;
   if (rewardAppliedRef.current) return;
-
-  console.log("🔥 НАЧИСЛЕНИЕ ЗАПУСТИЛОСЬ", user);
-
-  if (!user) return;
+  if (!user) return; // ← ВАЖНО
 
   rewardAppliedRef.current = true;
 
@@ -112,6 +109,7 @@ export default function TaskTimer({ task }) {
     od: user.od + od,
     hp: user.hp + hp,
   });
+
 }, [mode, task, user, updateUser]);
 
 
