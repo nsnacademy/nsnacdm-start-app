@@ -372,7 +372,7 @@ const safeProgress = Math.min(
               <svg className="icon" viewBox="0 0 24 24" fill="#FFC400">
                 <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
               </svg>
-              <span>{user?.od ?? 0} ОД</span>
+              <span>{user?.od ?? 0} Од</span>
             </div>
 
           </div>
