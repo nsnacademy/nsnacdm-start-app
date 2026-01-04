@@ -1,23 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useTaskStore } from "../../store/taskStore";
 import rewardChest from "../../assets/reward-chest.png";
-import { applyTaskReward } from "../../lib/applyTaskReward";
-import { useUserStore } from "../../store/userStore";
-import { saveUser } from "../../lib/saveUser";
-
 
 export default function TaskTimer({ task }) {
   if (!task) return null;
 
   const finishTask = useTaskStore((s) => s.finishTask);
   const removeTask = useTaskStore((s) => s.removeTask);
-
-  const applyReward = useUserStore((s) => s.applyReward);
-  const user = useUserStore((s) => s.user);
-
-  const rewardAppliedRef = useRef(false);
-
-
 
   const TOTAL_SECONDS = task.time * 60;
 
@@ -97,67 +86,44 @@ export default function TaskTimer({ task }) {
 
   /* ================= COMPLETE (FULLSCREEN) ================= */
 
-   if (mode === "complete") {
-  // 🔹 считаем награду в одном месте
-  const reward = applyTaskReward(task);
+  if (mode === "complete") {
+    const od = task.od;
+    const hp = Math.round(task.time * 2.5);
 
-  // 🔒 применяем награду ОДИН РАЗ
-  if (!rewardAppliedRef.current) {
-    applyReward(reward, task.id);
-    rewardAppliedRef.current = true;
+    return (
+      <>
+        <style>{completeStyles}</style>
 
-    // 💾 сохраняем пользователя
-    if (user) {
-      saveUser({
-        ...user,
-        od: user.od + reward.od,
-        xp: (user.xp + reward.xp) % 100,
-        hp: user.hp + reward.hp,
-      });
-    }
-  }
+        <div className="complete-screen">
+          <div className="complete-content">
+            <div className="complete-title">Маленькая победа!</div>
+            <div className="complete-sub">
+              Ты выполнил задачу и заработал
+            </div>
 
-  return (
-    <>
-      <style>{completeStyles}</style>
+            <div className="complete-reward">+{od} ОД</div>
+            <div className="complete-hp">+{hp} ХП</div>
 
-      <div className="complete-screen">
-        <div className="complete-content">
-          <div className="complete-title">Маленькая победа!</div>
+            <img
+              src={rewardChest}
+              alt="Награда"
+              className="complete-image"
+            />
 
-          <div className="complete-sub">
-            Ты выполнил задачу и заработал
+            <button
+              className="complete-btn"
+              onClick={() => {
+                removeTask(task.id);
+                finishTask();
+              }}
+            >
+              Завершить задачу
+            </button>
           </div>
-
-          <div className="complete-reward">
-            +{reward.od} ОД
-          </div>
-
-          <div className="complete-hp">
-            +{reward.hp} ХП
-          </div>
-
-          <img
-            src={rewardChest}
-            alt="Награда"
-            className="complete-image"
-          />
-
-          <button
-            className="complete-btn"
-            onClick={() => {
-              removeTask(task.id);
-              finishTask();
-            }}
-          >
-            Завершить задачу
-          </button>
         </div>
-      </div>
-    </>
-  );
-}
-
+      </>
+    );
+  }
 
   /* ================= MICRO ================= */
 
