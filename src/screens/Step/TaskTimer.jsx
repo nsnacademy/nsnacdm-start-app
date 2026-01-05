@@ -83,24 +83,26 @@ export default function TaskTimer({ task }) {
 
   /* ===== EXIT AUTO REMOVE ===== */
   useEffect(() => {
-    if (mode !== "exit") return;
+  if (mode !== "exit") return;
 
-    const interval = setInterval(() => {
-      setExitLeft((prev) => {
-  if (prev <= 1) {
-    clearInterval(interval);
-    return 0;
-  }
+  const interval = setInterval(() => {
+    setExitLeft((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
 
-  return prev - 1;
-});
+        removeTask(task.id);
+        finishTask();
 
-    }, 1000);
+        return 0;
+      }
 
-    
+      return prev - 1;
+    });
+  }, 1000);
 
-    return () => clearInterval(interval);
-  }, [mode, task.id]);
+  return () => clearInterval(interval);
+}, [mode, task.id]);
+
 
   useEffect(() => {
   if (mode !== "complete") return;
