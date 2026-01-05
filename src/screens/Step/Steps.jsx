@@ -85,51 +85,36 @@ export default function Steps() {
 }, [user?.telegram_id]);
 
 
-    const [dailyPhrases, setDailyPhrases] = useState([]);
-    const [tapIndex, setTapIndex] = useState(0);
-    const [tapCount, setTapCount] = useState(0);
-
+    const [phrase, setPhrase] = useState("");
 
     useEffect(() => {
-  const todayKey = new Date().toDateString();
-  const storageKey = "steps_phrases_" + todayKey;
+  const periodKey = Math.floor(Date.now() / (1000 * 60 * 60 * 48)); // 2 дня
+  const storageKey = "steps_phrase_" + periodKey;
 
   const saved = localStorage.getItem(storageKey);
   if (saved) {
-    setDailyPhrases(JSON.parse(saved));
+    setPhrase(saved);
     return;
   }
 
-  const shuffled = [...PHRASES].sort(() => 0.5 - Math.random());
-  const selected = shuffled.slice(0, 2);
+  const random =
+    PHRASES[Math.floor(Math.random() * PHRASES.length)];
 
-  localStorage.setItem(storageKey, JSON.stringify(selected));
-  setDailyPhrases(selected);
+  localStorage.setItem(storageKey, random);
+  setPhrase(random);
 }, []);
 
 
-
     function rotatePhrase() {
-  if (tapCount >= 3) return; // лимит на сессию
+  const currentIndex = PHRASES.indexOf(phrase);
+  const nextIndex =
+    currentIndex === -1 || currentIndex === PHRASES.length - 1
+      ? 0
+      : currentIndex + 1;
 
-  const available = PHRASES.filter(
-    (p) => !dailyPhrases.includes(p)
-  );
-
-  if (available.length === 0) return;
-
-  const next =
-    available[Math.floor(Math.random() * available.length)];
-
-  setDailyPhrases((prev) => {
-    const copy = [...prev];
-    copy[tapIndex] = next;
-    return copy;
-  });
-
-  setTapIndex((i) => (i === 0 ? 1 : 0));
-  setTapCount((c) => c + 1);
+  setPhrase(PHRASES[nextIndex]);
 }
+
 
 
 
@@ -417,16 +402,13 @@ loadAlmost();
             </div>
           </div>
 
-          {dailyPhrases.map((text, index) => (
-  <div
-    key={index}
-    className="card insight"
-    onClick={rotatePhrase}
-    style={{ cursor: "pointer" }}
-  >
-    <p className="card-text">{text}</p>
-  </div>
-))}
+          <div
+  className="card insight"
+  onClick={rotatePhrase}
+  style={{ cursor: "pointer" }}
+>
+  <p className="card-text">{phrase}</p>
+</div>
 
         </div>
 
