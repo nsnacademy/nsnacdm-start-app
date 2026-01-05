@@ -314,8 +314,8 @@ loadCompleted();
                 <strong>{startedCount}</strong>
               </div>
               <div className="stat">
+                <span>Завершённые</span>
                 <strong>{completedCount}</strong>
-                <strong>—</strong>
               </div>
               <div className="stat">
                 <span>Попытки</span>
