@@ -6,6 +6,7 @@ import { useUserStore } from "../../store/userStore";
 import { saveUser } from "../../lib/saveUser";
 
 
+
 export default function TaskTimer({ task }) {
   if (!task) return null;
 
@@ -166,7 +167,14 @@ if (mode === "complete") {
 
           <button
             className="complete-btn"
-            onClick={() => {
+            onClick={async () => {
+              await saveStep({
+                userId: user.telegram_id,
+                taskId: task.id,
+                totalSeconds: task.time * 60,
+                spentSeconds: task.time * 60,
+              });
+
               removeTask(task.id);
               finishTask();
             }}
