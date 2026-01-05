@@ -82,13 +82,44 @@ export default function TaskTimer({ task }) {
   }, [remaining, TOTAL_SECONDS, circumference, mode]);
 
   /* ===== EXIT AUTO REMOVE ===== */
-  useEffect(() => {
+useEffect(() => {
   if (mode !== "exit") return;
+
+  console.log("🟡 EXIT mode entered");
 
   const interval = setInterval(() => {
     setExitLeft((prev) => {
+      console.log("⏱ exitLeft tick:", prev);
+
       if (prev <= 1) {
         clearInterval(interval);
+
+        const totalSeconds = task.time * 60;
+        const spentSeconds = totalSeconds - remaining;
+        const percent = Math.round(
+          (spentSeconds / totalSeconds) * 100
+        );
+
+        console.log("📊 EXIT CALC", {
+          totalSeconds,
+          spentSeconds,
+          percent,
+        });
+
+        if (percent >= 50 && percent < 100) {
+          console.log("🟢 SAVING ALMOST STEP");
+
+          saveStep({
+            userId: user.telegram_id,
+            taskId: null,
+            totalSeconds,
+            spentSeconds,
+          });
+        } else {
+          console.log("⚪ STEP NOT SAVED (percent < 50 or 100)");
+        }
+
+        console.log("🔴 FINISH TASK");
 
         removeTask(task.id);
         finishTask();
@@ -100,8 +131,12 @@ export default function TaskTimer({ task }) {
     });
   }, 1000);
 
-  return () => clearInterval(interval);
-}, [mode, task.id]);
+  return () => {
+    console.log("🧹 EXIT interval cleared");
+    clearInterval(interval);
+  };
+}, [mode, task.id, remaining]);
+
 
 
   useEffect(() => {
