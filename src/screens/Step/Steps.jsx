@@ -5,10 +5,35 @@ export default function Steps() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
 
-  const hpToNextLevel = 150;
+  /* ===== LEVEL SYSTEM (1:1 из Home) ===== */
+
+  const LEVELS = [
+    { level: 1, from: 0, to: 150 },
+    { level: 2, from: 150, to: 370 },
+    { level: 3, from: 370, to: 656 },
+    { level: 4, from: 656, to: 1028 },
+    { level: 5, from: 1028, to: 1511 },
+    { level: 6, from: 1511, to: 2139 },
+    { level: 7, from: 2139, to: 2955 },
+    { level: 8, from: 2955, to: 4016 },
+    { level: 9, from: 4016, to: 5395 },
+    { level: 10, from: 5395, to: 7189 },
+  ];
+
+  const hp = user?.hp ?? 0;
+
+  const currentLevel =
+    LEVELS.find((l) => hp >= l.from && hp < l.to) ||
+    LEVELS[LEVELS.length - 1];
+
+  const progress =
+    ((hp - currentLevel.from) /
+      (currentLevel.to - currentLevel.from)) *
+    100;
+
   const safeProgress = Math.min(
-    100,
-    ((user?.hp ?? 0) / hpToNextLevel) * 100
+    Math.max(progress, 0),
+    100
   );
 
   return (
@@ -34,17 +59,17 @@ export default function Steps() {
           align-items: center;
           justify-content: space-between;
 
-          padding: calc(env(safe-area-inset-top) + 20px) 20px 30px;
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* TOP PILL */
+        /* ===== TOP PILL ===== */
+
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 60px;
           margin-bottom: 40px;
         }
 
@@ -86,7 +111,8 @@ export default function Steps() {
           opacity: 0.55;
         }
 
-        /* CONTENT */
+        /* ===== CONTENT ===== */
+
         .content {
           width: 100%;
         }
@@ -142,7 +168,8 @@ export default function Steps() {
           background: #fafafa;
         }
 
-        /* NAV */
+        /* ===== NAV ===== */
+
         .nav-wrapper {
           width: 100%;
           display: flex;
@@ -169,7 +196,7 @@ export default function Steps() {
           background: #ffffff;
           opacity: 0.45;
           padding: 0;
-          transition:
+          transition: 
             transform 0.22s cubic-bezier(.25,.46,.45,.94),
             opacity .2s ease;
         }
@@ -190,7 +217,8 @@ export default function Steps() {
       `}</style>
 
       <div className="screen">
-        {/* TOP PILL */}
+
+        {/* ===== TOP PILL ===== */}
         <div className="top-pill-container">
           <div className="top-pill">
 
@@ -199,7 +227,7 @@ export default function Steps() {
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
               </svg>
-              <span>Уровень {user?.level ?? 1}</span>
+              <span>Уровень {currentLevel.level}</span>
             </div>
 
             <div className="separator">
@@ -224,7 +252,7 @@ export default function Steps() {
           </div>
         </div>
 
-        {/* CONTENT */}
+        {/* ===== CONTENT ===== */}
         <div className="content">
           <div className="title">
             <h1>Шаги</h1>
@@ -233,8 +261,9 @@ export default function Steps() {
 
           <div className="card">
             <p className="card-text">
-              Ты остаёшься в задачах дольше и доводишь их до конца всё чаще.
-              Продолжай в своём темпе, так держать!
+              Здесь будет отражаться то,
+              как ты двигаешься шаг за шагом —
+              без давления и оценок.
             </p>
 
             <div className="stats">
@@ -243,11 +272,11 @@ export default function Steps() {
                 <strong>—</strong>
               </div>
               <div className="stat">
-                <span>Завершённые задачи</span>
+                <span>Завершённые</span>
                 <strong>—</strong>
               </div>
               <div className="stat">
-                <span>Почти дошёл</span>
+                <span>Попытки</span>
                 <strong>—</strong>
               </div>
             </div>
@@ -255,13 +284,13 @@ export default function Steps() {
 
           <div className="card insight">
             <p className="card-text">
-              💬 Здесь позже появится инсайт о том,
-              как ты остаёшься в действии.
+              💬 Со временем здесь появятся инсайты
+              о твоём темпе и устойчивости.
             </p>
           </div>
         </div>
 
-        {/* NAV */}
+        {/* ===== NAV ===== */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -296,6 +325,7 @@ export default function Steps() {
 
           </div>
         </div>
+
       </div>
     </>
   );
