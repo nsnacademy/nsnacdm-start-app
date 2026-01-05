@@ -172,7 +172,7 @@ if (mode === "complete") {
             onClick={async () => {
               await saveStep({
                 userId: user.telegram_id,
-                taskId: task.id,
+                taskId: null,
                 totalSeconds: task.time * 60,
                 spentSeconds: task.time * 60,
               });
