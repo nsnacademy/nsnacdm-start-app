@@ -57,6 +57,22 @@ export default function Steps() {
 }, [user?.telegram_id]);
 
 
+  const [completedCount, setCompletedCount] = useState(0);
+
+  async function loadCompleted() {
+  const { count, error } = await supabase
+    .from("steps")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.telegram_id)
+    .eq("result", "completed");
+
+  if (!error) {
+    setCompletedCount(count ?? 0);
+  }
+}
+
+loadCompleted();
+
 
   return (
     <>
@@ -298,7 +314,7 @@ export default function Steps() {
                 <strong>{startedCount}</strong>
               </div>
               <div className="stat">
-                <span>Завершённые</span>
+                <strong>{completedCount}</strong>
                 <strong>—</strong>
               </div>
               <div className="stat">
