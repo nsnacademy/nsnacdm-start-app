@@ -87,15 +87,40 @@ export default function TaskTimer({ task }) {
 
     const interval = setInterval(() => {
       setExitLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          removeTask(task.id);
-          finishTask();
-          return 0;
-        }
-        return prev - 1;
-      });
+  if (prev <= 1) {
+    clearInterval(interval);
+    return 0;
+  }
+
+  return prev - 1;
+});
+
     }, 1000);
+
+    useEffect(() => {
+  if (mode !== "exit") return;
+  if (exitLeft !== 0) return;
+  if (exitSavedRef.current) return;
+
+  exitSavedRef.current = true;
+
+  const totalSeconds = TOTAL_SECONDS;
+  const spentSeconds = TOTAL_SECONDS - remaining;
+  const percent = Math.round((spentSeconds / totalSeconds) * 100);
+
+  if (percent >= 50) {
+    saveStep({
+      userId: user.telegram_id,
+      taskId: null,
+      totalSeconds,
+      spentSeconds,
+    });
+  }
+
+  removeTask(task.id);
+  finishTask();
+}, [mode, exitLeft]);
+
 
     return () => clearInterval(interval);
   }, [mode, task.id]);
