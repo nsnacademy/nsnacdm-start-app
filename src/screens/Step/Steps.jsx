@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
+import { supabase } from "../../lib/supabase";
+import { useState, useEffect } from "react";
+
+
 
 export default function Steps() {
   const navigate = useNavigate();
@@ -32,6 +36,27 @@ export default function Steps() {
     100;
 
   const safeProgress = Math.min(Math.max(progress, 0), 100);
+
+  const [startedCount, setStartedCount] = useState(0);
+
+  useEffect(() => {
+  if (!user?.telegram_id) return;
+
+  async function loadStarted() {
+    const { count, error } = await supabase
+      .from("steps")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.telegram_id);
+
+    if (!error) {
+      setStartedCount(count ?? 0);
+    }
+  }
+
+  loadStarted();
+}, [user?.telegram_id]);
+
+
 
   return (
     <>
@@ -270,7 +295,7 @@ export default function Steps() {
             <div className="stats">
               <div className="stat">
                 <span>Начатые задачи</span>
-                <strong>—</strong>
+                <strong>{startedCount}</strong>
               </div>
               <div className="stat">
                 <span>Завершённые</span>
