@@ -244,15 +244,15 @@ if (mode === "complete") {
               <button className="btn pause" onClick={() => setMode("running")}>
                 Вернуться к задаче
               </button>
-              <button
+               <button
   className="btn stop"
-  onClick={async () => {
-    const totalSeconds = TOTAL_SECONDS;
-    const spentSeconds = TOTAL_SECONDS - remaining;
+  onClick={() => {
+    const totalSeconds = task.time * 60;
+    const spentSeconds = totalSeconds - remaining;
     const percent = Math.round((spentSeconds / totalSeconds) * 100);
 
     if (percent >= 50) {
-      await saveStep({
+      saveStep({
         userId: user.telegram_id,
         taskId: null,
         totalSeconds,
@@ -265,6 +265,8 @@ if (mode === "complete") {
 >
   Выйти
 </button>
+
+
 
             </div>
           </div>
