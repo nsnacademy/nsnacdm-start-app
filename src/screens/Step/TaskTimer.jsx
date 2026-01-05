@@ -125,7 +125,7 @@ useEffect(() => {
           console.log("⚪ 100% — step saved in COMPLETE flow");
         }
 
-        console.log("🔴 FINISH TASK");
+        console.log("🔴 FINISH TAS");
 
         removeTask(task.id);
         finishTask();
