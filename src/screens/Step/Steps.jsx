@@ -5,7 +5,7 @@ export default function Steps() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
 
-  /* ===== LEVEL SYSTEM (1:1 из Home) ===== */
+  /* ===== LEVEL SYSTEM (как в Home) ===== */
 
   const LEVELS = [
     { level: 1, from: 0, to: 150 },
@@ -31,10 +31,7 @@ export default function Steps() {
       (currentLevel.to - currentLevel.from)) *
     100;
 
-  const safeProgress = Math.min(
-    Math.max(progress, 0),
-    100
-  );
+  const safeProgress = Math.min(Math.max(progress, 0), 100);
 
   return (
     <>
@@ -48,6 +45,7 @@ export default function Steps() {
           margin: 0;
         }
 
+        /* ===== SCREEN (1:1 как Home) ===== */
         .screen {
           width: 100%;
           height: 100vh;
@@ -59,17 +57,21 @@ export default function Steps() {
           align-items: center;
           justify-content: space-between;
 
+          /* ВАЖНО: это ровно как в Home */
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
+
+          box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
         }
 
-        /* ===== TOP PILL ===== */
+        /* ===== TOP PILL (1:1 как Home) ===== */
 
         .top-pill-container {
           width: 100%;
           display: flex;
           justify-content: center;
+          margin-top: 60px;
           margin-bottom: 40px;
         }
 
@@ -168,7 +170,7 @@ export default function Steps() {
           background: #fafafa;
         }
 
-        /* ===== NAV ===== */
+        /* ===== NAV (как Home) ===== */
 
         .nav-wrapper {
           width: 100%;
@@ -261,9 +263,8 @@ export default function Steps() {
 
           <div className="card">
             <p className="card-text">
-              Здесь будет отражаться то,
-              как ты двигаешься шаг за шагом —
-              без давления и оценок.
+              Здесь будет отражаться твой путь —
+              спокойно, без давления и оценок.
             </p>
 
             <div className="stats">

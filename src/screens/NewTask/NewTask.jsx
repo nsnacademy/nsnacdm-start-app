@@ -37,7 +37,7 @@ export default function NewTask() {
   // animate on first render
   useEffect(() => {
     const initialReward = selectedTime;
-    const initialHp = Math.round(selectedTime * 2.5);
+    const initialHp = Math.round(selectedTime * 40);
 
     setReward(initialReward);
     setHp(initialHp);
@@ -67,7 +67,7 @@ export default function NewTask() {
   function fireConfettiByTime(t) {
     const origin = getOrigin();
 
-    if (t === 1) {
+    if (t === 10) {
       confetti({
         particleCount: 40,
         spread: 45,
@@ -553,14 +553,16 @@ export default function NewTask() {
               </svg>
             </button>
 
-            <button className="nav-item">
-              <svg viewBox="0 0 24 24" fill="#6A6A6A">
-                <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
-                <circle cx="8.5" cy="14.8" r="1.3"/>
-                <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
-                <circle cx="16.6" cy="18.5" r="1.3"/>
-              </svg>
-            </button>
+            <button  className="nav-item"
+  onClick={() => navigate("/steps")}
+>
+  <svg viewBox="0 0 24 24" fill="#6A6A6A">
+    <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
+    <circle cx="8.5" cy="14.8" r="1.3"/>
+    <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
+    <circle cx="16.6" cy="18.5" r="1.3"/>
+  </svg>
+</button>
 
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
