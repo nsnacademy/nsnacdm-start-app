@@ -97,30 +97,7 @@ export default function TaskTimer({ task }) {
 
     }, 1000);
 
-    useEffect(() => {
-  if (mode !== "exit") return;
-  if (exitLeft !== 0) return;
-  if (exitSavedRef.current) return;
-
-  exitSavedRef.current = true;
-
-  const totalSeconds = TOTAL_SECONDS;
-  const spentSeconds = TOTAL_SECONDS - remaining;
-  const percent = Math.round((spentSeconds / totalSeconds) * 100);
-
-  if (percent >= 50) {
-    saveStep({
-      userId: user.telegram_id,
-      taskId: null,
-      totalSeconds,
-      spentSeconds,
-    });
-  }
-
-  removeTask(task.id);
-  finishTask();
-}, [mode, exitLeft]);
-
+    
 
     return () => clearInterval(interval);
   }, [mode, task.id]);
@@ -267,9 +244,28 @@ if (mode === "complete") {
               <button className="btn pause" onClick={() => setMode("running")}>
                 Вернуться к задаче
               </button>
-              <button className="btn stop" onClick={() => setMode("exit")}>
-                Выйти
-              </button>
+              <button
+  className="btn stop"
+  onClick={async () => {
+    const totalSeconds = TOTAL_SECONDS;
+    const spentSeconds = TOTAL_SECONDS - remaining;
+    const percent = Math.round((spentSeconds / totalSeconds) * 100);
+
+    if (percent >= 50) {
+      await saveStep({
+        userId: user.telegram_id,
+        taskId: null,
+        totalSeconds,
+        spentSeconds,
+      });
+    }
+
+    setMode("exit");
+  }}
+>
+  Выйти
+</button>
+
             </div>
           </div>
         </div>
