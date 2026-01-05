@@ -74,6 +74,23 @@ export default function Steps() {
 loadCompleted();
 
 
+  const [almostCount, setAlmostCount] = useState(0);
+
+  async function loadAlmost() {
+  const { count, error } = await supabase
+    .from("steps")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.telegram_id)
+    .eq("result", "almost");
+
+  if (!error) {
+    setAlmostCount(count ?? 0);
+  }
+}
+
+loadAlmost();
+
+
   return (
     <>
       <style>{`
@@ -318,8 +335,8 @@ loadCompleted();
                 <strong>{completedCount}</strong>
               </div>
               <div className="stat">
-                <span>Попытки</span>
-                <strong>—</strong>
+                <span>Почти завершенные</span>
+                <strong>{almostCount}</strong>
               </div>
             </div>
           </div>
