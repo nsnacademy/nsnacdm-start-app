@@ -4,6 +4,8 @@ import rewardChest from "../../assets/reward-chest.png";
 import { applyTaskReward } from "../../lib/applyTaskReward";
 import { useUserStore } from "../../store/userStore";
 import { saveUser } from "../../lib/saveUser";
+import { saveStep } from "../../lib/saveStep";
+
 
 
 
