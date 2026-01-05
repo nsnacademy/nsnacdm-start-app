@@ -82,6 +82,7 @@ export default function TaskTimer({ task }) {
   }, [remaining, TOTAL_SECONDS, circumference, mode]);
 
   /* ===== EXIT AUTO REMOVE ===== */
+/* ===== EXIT AUTO REMOVE ===== */
 useEffect(() => {
   if (mode !== "exit") return;
 
@@ -106,8 +107,13 @@ useEffect(() => {
           percent,
         });
 
-        if (percent >= 50 && percent < 100) {
-          console.log("🟢 SAVING ALMOST STEP");
+        // ⬇️ СОХРАНЯЕМ ЛЮБУЮ ПОПЫТКУ < 100%
+        if (percent < 100) {
+          if (percent >= 50) {
+            console.log("🟢 SAVING ALMOST STEP (50–99%)");
+          } else {
+            console.log("🟡 SAVING STARTED STEP (<50%)");
+          }
 
           saveStep({
             userId: user.telegram_id,
@@ -116,7 +122,7 @@ useEffect(() => {
             spentSeconds,
           });
         } else {
-          console.log("⚪ STEP NOT SAVED (percent < 50 or 100)");
+          console.log("⚪ 100% — step saved in COMPLETE flow");
         }
 
         console.log("🔴 FINISH TASK");
@@ -136,6 +142,7 @@ useEffect(() => {
     clearInterval(interval);
   };
 }, [mode, task.id, remaining]);
+
 
 
 
