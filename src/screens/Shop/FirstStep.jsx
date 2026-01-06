@@ -77,7 +77,7 @@ export default function FirstStep() {
           color: #f8f8f8;
           font-size: 15px;
           font-weight: 500;
-          margin: 25px 0 26px;
+          margin: 35px 0 26px;
         }
 
         /* LIST */
@@ -89,7 +89,7 @@ export default function FirstStep() {
         }
 
         .outline {
-          margin-top: 10px;
+          margin-top: 25px;
           border: none;
           outline: none;
           box-shadow: none;
@@ -170,13 +170,6 @@ export default function FirstStep() {
 
     <div className="item">
       <div className="item-text">
-        Как мозг решает — двигаться или нет
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
         Большая цель и почему она мешает шагу
       </div>
       <div className="arrow">›</div>
@@ -222,13 +215,6 @@ export default function FirstStep() {
     <div className="item">
       <div className="item-text">
         Как из одного шага появляется следующий
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
-        Когда шаги складываются в путь
       </div>
       <div className="arrow">›</div>
     </div>
