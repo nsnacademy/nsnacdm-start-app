@@ -17,7 +17,7 @@ export default function FirstStep() {
 
         /* ===== SCREEN (1:1 как Shop) ===== */
         .screen {
-          width: 100%;
+          width: 92%;
           min-height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
