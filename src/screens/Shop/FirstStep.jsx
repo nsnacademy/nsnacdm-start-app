@@ -15,30 +15,30 @@ export default function FirstStep() {
           margin: 0;
         }
 
+        /* ===== SCREEN (1:1 как Shop) ===== */
         .screen {
-          width: 92%;
+          width: 100%;
+          min-height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          padding: calc(env(safe-area-inset-top) + 60px) 0 60px;
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 40px;
+          box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
 
           overflow-y: auto;
         }
 
-        /* HEADER WITH H1 */
-        .header {
-          position: relative;
+        /* ===== HEADER ROW ===== */
+        .header-row {
           display: flex;
           align-items: center;
-          justify-content: center;
-          margin-bottom: 16px;
+          gap: 10px;
+          margin-bottom: 14px;
         }
 
         .back {
-          position: absolute;
-          left: 0;
           border: none;
           background: none;
           font-size: 18px;
@@ -48,17 +48,15 @@ export default function FirstStep() {
 
         h1 {
           font-size: 22px;
-          margin: 0;
           font-weight: 600;
+          margin: 0;
           color: #222;
         }
 
-        /* CONTENT */
         .subtitle {
           font-size: 14px;
           color: #777;
           margin-bottom: 14px;
-          text-align: center;
         }
 
         .text {
@@ -127,7 +125,7 @@ export default function FirstStep() {
 
       <div className="screen">
         {/* HEADER */}
-        <div className="header">
+        <div className="header-row">
           <button className="back" onClick={() => navigate(-1)}>←</button>
           <h1>Маленькие шаги</h1>
         </div>
