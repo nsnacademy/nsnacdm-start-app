@@ -431,12 +431,12 @@ loadAlmost();
               </svg>
             </button>
 
-            <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
-                <rect x="4" y="7" width="16" height="13" rx="3"/>
-                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-              </svg>
-            </button>
+            <button className="nav-item" onClick={() => navigate("/shop")}>
+  <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+    <rect x="4" y="7" width="16" height="13" rx="3" />
+    <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+  </svg>
+</button>
 
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
