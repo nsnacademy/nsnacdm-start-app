@@ -153,66 +153,88 @@ export default function FirstStep() {
         </div>
 
         <button className="start-btn">
-          Начать курс
+          Погрузиться в материал 
         </button>
 
 
         <div className="outline">
-        <div className="section-title">Оглавление</div>
+  <div className="section-title">Оглавление</div>
 
-        <div className="list">
-          <div className="item">
-            <div className="item-text">
-              Почему большие цели останавливают движение
-            </div>
-            <div className="arrow">›</div>
-          </div>
+  <div className="list">
+    <div className="item">
+      <div className="item-text">
+        Почему мы не начинаем, даже когда хотим
+      </div>
+      <div className="arrow">›</div>
+    </div>
 
-          <div className="item">
-            <div className="item-text">
-              Зачем мозг сопротивляется началу
-            </div>
-            <div className="arrow">›</div>
-          </div>
+    <div className="item">
+      <div className="item-text">
+        Как мозг решает — двигаться или нет
+      </div>
+      <div className="arrow">›</div>
+    </div>
 
-          <div className="item">
-            <div className="item-text">
-              Ошибка ожидания результата
-            </div>
-            <div className="arrow">›</div>
-          </div>
+    <div className="item">
+      <div className="item-text">
+        Большая цель и почему она мешает шагу
+      </div>
+      <div className="arrow">›</div>
+    </div>
 
-          <div className="item">
-            <div className="item-text">
-              Что такое правильный маленький шаг
-            </div>
-            <div className="arrow">›</div>
-          </div>
+    <div className="item">
+      <div className="item-text">
+        Что такое маленький шаг на самом деле
+      </div>
+      <div className="arrow">›</div>
+    </div>
 
-          <div className="item">
-            <div>
-              <div className="item-text">Анализ сделанного шага</div>
-              <div className="item-sub">что произошло на самом деле</div>
-            </div>
-            <div className="arrow">›</div>
-          </div>
+    <div className="item">
+      <div className="item-text">
+        Как выбрать шаг, который не сломается
+      </div>
+      <div className="arrow">›</div>
+    </div>
 
-          <div className="item">
-            <div>
-              <div className="item-text">Извлечение опыта</div>
-              <div className="item-sub">что этот шаг показал о тебе</div>
-            </div>
-            <div className="arrow">›</div>
-          </div>
+    <div className="item">
+      <div className="item-text">
+        Почему один шаг уже считается результатом
+      </div>
+      <div className="arrow">›</div>
+    </div>
 
-          <div className="item">
-            <div className="item-text">
-              Итог: движение как честный диалог с собой
-            </div>
-            <div className="arrow">›</div>
-            </div>
-          </div>
-        </div>
+    <div className="item">
+      <div>
+        <div className="item-text">Анализ шага</div>
+        <div className="item-sub">что произошло после действия</div>
+      </div>
+      <div className="arrow">›</div>
+    </div>
+
+    <div className="item">
+      <div>
+        <div className="item-text">Извлечение опыта</div>
+        <div className="item-sub">что этот шаг показал о тебе</div>
+      </div>
+      <div className="arrow">›</div>
+    </div>
+
+    <div className="item">
+      <div className="item-text">
+        Как из одного шага появляется следующий
+      </div>
+      <div className="arrow">›</div>
+    </div>
+
+    <div className="item">
+      <div className="item-text">
+        Когда шаги складываются в путь
+      </div>
+      <div className="arrow">›</div>
+    </div>
+  </div>
+</div>
+
       </div>
     </>
   );
