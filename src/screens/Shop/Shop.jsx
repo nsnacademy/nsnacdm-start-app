@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
-import { useState } from "react";
 
 export default function Shop() {
   const navigate = useNavigate();
   const user = useUserStore((s) => s.user);
 
-  /* ===== LEVEL SYSTEM (1:1 как в твоём коде) ===== */
+  /* ===== LEVEL SYSTEM (НЕ ТРОГАЕМ) ===== */
 
   const LEVELS = [
     { level: 1, from: 0, to: 150 },
@@ -138,11 +137,6 @@ export default function Shop() {
           color: #777;
         }
 
-        .price {
-          font-size: 14px;
-          color: #777;
-        }
-
         .soon {
           background: #ece7df;
           padding: 4px 10px;
@@ -172,6 +166,18 @@ export default function Shop() {
           text-align: center;
           font-size: 12px;
           color: #999;
+        }
+
+        .free-btn {
+          border: none;
+          background: #f1efe9;
+          color: #6f6c63;
+          font-size: 13px;
+          font-weight: 500;
+          padding: 8px 14px;
+          border-radius: 14px;
+          cursor: pointer;
+          white-space: nowrap;
         }
 
         /* ===== NAV ===== */
@@ -215,7 +221,7 @@ export default function Shop() {
 
       <div className="screen">
 
-        {/* TOP PILL */}
+        {/* ===== TOP PILL ===== */}
         <div className="top-pill-container">
           <div className="top-pill">
             <div className="left">
@@ -247,18 +253,46 @@ export default function Shop() {
           </div>
         </div>
 
-        {/* CONTENT */}
+        {/* ===== CONTENT ===== */}
         <div className="content">
+
+          {/* 🔥 ЛИД-МАГНИТ */}
           <div className="card">
             <div className="row">
-              <div>
-                <div className="title">Маленькие шаги</div>
-                <div className="sub">Начать со своего темпа</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    background: "#ececec",
+                    color: "#555",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 18,
+                    flexShrink: 0,
+                  }}
+                >
+                  ●
+                </div>
+
+                <div>
+                  <div className="title">Первый шаг</div>
+                  <div className="sub">Начать без цели и ожиданий</div>
+                </div>
               </div>
-              <div className="price">0 ОД</div>
+
+              <button
+                className="free-btn"
+                onClick={() => navigate("/steps")}
+              >
+                Бесплатно
+              </button>
             </div>
           </div>
 
+          {/* ===== ВТОРОЙ ПРОДУКТ (НЕ ТРОГАЕМ) ===== */}
           <div className="card">
             <div className="row">
               <div className="title">Разбор. Начать с начала</div>
@@ -277,7 +311,7 @@ export default function Shop() {
           </div>
         </div>
 
-        {/* NAV */}
+        {/* ===== NAV ===== */}
         <div className="nav-wrapper">
           <div className="nav-pill">
             <button className="nav-item" onClick={() => navigate("/home")}>
@@ -286,17 +320,14 @@ export default function Shop() {
               </svg>
             </button>
 
-            <button
-  className="nav-item"
-  onClick={() => navigate("/steps")}
->
-  <svg viewBox="0 0 24 24" fill="#6A6A6A">
-    <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
-    <circle cx="8.5" cy="14.8" r="1.3"/>
-    <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
-    <circle cx="16.6" cy="18.5" r="1.3"/>
-  </svg>
-</button>
+            <button className="nav-item" onClick={() => navigate("/steps")}>
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
+                <circle cx="8.5" cy="14.8" r="1.3"/>
+                <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
+                <circle cx="16.6" cy="18.5" r="1.3"/>
+              </svg>
+            </button>
 
             <button className="nav-item active">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
