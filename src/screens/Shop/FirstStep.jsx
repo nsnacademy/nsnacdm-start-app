@@ -88,6 +88,11 @@ export default function FirstStep() {
           color: #333;
         }
 
+        .outline {
+          margin-top: 30px;
+        }
+
+
         .list {
           background: #ffffff;
           border-radius: 20px;
@@ -146,6 +151,8 @@ export default function FirstStep() {
           Начать курс
         </button>
 
+
+        <div className="outline">
         <div className="section-title">Оглавление</div>
 
         <div className="list">
@@ -198,6 +205,7 @@ export default function FirstStep() {
               Итог: движение как честный диалог с собой
             </div>
             <div className="arrow">›</div>
+            </div>
           </div>
         </div>
       </div>
