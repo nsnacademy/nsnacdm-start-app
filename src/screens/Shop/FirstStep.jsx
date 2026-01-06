@@ -22,7 +22,7 @@ export default function FirstStep() {
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          padding: calc(env(safe-area-inset-top) + 110px) 20px 1px;
+          padding: calc(env(safe-area-inset-top) + 110px) 20px -20px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
