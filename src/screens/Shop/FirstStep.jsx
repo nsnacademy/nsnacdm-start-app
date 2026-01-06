@@ -77,7 +77,7 @@ export default function FirstStep() {
           color: #f8f8f8;
           font-size: 15px;
           font-weight: 500;
-          margin: 20px 0 26px;
+          margin: 20px 0 20px;
         }
 
         /* LIST */
