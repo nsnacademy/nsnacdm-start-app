@@ -284,11 +284,12 @@ export default function Shop() {
               </div>
 
               <button
-                className="free-btn"
-                onClick={() => navigate("/steps")}
-              >
-                Бесплатно
-              </button>
+  className="free-btn"
+  onClick={() => navigate("/first-step")}
+>
+  Бесплатно
+</button>
+
             </div>
           </div>
 

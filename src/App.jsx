@@ -8,6 +8,7 @@ import Home from "./screens/Home/Home";
 import NewTask from "./screens/NewTask/NewTask";   // ← добавлено
 import Steps from "./screens/Step/Steps";
 import Shop from "./screens/Shop/Shop";
+import FirstStep from "./screens/Shop/FirstStep";
 
 
 
@@ -29,6 +30,8 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/steps" element={<Steps />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/first-step" element={<FirstStep />} />
+
 
 
 
