@@ -17,13 +17,14 @@ export default function FirstStep() {
 
         .screen {
           width: 100%;
-          min-height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          padding: calc(env(safe-area-inset-top) + 20px) 20px 40px;
+          padding: calc(env(safe-area-inset-top) + 60px) 20px 60px;
           max-width: 520px;
           margin: 0 auto;
+
+          overflow-y: auto;
         }
 
         /* HEADER */
@@ -31,80 +32,77 @@ export default function FirstStep() {
           display: flex;
           align-items: center;
           gap: 10px;
-          margin-bottom: 24px;
+          margin-bottom: 28px;
         }
 
         .back {
           border: none;
           background: none;
-          font-size: 20px;
+          font-size: 18px;
           cursor: pointer;
           color: #666;
         }
 
         .header-title {
-          flex: 1;
-          text-align: center;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 500;
           color: #444;
-          margin-right: 30px; /* визуальный центр */
         }
 
         /* CONTENT */
         h1 {
-          font-size: 28px;
-          margin: 0 0 6px;
+          font-size: 22px;
+          margin: 0 0 4px;
           font-weight: 600;
           color: #222;
         }
 
         .subtitle {
-          font-size: 15px;
+          font-size: 14px;
           color: #777;
-          margin-bottom: 18px;
+          margin-bottom: 14px;
         }
 
         .text {
-          font-size: 15px;
-          line-height: 1.55;
+          font-size: 14px;
+          line-height: 1.5;
           color: #555;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
         }
 
         /* CTA */
         .start-btn {
           width: 100%;
-          height: 52px;
-          border-radius: 18px;
+          height: 46px;
+          border-radius: 16px;
           border: none;
           background: #e8e4dd;
           color: #555;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 500;
-          margin: 22px 0 30px;
+          margin: 18px 0 26px;
         }
 
         /* LIST */
         .section-title {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 500;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
           color: #333;
         }
 
         .list {
           background: #ffffff;
-          border-radius: 22px;
-          padding: 8px 14px;
-          box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+          border-radius: 20px;
+          padding: 6px 14px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.05);
         }
 
         .item {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 14px 0;
+          padding: 12px 0;
           border-top: 1px solid #eee;
         }
 
@@ -113,19 +111,19 @@ export default function FirstStep() {
         }
 
         .item-text {
-          font-size: 15px;
+          font-size: 14px;
           color: #444;
         }
 
-        .arrow {
-          font-size: 18px;
-          color: #bbb;
-        }
-
         .item-sub {
-          font-size: 13px;
+          font-size: 12px;
           color: #777;
           margin-top: 2px;
+        }
+
+        .arrow {
+          font-size: 16px;
+          color: #bbb;
         }
       `}</style>
 
@@ -146,16 +144,15 @@ export default function FirstStep() {
         </div>
 
         <div className="text">
-          Курс разбит на этапы. На каждом этапе ты узнаешь, как можно
-          начинать и «прогреваться», важные идеи о темпе, ошибках и
-          практических мелочах, полезных на старте.
+          Курс разбит на этапы. Здесь не про спешку — а про возвращение в
+          движение и контакт с собой.
         </div>
 
         <button className="start-btn">
           Начать курс
         </button>
 
-        {/* CONTENT LIST */}
+        {/* LIST */}
         <div className="section-title">Оглавление</div>
 
         <div className="list">
@@ -189,24 +186,16 @@ export default function FirstStep() {
 
           <div className="item">
             <div>
-              <div className="item-text">
-                Анализ сделанного шага
-              </div>
-              <div className="item-sub">
-                что произошло на самом деле
-              </div>
+              <div className="item-text">Анализ сделанного шага</div>
+              <div className="item-sub">что произошло на самом деле</div>
             </div>
             <div className="arrow">›</div>
           </div>
 
           <div className="item">
             <div>
-              <div className="item-text">
-                Извлечение опыта
-              </div>
-              <div className="item-sub">
-                что этот шаг показал о тебе
-              </div>
+              <div className="item-text">Извлечение опыта</div>
+              <div className="item-sub">что этот шаг показал о тебе</div>
             </div>
             <div className="arrow">›</div>
           </div>
