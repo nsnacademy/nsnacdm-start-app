@@ -3,6 +3,8 @@ import { useUserStore } from "../../store/userStore";
 import { useTaskStore } from "../../store/taskStore";
 import { useState, useEffect } from "react";
 import TaskTimer from "../Step/TaskTimer";
+import Shop from "../Shop/Shop";
+
 
 
 export default function Home() {
@@ -458,12 +460,13 @@ const safeProgress = Math.min(
 </button>
 
 
-            <button className="nav-item">
-              <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
-                <rect x="4" y="7" width="16" height="13" rx="3"/>
-                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-              </svg>
-            </button>
+            <button className="nav-item" onClick={() => navigate("/shop")}>
+  <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
+    <rect x="4" y="7" width="16" height="13" rx="3" />
+    <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+  </svg>
+</button>
+
 
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">

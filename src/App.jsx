@@ -7,6 +7,8 @@ import StepIntro3 from "./screens/Step/StepIntro3";
 import Home from "./screens/Home/Home";
 import NewTask from "./screens/NewTask/NewTask";   // ← добавлено
 import Steps from "./screens/Step/Steps";
+import Shop from "./screens/Shop";
+
 
 
 
@@ -25,6 +27,8 @@ export default function App() {
         <Route path="/step-intro-3" element={<StepIntro3 />} />
         <Route path="/home" element={<Home />} />
         <Route path="/steps" element={<Steps />} />
+        <Route path="/shop" element={<Shop />} />
+
 
 
         {/* 🔥 Новый роут */}
