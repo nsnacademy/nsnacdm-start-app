@@ -3,7 +3,7 @@ import { useUserStore } from "../../store/userStore";
 import { useTaskStore } from "../../store/taskStore";
 import { useState, useEffect } from "react";
 import TaskTimer from "../Step/TaskTimer";
-import Shop from "../Shop/Shop";
+
 
 
 
