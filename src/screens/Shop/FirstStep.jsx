@@ -22,7 +22,7 @@ export default function FirstStep() {
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          padding: calc(env(safe-area-inset-top) + 100px) 20px 10px;
+          padding: calc(env(safe-area-inset-top) + 110px) 20px 1px;
           box-sizing: border-box;
           max-width: 520px;
           margin: 0 auto;
@@ -34,17 +34,22 @@ export default function FirstStep() {
         .header-row {
           display: flex;
           align-items: center;
-          gap: 10px;
+          justify-content: center;
+          position: relative;
           margin-bottom: 14px;
         }
 
         .back {
+          position: absolute;
+          left: 0;
+
           border: none;
           background: none;
-          font-size: 18px;
+          font-size: 22px;
           cursor: pointer;
           color: #666;
         }
+
 
         h1 {
           font-size: 22px;
