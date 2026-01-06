@@ -77,7 +77,7 @@ export default function FirstStep() {
           color: #f8f8f8;
           font-size: 15px;
           font-weight: 500;
-          margin: 25px 0 26px;
+          margin: 20px 0 26px;
         }
 
         /* LIST */
@@ -89,7 +89,7 @@ export default function FirstStep() {
         }
 
         .outline {
-          margin-top: 30px;
+          margin-top: 25px;
           border: none;
           outline: none;
           box-shadow: none;
