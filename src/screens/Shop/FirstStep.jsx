@@ -27,32 +27,30 @@ export default function FirstStep() {
           overflow-y: auto;
         }
 
-        /* HEADER */
+        /* HEADER WITH H1 */
         .header {
-          display: grid;
-          grid-template-columns: 40px 1fr 40px;
+          position: relative;
+          display: flex;
           align-items: center;
-          margin-bottom: 26px;
+          justify-content: center;
+          margin-bottom: 16px;
         }
 
         .back {
+          position: absolute;
+          left: 0;
           border: none;
           background: none;
           font-size: 18px;
           cursor: pointer;
           color: #666;
-          justify-self: start;
         }
 
-        .header-title {
-          text-align: center;
-          font-size: 15px;
-          font-weight: 500;
-          color: #444;
-        }
-
-        .header-spacer {
-          width: 40px;
+        h1 {
+          font-size: 22px;
+          margin: 0;
+          font-weight: 600;
+          color: #222;
         }
 
         /* CONTENT */
@@ -60,6 +58,7 @@ export default function FirstStep() {
           font-size: 14px;
           color: #777;
           margin-bottom: 14px;
+          text-align: center;
         }
 
         .text {
@@ -130,11 +129,9 @@ export default function FirstStep() {
         {/* HEADER */}
         <div className="header">
           <button className="back" onClick={() => navigate(-1)}>←</button>
-          <div className="header-title">Маленькие шаги</div>
-          <div className="header-spacer" />
+          <h1>Маленькие шаги</h1>
         </div>
 
-        {/* INTRO TEXT */}
         <div className="subtitle">Как начинать и прогреваться</div>
 
         <div className="text">
@@ -151,7 +148,6 @@ export default function FirstStep() {
           Начать курс
         </button>
 
-        {/* LIST */}
         <div className="section-title">Оглавление</div>
 
         <div className="list">
