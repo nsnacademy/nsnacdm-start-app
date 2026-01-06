@@ -16,11 +16,11 @@ export default function FirstStep() {
         }
 
         .screen {
-          width: 100%;
+          width: 92%;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          padding: calc(env(safe-area-inset-top) + 60px) 20px 60px;
+          padding: calc(env(safe-area-inset-top) + 60px) 0 60px;
           max-width: 520px;
           margin: 0 auto;
 
@@ -29,10 +29,10 @@ export default function FirstStep() {
 
         /* HEADER */
         .header {
-          display: flex;
+          display: grid;
+          grid-template-columns: 40px 1fr 40px;
           align-items: center;
-          gap: 10px;
-          margin-bottom: 28px;
+          margin-bottom: 26px;
         }
 
         .back {
@@ -41,22 +41,21 @@ export default function FirstStep() {
           font-size: 18px;
           cursor: pointer;
           color: #666;
+          justify-self: start;
         }
 
         .header-title {
+          text-align: center;
           font-size: 15px;
           font-weight: 500;
           color: #444;
         }
 
-        /* CONTENT */
-        h1 {
-          font-size: 22px;
-          margin: 0 0 4px;
-          font-weight: 600;
-          color: #222;
+        .header-spacer {
+          width: 40px;
         }
 
+        /* CONTENT */
         .subtitle {
           font-size: 14px;
           color: #777;
@@ -132,10 +131,10 @@ export default function FirstStep() {
         <div className="header">
           <button className="back" onClick={() => navigate(-1)}>←</button>
           <div className="header-title">Маленькие шаги</div>
+          <div className="header-spacer" />
         </div>
 
-        {/* INTRO */}
-        <h1>Маленькие шаги</h1>
+        {/* INTRO TEXT */}
         <div className="subtitle">Как начинать и прогреваться</div>
 
         <div className="text">
