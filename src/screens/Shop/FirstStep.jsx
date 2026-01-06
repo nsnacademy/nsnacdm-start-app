@@ -17,7 +17,7 @@ export default function FirstStep() {
 
         /* ===== SCREEN (1:1 как Shop) ===== */
         .screen {
-          width: 92%;
+          width: 100%;
           min-height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -58,11 +58,7 @@ export default function FirstStep() {
           color: #222;
         }
 
-        .subtitle {
-          font-size: 14px;
-          color: #777;
-          margin-bottom: 14px;
-        }
+    
 
         .text {
           font-size: 14px;
@@ -135,7 +131,6 @@ export default function FirstStep() {
           <h1>Маленькие шаги</h1>
         </div>
 
-        <div className="subtitle">Как начинать и прогреваться</div>
 
         <div className="text">
           Начинать важно с заботой о себе. В каждом дне достаточно места
