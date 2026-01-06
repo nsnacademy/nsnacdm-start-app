@@ -73,8 +73,8 @@ export default function FirstStep() {
           height: 46px;
           border-radius: 16px;
           border: none;
-          background: #e8e4dd;
-          color: #555;
+          background: #222;
+          color: #f8f8f8;
           font-size: 15px;
           font-weight: 500;
           margin: 18px 0 26px;

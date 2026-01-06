@@ -138,11 +138,11 @@ export default function Shop() {
         }
 
         .soon {
-          background: #ece7df;
+          background: #f8f8f8;
           padding: 4px 10px;
           border-radius: 12px;
           font-size: 12px;
-          color: #777;
+          color: #222;
         }
 
         .divider {
@@ -156,8 +156,8 @@ export default function Shop() {
           height: 46px;
           border-radius: 16px;
           border: none;
-          background: #e8e4dd;
-          color: #666;
+          background: #f8f8f8;
+          color: #222;
           font-size: 15px;
         }
 
@@ -170,8 +170,8 @@ export default function Shop() {
 
         .free-btn {
           border: none;
-          background: #f1efe9;
-          color: #6f6c63;
+          background: #222;
+          color: #f8f8f8;
           font-size: 13px;
           font-weight: 500;
           padding: 8px 14px;
