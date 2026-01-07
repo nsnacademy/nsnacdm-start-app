@@ -20,10 +20,7 @@ export default function Shop() {
     { level: 10, from: 5395, to: 7189 },
   ];
 
-  // const hp = user?.hp ?? 0;
-
-  const hp = 0;
-
+  const hp = user?.hp ?? 0;
 
   const currentLevel =
     LEVELS.find((l) => hp >= l.from && hp < l.to) ||
@@ -263,7 +260,44 @@ export default function Shop() {
         <div className="content">
 
           {/* 🔥 ЛИД-МАГНИТ */}
-           {/* ===== ВТОРОЙ ПРОДУКТ ===== */}
+          <div className="card">
+            <div className="row">
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    background: "#ececec",
+                    color: "#555",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 18,
+                    flexShrink: 0,
+                  }}
+                >
+                  ●
+                </div>
+
+                <div>
+                  <div className="title">Первый шаг</div>
+                  <div className="sub">Начать без цели и ожиданий</div>
+                </div>
+              </div>
+
+              <button
+  className="free-btn"
+  onClick={() => navigate("/first-step")}
+>
+  Бесплатно
+</button>
+
+            </div>
+          </div>
+
+          {/* ===== ВТОРОЙ ПРОДУКТ (НЕ ТРОГАЕМ) ===== */}
+          {/* ===== ВТОРОЙ ПРОДУКТ ===== */}
 <div className="card">
   <div className="row">
     <div className="title">Разбор. Начать с начала</div>
@@ -307,30 +341,6 @@ export default function Shop() {
   )}
 </div>
 
-
-          {/* ===== ВТОРОЙ ПРОДУКТ (НЕ ТРОГАЕМ) ===== */}
-          <div className="card">
-            <div className="row">
-              <div className="title">Разбор. Начать с начала</div>
-              <div className="soon">Скоро</div>
-            </div>
-
-            <div className="sub" style={{ marginTop: 10 }}>
-              Когда ты делаешь шаги,  
-              но не чувствуешь движения
-            </div>
-
-            <div className="divider" />
-
-            <button
-  className="btn"
-  onClick={() => navigate("/founder-request")}
->
-  Обратиться к основателю
-</button>
-
-            <div className="hint">Разбор доступен не сразу</div>
-          </div>
         </div>
 
         {/* ===== NAV ===== */}
