@@ -33,7 +33,19 @@ export default function Shop() {
 
   const safeProgress = Math.min(Math.max(progress, 0), 100);
 
-  const canRequestFounder = currentLevel.level >= 2;
+  // уровень, с которого открывается разбор
+    const REQUIRED_LEVEL = 3;
+
+// hp, с которого начинается 3 уровень (370)
+    const REQUIRED_HP = LEVELS.find(l => l.level === REQUIRED_LEVEL).from;
+
+// можно ли обращаться
+    const canRequestFounder = hp >= REQUIRED_HP;
+
+// сколько hp осталось
+    const hpLeft = Math.max(REQUIRED_HP - hp, 0);
+
+    
 
 
   return (
@@ -301,7 +313,7 @@ export default function Shop() {
 <div className="card">
   <div className="row">
     <div className="title">Разбор. Начать с начала</div>
-    <div className="soon">Доступ с 2 уровня</div>
+    <div className="soon">Доступ с 3 уровня</div>
   </div>
 
   <div className="sub" style={{ marginTop: 10 }}>
@@ -311,34 +323,39 @@ export default function Shop() {
 
   <div className="divider" />
 
-  {canRequestFounder ? (
-    <>
-      <button
-        className="btn"
-        onClick={() => navigate("/founder-request")}
-      >
-        Обратиться к основателю
-      </button>
+     
+    {canRequestFounder ? (
+  <>
+    <button
+      className="btn"
+      style={{ background: "#222", color: "#fff" }}
+      onClick={() => navigate("/founder-request")}
+    >
+      Обратиться к основателю
+    </button>
 
-      <div className="hint">
-        Можно обратиться
-      </div>
-    </>
-  ) : (
-    <>
-      <button
-        className="btn"
-        disabled
-        style={{ opacity: 0.5 }}
-      >
-        Обратиться к основателю
-      </button>
+    <div className="hint">
+      Доступ открыт
+    </div>
+  </>
+) : (
+  <>
+    <button
+      className="btn"
+      disabled
+      style={{ opacity: 0.5 }}
+    >
+      Обратиться к основателю
+    </button>
 
-      <div className="hint">
-        Откроется после первого шага
-      </div>
-    </>
-  )}
+    <div className="hint">
+      Осталось {hpLeft} HP до открытия
+    </div>
+  </>
+)}
+
+
+
 </div>
 
         </div>
