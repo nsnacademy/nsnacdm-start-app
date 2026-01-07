@@ -307,7 +307,13 @@ export default function Shop() {
 
             <div className="divider" />
 
-            <button className="btn">Обратиться к основателю</button>
+            <button
+  className="btn"
+  onClick={() => navigate("/founder-request")}
+>
+  Обратиться к основателю
+</button>
+
             <div className="hint">Разбор доступен не сразу</div>
           </div>
         </div>
