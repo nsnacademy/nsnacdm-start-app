@@ -257,7 +257,7 @@ export default function NewTask() {
 
         .center-wrapper {
           width: 92%;
-          max-width: 480px;
+          max-width: 520px;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -408,8 +408,8 @@ export default function NewTask() {
         }
 
         .nav-pill {
-          width: 100%;
-          max-width: 100px;
+          width: 92%;
+          max-width: 520px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -419,6 +419,7 @@ export default function NewTask() {
           align-items: center;
           padding: 0 30px;
         }
+
 
         .nav-item {
           border: none;
