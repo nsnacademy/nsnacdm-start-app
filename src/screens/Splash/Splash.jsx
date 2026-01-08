@@ -17,12 +17,9 @@ export default function Splash() {
 
     function iosExpandHack() {
       try {
-        tg?.requestFullscreen?.();
         tg?.expand();
         tg?.disableVerticalSwipes?.();
-      } catch (e) {
-        console.log("iOS fullscreen error:", e);
-      }
+      } catch {}
     }
 
     iosExpandHack();
@@ -32,29 +29,19 @@ export default function Splash() {
     async function load() {
       if (!tgUser) return;
 
-      console.log("TG USER:", tgUser);
-
-      // 🔥 Предзагрузка всех изображений
       try {
         await preloadImages();
-      } catch (e) {
-        console.log("Image preload error:", e);
-      }
+      } catch {}
 
-      // 👤 Получаем или создаём пользователя
       const user = await findOrCreateUser(tgUser);
       if (!user) return;
 
-      // 🧠 КЛЮЧЕВОЕ: сохраняем пользователя в zustand
       setUser(user);
 
-      // ⏳ Оставляем задержку для ощущения Splash
-      await new Promise((res) => setTimeout(res, 3200));
+      // небольшая пауза для ощущения загрузки
+      await new Promise((res) => setTimeout(res, 5000));
 
-      // 🚀 ПЕРЕХОД БЕЗ ПЕРЕЗАГРУЗКИ
-      if (user.has_onboarded === true) {
-        navigate("/home", { replace: true });
-      } 
+      navigate("/home", { replace: true });
     }
 
     load();
@@ -63,26 +50,19 @@ export default function Splash() {
   return (
     <section className="screen splash">
       <div className="splash-inner">
-        <div className="splash-title">НАЧАТЬ С НАЧАЛА</div>
-
-        <div className="splash-sub">
-          Пространство маленьких шагов.
-        </div>
+        <div className="splash-title">NSN</div>
 
         <div className="splash-line-wrap">
-          <div className="splash-line"></div>
+          <div className="splash-line" />
         </div>
 
-        {/* Минималистичная кнопка пропуска */}
         <button
           className="skip-btn"
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/home", { replace: true })}
         >
-          Пропустить вступление →
+          Пропустить →
         </button>
       </div>
     </section>
   );
 }
-
-

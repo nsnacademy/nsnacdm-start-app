@@ -1,128 +1,78 @@
-:root {
-  --bg-app: #ffffff;
-  --bg-body: #f2f2f2;
-  --text-main: #111111;
-  --text-muted: #6a6a6a;
-  --border-soft: #e2e2e2;
-}
-
-/* Сброс */
+/* ===== базовый сброс ===== */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", system-ui, sans-serif;
-  background: radial-gradient(circle at top, #F8F8F8 0, var(--bg-body) 70%);
-  height: 100vh;
-  width: 100vw;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--text-main);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: #ffffff;
+  color: #111;
 }
 
-/* Общий экран */
+/* ===== экран ===== */
 .screen.splash {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   padding: 20px;
+  background: radial-gradient(circle at top, #f8f8f8 0, #f2f2f2 70%);
 }
 
-/* Контент в центре */
+/* ===== контент ===== */
 .splash-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  text-align: center;
+  gap: 16px;
 }
 
-/* Заголовок */
+/* ===== заголовок ===== */
 .splash-title {
   font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.splash-sub {
-  font-size: 16px;
-  color: var(--text-muted);
-  max-width: 340px;
-  line-height: 1.6;
-}
-
-/* Линия загрузки */
+/* ===== линия загрузки ===== */
 .splash-line-wrap {
-  width: 180px;
-  height: 5px;
+  width: 160px;
+  height: 3px;
   background: #e5e5e5;
-  overflow: hidden;
   border-radius: 999px;
-  margin-top: 10px;
+  overflow: hidden;
 }
 
 .splash-line {
   width: 100%;
   height: 100%;
-  background: #111111;
+  background: #111;
   transform-origin: left;
-  animation: splashProgress 4s linear forwards;
+  animation: loadLine 3s linear forwards;
 }
 
-@keyframes splashProgress {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
-
-/* =========================
-   Мобильная версия (≤ 600px)
-   ========================= */
-@media (max-width: 600px) {
-  body {
-    padding: 0;
-    background: #ffffff;
+@keyframes loadLine {
+  from {
+    transform: scaleX(0);
   }
-
-  .screen.splash {
-    height: 100vh;
-  }
-
-  .splash-title {
-    font-size: 22px;
-  }
-
-  .splash-sub {
-    font-size: 13px;
-    max-width: 220px;
-  }
-
-  .splash-line-wrap {
-    width: 140px;
-    height: 2px;
+  to {
+    transform: scaleX(1);
   }
 }
 
-
+/* ===== кнопка пропуска ===== */
 .skip-btn {
-  margin-top: 16px;
+  margin-top: 6px;
   background: none;
   border: none;
-  color: rgba(0,0,0,0.38); /* мягкий серый */
   font-size: 14px;
+  color: rgba(0,0,0,0.35);
   cursor: pointer;
-  padding: 4px 8px;
   transition: 0.2s ease;
 }
 
