@@ -49,7 +49,8 @@ export default function Splash() {
 
   function handleStart() {
     if (!accepted) return;
-    navigate("/intro", { replace: true });
+    navigate("/home", { replace: true });
+
   }
 
   return (
