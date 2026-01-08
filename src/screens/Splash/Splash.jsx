@@ -132,11 +132,11 @@ export default function Splash() {
         }
 
         .title {
-          font-size: 24px;
+          font-size: 40px;
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          margin-bottom: 8px;
+          margin-bottom: 0px;
         }
 
         .subtitle {
