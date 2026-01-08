@@ -269,7 +269,7 @@ export default function Home() {
 
         /* ===== NAV (1:1 как Steps) ===== */
         .nav-wrapper {
-          width: 92%;
+          width: 100%;
           display: flex;
           justify-content: center;
           margin-top: 59px;
