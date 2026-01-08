@@ -203,36 +203,39 @@ export default function NewTask() {
       <style>{`
         * {
           -webkit-tap-highlight-color: transparent;
+          box-sizing: border-box;
         }
 
-         .new-screen {
-  width: 92%;
-  min-height: 100vh;
-  background: #f8f8f8;
+        body {
+          margin: 0;
+        }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+        /* ===== SCREEN (1:1 как Home) ===== */
+        .new-screen {
+          width: 100%;
+          min-height: 100vh;
+          background: #f8f8f8;
+        
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
 
-  padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
-  box-sizing: border-box;
+          padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
+          box-sizing: border-box;
+          max-width: min(520px, 100%);
+          margin: 0 auto;
+        }
 
-  max-width: min(520px, 100%);
-  margin: 0 auto;
-}
-
-
-
-
+        /* ===== HEADER ZONE ===== */
         .header-zone {
           width: 92%;
-          
+          max-width: 480px;
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
-          margin-top: 90px;
+          margin-top: 60px;
           margin-bottom: 15px;
         }
 
@@ -244,6 +247,7 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           cursor: pointer;
+          padding: 8px;
         }
 
         .back-btn svg {
@@ -260,9 +264,10 @@ export default function NewTask() {
           line-height: 28px;
         }
 
+        /* ===== CENTER WRAPPER ===== */
         .center-wrapper {
           width: 92%;
-        
+          max-width: 480px;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -271,6 +276,7 @@ export default function NewTask() {
           margin-top: 40px;
         }
 
+        /* ===== TASK BOX ===== */
         .task-box {
           width: 100%;
           background: #fff;
@@ -312,6 +318,7 @@ export default function NewTask() {
           margin-bottom: 14px;
         }
 
+        /* ===== TIME BUTTONS ===== */
         .time-row {
           width: 100%;
           display: flex;
@@ -330,6 +337,9 @@ export default function NewTask() {
           font-size: 15px;
           color: #444;
           transition: 0.18s;
+          flex: 1;
+          min-width: calc(33.333% - 7px);
+          max-width: calc(33.333% - 7px);
         }
 
         .time-btn.active {
@@ -337,6 +347,7 @@ export default function NewTask() {
           color: white;
         }
 
+        /* ===== REWARD BOX ===== */
         .reward-box {
           width: 100%;
           background: #fff;
@@ -359,6 +370,7 @@ export default function NewTask() {
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-shrink: 0;
         }
 
         .reward-icon svg {
@@ -371,32 +383,41 @@ export default function NewTask() {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          flex: 1;
+          min-width: 0;
         }
 
         .reward-main {
           font-size: 16px;
           font-weight: 600;
           color: #333;
+          line-height: 1.3;
+          overflow-wrap: anywhere;
+          word-break: break-word;
         }
 
         .reward-sub {
           font-size: 13px;
           color: #777;
+          margin-top: 2px;
         }
 
+        /* ===== ADD BUTTON ===== */
         .add-btn {
-          width: 70%;
-          height: 54px;
+          width: 240px;
+          height: 52px;
           background: #222;
           color: white;
           font-size: 17px;
-          border-radius: 20px;
+          border-radius: 16px;
           border: none;
           display: flex;
           align-items: center;
           justify-content: center;
           margin-bottom: 60px;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+          box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+          cursor: pointer;
+          transition: background 0.2s;
         }
 
         .add-btn:disabled {
@@ -405,16 +426,21 @@ export default function NewTask() {
           box-shadow: none;
         }
 
+        .add-btn:not(:disabled):hover {
+          background: #333;
+        }
+
+        /* ===== NAV WRAPPER (1:1 как Home) ===== */
         .nav-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-bottom: 10px;
+          margin-top: 59px;
         }
 
         .nav-pill {
           width: 92%;
-          
+          max-width: 520px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
@@ -425,12 +451,15 @@ export default function NewTask() {
           padding: 0 30px;
         }
 
-
         .nav-item {
           border: none;
           background: none;
           opacity: 0.45;
-          transition: transform 0.22s, opacity .2s;
+          transition: 
+            transform 0.22s cubic-bezier(.25,.46,.45,.94),
+            opacity .2s ease;
+          cursor: pointer;
+          padding: 0;
         }
 
         .nav-item.active {
@@ -445,14 +474,17 @@ export default function NewTask() {
         .nav-item svg {
           width: 32px;
           height: 32px;
+          transition: transform .22s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .nav-item:active svg {
+          transform: scale(1.15);
         }
       `}</style>
 
       <div className="new-screen">
 
         {/* HEADER */}
-        
-
         <div className="header-zone">
           <div className="back-btn" onClick={() => navigate(-1)}>
             <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
@@ -552,7 +584,7 @@ export default function NewTask() {
 
         </div>
 
-        {/* NAVIGATION */}
+        {/* NAVIGATION (1:1 как Home) */}
         <div className="nav-wrapper">
           <div className="nav-pill">
 
@@ -562,16 +594,14 @@ export default function NewTask() {
               </svg>
             </button>
 
-            <button  className="nav-item"
-  onClick={() => navigate("/steps")}
->
-  <svg viewBox="0 0 24 24" fill="#6A6A6A">
-    <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
-    <circle cx="8.5" cy="14.8" r="1.3"/>
-    <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
-    <circle cx="16.6" cy="18.5" r="1.3"/>
-  </svg>
-</button>
+            <button className="nav-item" onClick={() => navigate("/steps")}>
+              <svg viewBox="0 0 24 24" fill="#6A6A6A">
+                <path d="M8 4c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2S12 10 12 7.5C12 5.4 10.3 4 8 4Z"/>
+                <circle cx="8.5" cy="14.8" r="1.3"/>
+                <path d="M16 9c-2 0-3.3 1.4-3.3 3.5 0 2.4 2.4 6.2 3.5 6.2s3.8-3.7 3.8-6.2C20 10.4 18.3 9 16 9Z"/>
+                <circle cx="16.6" cy="18.5" r="1.3"/>
+              </svg>
+            </button>
 
             <button className="nav-item">
               <svg viewBox="0 0 24 24" stroke="#6A6A6A" fill="none" strokeWidth="2">
