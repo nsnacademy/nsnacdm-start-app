@@ -180,7 +180,7 @@ export default function Home() {
 
         /* ===== TASK CARD ===== */
         .task-card {
-          width: 100%;
+          max-width: min(520px, 100%);
           max-width: 480px;
           background: #ffffff;
           border-radius: 28px;
@@ -269,14 +269,15 @@ export default function Home() {
 
         /* ===== NAV (1:1 как Steps) ===== */
         .nav-wrapper {
-          width: 100%;
+          max-width: min(520px, 100%);
           display: flex;
           justify-content: center;
           margin-top: 59px;
         }
 
         .nav-pill {
-          width: 100%;
+          max-width: min(520px, 100%);
+
           max-width: 520px;
           height: 75px;
           background: #ffffff;
