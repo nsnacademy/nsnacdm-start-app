@@ -5,10 +5,12 @@
 html, body {
   margin: 0;
   padding: 0;
-
   width: 100%;
   height: 100%;
 
-  background: #F8F8F8 !important; /* тот же цвет, что у экрана */
-  overflow: hidden; /* убирает полосу прокрутки */
+  background: #F8F8F8 !important;
+  overflow: hidden;
+
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
+
