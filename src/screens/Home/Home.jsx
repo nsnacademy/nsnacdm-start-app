@@ -85,7 +85,8 @@ export default function Home() {
 
           padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
           box-sizing: border-box;
-          max-width: 520px;
+          max-width: min(520px, 100%);
+
           margin: 0 auto;
         }
 
