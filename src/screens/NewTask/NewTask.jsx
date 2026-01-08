@@ -435,7 +435,7 @@ export default function NewTask() {
           width: 100%;
           display: flex;
           justify-content: center;
-          margin-top: 59px;
+          
         }
 
         .nav-pill {
