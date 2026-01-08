@@ -180,7 +180,7 @@ export default function Home() {
 
         /* ===== TASK CARD ===== */
         .task-card {
-          width: 100%;
+          width: 92%;
           max-width: 480px;
           background: #ffffff;
           border-radius: 28px;
@@ -276,7 +276,7 @@ export default function Home() {
         }
 
         .nav-pill {
-          width: 100%;
+          width: 92%;
           max-width: 520px;
           height: 75px;
           background: #ffffff;
