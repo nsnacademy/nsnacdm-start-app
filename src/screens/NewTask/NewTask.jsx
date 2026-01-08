@@ -206,23 +206,26 @@ export default function NewTask() {
         }
 
         .new-screen {
-          width: 100%;
-          height: 100vh;
-          background: #f8f8f8;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-          padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
-          box-sizing: border-box;
-          max-width: min(520px, 100%);
-          margin: 0 auto;
-        }
+  width: 100%;
+  min-height: 100vh;
+  background: #f8f8f8;
+
+  max-width: min(520px, 100%);
+  margin: 0 auto;
+
+  padding: calc(env(safe-area-inset-top) + 40px) 20px 30px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
         .header-zone {
           width: 92%;
-          max-width: 480px;
+          
           display: flex;
           align-items: center;
           justify-content: center;
@@ -257,7 +260,7 @@ export default function NewTask() {
 
         .center-wrapper {
           width: 92%;
-          max-width: 520px;
+        
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -409,7 +412,7 @@ export default function NewTask() {
 
         .nav-pill {
           width: 92%;
-          max-width: 520px;
+          
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
