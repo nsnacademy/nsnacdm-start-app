@@ -408,8 +408,8 @@ export default function NewTask() {
         }
 
         .nav-pill {
-          width: 92%;
-          max-width: 520px;
+          width: 100%;
+          max-width: 100px;
           height: 75px;
           background: #ffffff;
           border-radius: 28px;
