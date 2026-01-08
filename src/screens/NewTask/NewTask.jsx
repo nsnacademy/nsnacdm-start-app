@@ -216,13 +216,13 @@ export default function NewTask() {
           justify-content: space-between;
           padding: calc(env(safe-area-inset-top) + 10px) 20px 20px;
           box-sizing: border-box;
-          max-width: 520px;
+          max-width: min(520px, 100%);
           margin: 0 auto;
         }
 
         .header-zone {
           width: 92%;
-          max-width: 520px;
+          max-width: 480px;
           display: flex;
           align-items: center;
           justify-content: center;
