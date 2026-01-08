@@ -181,7 +181,7 @@ export default function Home() {
         /* ===== TASK CARD ===== */
         .task-card {
           width: 92%;
-          max-width: 480px;
+          max-width: 520px;
           background: #ffffff;
           border-radius: 28px;
           padding: 16px 20px;
@@ -269,7 +269,7 @@ export default function Home() {
 
         /* ===== NAV (1:1 как Steps) ===== */
         .nav-wrapper {
-          width: 100%;
+          width: 92%;
           display: flex;
           justify-content: center;
           margin-top: 59px;
