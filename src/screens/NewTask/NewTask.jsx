@@ -257,6 +257,7 @@ export default function NewTask() {
 
         .center-wrapper {
           width: 92%;
+          max-width: 480px;
           flex: 1;
           display: flex;
           flex-direction: column;
