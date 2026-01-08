@@ -20,7 +20,6 @@ export default function Splash() {
 
     function iosExpandHack() {
       try {
-        tg?.requestFullscreen?.();
         tg?.expand();
         tg?.disableVerticalSwipes?.();
       } catch {}
@@ -41,7 +40,6 @@ export default function Splash() {
       if (!user) return;
 
       setUser(user);
-      // ⛔️ никаких переходов — ждём анимацию
     }
 
     init();
@@ -49,18 +47,29 @@ export default function Splash() {
 
   function handleStart() {
     if (!accepted) return;
-    navigate("/home", { replace: true });
+
+    // ⛔️ переход только из стабильного кадра
+    requestAnimationFrame(() => {
+      navigate("/home", { replace: true });
+    });
   }
 
   return (
-    <>
+    <div className="splash-root">
       <style>{`
         * {
           box-sizing: border-box;
           -webkit-tap-highlight-color: transparent;
         }
 
-        
+        /* ❗ НЕ ТРОГАЕМ body — всё локально */
+        .splash-root {
+          width: 100%;
+          min-height: 100vh;
+          font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+          background: radial-gradient(circle at top, #F8F8F8 0, #f2f2f2 70%);
+          color: #111;
+        }
 
         .screen {
           width: 100%;
@@ -136,6 +145,11 @@ export default function Splash() {
           font-size: 13px;
           cursor: pointer;
           user-select: none;
+          color: rgba(0,0,0,0.45);
+        }
+
+        .consent-row.active {
+          color: #111;
         }
 
         .circle {
@@ -161,12 +175,9 @@ export default function Splash() {
           border-radius: 14px;
           border: none;
           font-size: 14px;
-          transition: 0.2s ease;
-        }
-
-        .start-btn.disabled {
           background: #f0f0f0;
           color: #aaa;
+          transition: 0.2s ease;
         }
 
         .start-btn.active {
@@ -174,8 +185,9 @@ export default function Splash() {
           color: #fff;
         }
 
+        /* ❗ overlay НЕ fixed */
         .overlay {
-          position: fixed;
+          position: absolute;
           inset: 0;
           background: #f8f8f8;
           display: flex;
@@ -194,29 +206,6 @@ export default function Splash() {
           box-shadow: 0 6px 24px rgba(0,0,0,0.08);
           text-align: center;
         }
-
-        .policy h3 {
-          font-size: 15px;
-          font-weight: 500;
-          margin-bottom: 10px;
-        }
-
-        .policy p {
-          font-size: 13px;
-          line-height: 1.6;
-          color: #555;
-        }
-
-        .policy button {
-          margin-top: 14px;
-          width: 100%;
-          height: 40px;
-          border-radius: 14px;
-          border: none;
-          background: #111;
-          color: #fff;
-          font-size: 14px;
-        }
       `}</style>
 
       {/* ===== ФАЗА ЗАГРУЗКИ ===== */}
@@ -227,7 +216,11 @@ export default function Splash() {
             <div className="line-wrap">
               <div
                 className="line"
-                onAnimationEnd={() => setPhase("consent")}
+                onAnimationEnd={() => {
+                  requestAnimationFrame(() => {
+                    setPhase("consent");
+                  });
+                }}
               />
             </div>
           </div>
@@ -245,9 +238,8 @@ export default function Splash() {
 
             <div className="card">
               <div
-                className="consent-row"
+                className={`consent-row ${accepted ? "active" : ""}`}
                 onClick={() => !accepted && setShowPolicy(true)}
-                style={{ color: accepted ? "#111" : "rgba(0,0,0,0.45)" }}
               >
                 <div className={`circle ${accepted ? "active" : ""}`}>
                   {accepted ? "✓" : ""}
@@ -256,7 +248,7 @@ export default function Splash() {
               </div>
 
               <button
-                className={`start-btn ${accepted ? "active" : "disabled"}`}
+                className={`start-btn ${accepted ? "active" : ""}`}
                 disabled={!accepted}
                 onClick={handleStart}
               >
@@ -269,18 +261,12 @@ export default function Splash() {
             <div className="overlay">
               <div className="policy">
                 <h3>О данных и доверии</h3>
-
                 <p>
-                  Это приложение не собирает ничего лишнего.
-                  <br /><br />
                   Используются только базовые данные:
                   идентификатор, прогресс и действия.
                   <br /><br />
                   Данные не передаются третьим лицам
                   и не используются для рекламы.
-                  <br /><br />
-                  Проект создаётся с вниманием.
-                  При необходимости данные будут удалены.
                 </p>
 
                 <button
@@ -296,6 +282,6 @@ export default function Splash() {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }
