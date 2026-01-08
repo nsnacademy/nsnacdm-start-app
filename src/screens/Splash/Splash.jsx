@@ -6,6 +6,37 @@ import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
 import { preloadImages } from "../../lib/preloadImages";
 
+/* =========================
+   DIAGNOSTIC LOGGER
+   ========================= */
+function logLayout(tag) {
+  const vv = window.visualViewport;
+
+  console.log(`🧭 LAYOUT — ${tag}`);
+  console.log("window.innerWidth:", window.innerWidth);
+  console.log("window.innerHeight:", window.innerHeight);
+
+  console.log("html.clientWidth:", document.documentElement.clientWidth);
+  console.log("html.scrollWidth:", document.documentElement.scrollWidth);
+
+  console.log("body.clientWidth:", document.body.clientWidth);
+  console.log("body.scrollWidth:", document.body.scrollWidth);
+  console.log("body.offsetWidth:", document.body.offsetWidth);
+
+  if (vv) {
+    console.log("visualViewport.width:", vv.width);
+    console.log("visualViewport.height:", vv.height);
+    console.log("visualViewport.scale:", vv.scale);
+  }
+
+  const bodyStyle = getComputedStyle(document.body);
+  console.log("body.background:", bodyStyle.background);
+  console.log("body.fontFamily:", bodyStyle.fontFamily);
+  console.log("body.overflowX:", bodyStyle.overflowX);
+
+  console.log("––––––––––––––––––––––––––");
+}
+
 export default function Splash() {
   const { user: tgUser } = useTelegram();
   const setUser = useUserStore((s) => s.setUser);
@@ -20,14 +51,24 @@ export default function Splash() {
 
     function iosExpandHack() {
       try {
+        tg?.requestFullscreen?.();
         tg?.expand();
         tg?.disableVerticalSwipes?.();
       } catch {}
     }
 
     iosExpandHack();
-    setTimeout(iosExpandHack, 300);
-    setTimeout(iosExpandHack, 1200);
+    logLayout("Splash mount");
+
+    setTimeout(() => {
+      iosExpandHack();
+      logLayout("Splash expand +300ms");
+    }, 300);
+
+    setTimeout(() => {
+      iosExpandHack();
+      logLayout("Splash expand +1200ms");
+    }, 1200);
 
     async function init() {
       if (!tgUser) return;
@@ -40,32 +81,33 @@ export default function Splash() {
       if (!user) return;
 
       setUser(user);
+      console.log("👤 USER SET IN STORE");
     }
 
     init();
+
+    return () => {
+      logLayout("Splash unmount (cleanup)");
+    };
   }, [tgUser, setUser]);
 
   function handleStart() {
     if (!accepted) return;
 
-    // ⛔️ переход только из стабильного кадра
-    requestAnimationFrame(() => {
-      navigate("/home", { replace: true });
-    });
+    logLayout("Before navigate → /home");
+    navigate("/home", { replace: true });
   }
 
   return (
-    <div className="splash-root">
+    <>
       <style>{`
         * {
           box-sizing: border-box;
           -webkit-tap-highlight-color: transparent;
         }
 
-        /* ❗ НЕ ТРОГАЕМ body — всё локально */
-        .splash-root {
-          width: 100%;
-          min-height: 100vh;
+        body {
+          margin: 0;
           font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
           background: radial-gradient(circle at top, #F8F8F8 0, #f2f2f2 70%);
           color: #111;
@@ -145,11 +187,6 @@ export default function Splash() {
           font-size: 13px;
           cursor: pointer;
           user-select: none;
-          color: rgba(0,0,0,0.45);
-        }
-
-        .consent-row.active {
-          color: #111;
         }
 
         .circle {
@@ -175,9 +212,12 @@ export default function Splash() {
           border-radius: 14px;
           border: none;
           font-size: 14px;
+          transition: 0.2s ease;
+        }
+
+        .start-btn.disabled {
           background: #f0f0f0;
           color: #aaa;
-          transition: 0.2s ease;
         }
 
         .start-btn.active {
@@ -185,9 +225,8 @@ export default function Splash() {
           color: #fff;
         }
 
-        /* ❗ overlay НЕ fixed */
         .overlay {
-          position: absolute;
+          position: fixed;
           inset: 0;
           background: #f8f8f8;
           display: flex;
@@ -206,6 +245,29 @@ export default function Splash() {
           box-shadow: 0 6px 24px rgba(0,0,0,0.08);
           text-align: center;
         }
+
+        .policy h3 {
+          font-size: 15px;
+          font-weight: 500;
+          margin-bottom: 10px;
+        }
+
+        .policy p {
+          font-size: 13px;
+          line-height: 1.6;
+          color: #555;
+        }
+
+        .policy button {
+          margin-top: 14px;
+          width: 100%;
+          height: 40px;
+          border-radius: 14px;
+          border: none;
+          background: #111;
+          color: #fff;
+          font-size: 14px;
+        }
       `}</style>
 
       {/* ===== ФАЗА ЗАГРУЗКИ ===== */}
@@ -217,9 +279,8 @@ export default function Splash() {
               <div
                 className="line"
                 onAnimationEnd={() => {
-                  requestAnimationFrame(() => {
-                    setPhase("consent");
-                  });
+                  logLayout("Loading animation end");
+                  setPhase("consent");
                 }}
               />
             </div>
@@ -232,14 +293,13 @@ export default function Splash() {
         <div className="screen">
           <div className="inner">
             <div className="title">НАЧАТЬ С НАЧАЛА</div>
-            <div className="subtitle">
-              Пространство маленьких шагов.
-            </div>
+            <div className="subtitle">Пространство маленьких шагов.</div>
 
             <div className="card">
               <div
-                className={`consent-row ${accepted ? "active" : ""}`}
+                className="consent-row"
                 onClick={() => !accepted && setShowPolicy(true)}
+                style={{ color: accepted ? "#111" : "rgba(0,0,0,0.45)" }}
               >
                 <div className={`circle ${accepted ? "active" : ""}`}>
                   {accepted ? "✓" : ""}
@@ -248,7 +308,7 @@ export default function Splash() {
               </div>
 
               <button
-                className={`start-btn ${accepted ? "active" : ""}`}
+                className={`start-btn ${accepted ? "active" : "disabled"}`}
                 disabled={!accepted}
                 onClick={handleStart}
               >
@@ -261,12 +321,18 @@ export default function Splash() {
             <div className="overlay">
               <div className="policy">
                 <h3>О данных и доверии</h3>
+
                 <p>
+                  Это приложение не собирает ничего лишнего.
+                  <br /><br />
                   Используются только базовые данные:
                   идентификатор, прогресс и действия.
                   <br /><br />
                   Данные не передаются третьим лицам
                   и не используются для рекламы.
+                  <br /><br />
+                  Проект создаётся с вниманием.
+                  При необходимости данные будут удалены.
                 </p>
 
                 <button
@@ -282,6 +348,6 @@ export default function Splash() {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }
