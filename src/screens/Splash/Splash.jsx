@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Splash.css";
@@ -12,18 +12,17 @@ export default function Splash() {
   const setUser = useUserStore((s) => s.setUser);
   const navigate = useNavigate();
 
-  const [ready, setReady] = useState(false);
-  const [accepted, setAccepted] = useState(false);
-  const [showPolicy, setShowPolicy] = useState(false);
-
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
     function iosExpandHack() {
       try {
+        tg?.requestFullscreen?.();
         tg?.expand();
         tg?.disableVerticalSwipes?.();
-      } catch {}
+      } catch (e) {
+        console.log("iOS fullscreen error:", e);
+      }
     }
 
     iosExpandHack();
@@ -33,101 +32,57 @@ export default function Splash() {
     async function load() {
       if (!tgUser) return;
 
+      console.log("TG USER:", tgUser);
+
+      // 🔥 Предзагрузка всех изображений
       try {
         await preloadImages();
-      } catch {}
+      } catch (e) {
+        console.log("Image preload error:", e);
+      }
 
+      // 👤 Получаем или создаём пользователя
       const user = await findOrCreateUser(tgUser);
       if (!user) return;
 
+      // 🧠 КЛЮЧЕВОЕ: сохраняем пользователя в zustand
       setUser(user);
 
-      // имитация splash-паузы (как во втором варианте)
-      await new Promise((r) => setTimeout(r, 2200));
-      setReady(true);
+      // ⏳ Оставляем задержку для ощущения Splash
+      await new Promise((res) => setTimeout(res, 3200));
+
+      // 🚀 ПЕРЕХОД БЕЗ ПЕРЕЗАГРУЗКИ
+      if (user.has_onboarded === true) {
+        navigate("/home", { replace: true });
+      } 
     }
 
     load();
-  }, [tgUser, setUser]);
-
-  function handleStart() {
-    if (!accepted) return;
-    navigate("/home", { replace: true });
-  }
+  }, [tgUser, setUser, navigate]);
 
   return (
     <section className="screen splash">
       <div className="splash-inner">
+        <div className="splash-title">НАЧАТЬ С НАЧАЛА</div>
 
-        {/* ===== ЗАГРУЗКА ===== */}
-        {!ready && (
-          <>
-            <div className="splash-title">NSN</div>
-            <div className="splash-line-wrap">
-              <div className="splash-line" />
-            </div>
-          </>
-        )}
-
-        {/* ===== СОГЛАСИЕ ===== */}
-        {ready && (
-          <>
-            <div className="splash-title">НАЧАТЬ С НАЧАЛА</div>
-
-            <div className="splash-sub">
-              Пространство мягких перезапусков
-              <br />
-              и маленьких шагов.
-            </div>
-
-            <div className="splash-card">
-              <div
-                className="consent-row"
-                onClick={() => !accepted && setShowPolicy(true)}
-                data-active={accepted}
-              >
-                <div className="circle">
-                  {accepted && "✓"}
-                </div>
-                {accepted ? "Условия приняты" : "Условия не приняты"}
-              </div>
-
-              <button
-                className={`start-btn ${accepted ? "active" : ""}`}
-                disabled={!accepted}
-                onClick={handleStart}
-              >
-                Начать
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* ===== POLICY ===== */}
-      {showPolicy && (
-        <div className="overlay">
-          <div className="policy">
-            <h3>О данных и доверии</h3>
-            <p>
-              Используются только базовые данные:
-              идентификатор, прогресс и действия.
-              <br /><br />
-              Данные не передаются третьим лицам
-              и могут быть удалены по запросу.
-            </p>
-
-            <button
-              onClick={() => {
-                setAccepted(true);
-                setShowPolicy(false);
-              }}
-            >
-              Я согласен
-            </button>
-          </div>
+        <div className="splash-sub">
+          Пространство маленьких шагов.
         </div>
-      )}
+
+        <div className="splash-line-wrap">
+          <div className="splash-line"></div>
+        </div>
+
+        {/* Минималистичная кнопка пропуска */}
+        <button
+          className="skip-btn"
+          onClick={() => navigate("/home")}
+        >
+          Пропустить вступление →
+        </button>
+      </div>
     </section>
   );
 }
+
+
