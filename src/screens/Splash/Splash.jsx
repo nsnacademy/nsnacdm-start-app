@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
@@ -15,9 +15,6 @@ export default function Splash() {
   const [accepted, setAccepted] = useState(false);
   const [showPolicy, setShowPolicy] = useState(false);
 
-  // 🔑 ref на style, чтобы удалить его при unmount
-  const styleRef = useRef(null);
-
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
@@ -29,6 +26,7 @@ export default function Splash() {
       } catch {}
     }
 
+    // ▶ fullscreen / expand — ОСТАЁТСЯ
     iosExpandHack();
     const t1 = setTimeout(iosExpandHack, 300);
     const t2 = setTimeout(iosExpandHack, 1200);
@@ -52,56 +50,33 @@ export default function Splash() {
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-
-      // 🧼 закрываем возможные overlay
       setShowPolicy(false);
-
-      // 🧼 стабилизируем viewport перед следующим экраном
-      try {
-        tg?.expand?.();
-      } catch {}
-
-      // 🧼 удаляем инжектнутые стили
-      if (styleRef.current) {
-        styleRef.current.remove();
-      }
     };
   }, [tgUser, setUser]);
 
   function handleStart() {
     if (!accepted) return;
-
-    // ⏳ даём Telegram зафиксировать viewport
-    requestAnimationFrame(() => {
-      navigate("/home", { replace: true });
-    });
+    navigate("/home", { replace: true });
   }
 
   return (
     <>
-      <style ref={styleRef}>{`
-        * {
-          box-sizing: border-box;
-          -webkit-tap-highlight-color: transparent;
-        }
+      <style>{`
+        /* ❗ ВАЖНО: НЕТ body, НЕТ *, НЕТ глобальных селекторов */
 
-        body {
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-          background: radial-gradient(circle at top, #F8F8F8 0, #f2f2f2 70%);
-          color: #111;
-        }
-
-        .screen {
+        .splash-screen {
           width: 100%;
-          height: 100vh;
+          min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 20px;
+          background: radial-gradient(circle at top, #F8F8F8 0, #f2f2f2 70%);
+          font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+          color: #111;
         }
 
-        .inner {
+        .splash-inner {
           width: 100%;
           max-width: 320px;
           display: flex;
@@ -191,7 +166,6 @@ export default function Splash() {
           border-radius: 14px;
           border: none;
           font-size: 14px;
-          transition: 0.2s ease;
         }
 
         .start-btn.disabled {
@@ -249,10 +223,10 @@ export default function Splash() {
         }
       `}</style>
 
-      {/* ===== ФАЗА ЗАГРУЗКИ ===== */}
+      {/* ===== LOADING ===== */}
       {phase === "loading" && (
-        <div className="screen">
-          <div className="inner">
+        <div className="splash-screen">
+          <div className="splash-inner">
             <div className="title">NSN</div>
             <div className="line-wrap">
               <div
@@ -264,10 +238,10 @@ export default function Splash() {
         </div>
       )}
 
-      {/* ===== ФАЗА СОГЛАСИЯ ===== */}
+      {/* ===== CONSENT ===== */}
       {phase === "consent" && (
-        <div className="screen">
-          <div className="inner">
+        <div className="splash-screen">
+          <div className="splash-inner">
             <div className="title">НАЧАТЬ С НАЧАЛА</div>
             <div className="subtitle">
               Пространство мягких перезапусков
@@ -301,7 +275,6 @@ export default function Splash() {
             <div className="overlay">
               <div className="policy">
                 <h3>О данных и доверии</h3>
-
                 <p>
                   Это приложение не собирает ничего лишнего.
                   <br /><br />
@@ -310,9 +283,6 @@ export default function Splash() {
                   <br /><br />
                   Данные не передаются третьим лицам
                   и не используются для рекламы.
-                  <br /><br />
-                  Проект создаётся с вниманием.
-                  При необходимости данные будут удалены.
                 </p>
 
                 <button
