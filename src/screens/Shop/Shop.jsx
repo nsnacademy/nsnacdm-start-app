@@ -349,7 +349,7 @@ export default function Shop() {
     </button>
 
     <div className="hint">
-      Осталось {hpLeft} HP до открытия
+      Осталось {hpLeft} HP до открытия.
     </div>
   </>
 )}

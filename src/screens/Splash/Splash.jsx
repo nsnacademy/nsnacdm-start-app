@@ -68,7 +68,7 @@ export default function Splash() {
         <div className="splash-title">НАЧАТЬ С НАЧАЛА</div>
 
         <div className="splash-sub">
-          Пространство мягких перезапусков и маленьких шагов.
+          Пространство маленьких шагов.
         </div>
 
         <div className="splash-line-wrap">
