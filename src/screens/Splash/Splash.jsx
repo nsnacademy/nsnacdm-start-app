@@ -26,15 +26,13 @@ export default function Splash() {
     }
 
     iosExpandHack();
-    setTimeout(iosExpandHack, 300);
-    setTimeout(iosExpandHack, 1200);
+    const t1 = setTimeout(iosExpandHack, 300);
+    const t2 = setTimeout(iosExpandHack, 1200);
 
     async function load() {
       if (!tgUser) return;
 
-      console.log("TG USER:", tgUser);
-
-      // 🔥 Предзагрузка всех изображений
+      // 🔥 Предзагрузка изображений
       try {
         await preloadImages();
       } catch (e) {
@@ -45,21 +43,26 @@ export default function Splash() {
       const user = await findOrCreateUser(tgUser);
       if (!user) return;
 
-      // 🧠 КЛЮЧЕВОЕ: сохраняем пользователя в zustand
+      // 🧠 сохраняем пользователя
       setUser(user);
 
-      // ⏳ Оставляем задержку для ощущения Splash
+      // ⏳ даём Splash доиграть анимацию
       await new Promise((res) => setTimeout(res, 3200));
 
-      // 🚀 ПЕРЕХОД БЕЗ ПЕРЕЗАГРУЗКИ
-      if (user.has_onboarded === true) {
-        navigate("/home", { replace: true });
-      } else {
-        navigate("/intro", { replace: true });
-      }
+      // 🚀 ЕДИНСТВЕННЫЙ ПУТЬ — НА HOME
+      navigate("/home", { replace: true });
     }
 
     load();
+
+    // 🧼 cleanup
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      try {
+        tg?.expand?.();
+      } catch {}
+    };
   }, [tgUser, setUser, navigate]);
 
   return (
@@ -74,17 +77,7 @@ export default function Splash() {
         <div className="splash-line-wrap">
           <div className="splash-line"></div>
         </div>
-
-        {/* Минималистичная кнопка пропуска */}
-        <button
-          className="skip-btn"
-          onClick={() => navigate("/home")}
-        >
-          Пропустить вступление →
-        </button>
       </div>
     </section>
   );
 }
-
-
