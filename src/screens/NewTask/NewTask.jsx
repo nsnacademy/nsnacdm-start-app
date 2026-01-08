@@ -205,8 +205,8 @@ export default function NewTask() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        .new-screen {
-  width: 100%;
+         .new-screen {
+  width: 92%;
   min-height: 100vh;
   background: #f8f8f8;
 
@@ -221,6 +221,7 @@ export default function NewTask() {
   max-width: min(520px, 100%);
   margin: 0 auto;
 }
+
 
 
 
