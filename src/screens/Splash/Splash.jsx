@@ -132,7 +132,7 @@ export default function Splash() {
         }
 
         .title {
-          font-size: 40px;
+          font-size: 25px;
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;

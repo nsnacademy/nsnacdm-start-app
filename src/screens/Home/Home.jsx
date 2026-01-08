@@ -139,7 +139,7 @@ export default function Home() {
 
         /* ===== CONTENT ===== */
         .content {
-          width: 92%;
+          width: 79%;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -149,15 +149,15 @@ export default function Home() {
 
         
         .empty-img {
-          width: 270px;
+          width: 250px;
           opacity: 0.95;
-          margin-bottom: 25px;
+          
         }
 
         .content h2 {
           font-size: 24px;
           font-weight: 700;
-          margin-bottom: 10px;
+          margin-bottom: -10px;
         }
 
         .content p {
@@ -175,7 +175,7 @@ export default function Home() {
           color: white;
           font-size: 17px;
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-          margin-top: 10px;
+          
         }
 
         /* ===== TASK CARD ===== */
