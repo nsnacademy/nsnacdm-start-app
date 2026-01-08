@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { findOrCreateUser } from "../../lib/findOrCreateUser";
@@ -15,6 +15,9 @@ export default function Splash() {
   const [accepted, setAccepted] = useState(false);
   const [showPolicy, setShowPolicy] = useState(false);
 
+  // 🔑 ref на style, чтобы удалить его при unmount
+  const styleRef = useRef(null);
+
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
 
@@ -27,8 +30,8 @@ export default function Splash() {
     }
 
     iosExpandHack();
-    setTimeout(iosExpandHack, 300);
-    setTimeout(iosExpandHack, 1200);
+    const t1 = setTimeout(iosExpandHack, 300);
+    const t2 = setTimeout(iosExpandHack, 1200);
 
     async function init() {
       if (!tgUser) return;
@@ -41,21 +44,42 @@ export default function Splash() {
       if (!user) return;
 
       setUser(user);
-      // ⛔️ никаких переходов — ждём анимацию
     }
 
     init();
+
+    // ✅ CLEANUP — КЛЮЧЕВОЕ
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+
+      // 🧼 закрываем возможные overlay
+      setShowPolicy(false);
+
+      // 🧼 стабилизируем viewport перед следующим экраном
+      try {
+        tg?.expand?.();
+      } catch {}
+
+      // 🧼 удаляем инжектнутые стили
+      if (styleRef.current) {
+        styleRef.current.remove();
+      }
+    };
   }, [tgUser, setUser]);
 
   function handleStart() {
     if (!accepted) return;
-    navigate("/home", { replace: true });
 
+    // ⏳ даём Telegram зафиксировать viewport
+    requestAnimationFrame(() => {
+      navigate("/home", { replace: true });
+    });
   }
 
   return (
     <>
-      <style>{`
+      <style ref={styleRef}>{`
         * {
           box-sizing: border-box;
           -webkit-tap-highlight-color: transparent;
