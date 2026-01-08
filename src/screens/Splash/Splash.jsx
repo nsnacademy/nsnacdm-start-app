@@ -49,7 +49,7 @@ export default function Splash() {
 
   function handleStart() {
     if (!accepted) return;
-    navigate("/intro", { replace: true });
+    navigate("/home", { replace: true });
   }
 
   return (
@@ -60,12 +60,7 @@ export default function Splash() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        body {
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-          background: radial-gradient(circle at top, #F8F8F8 0, #f2f2f2 70%);
-          color: #111;
-        }
+        
 
         .screen {
           width: 100%;
