@@ -108,7 +108,7 @@ export default function Splash() {
 
         body {
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+          
           background: radial-gradient(circle at top, #F8F8F8 0, #f2f2f2 70%);
           color: #111;
         }
