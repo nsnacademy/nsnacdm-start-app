@@ -224,7 +224,7 @@ export default function NewTask() {
 
 
         .header-zone {
-          width: 92%;
+         
           
           display: flex;
           align-items: center;
@@ -259,7 +259,7 @@ export default function NewTask() {
         }
 
         .center-wrapper {
-          width: 92%;
+          
         
           flex: 1;
           display: flex;
@@ -309,6 +309,15 @@ export default function NewTask() {
           color: #555;
           margin-bottom: 14px;
         }
+
+        .content {
+  width: 92%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
         .time-row {
           width: 100%;
@@ -448,105 +457,98 @@ export default function NewTask() {
 
       <div className="new-screen">
 
-        {/* HEADER */}
-        <div className="header-zone">
-          <div className="back-btn" onClick={() => navigate(-1)}>
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
-              <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div className="screen-title">Новая задача</div>
+        <div className="content">
+
+    {/* HEADER */}
+    <div className="header-zone">
+      <div className="back-btn" onClick={() => navigate(-1)}>
+        <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
+          <path d="M15 6l-6 6 6 6" stroke="#444" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      <div className="screen-title">Новая задача</div>
+    </div>
+
+    {/* CENTER */}
+    <div className="center-wrapper">
+
+      <div className="task-box">
+        <input
+          className="input"
+          placeholder="минимум 23 символа)"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+
+        <div className={`char-counter ${task.trim().length < 23 ? 'warning' : ''}`}>
+          {task.trim().length}/23 символов
         </div>
 
-        {/* CENTER */}
-        <div className="center-wrapper">
+        <div className="label">Запланированное время</div>
 
-          <div className="task-box">
-            <input
-              className="input"
-              placeholder="минимум 23 символа)"
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
-            />
-            
-            <div className={`char-counter ${task.trim().length < 23 ? 'warning' : ''}`}>
-              {task.trim().length}/23 символов
-            </div>
+        <div className="time-row">
+          {times.map((t) => (
+            <button
+              key={t}
+              className={`time-btn ${selectedTime === t ? "active" : ""}`}
+              onClick={() => {
+                const newReward = t;
+                const newHp = Math.round(t * 2.5);
 
-            <div className="label">Запланированное время</div>
+                setSelectedTime(t);
+                setReward(newReward);
+                setHp(newHp);
 
-            <div className="time-row">
-              {times.map((t) => (
-                <button
-                  key={t}
-                  className={`time-btn ${selectedTime === t ? "active" : ""}`}
-                  onClick={() => {
-                    const newReward = t;
-                    const newHp = Math.round(t * 2.5);
-
-                    setSelectedTime(t);
-                    setReward(newReward);
-                    setHp(newHp);
-
-                    animateValue(animatedReward, newReward, setAnimatedReward);
-                    animateValue(animatedHp, newHp, setAnimatedHp);
-                  }}
-                >
-                  {t} мин
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* REWARD BLOCK */}
-          <div className="reward-box">
-            <div className="reward-icon">
-              <svg viewBox="0 0 24 24">
-                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
-              </svg>
-            </div>
-
-            <div className="reward-text-group">
-              <div className="reward-main">+{animatedReward} ОД маленькая победа</div>
-              <div className="reward-sub">{animatedHp} xp</div>
-            </div>
-          </div>
-
-          {/* ADD BUTTON → FIRE CONFETTI */}
-          <button
-            className="add-btn"
-            disabled={task.trim().length < 23}
-            onClick={() => {
-              const title = task.trim();
-
-              // ❗ Защита: минимум 6 символов
-              if (title.length < 23) return;
-
-              // Создаём объект задачи
-              const newTask = {
-                id: Date.now(),
-                title: title,          // ← используем уже очищенный title
-                time: selectedTime,
-                od: animatedReward,
-                hp: animatedHp,
-              };
-
-              // Сохраняем задачу в Zustand
-              addTask(newTask);
-
-              // Конфетти
-              fireConfettiByTime(selectedTime);
-
-              // Переход домой
-              setTimeout(() => {
-                navigate("/home");
-              }, 400);
-            }}
-          >
-            Добавить
-          </button>
-
+                animateValue(animatedReward, newReward, setAnimatedReward);
+                animateValue(animatedHp, newHp, setAnimatedHp);
+              }}
+            >
+              {t} мин
+            </button>
+          ))}
         </div>
+      </div>
+
+      {/* REWARD */}
+      <div className="reward-box">
+        <div className="reward-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+          </svg>
+        </div>
+
+        <div className="reward-text-group">
+          <div className="reward-main">+{animatedReward} ОД маленькая победа</div>
+          <div className="reward-sub">{animatedHp} xp</div>
+        </div>
+      </div>
+
+      {/* ADD */}
+      <button
+        className="add-btn"
+        disabled={task.trim().length < 23}
+        onClick={() => {
+          const title = task.trim();
+          if (title.length < 23) return;
+
+          addTask({
+            id: Date.now(),
+            title,
+            time: selectedTime,
+            od: animatedReward,
+            hp: animatedHp,
+          });
+
+          fireConfettiByTime(selectedTime);
+
+          setTimeout(() => navigate("/home"), 400);
+        }}
+      >
+        Добавить
+      </button>
+
+    </div>
+  </div>
 
         {/* NAVIGATION */}
         <div className="nav-wrapper">
