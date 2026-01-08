@@ -139,13 +139,15 @@ export default function Home() {
 
         /* ===== CONTENT ===== */
         .content {
-          width: 100%;
+          max-width: min(520px, 100%);
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
         }
 
+
+        
         .empty-img {
           width: 270px;
           opacity: 0.95;
