@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { saveUser } from "../../lib/saveUser";
+import { saveFounderRequest } from "../../lib/saveFounderRequest";
+
 
 export default function FounderRequest() {
   const navigate = useNavigate();
@@ -300,11 +302,19 @@ export default function FounderRequest() {
                 </div>
 
                 <button
-                  className="btn primary"
-                  onClick={() => setStep(3)}
-                >
-                  Отправить запрос
-                </button>
+  className="btn primary"
+  onClick={async () => {
+    try {
+      await saveFounderRequest({ user, form });
+      setStep(3);
+    } catch (e) {
+      alert("Ошибка при отправке. Попробуй позже.");
+    }
+  }}
+>
+  Отправить запрос
+</button>
+
               </div>
             )}
 
