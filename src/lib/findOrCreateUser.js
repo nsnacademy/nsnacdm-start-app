@@ -21,9 +21,32 @@ export async function findOrCreateUser(tgUser) {
   }
 
   if (existing) {
-    console.log("User exists:", existing);
-    return existing;
+  // 👇 если username / first_name пустые — обновляем
+  if (!existing.username || !existing.first_name) {
+    const updates = {
+      username: tgUser.username || existing.username,
+      first_name: tgUser.first_name || existing.first_name,
+    };
+
+    const { data: updated, error: updateError } = await supabase
+      .from("users")
+      .update(updates)
+      .eq("telegram_id", telegram_id)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error("Supabase update error:", updateError);
+      return existing;
+    }
+
+    console.log("User updated with Telegram data:", updated);
+    return updated;
   }
+
+  return existing;
+}
+
 
   // 2 — создаём нового
   const newUser = {
