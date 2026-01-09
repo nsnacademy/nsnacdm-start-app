@@ -114,7 +114,7 @@ export default function FounderRequest() {
 
       <div className="screen">
 
-        {/* ===== CONSENT STEP (РОССИЯ, 152-ФЗ) ===== */}
+        {/* ===== CONSENT STEP ===== */}
         {!user?.has_onboarded && (
           <div className="card">
             <div className="title">Важно</div>
@@ -132,7 +132,7 @@ export default function FounderRequest() {
               <br />— данные, которые ты сам вводишь
               <br /><br />
               Данные используются только
-              для работы приложения и личных разборов.
+              для работы приложения и навигации по твоему запросу.
               Я не передаю их третьим лицам.
               <br /><br />
               Данные могут обрабатываться
@@ -159,7 +159,7 @@ export default function FounderRequest() {
           </div>
         )}
 
-        {/* ===== ОСНОВНОЙ FLOW (ТОЛЬКО ПОСЛЕ СОГЛАСИЯ) ===== */}
+        {/* ===== ОСНОВНОЙ FLOW ===== */}
         {user?.has_onboarded && (
           <>
             {/* STEP 0 */}
@@ -167,16 +167,16 @@ export default function FounderRequest() {
               <div className="card">
                 <div className="title">Перед тем как обратиться</div>
                 <div className="sub">
-                  Этот формат не про мотивацию и не про советы.
+                  Я не даю мотивацию и не раздаю советы.
                 </div>
 
                 <div className="divider" />
 
                 <div className="sub">
                   Обычно сюда приходят, когда:
-                  <br />— начинают и бросают  
-                  <br />— делают шаги, но теряют смысл  
-                  <br />— не понимают, это их путь или нет
+                  <br />— делают шаги, но не чувствуют движения  
+                  <br />— стараются, но не понимают, где ошибка  
+                  <br />— не ясно, продолжать или начинать заново
                 </div>
 
                 <div className="divider" />
@@ -197,31 +197,30 @@ export default function FounderRequest() {
             {/* STEP 1 */}
             {step === 1 && (
               <div className="card">
-                <div className="title">Что ты получишь</div>
+                <div className="title">Что здесь происходит</div>
 
                 <div className="sub">
-                  Я помогу разобраться, почему сейчас не получается,
-                  и где именно ты застрял.
+                  Я помогаю увидеть, где ты застрял — и что делать дальше.
                 </div>
 
                 <div className="sub">
-                  После разбора будет:
-                  <br />— ясность, это твой путь или нет  
+                  После этого у тебя будет:
+                  <br />— ясность, твой это путь или нет  
                   <br />— один честный следующий шаг  
-                  <br />— неделя сопровождения
+                  <br />— короткое сопровождение, чтобы не потерять фокус
                 </div>
 
                 <div className="divider" />
 
                 <div className="sub">
-                  Сначала я читаю твой запрос.
+                  Сначала я внимательно читаю твой запрос.
                   <br />
-                  Если понимаю, что могу помочь —
-                  напишу тебе и предложу разбор.
+                  Если понимаю, что могу быть полезен —
+                  напишу тебе и предложу формат навигации.
                   <br /><br />
-                  Оплата — после этого.
+                  Оплата — только после этого.
                   <br />
-                  Стоимость — <b>1990 ₽</b>.
+                  Обычно такие разборы стоят <b>1990 ₽</b>.
                 </div>
 
                 <div className="divider" />
@@ -244,18 +243,18 @@ export default function FounderRequest() {
               <div className="card">
                 <div className="title">Опиши ситуацию</div>
                 <div className="sub">
-                  Можно писать свободно. Я читаю внимательно.
+                  Можно писать свободно. Иногда уже это даёт первую ясность.
                 </div>
 
                 <div className="divider" />
 
                 <div className="block">
                   <div className="label">
-                    Что сейчас происходит? С чем ты пришёл?
+                    Что сейчас происходит? Где чувствуешь застой?
                   </div>
                   <textarea
                     rows={4}
-                    placeholder="Опиши как есть: где застрял, что не идёт, что беспокоит…"
+                    placeholder="Опиши как есть: что не идёт, где теряется движение…"
                     value={form.free}
                     onChange={(e) =>
                       setForm({ ...form, free: e.target.value })
@@ -283,7 +282,7 @@ export default function FounderRequest() {
                   </div>
                   <textarea
                     rows={3}
-                    placeholder="Планы, дисциплину, паузы…"
+                    placeholder="Подходы, планы, паузы, дисциплину…"
                     value={form.tried}
                     onChange={(e) =>
                       setForm({ ...form, tried: e.target.value })
@@ -303,11 +302,11 @@ export default function FounderRequest() {
             {/* STEP 3 */}
             {step === 3 && (
               <div className="card">
-                <div className="title">Спасибо</div>
+                <div className="title">Запрос принят</div>
                 <div className="sub">
-                  Я получил твой запрос.
+                  Я получил твой текст.
                   <br />
-                  Внимательно его прочитаю и свяжусь с тобой.
+                  Внимательно его прочитаю и напишу тебе.
                   <br />
                   Обычно это занимает до 24 часов.
                 </div>
