@@ -304,12 +304,9 @@ export default function FounderRequest() {
                 <button
   className="btn primary"
   onClick={async () => {
-    try {
-      await saveFounderRequest({ user, form });
-      setStep(3);
-    } catch (e) {
-      alert("Ошибка при отправке. Попробуй позже.");
-    }
+    console.log("USER FROM STORE:", user);
+    await saveFounderRequest({ user, form });
+    setStep(3);
   }}
 >
   Отправить запрос
