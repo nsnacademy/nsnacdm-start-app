@@ -5,6 +5,8 @@ import { findOrCreateUser } from "../../lib/findOrCreateUser";
 import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
 import { preloadImages } from "../../lib/preloadImages";
+import { supabase } from "../../lib/supabase";
+
 
 /* =========================
    DIAGNOSTIC LOGGER
@@ -40,6 +42,7 @@ function logLayout(tag) {
 export default function Splash() {
   const { user: tgUser } = useTelegram();
   const setUser = useUserStore((s) => s.setUser);
+  const user = useUserStore((s) => s.user);
   const navigate = useNavigate();
 
   const [phase, setPhase] = useState("loading"); // loading | consent
@@ -82,7 +85,12 @@ export default function Splash() {
 
       setUser(user);
       console.log("👤 USER SET IN STORE");
+
+      if (user.has_accepted_policy) {
+    setAccepted(true);
+  }
     }
+
 
     init();
 
@@ -296,24 +304,30 @@ export default function Splash() {
             <div className="subtitle">Пространство маленьких шагов.</div>
 
             <div className="card">
-              <div
-                className="consent-row"
-                onClick={() => !accepted && setShowPolicy(true)}
-                style={{ color: accepted ? "#111" : "rgba(0,0,0,0.45)" }}
-              >
-                <div className={`circle ${accepted ? "active" : ""}`}>
-                  {accepted ? "✓" : ""}
-                </div>
-                {accepted ? "Условия приняты" : "Условия не приняты"}
-              </div>
+              {!user?.has_accepted_policy && (
+  <div
+    className="consent-row"
+    onClick={() => !accepted && setShowPolicy(true)}
+    style={{ color: accepted ? "#111" : "rgba(0,0,0,0.45)" }}
+  >
+    <div className={`circle ${accepted ? "active" : ""}`}>
+      {accepted ? "✓" : ""}
+    </div>
+    {accepted ? "Условия приняты" : "Условия не приняты"}
+  </div>
+)}
+
 
               <button
-                className={`start-btn ${accepted ? "active" : "disabled"}`}
-                disabled={!accepted}
-                onClick={handleStart}
-              >
-                Начать
-              </button>
+  className={`start-btn ${
+    user?.has_accepted_policy || accepted ? "active" : "disabled"
+  }`}
+  disabled={!user?.has_accepted_policy && !accepted}
+  onClick={handleStart}
+>
+  Начать
+</button>
+
             </div>
           </div>
 
@@ -356,14 +370,33 @@ export default function Splash() {
       с использованием зарубежных сервисов хранения.
     </div>
 
-    <button
-      onClick={() => {
-        setAccepted(true);
-        setShowPolicy(false);
-      }}
-    >
-      Понятно, продолжить
-    </button>
+      <button
+  onClick={async () => {
+    setAccepted(true);
+    setShowPolicy(false);
+
+    if (!user?.telegram_id) return;
+
+    const updates = {
+      has_accepted_policy: true,
+      accepted_policy_at: new Date().toISOString(),
+    };
+
+    await supabase
+      .from("users")
+      .update(updates)
+      .eq("telegram_id", String(user.telegram_id));
+
+    setUser({
+      ...user,
+      ...updates,
+    });
+  }}
+>
+  Понятно, продолжить
+</button>
+
+
   </div>
 </div>
 

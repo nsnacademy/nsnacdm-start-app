@@ -17,6 +17,10 @@ export const useUserStore = create((set, get) => ({
         hp: userData.hp ?? 0,
         has_onboarded: userData.has_onboarded ?? false,
 
+        has_accepted_policy: userData.has_accepted_policy ?? false,
+        accepted_policy_at: userData.accepted_policy_at ?? null,
+
+
         // 🔒 для защиты от дублей
         _lastRewardSource: null,
       },
