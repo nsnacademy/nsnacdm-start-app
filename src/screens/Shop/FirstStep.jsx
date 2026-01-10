@@ -6,6 +6,7 @@ export default function HelpRequest() {
   const [stage, setStage] = useState("intro"); // intro | reading
   const [current, setCurrent] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const chapters = [
     {
@@ -249,9 +250,66 @@ export default function HelpRequest() {
 
   useEffect(() => {
     setVisible(false);
-    const t = setTimeout(() => setVisible(true), 120);
+    const t = setTimeout(() => setVisible(true), 50);
     return () => clearTimeout(t);
   }, [current, stage]);
+
+  const handleNext = () => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    if (current < chapters.length - 1) {
+      setTimeout(() => {
+        setVisible(false);
+        setTimeout(() => {
+          setCurrent(current + 1);
+          window.scrollTo({ top: 0, behavior: "instant" });
+          setIsTransitioning(false);
+        }, 150);
+      }, 100);
+    } else {
+      // Последняя глава - переход на /new-task
+      setTimeout(() => {
+        setVisible(false);
+        setTimeout(() => {
+          navigate("/new-task");
+          setIsTransitioning(false);
+        }, 150);
+      }, 100);
+    }
+  };
+
+  const handleBack = () => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setVisible(false);
+      setTimeout(() => {
+        if (stage === "reading") {
+          setStage("intro");
+        } else {
+          navigate(-1);
+        }
+        setIsTransitioning(false);
+      }, 150);
+    }, 100);
+  };
+
+  const handleIntroContinue = () => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setStage("reading");
+        setCurrent(0);
+        setIsTransitioning(false);
+      }, 150);
+    }, 100);
+  };
 
   return (
     <>
@@ -269,7 +327,8 @@ export default function HelpRequest() {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
-          padding-top: 50px; /* ← ДОБАВЛЕН ОТСТУП +50px */
+          padding-top: 50px;
+          overflow: hidden;
         }
 
         .header {
@@ -280,6 +339,11 @@ export default function HelpRequest() {
           position: relative;
           font-size: 15px;
           color: #777;
+          transition: opacity 0.3s ease;
+        }
+
+        .header.hidden {
+          opacity: 0;
         }
 
         .back, .close {
@@ -287,6 +351,20 @@ export default function HelpRequest() {
           font-size: 20px;
           color: #888;
           cursor: pointer;
+          background: none;
+          border: none;
+          padding: 8px;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.2s ease;
+        }
+
+        .back:hover, .close:hover {
+          background: rgba(0,0,0,0.05);
         }
 
         .back { left: 16px; }
@@ -299,37 +377,67 @@ export default function HelpRequest() {
           justify-content: center;
           text-align: center;
           padding: 0 24px;
+          opacity: 1;
+          transform: translateY(0);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .intro.hidden {
+          opacity: 0;
+          transform: translateY(20px);
+          pointer-events: none;
         }
 
         .intro-title {
           font-size: 26px;
           font-weight: 500;
           margin-bottom: 12px;
+          line-height: 1.3;
         }
 
         .intro-subtitle {
           font-size: 15px;
           color: #888;
           line-height: 1.5;
+          margin-bottom: 32px;
         }
 
         .intro-action {
-          margin-top: 32px;
+          margin-top: 8px;
           background: #e9e9ec;
-          padding: 12px 22px;
+          padding: 14px 24px;
           border-radius: 20px;
-          font-size: 14px;
+          font-size: 15px;
           cursor: pointer;
           align-self: center;
+          border: none;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          min-width: 180px;
+          color: #333;
+        }
+
+        .intro-action:hover {
+          background: #e0e0e3;
+          transform: translateY(-2px);
+        }
+
+        .intro-action:active {
+          transform: translateY(0);
+        }
+
+        .content-wrapper {
+          flex: 1;
+          position: relative;
+          overflow: hidden;
         }
 
         .content {
-          flex: 1;
           padding: 24px;
-          overflow-y: auto;
           opacity: 0;
-          transform: translateY(12px);
-          transition: all 0.6s ease;
+          transform: translateY(20px);
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          height: 100%;
+          overflow-y: auto;
         }
 
         .content.visible {
@@ -337,16 +445,24 @@ export default function HelpRequest() {
           transform: translateY(0);
         }
 
+        .content.hidden {
+          opacity: 0;
+          transform: translateY(-20px);
+          pointer-events: none;
+        }
+
         .chapter-title {
           font-size: 22px;
           font-weight: 500;
           margin-bottom: 8px;
+          line-height: 1.3;
         }
 
         .chapter-subtitle {
           font-size: 14px;
           color: #888;
           margin-bottom: 24px;
+          line-height: 1.4;
         }
 
         .text {
@@ -354,63 +470,121 @@ export default function HelpRequest() {
           line-height: 1.7;
           color: #444;
           white-space: pre-line;
+          margin-bottom: 40px;
         }
 
         .next {
-          margin: 32px 0 12px;
-          font-size: 14px;
+          margin-top: 40px;
+          padding-top: 20px;
+          border-top: 1px solid #eee;
+          font-size: 15px;
           color: #888;
           cursor: pointer;
+          text-align: center;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          padding-bottom: 20px;
+        }
+
+        .next:hover {
+          color: #666;
+          transform: translateY(-2px);
+        }
+
+        .next:active {
+          transform: translateY(0);
+        }
+
+        .progress {
+          text-align: center;
+          font-size: 13px;
+          color: #aaa;
+          margin-top: 8px;
+          opacity: 0.8;
+        }
+
+        .transition-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: #f3f3f5;
+          z-index: 1000;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.15s ease;
+        }
+
+        .transition-overlay.active {
+          opacity: 1;
+          pointer-events: all;
+        }
+
+        @media (max-width: 480px) {
+          .intro-title {
+            font-size: 24px;
+          }
+          
+          .chapter-title {
+            font-size: 20px;
+          }
+          
+          .text {
+            font-size: 14px;
+            line-height: 1.6;
+          }
         }
       `}</style>
 
+      {/* Плавный оверлей для переходов */}
+      <div className={`transition-overlay ${isTransitioning ? 'active' : ''}`}></div>
+
       {stage === "intro" && (
         <div className="screen">
-          <div className="header">
+          <div className={`header ${isTransitioning ? 'hidden' : ''}`}>
             Маленькие шаги
-            <div className="back" onClick={() => navigate(-1)}>←</div>
+            <button className="back" onClick={handleBack}>←</button>
           </div>
 
-          <div className="intro">
+          <div className={`intro ${isTransitioning ? 'hidden' : ''}`}>
             <div className="intro-title">
               Правда, <br /> с которой всё начинается
             </div>
             <div className="intro-subtitle">
               Почему желание не превращается <br /> в движение
             </div>
-            <div className="intro-action" onClick={() => setStage("reading")}>
+            <button className="intro-action" onClick={handleIntroContinue}>
               Продолжить →
-            </div>
+            </button>
           </div>
         </div>
       )}
 
       {stage === "reading" && (
         <div className="screen">
-          <div className="header">
+          <div className={`header ${isTransitioning ? 'hidden' : ''}`}>
             Маленькие шаги
-            <div className="close" onClick={() => navigate(-1)}>✕</div>
+            <button className="close" onClick={handleBack}>✕</button>
           </div>
 
-          <div className={`content ${visible ? "visible" : ""}`}>
-            <div className="chapter-title">{chapters[current].title}</div>
-            <div className="chapter-subtitle">{chapters[current].subtitle}</div>
-            <div className="text">{chapters[current].text}</div>
+          <div className="content-wrapper">
+            <div className={`content ${visible ? 'visible' : ''} ${isTransitioning ? 'hidden' : ''}`}>
+              <div className="chapter-title">{chapters[current].title}</div>
+              <div className="chapter-subtitle">{chapters[current].subtitle}</div>
+              <div className="text">{chapters[current].text}</div>
 
-            <div
-              className="next"
-              onClick={() => {
-                if (current < chapters.length - 1) {
-                  setCurrent(current + 1);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                } else {
-                  navigate(-1);
-                }
-              }}
-            >
-              {current < chapters.length - 1
-                ? "Дальше →"
-                : "Сделать первую попытку →"}
+              <div
+                className="next"
+                onClick={handleNext}
+              >
+                {current < chapters.length - 1
+                  ? "Дальше →"
+                  : "Сделать первую попытку →"}
+              </div>
+              
+              <div className="progress">
+                {current + 1} из {chapters.length}
+              </div>
             </div>
           </div>
         </div>
