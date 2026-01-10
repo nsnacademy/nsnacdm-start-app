@@ -327,7 +327,7 @@ export default function HelpRequest() {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
-          padding-top: 50px;
+          padding-top: 100px;
           overflow: hidden;
         }
 
@@ -430,7 +430,7 @@ export default function HelpRequest() {
   position: relative;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  
   justify-content: center;
 }
 
