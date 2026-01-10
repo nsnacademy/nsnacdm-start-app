@@ -269,6 +269,7 @@ export default function HelpRequest() {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
+          padding-top: 50px; /* ← ДОБАВЛЕН ОТСТУП +50px */
         }
 
         .header {
