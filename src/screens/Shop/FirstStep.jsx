@@ -426,19 +426,21 @@ export default function HelpRequest() {
         }
 
         .content-wrapper {
-          flex: 1;
-          position: relative;
-          overflow: hidden;
-        }
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-        .content {
-          padding: 24px;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-          height: 100%;
-          overflow-y: auto;
-        }
+.content {
+  padding: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
 
         .content.visible {
           opacity: 1;
