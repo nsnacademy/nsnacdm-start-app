@@ -404,6 +404,30 @@ body {
   line-height: 1.3;
 }
 
+.intro-action {
+  margin-top: 8px;
+  background: #e9e9ec;
+  padding: 14px 24px;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  align-self: center;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 180px;
+  color: #333;
+}
+
+.intro-action:hover {
+  background: #e0e0e3;
+  transform: translateY(-2px);
+}
+
+.intro-action:active {
+  transform: translateY(0);
+}
+
+
 .intro-subtitle {
   font-size: 15px;
   color: #888;
