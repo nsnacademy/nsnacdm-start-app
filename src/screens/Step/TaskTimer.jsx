@@ -74,6 +74,20 @@ export default function TaskTimer({ task }) {
   return () => clearInterval(interval);
 }, [paused, mode]);
 
+useEffect(() => {
+  const onVisibilityChange = () => {
+    if (document.visibilityState === "visible" && mode === "running") {
+      setRemaining(smartTimerRef.current.getRemaining());
+    }
+  };
+
+  document.addEventListener("visibilitychange", onVisibilityChange);
+
+  return () => {
+    document.removeEventListener("visibilitychange", onVisibilityChange);
+  };
+}, [mode]);
+
 
   /* ===== CIRCLE ===== */
   useEffect(() => {
