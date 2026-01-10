@@ -6,6 +6,9 @@ import { useUserStore } from "../../store/userStore";
 import { saveUser } from "../../lib/saveUser";
 import { saveStep } from "../../lib/saveStep";
 
+import { createSmartTimer } from "../../lib/smartTimer";
+
+
 
 
 
@@ -23,6 +26,8 @@ export default function TaskTimer({ task }) {
   
   const updateUser = useUserStore((s) => s.updateUser);
   const rewardAppliedRef = useRef(false);
+
+  const smartTimerRef = useRef(null);
 
 
 
@@ -43,6 +48,8 @@ export default function TaskTimer({ task }) {
 
   /* ===== INIT ===== */
   useEffect(() => {
+    smartTimerRef.current = createSmartTimer(TOTAL_SECONDS);
+
     setRemaining(task.time * 60);
     setPaused(false);
     setMode("running");
@@ -51,21 +58,22 @@ export default function TaskTimer({ task }) {
 
   /* ===== TIMER RUN ===== */
   useEffect(() => {
-    if (paused || mode !== "running") return;
+  if (paused || mode !== "running") return;
 
-    const interval = setInterval(() => {
-      setRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          setMode("complete");
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+  const interval = setInterval(() => {
+    setRemaining((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        setMode("complete");
+        return 0;
+      }
+      return smartTimerRef.current.getRemaining();
+    });
+  }, 1000);
 
-    return () => clearInterval(interval);
-  }, [paused, mode]);
+  return () => clearInterval(interval);
+}, [paused, mode]);
+
 
   /* ===== CIRCLE ===== */
   useEffect(() => {
@@ -382,9 +390,20 @@ if (mode === "complete") {
           </div>
 
           <div className="buttons">
-            <button className="btn pause" onClick={() => setPaused(!paused)}>
-              {paused ? "Продолжить" : "Пауза"}
-            </button>
+            <button
+  className="btn pause"
+  onClick={() => {
+    if (!paused) {
+      smartTimerRef.current.pause();
+    } else {
+      smartTimerRef.current.resume();
+    }
+    setPaused(!paused);
+  }}
+>
+  {paused ? "Продолжить" : "Пауза"}
+</button>
+
             <button className="btn stop" onClick={() => setMode("micro")}>
               Выйти
             </button>

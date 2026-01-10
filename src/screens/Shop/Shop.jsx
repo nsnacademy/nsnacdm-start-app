@@ -294,7 +294,7 @@ export default function Shop() {
 
                 <div>
                   <div className="title">Первый шаг</div>
-                  <div className="sub">Начать без цели и ожиданий</div>
+                  <div className="sub">С чего все начинается</div>
                 </div>
               </div>
 
