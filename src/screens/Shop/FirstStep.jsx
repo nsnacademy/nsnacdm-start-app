@@ -1,226 +1,383 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export default function FirstStep() {
+export default function HelpRequest() {
   const navigate = useNavigate();
+  const [current, setCurrent] = useState(null);
+  const [showContinue, setShowContinue] = useState(false);
+
+  const chapters = [
+    {
+      title: "Правда, с которой всё начинается",
+      text: `Ты хочешь многое.
+Иногда настолько многое, что сам пугаешься масштаба своих желаний.
+Ты умеешь видеть альтернативную версию своей жизни —
+более собранную, более реализованную, более живую.
+
+И именно поэтому ты почти ничего не делаешь.
+
+Проблема не в отсутствии целей.
+Проблема в том, что каждая цель слишком большая,
+и любое реальное действие на её фоне
+выглядит мелким, неловким и будто бы недостойным этой картины.
+Ты хочешь начать красиво.
+А реальность всегда начинается некрасиво.`,
+    },
+    {
+      title: "Почему ты всё время «готовишься»",
+      text: `Ты часто думаешь, что ещё не начал.
+Но на самом деле ты давно в процессе —
+просто в процессе подготовки.
+
+Ты читаешь, размышляешь, смотришь, как делают другие.
+Ты можешь объяснить, почему важно действовать.
+Ты знаешь, как в теории всё должно работать.
+
+И каждый раз внутри звучит фраза:
+«Я начну, когда буду готов».
+
+Но правда в другом.
+Ты не начинаешь не потому, что не готов.
+А потому что первый реальный шаг разрушает иллюзию,
+что ты уже почти тот человек, которым хочешь быть.`,
+    },
+    {
+      title: "Самое неприятное наблюдение",
+      text: `Если быть максимально честным —
+ты уже много раз выбирал не делать.
+
+Не потому что не мог.
+А потому что маленькое действие
+не совпадало с образом себя,
+который ты носишь в голове.
+
+Ты предпочитал сохранить ощущение
+«я человек с потенциалом»,
+чем столкнуться с фактом,
+что сейчас твой шаг будет слабым, неровным
+и совсем не похожим на идеальную версию тебя.
+
+И каждый такой выбор незаметно
+подтачивал уважение к себе.`,
+    },
+    {
+      title: "Иллюзия «я просто ещё не начал»",
+      text: `Есть очень удобная ловушка мышления.
+Пока ты не начал —
+о тебе нельзя сделать окончательный вывод.
+
+Ты как будто остаёшься в подвешенном состоянии:
+способный, умный, перспективный.
+Потенциально — кем угодно.
+
+Первый шаг опасен именно поэтому.
+Он переводит тебя из мира «мог бы»
+в мир «вот что я реально делаю сейчас».
+
+И этот момент страшен.
+Потому что он может не совпасть с ожиданиями.
+Поэтому ты тянешь его как можно дольше.`,
+    },
+    {
+      title: "Почему большие цели тебя парализуют",
+      text: `Большая цель редко мотивирует.
+Чаще она давит.
+
+Она каждый день напоминает,
+насколько ты далёк от желаемого.
+И на этом фоне маленький шаг
+кажется почти издевательством.
+
+Как будто ты предаёшь свою мечту,
+делая что-то настолько незначительное.
+
+В итоге ты выбираешь бездействие.
+Потому что ничего не делать
+парадоксально менее больно,
+чем делать мало.`,
+    },
+    {
+      title: "Правда, которую сложно принять",
+      text: `Вот истина, от которой обычно отворачиваются:
+
+Ты не ленивый.
+Ты застрял в голове.
+
+В голове можно быть кем угодно.
+В голове шаги всегда выглядят логичными,
+последовательными и уверенными.
+
+В реальности шаги всегда выглядят криво.
+И пока ты живёшь в голове,
+желания не двигают тебя вперёд —
+они медленно разъедают самооценку.
+
+Потому что каждый день без действия
+ты знаешь, что мог бы сделать хоть что-то.`,
+    },
+    {
+      title: "Почему маленький шаг — единственный выход",
+      text: `Маленький шаг нужен не для результата.
+Он нужен, чтобы сломать паттерн ожидания.
+
+Он не вдохновляет.
+Он не выглядит достойно.
+Он не делает тебя героем собственной истории.
+
+Зато он делает то,
+что не делает ни одно размышление:
+он возвращает тебя в реальность.
+
+Маленький шаг — это согласие
+перестать быть воображаемой версией себя
+и начать быть настоящей.`,
+    },
+    {
+      title: "Момент, где что-то меняется",
+      text: `В момент первого шага
+происходит не прогресс —
+происходит сдвиг идентичности.
+
+Ты перестаёшь быть человеком,
+который собирается начать.
+И становишься человеком,
+который уже что-то сделал.
+
+Пусть это смешно мало.
+Пусть никто не заметит.
+Но внутри это ощущается иначе.
+
+С этого момента тебе больше не нужно
+постоянно оправдываться перед собой.`,
+    },
+    {
+      title: "Почему здесь важны попытки, а не цели",
+      text: `Цели ты и так умеешь ставить.
+С этим у тебя проблем нет.
+
+Проблема в том,
+что цели не двигают тебя в моменте.
+А попытка — двигает.
+
+Попытка — это не обещание.
+Не план.
+Не образ будущего.
+
+Это факт.
+Ты сделал что-то конкретное.
+И этот факт нельзя отменить.`,
+    },
+    {
+      title: "Первый шаг, который выглядит недостойно",
+      text: `Первый шаг почти всегда разочаровывает.
+Он слишком маленький.
+Слишком простой.
+Слишком далёкий от того, как «должно быть».
+
+И именно поэтому он настоящий.
+
+Если ты готов сделать шаг,
+который не доказывает твою силу,
+а лишь показывает твою реальность —
+ты готов начать.`,
+    },
+    {
+      title: "Это и есть «Начать с начала»",
+      text: `Начать с начала —
+это отказаться от ожидания,
+что однажды ты станешь готовым.
+
+И согласиться с простой вещью:
+движение начинается не с уверенности,
+а с действия.
+
+Неровного.
+Маленького.
+Но реального.`,
+    },
+    {
+      title: "Почему появился этот проект",
+      text: `Этот проект не появился из теории.
+Он появился из тупика.
+
+Его создавал человек,
+который тоже хотел многое
+и годами почти ничего не делал.
+Который не был разработчиком.
+Не имел опыта создания продуктов.
+И постоянно откладывал начало,
+потому что шаг казался слишком маленьким.
+
+В течение трёх лет он делал неловкие попытки.
+Ошибался. Бросал. Возвращался.
+Фиксировал не успехи, а факт движения.
+
+И именно эти маленькие шаги
+со временем сложились в систему.
+Не идеальную.
+Но работающую.`,
+    },
+    {
+      title: "Формула, к которой всё свелось",
+      text: `В какой-то момент стало ясно:
+
+не цель двигает вперёд
+
+не мотивация
+
+не вдохновение
+
+А способность видеть и засчитывать свои шаги,
+даже когда они не выглядят значимыми.
+
+Из этого и родилось приложение.
+Не как решение всех проблем.
+А как инструмент,
+который помогает не терять движение.`,
+    },
+    {
+      title: "Точка входа",
+      text: `Если ты здесь —
+значит, ты тоже устал хотеть и не начинать.
+
+Тебе не нужно менять жизнь.
+Не нужно верить.
+Не нужно обещать себе больше.
+
+Достаточно одного шага.
+Одной попытки.
+
+С неё и начинается всё остальное.`,
+    },
+  ];
+
+  useEffect(() => {
+    setShowContinue(false);
+    if (current !== null) {
+      const t = setTimeout(() => setShowContinue(true), 700);
+      return () => clearTimeout(t);
+    }
+  }, [current]);
 
   return (
     <>
       <style>{`
-        * {
-          box-sizing: border-box;
-          -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; background: #f8f8f8; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
 
-        body {
-          margin: 0;
-        }
-
-        /* ===== SCREEN (1:1 как Shop) ===== */
         .screen {
           width: 100%;
           min-height: 100vh;
-          background: #f8f8f8;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-          padding: calc(env(safe-area-inset-top) + 110px) 20px 0;
-          box-sizing: border-box;
-          max-width: 520px;
-          margin: 0 auto;
-
-          overflow-y: auto;
-        }
-
-        /* ===== HEADER ROW ===== */
-        .header-row {
           display: flex;
           align-items: center;
           justify-content: center;
-          position: relative;
-          margin-bottom: 14px;
+          padding: 24px 20px;
+          max-width: 520px;
+          margin: 0 auto;
         }
 
-        .back {
-          position: absolute;
-          left: 0;
-
-          border: none;
-          background: none;
-          font-size: 22px;
-          cursor: pointer;
-          color: #666;
+        .card {
+          width: 100%;
+          background: #fff;
+          border-radius: 22px;
+          padding: 22px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
         }
 
+        .header {
+          margin-bottom: 18px;
+        }
 
-        h1 {
-          font-size: 22px;
+        .title {
+          font-size: 20px;
           font-weight: 600;
-          margin: 0;
+          margin-bottom: 6px;
           color: #222;
         }
 
-    
+        .subtitle {
+          font-size: 13px;
+          color: #777;
+          line-height: 1.45;
+        }
 
-        .text {
+        .step {
+          padding: 14px 0;
+          border-bottom: 1px solid #eee;
+          cursor: pointer;
           font-size: 14px;
-          line-height: 1.5;
-          color: #555;
-          margin-bottom: 12px;
-        }
-
-        /* CTA */
-        .start-btn {
-          width: 100%;
-          height: 46px;
-          border-radius: 16px;
-          border: none;
-          background: #222;
-          color: #f8f8f8;
-          font-size: 15px;
-          font-weight: 500;
-          margin: 20px 0 20px;
-        }
-
-        /* LIST */
-        .section-title {
-          font-size: 16px;
-          font-weight: 500;
-          margin-bottom: 10px;
           color: #333;
         }
 
-        .outline {
-          margin-top: 20px;
-          border: none;
-          outline: none;
-          box-shadow: none;
-          background: transparent;
+        .step:last-child { border-bottom: none; }
 
+        .chapter-title {
+          font-size: 18px;
+          font-weight: 500;
+          margin-bottom: 12px;
         }
 
-
-        .list {
-          background: #ffffff;
-          border-radius: 20px;
-          padding: 6px 14px;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-        }
-
-        .item {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 12px 0;
-          border-top: 1px solid #eee;
-        }
-
-        .item:first-child {
-          border-top: none;
-        }
-
-        .item-text {
+        .chapter-text {
           font-size: 14px;
+          line-height: 1.65;
+          white-space: pre-line;
           color: #444;
         }
 
-        .item-sub {
-          font-size: 12px;
-          color: #777;
-          margin-top: 2px;
+        .continue {
+          margin-top: 24px;
+          text-align: center;
+          font-size: 13px;
+          color: #999;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.4s;
         }
 
-        .arrow {
-          font-size: 16px;
-          color: #bbb;
+        .continue.visible {
+          opacity: 1;
         }
       `}</style>
 
       <div className="screen">
-        {/* HEADER */}
-        <div className="header-row">
-          <button className="back" onClick={() => navigate(-1)}>←</button>
-          <h1>Маленькие шаги</h1>
-        </div>
+        {current === null ? (
+          <div className="card">
+            <div className="header">
+              <div className="title">Путь</div>
+              <div className="subtitle">
+                Этот путь не нужно понимать.  
+                Его достаточно просто пройти.
+              </div>
+            </div>
 
+            {chapters.map((c, i) => (
+              <div key={i} className="step" onClick={() => setCurrent(i)}>
+                {c.title}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="card">
+            <div className="chapter-title">{chapters[current].title}</div>
+            <div className="chapter-text">{chapters[current].text}</div>
 
-        <div className="text">
-         В каждом дне достаточно места
-          для маленького шага.
-        </div>
-
-        <div className="text">
-           Здесь не про спешку — а про возвращение в
-          движение и контакт с собой.
-        </div>
-
-        <button className="start-btn">
-          Погрузиться в материал 
-        </button>
-
-
-        <div className="outline">
-  <div className="section-title">Оглавление</div>
-
-  <div className="list">
-    <div className="item">
-      <div className="item-text">
-        Почему мы не начинаем, даже когда хотим
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
-        Большая цель и почему она мешает шагу
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
-        Что такое маленький шаг на самом деле
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
-        Как выбрать шаг, который не сломается
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
-        Почему один шаг уже считается результатом
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div>
-        <div className="item-text">Анализ шага</div>
-        <div className="item-sub">что произошло после действия</div>
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div>
-        <div className="item-text">Извлечение опыта</div>
-        <div className="item-sub">что этот шаг показал о тебе</div>
-      </div>
-      <div className="arrow">›</div>
-    </div>
-
-    <div className="item">
-      <div className="item-text">
-        Как из одного шага появляется следующий
-      </div>
-      <div className="arrow">›</div>
-    </div>
-  </div>
-</div>
-
+            <div
+              className={`continue ${showContinue ? "visible" : ""}`}
+              onClick={() => {
+                if (current < chapters.length - 1) {
+                  setCurrent(current + 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  navigate(-1);
+                }
+              }}
+            >
+              {current < chapters.length - 1
+                ? "Продолжай путь ↓"
+                : "Ты сделал попытку →"}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
