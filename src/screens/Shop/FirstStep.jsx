@@ -319,228 +319,194 @@ export default function HelpRequest() {
   return (
     <>
       <style>{`
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-          margin: 0;
-          background: #f3f3f5;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+        * {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-        .screen {
-          max-width: 520px;
-          margin: 0 auto;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          padding-top: 100px;
-          overflow: hidden;
-        }
+body {
+  margin: 0;
+  background: #f3f3f5;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-        .header {
-          height: 56px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          font-size: 15px;
-          color: #777;
-          transition: opacity 0.3s ease;
-        }
-
-        .header.hidden {
-          opacity: 0;
-        }
-
-        .back, .close {
-          position: absolute;
-          font-size: 20px;
-          color: #888;
-          cursor: pointer;
-          background: none;
-          border: none;
-          padding: 8px;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.2s ease;
-        }
-
-        .back:hover, .close:hover {
-          background: rgba(0,0,0,0.05);
-        }
-
-        .back { left: 16px; }
-        .close { right: 16px; }
-
-        .intro {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          text-align: center;
-          padding: 0 24px;
-          opacity: 1;
-          transform: translateY(0);
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .intro.hidden {
-          opacity: 0;
-          transform: translateY(20px);
-          pointer-events: none;
-        }
-
-        .intro-title {
-          font-size: 26px;
-          font-weight: 500;
-          margin-bottom: 12px;
-          line-height: 1.3;
-        }
-
-        .intro-subtitle {
-          font-size: 15px;
-          color: #888;
-          line-height: 1.5;
-          margin-bottom: 32px;
-        }
-
-        .intro-action {
-          margin-top: 8px;
-          background: #e9e9ec;
-          padding: 14px 24px;
-          border-radius: 20px;
-          font-size: 15px;
-          cursor: pointer;
-          align-self: center;
-          border: none;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          min-width: 180px;
-          color: #333;
-        }
-
-        .intro-action:hover {
-          background: #e0e0e3;
-          transform: translateY(-2px);
-        }
-
-        .intro-action:active {
-          transform: translateY(0);
-        }
-
-        .content-wrapper {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
+/* ===== ОСНОВНОЙ ЭКРАН ===== */
+.screen {
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100dvh;
   display: flex;
-  
+  flex-direction: column;
+
+  /* адаптивный верхний отступ */
+  padding-top: clamp(72px, 10vh, 100px);
+
+  /* safe-area для iOS */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ===== HEADER ===== */
+.header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 15px;
+  color: #777;
+  transition: opacity 0.3s ease;
+}
+
+.header.hidden {
+  opacity: 0;
+}
+
+.back,
+.close {
+  position: absolute;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
+.back { left: 16px; }
+.close { right: 16px; }
+
+/* ===== INTRO ===== */
+.intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  padding: 0 clamp(16px, 5vw, 24px);
+
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.intro.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.intro-title {
+  font-size: clamp(22px, 5vw, 26px);
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.intro-subtitle {
+  font-size: 15px;
+  color: #888;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+/* ===== CONTENT ===== */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
 .content {
-  padding: 24px;
+  width: 100%;
+  max-width: 460px; /* 🔥 ключевая адаптация */
+  padding: clamp(16px, 5vw, 24px);
+
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
   overflow-y: auto;
 }
 
-        .content.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
+.content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-        .content.hidden {
-          opacity: 0;
-          transform: translateY(-20px);
-          pointer-events: none;
-        }
+.content.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
 
-        .chapter-title {
-          font-size: 22px;
-          font-weight: 500;
-          margin-bottom: 8px;
-          line-height: 1.3;
-        }
+/* ===== TEXT ===== */
+.chapter-title {
+  font-size: clamp(20px, 4.5vw, 22px);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
 
-        .chapter-subtitle {
-          font-size: 14px;
-          color: #888;
-          margin-bottom: 24px;
-          line-height: 1.4;
-        }
+.chapter-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 24px;
+}
 
-        .text {
-          font-size: 15px;
-          line-height: 1.7;
-          color: #444;
-          white-space: pre-line;
-          margin-bottom: 40px;
-        }
+.text {
+  font-size: clamp(14px, 3.8vw, 15px);
+  line-height: 1.65;
+  color: #444;
+  white-space: pre-line;
+  margin-bottom: 40px;
+}
 
-        .next {
-          margin-top: 40px;
-          padding-top: 20px;
-          border-top: 1px solid #eee;
-          font-size: 15px;
-          color: #888;
-          cursor: pointer;
-          text-align: center;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          padding-bottom: 20px;
-        }
+/* ===== NEXT ===== */
+.next {
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+  font-size: 15px;
+  color: #888;
+  text-align: center;
+  cursor: pointer;
+}
 
-        .next:hover {
-          color: #666;
-          transform: translateY(-2px);
-        }
+.progress {
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 8px;
+}
 
-        .next:active {
-          transform: translateY(0);
-        }
+/* ===== TRANSITION ===== */
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #f3f3f5;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
 
-        .progress {
-          text-align: center;
-          font-size: 13px;
-          color: #aaa;
-          margin-top: 8px;
-          opacity: 0.8;
-        }
+.transition-overlay.active {
+  opacity: 1;
+}
 
-        .transition-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: #f3f3f5;
-          z-index: 1000;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.15s ease;
-        }
+/* ===== БОЛЬШИЕ ЭКРАНЫ ===== */
+@media (min-width: 768px) {
+  .screen {
+    padding-top: 80px;
+  }
+}
 
-        .transition-overlay.active {
-          opacity: 1;
-          pointer-events: all;
-        }
-
-        @media (max-width: 480px) {
-          .intro-title {
-            font-size: 24px;
-          }
-          
-          .chapter-title {
-            font-size: 20px;
-          }
-          
-          .text {
-            font-size: 14px;
-            line-height: 1.6;
-          }
-        }
       `}</style>
 
       {/* Плавный оверлей для переходов */}
