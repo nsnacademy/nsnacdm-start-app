@@ -153,9 +153,15 @@ export default function Profile() {
         }
 
         .contact {
-          font-size: 14px;
-          color: #777;
-        }
+  font-size: 14px;
+  color: #777;
+  text-decoration: none;
+}
+
+.contact:active {
+  opacity: 0.6;
+}
+
 
         /* ===== NAV ===== */
         .nav-wrapper {
