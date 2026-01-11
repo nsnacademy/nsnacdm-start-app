@@ -500,7 +500,7 @@ export default function NewTask() {
           <div className="task-box">
             <input
               className="input"
-              placeholder="минимум 6 символов)"
+              placeholder="минимум 6 символов"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />

@@ -259,17 +259,33 @@ export default function Home() {
           z-index: 10;
         }
 
-        .popup-delete.icon {
-  font-size: 13px;
-  color: #888;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+         .popup-menu {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  z-index: 10;
 }
 
-.popup-delete.icon:active {
-  opacity: 0.6;
+/* КНОПКА ВНУТРИ БЛОКА */
+.popup-delete {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #8a8a8a;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+/* АКТИВНОЕ СОСТОЯНИЕ */
+.popup-delete:active {
+  background: #f2f2f2;
+  opacity: 0.7;
 }
 
 
@@ -412,11 +428,11 @@ export default function Home() {
               {menuOpen && (
                 <div className="popup-menu">
                   <div
-  className="popup-delete icon"
-  onClick={() => removeTask(tasks[0].id)}
->
-  🗑 Удалить
-</div>
+    className="popup-delete"
+    onClick={() => removeTask(tasks[0].id)}
+  >
+    Удалить
+  </div>
 
                 </div>
               )}
