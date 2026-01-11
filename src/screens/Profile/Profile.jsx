@@ -153,14 +153,13 @@ export default function Profile() {
         }
 
         .contact {
+  display: block;
   font-size: 14px;
   color: #777;
   text-decoration: none;
+  margin-top: 6px;
 }
 
-.contact:active {
-  opacity: 0.6;
-}
 
 
         /* ===== NAV ===== */
@@ -266,7 +265,7 @@ export default function Profile() {
   Telegram: @dmitriy_evgn
 </a>
 
-            <a
+<a
   className="contact"
   href="mailto:nsnacdm@yandex.ru"
 >
