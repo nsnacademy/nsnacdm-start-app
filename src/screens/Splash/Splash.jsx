@@ -6,7 +6,8 @@ import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
 import { preloadImages } from "../../lib/preloadImages";
 import { supabase } from "../../lib/supabase";
-import LogoNSN from "../../ui/LogoNSN";
+import logoNSN from "../../assets/logo-nsn.png";
+
 
 
 
@@ -141,11 +142,13 @@ export default function Splash() {
           text-align: center;
         }
 
-        .logo-nsn {
+         .logo-nsn {
   width: 56px;
   height: auto;
-  color: #000;
+  display: block;
+  margin: 0 auto;
 }
+
 
 
         .title {
@@ -292,8 +295,9 @@ export default function Splash() {
         <div className="screen">
           <div className="inner">
             <div className="title">
-  <LogoNSN />
+  <img src={logoNSN} alt="НСН" className="logo-nsn" />
 </div>
+
 
             <div className="line-wrap">
               <div
