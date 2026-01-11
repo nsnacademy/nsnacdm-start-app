@@ -556,7 +556,7 @@ export default function NewTask() {
               const title = task.trim();
 
               // ❗ Защита: минимум 6 символов
-              if (title.length <53) return;
+              if (title.length <5) return;
 
               // Создаём объект задачи
               const newTask = {
