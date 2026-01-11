@@ -6,6 +6,8 @@ import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
 import { preloadImages } from "../../lib/preloadImages";
 import { supabase } from "../../lib/supabase";
+import { ReactComponent as LogoNSN } from "../../assets/Component 1.svg";
+
 
 
 /* =========================
@@ -281,19 +283,23 @@ export default function Splash() {
       {/* ===== ФАЗА ЗАГРУЗКИ ===== */}
       {phase === "loading" && (
         <div className="screen">
-          <div className="inner">
-            <div className="title"> НСН</div>
-            <div className="line-wrap">
-              <div
-                className="line"
-                onAnimationEnd={() => {
-                  logLayout("Loading animation end");
-                  setPhase("consent");
-                }}
-              />
-            </div>
-          </div>
-        </div>
+  <div className="inner">
+    <div className="title">
+      <LogoNSN className="logo-nsn" />
+    </div>
+
+    <div className="line-wrap">
+      <div
+        className="line"
+        onAnimationEnd={() => {
+          logLayout("Loading animation end");
+          setPhase("consent");
+        }}
+      />
+    </div>
+  </div>
+</div>
+
       )}
 
       {/* ===== ФАЗА СОГЛАСИЯ ===== */}
