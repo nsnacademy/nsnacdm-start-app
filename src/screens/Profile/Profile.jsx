@@ -251,8 +251,22 @@ export default function Profile() {
 
             <div className="divider" />
 
-            <div className="contact">Telegram: @username</div>
-            <div className="contact">Email: name@email.com</div>
+            <a
+  className="contact"
+  href="https://t.me/dmitriy_evgn"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Telegram: @dmitriy_evgn
+</a>
+
+            <a
+  className="contact"
+  href="mailto:nsnacdm@yandex.ru"
+>
+  Email: nsnacdm@yandex.ru
+</a>
+
           </div>
         </div>
 
