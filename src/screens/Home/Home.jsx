@@ -450,17 +450,21 @@ export default function Home() {
               </svg>
             </button>
 
-            <button className="nav-item">
-              <svg
-                viewBox="0 0 24 24"
-                stroke="#6A6A6A"
-                fill="none"
-                strokeWidth="2"
-              >
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-              </svg>
-            </button>
+            <button
+  className="nav-item"
+  onClick={() => navigate("/profile")}
+>
+  <svg
+    viewBox="0 0 24 24"
+    stroke="#6A6A6A"
+    fill="none"
+    strokeWidth="2"
+  >
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+  </svg>
+</button>
+
           </div>
         </div>
       </div>

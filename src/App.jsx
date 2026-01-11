@@ -10,6 +10,7 @@ import Steps from "./screens/Step/Steps";
 import Shop from "./screens/Shop/Shop";
 import FirstStep from "./screens/Shop/FirstStep";
 import FounderRequest from "./screens/Shop/FounderRequest";
+import Profile from "./screens/Profile/Profile";
 
 
 
@@ -34,6 +35,8 @@ export default function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/first-step" element={<FirstStep />} />
         <Route path="/founder-request" element={<FounderRequest />} />
+        <Route path="/profile" element={<Profile />} />
+      
 
 
 
