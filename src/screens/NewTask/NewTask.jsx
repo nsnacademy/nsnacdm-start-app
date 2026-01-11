@@ -505,7 +505,7 @@ export default function NewTask() {
               onChange={(e) => setTask(e.target.value)}
             />
             
-            <div className={`char-counter ${task.trim().length < 23 ? 'warning' : ''}`}>
+            <div className={`char-counter ${task.trim().length < 5 ? 'warning' : ''}`}>
               {task.trim().length}/23 символов
             </div>
 
@@ -556,7 +556,7 @@ export default function NewTask() {
               const title = task.trim();
 
               // ❗ Защита: минимум 6 символов
-              if (title.length < 23) return;
+              if (title.length <53) return;
 
               // Создаём объект задачи
               const newTask = {
