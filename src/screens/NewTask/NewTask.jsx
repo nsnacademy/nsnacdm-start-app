@@ -498,12 +498,7 @@ export default function NewTask() {
         <div className="center-wrapper">
 
           <div className="task-box">
-            <input
-              className="input"
-              placeholder="минимум 6 символов"
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
-            />
+            
             
             <div className={`char-counter ${task.trim().length < 5 ? 'warning' : ''}`}>
               {task.trim().length}/∞ символов

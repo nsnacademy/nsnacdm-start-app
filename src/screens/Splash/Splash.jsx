@@ -282,7 +282,7 @@ export default function Splash() {
       {phase === "loading" && (
         <div className="screen">
           <div className="inner">
-            <div className="title">NSN</div>
+            <div className="title"> НСН</div>
             <div className="line-wrap">
               <div
                 className="line"
