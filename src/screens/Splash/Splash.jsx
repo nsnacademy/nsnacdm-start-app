@@ -6,7 +6,7 @@ import { useTelegram } from "../../hooks/useTelegram";
 import { useUserStore } from "../../store/userStore";
 import { preloadImages } from "../../lib/preloadImages";
 import { supabase } from "../../lib/supabase";
-import LogoNSN from "../ui/LogoNSN";
+import LogoNSN from "../../ui/LogoNSN";
 
 
 
