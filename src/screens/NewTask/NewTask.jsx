@@ -500,13 +500,13 @@ export default function NewTask() {
           <div className="task-box">
             <input
               className="input"
-              placeholder="минимум 23 символа)"
+              placeholder="минимум 6 символов)"
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
             
             <div className={`char-counter ${task.trim().length < 5 ? 'warning' : ''}`}>
-              {task.trim().length}/23 символов
+              {task.trim().length}/∞ символов
             </div>
 
             <div className="label">Запланированное время</div>

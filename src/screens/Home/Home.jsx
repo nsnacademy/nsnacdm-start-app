@@ -259,13 +259,19 @@ export default function Home() {
           z-index: 10;
         }
 
-        .popup-delete {
-          color: #ff4d4d;
-          font-size: 14px;
-          font-weight: 500;
-          cursor: pointer;
-          text-align: right;
-        }
+        .popup-delete.icon {
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.popup-delete.icon:active {
+  opacity: 0.6;
+}
+
 
         /* ===== NAV (1:1 как Steps) ===== */
         .nav-wrapper {
@@ -406,11 +412,12 @@ export default function Home() {
               {menuOpen && (
                 <div className="popup-menu">
                   <div
-                    className="popup-delete"
-                    onClick={() => removeTask(tasks[0].id)}
-                  >
-                    Удалить
-                  </div>
+  className="popup-delete icon"
+  onClick={() => removeTask(tasks[0].id)}
+>
+  🗑 Удалить
+</div>
+
                 </div>
               )}
             </div>
