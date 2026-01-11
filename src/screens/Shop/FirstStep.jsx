@@ -535,7 +535,7 @@ body {
       {stage === "intro" && (
         <div className="screen">
           <div className={`header ${isTransitioning ? 'hidden' : ''}`}>
-            Маленькие шаги
+            Магазин
             <button className="back" onClick={handleBack}>←</button>
           </div>
 

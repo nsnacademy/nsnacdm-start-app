@@ -37,7 +37,7 @@ export default function NewTask() {
   // animate on first render
   useEffect(() => {
     const initialReward = selectedTime;
-    const initialHp = Math.round(selectedTime * 40);
+    const initialHp = Math.round(selectedTime * 2.5);
 
     setReward(initialReward);
     setHp(initialHp);
