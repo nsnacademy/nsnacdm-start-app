@@ -180,7 +180,7 @@ export default function Home() {
 
         /* ===== TASK CARD ===== */
         .task-card {
-          width: 92%;
+          width: 100%;
           max-width: 480px;
           background: #ffffff;
           border-radius: 28px;

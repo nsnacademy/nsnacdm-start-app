@@ -551,7 +551,7 @@ export default function NewTask() {
           {/* ADD BUTTON → FIRE CONFETTI */}
           <button
             className="add-btn"
-            disabled={task.trim().length < 23}
+            disabled={task.trim().length < 5}
             onClick={() => {
               const title = task.trim();
 
