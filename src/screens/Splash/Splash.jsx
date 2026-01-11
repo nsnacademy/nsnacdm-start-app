@@ -143,7 +143,7 @@ export default function Splash() {
         }
 
          .logo-nsn {
-  width: 100px;
+  width: 150px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -188,7 +188,7 @@ export default function Splash() {
         }
 
         .card {
-          margin-top: 20px;
+          margin-top: 2px;
           width: 100%;
           background: #fff;
           border-radius: 16px;
