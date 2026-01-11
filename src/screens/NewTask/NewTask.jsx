@@ -17,7 +17,7 @@ export default function NewTask() {
   const [animatedReward, setAnimatedReward] = useState(10);
   const [animatedHp, setAnimatedHp] = useState(25);
 
-  const times = [1, 20, 30, 40, 50, 60];
+  const times = [10, 20, 30, 40, 50, 60];
 
   // ===== SMOOTH NUMBER ANIMATION =====
   function animateValue(from, to, setter, duration = 350) {
