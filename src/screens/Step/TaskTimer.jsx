@@ -236,21 +236,30 @@ if (mode === "complete") {
           />
 
           <button
-            className="complete-btn"
-            onClick={async () => {
-              await saveStep({
-                userId: user.telegram_id,
-                taskId: null,
-                totalSeconds: task.time * 60,
-                spentSeconds: task.time * 60,
-              });
+  className="complete-btn"
+  onClick={() => {
+    console.log("✅ COMPLETE: finish clicked");
 
-              removeTask(task.id);
-              finishTask();
-            }}
-          >
-            Завершить задачу
-          </button>
+    // 1️⃣ МГНОВЕННО закрываем задачу (UI)
+    removeTask(task.id);
+    finishTask();
+
+    // 2️⃣ Сохраняем шаг в фоне (НЕ блокируем интерфейс)
+    saveStep({
+      userId: user.telegram_id,
+      taskId: null,
+      totalSeconds: task.time * 60,
+      spentSeconds: task.time * 60,
+    }).then(() => {
+      console.log("🟢 saveStep finished");
+    }).catch((e) => {
+      console.log("🔴 saveStep error:", e);
+    });
+  }}
+>
+  Завершить задачу
+</button>
+
         </div>
       </div>
     </>
