@@ -182,7 +182,7 @@ useEffect(() => {
   rewardAppliedRef.current = true;
 
   const odReward = task.od;
-  const hpReward = Math.round(task.time * 40);
+  const hpReward = Math.round(task.time * 2.5);
   addXp(hpReward);
 
 
