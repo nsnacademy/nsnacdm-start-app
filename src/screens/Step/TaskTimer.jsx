@@ -171,20 +171,12 @@ useEffect(() => {
   useEffect(() => {
   if (mode !== "complete") return;
   if (rewardAppliedRef.current) return;
-
-  console.log("🔥 COMPLETE EFFECT");
-
-  if (!user) {
-    console.log("❌ USER IS NULL");
-    return;
-  }
+  if (!user) return;
 
   rewardAppliedRef.current = true;
 
-  const odReward = task.od;
-  const hpReward = Math.round(task.time * 2.5);
-  addXp(hpReward);
-
+  const odReward = task.od;                     // например 20
+  const hpReward = Math.round(task.time * 2.5); // например 50
 
   const updatedUser = {
     ...user,
@@ -192,16 +184,11 @@ useEffect(() => {
     hp: user.hp + hpReward,
   };
 
-  console.log("📦 UPDATED USER (LOCAL):", updatedUser);
-
   updateUser(updatedUser);
-  console.log("🟢 updateUser CALLED");
+  saveUser(updatedUser).catch(console.error);
 
-  saveUser(updatedUser)
-    .then(() => console.log("🟢 saveUser FINISHED"))
-    .catch((e) => console.log("🔴 saveUser ERROR:", e));
+}, [mode, user, task]);
 
-}, [mode, user, task, updateUser]);
 
 
 
@@ -212,7 +199,7 @@ useEffect(() => {
 
 if (mode === "complete") {
   const od = task.od;
-  const hp = Math.round(task.time * 30);
+  const hp = Math.round(task.time * 2.5);
 
   return (
     <>
