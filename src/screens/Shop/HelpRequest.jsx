@@ -1,187 +1,120 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function HelpRequest() {
   const navigate = useNavigate();
 
-  const [visible, setVisible] = useState(false);
-  const [showChoice, setShowChoice] = useState(true);
-  const [showQuestions, setShowQuestions] = useState(false);
+  const [phase, setPhase] = useState("choice");
+  // choice | questions | next
   const [selected, setSelected] = useState(null);
-  const [showNextText, setShowNextText] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 50);
-    return () => clearTimeout(t);
-  }, []);
 
   return (
     <>
       <style>{`
-/* ===== FIXED HEADER ===== */
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 520px;
-  height: 56px;
-  background: #f3f3f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  font-size: 15px;
-  color: #777;
-}
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; }
 
-.fixed-header button {
-  position: absolute;
-  top: 6px;
-  width: 44px;
-  height: 44px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: #888;
-  cursor: pointer;
-}
+        .screen {
+          width: 100%;
+          min-height: 100vh;
+          background: #f8f8f8;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-.fixed-header .back { left: 8px; }
-.fixed-header .close { right: 8px; }
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
 
-/* ===== SCROLL AREA ===== */
-.scroll {
-  padding-top: 72px;
-  padding-bottom: 120px;
-}
+          padding: calc(env(safe-area-inset-top) + 70px) 20px 40px;
+          max-width: 520px;
+          margin: 0 auto;
+        }
 
-/* ===== CONTENT ===== */
-.content {
-  max-width: 460px;
-  margin: 0 auto;
-  padding: 24px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-}
+        .card {
+          width: 100%;
+          background: #fff;
+          border-radius: 22px;
+          padding: 22px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
 
-.content.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+        .title {
+          font-size: 18px;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
 
-.chapter-title {
-  font-size: 22px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
+        .text {
+          font-size: 15px;
+          line-height: 1.65;
+          color: #444;
+          white-space: pre-line;
+          margin-bottom: 20px;
+        }
 
-.chapter-subtitle {
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 24px;
-}
+        .note {
+          margin: 26px 0 14px;
+          font-size: 13px;
+          color: #999;
+          text-align: center;
+          line-height: 1.45;
+        }
 
-.text {
-  font-size: 15px;
-  line-height: 1.65;
-  color: #444;
-  white-space: pre-line;
-}
+        .actions {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
 
-/* ===== CHOICE ===== */
-.note {
-  margin: 48px 0 20px;
-  font-size: 14px;
-  color: #777;
-  text-align: center;
-}
+        .btn {
+          width: 100%;
+          height: 46px;
+          border-radius: 16px;
+          border: none;
+          background: #f0f0f0;
+          font-size: 15px;
+          cursor: pointer;
+        }
 
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+        .primary {
+          background: #222;
+          color: #fff;
+        }
 
-.action {
-  background: #e9e9ec;
-  padding: 14px;
-  border-radius: 20px;
-  font-size: 15px;
-  text-align: center;
-  cursor: pointer;
-}
+        .choice {
+          background: #f0f0f0;
+          padding: 14px;
+          border-radius: 16px;
+          margin-bottom: 10px;
+          cursor: pointer;
+          font-size: 14px;
+          line-height: 1.4;
+        }
 
-/* ===== QUESTIONS ===== */
-.questions {
-  margin-top: 32px;
-  animation: expand 0.4s ease forwards;
-}
+        .choice.active {
+          background: #e0e0e0;
+        }
 
-@keyframes expand {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+        .question {
+          margin-top: 16px;
+          font-size: 14px;
+          line-height: 1.55;
+          color: #444;
+        }
 
-.care {
-  font-size: 14px;
-  color: #888;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-
-.choice {
-  background: #e9e9ec;
-  padding: 14px;
-  border-radius: 16px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.choice.active {
-  background: #dedee3;
-}
-
-.question {
-  margin-top: 16px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #444;
-}
-
-.continue {
-  margin-top: 24px;
-  padding: 14px;
-  background: #e9e9ec;
-  border-radius: 20px;
-  text-align: center;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-/* ===== NEXT TEXT ===== */
-.next-text {
-  margin-top: 64px;
-  animation: expand 0.5s ease forwards;
-}
+        .back {
+          margin-top: 14px;
+          text-align: center;
+          font-size: 13px;
+          color: #999;
+          cursor: pointer;
+        }
       `}</style>
 
-      {/* FIXED HEADER */}
-      <div className="fixed-header">
-        Первый шаг
-        <button className="back" onClick={() => navigate(-1)}>←</button>
-        <button className="close" onClick={() => navigate(-1)}>✕</button>
-      </div>
+      <div className="screen">
+        <div className="card">
 
-      {/* SCROLLABLE CONTENT */}
-      <div className="scroll">
-        <div className={`content ${visible ? "visible" : ""}`}>
-          <div className="chapter-title">Точка застревания</div>
-          <div className="chapter-subtitle">
-            Момент, где что-то идёт не так
-          </div>
+          {/* ===== ТЕКСТ ===== */}
+          <div className="title">Точка застревания</div>
 
           <div className="text">
 {`Если ты читаешь это —
@@ -192,84 +125,143 @@ export default function HelpRequest() {
 куда-то идёшь,
 но внутри постоянно крутится одна мысль:
 
-«Я застрял».`}
+«Я застрял».
+
+Не драматично.
+Без истерики.
+Просто глухо.
+
+Ты прокручиваешь ситуацию снова и снова.
+Иногда злишься на себя.
+Иногда убеждаешь себя, что «ничего страшного».
+Иногда сравниваешь с другими и чувствуешь неприятное сжатие внутри.
+
+И самое мерзкое —
+ты не до конца понимаешь, что именно пошло не так.
+
+Обычно в этот момент человек делает одно из двух.
+
+Либо начинает давить на себя.
+Либо делает вид, что ему всё равно.
+
+Если быть честным —
+оба варианта тебе знакомы.
+И ни один не работает.`}
           </div>
 
-          {showChoice && (
+          {/* ===== ВЫБОР ===== */}
+          {phase === "choice" && (
             <>
               <div className="note">
-                Дальше можно пойти по-разному.
-                Выбери то, что сейчас комфортнее.
+                Дальше можно пойти по-разному.  
+                Ты можешь углубиться —  
+                или просто продолжить чтение.
               </div>
 
               <div className="actions">
-                <div
-                  className="action"
-                  onClick={() => {
-                    setShowQuestions(true);
-                    setShowChoice(false);
-                  }}
+                <button
+                  className="btn"
+                  onClick={() => setPhase("questions")}
                 >
-                  ⌄ Погрузиться глубже
-                </div>
+                  Погрузиться глубже
+                </button>
 
-                <div
-                  className="action"
-                  onClick={() => {
-                    setShowNextText(true);
-                    setShowChoice(false);
-                  }}
+                <button
+                  className="btn"
+                  onClick={() => setPhase("next")}
                 >
-                  → Просто читать дальше
-                </div>
+                  Читать дальше
+                </button>
+              </div>
+
+              <div className="back" onClick={() => navigate(-1)}>
+                Вернуться
               </div>
             </>
           )}
 
-          {showQuestions && (
-            <div className="questions">
-              <div className="care">
-                Можно ответить мысленно
-                или записать на бумаге.
+          {/* ===== ВОПРОСЫ ===== */}
+          {phase === "questions" && (
+            <>
+              <div className="note">
+                Можно ответить мысленно  
+                или записать ответы на бумаге.  
+                Делай так, как тебе сейчас безопаснее.
               </div>
 
               {[
-                { key: "lost", label: "Я не понимаю, где всё пошло не так" },
-                { key: "anger", label: "Я злюсь на себя" },
-                { key: "deadend", label: "Я чувствую тупик" },
-              ].map(item => (
-                <div
-                  key={item.key}
-                  className={`choice ${selected === item.key ? "active" : ""}`}
-                  onClick={() => setSelected(item.key)}
-                >
-                  {item.label}
+                {
+                  key: "lost",
+                  label: "Я не понимаю, где всё пошло не так",
+                  question:
+                    "Где был момент, после которого ситуация перестала быть управляемой?",
+                },
+                {
+                  key: "anger",
+                  label: "Я злюсь на себя",
+                  question:
+                    "За что именно ты себя винишь — и действительно ли это полностью твоя ответственность?",
+                },
+                {
+                  key: "deadend",
+                  label: "Я чувствую тупик",
+                  question:
+                    "Что ты продолжаешь пытаться изменить, хотя это уже не в твоей зоне контроля?",
+                },
+              ].map((item) => (
+                <div key={item.key}>
+                  <div
+                    className={`choice ${
+                      selected === item.key ? "active" : ""
+                    }`}
+                    onClick={() => setSelected(item.key)}
+                  >
+                    {item.label}
+                  </div>
+
+                  {selected === item.key && (
+                    <div className="question">
+                      {item.question}
+                    </div>
+                  )}
                 </div>
               ))}
 
-              {selected && (
-                <div className="question">
-                  Где был момент, после которого ситуация
-                  перестала быть управляемой?
-                </div>
-              )}
-
-              <div
-                className="continue"
-                onClick={() => setShowNextText(true)}
+              <button
+                className="btn primary"
+                onClick={() => setPhase("next")}
               >
-                Я готов идти дальше →
-              </div>
-            </div>
+                Я готов идти дальше
+              </button>
+            </>
           )}
 
-          {showNextText && (
-            <div className="next-text text">
-{`Следующая тема начинается здесь.
-И она уже про другое состояние —
-когда ясность начинает заменять давление.`}
-            </div>
+          {/* ===== СЛЕДУЮЩИЙ ТЕКСТ ===== */}
+          {phase === "next" && (
+            <>
+              <div className="text">
+{`Если ты дошёл до этого места —
+значит ты уже не убегаешь.
+
+Ты смотришь на ситуацию честнее,
+чем раньше.
+
+Дальше будет не про мотивацию.
+И не про советы.
+
+А про ясность
+и следующий реальный шаг.`}
+              </div>
+
+              <button
+                className="btn primary"
+                onClick={() => navigate(-1)}
+              >
+                Вернуться
+              </button>
+            </>
           )}
+
         </div>
       </div>
     </>
