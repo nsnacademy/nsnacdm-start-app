@@ -17,14 +17,8 @@ export default function HelpRequest() {
   return (
     <>
       <style>{`
-        * {
-          box-sizing: border-box;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-          margin: 0;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; }
 
         .screen {
           width: 100%;
@@ -156,7 +150,6 @@ export default function HelpRequest() {
 И ни один не работает.`}
         </div>
 
-        {/* ===== ВЫБОР 1 ===== */}
         {phase === "choice" && (
           <>
             <div className="note">
@@ -176,7 +169,6 @@ export default function HelpRequest() {
           </>
         )}
 
-        {/* ===== ВОПРОСЫ 1 ===== */}
         {phase === "questions" && (
           <>
             <div className="note">
@@ -329,35 +321,36 @@ export default function HelpRequest() {
                 </button>
               </>
             )}
+          </>
+        )}
 
-            {/* ===== ТЕМА 3 ===== */}
-            {showThirdQuestions && (
+        {/* ===== ТЕМА 3 ===== */}
+        {showThirdQuestions && (
+          <>
+            <div className="spacer" />
+
+            <div className="title">Какой опыт ты можешь забрать</div>
+
+            <div className="text">
+{`Даже если ситуация была тяжёлой,
+она не прошла впустую.
+
+Вопрос не в том, что получилось или нет.
+А в том, что ты теперь знаешь о себе.
+
+Каждое застревание что-то показывает.
+Где ты переоценил контроль.
+Где недооценил себя.
+Где продолжал идти, даже когда было тяжело.
+
+Этот опыт — твой.
+И он остаётся с тобой.`}
+            </div>
+
+            {!showThirdQuestions && (
               <>
-                <div className="spacer" />
-
-                <div className="title">Что ты можешь унести с собой</div>
-
-                <div className="text">
-{`Не каждая сложная ситуация должна «исправляться».
-
-Иногда её ценность —
-в том, что она что-то проясняет.
-
-Про твои границы.
-Про ожидания.
-Про то, как ты реагируешь под давлением.
-
-Опыт — это не вывод.
-Это не формулировка.
-Это то, что остаётся с тобой,
-даже когда ситуация закончилась.`}
-                </div>
-
-                {!showThirdQuestions && null}
-
                 <div className="note">
-                  Если хочешь, можно посмотреть,
-                  какой опыт ты уже получил.
+                  Если хочешь, можно разобрать это внимательнее.
                 </div>
 
                 <div className="actions">
@@ -375,53 +368,57 @@ export default function HelpRequest() {
                     Завершить
                   </button>
                 </div>
+              </>
+            )}
 
-                {showThirdQuestions && (
-                  <>
-                    {[
-                      {
-                        key: "see",
-                        label: "Я начал лучше понимать себя",
-                        question:
-                          "Что ты сейчас видишь о себе такого, чего не видел раньше?",
-                      },
-                      {
-                        key: "boundary",
-                        label: "Я увидел свои границы",
-                        question:
-                          "Где ты понял, что дальше давить на себя бессмысленно?",
-                      },
-                      {
-                        key: "next",
-                        label: "Я понял, что важно дальше",
-                        question:
-                          "Какой самый маленький, но честный шаг возможен из этого места?",
-                      },
-                    ].map((item) => (
-                      <div key={item.key}>
-                        <div
-                          className={`choice ${
-                            selectedThird === item.key ? "active" : ""
-                          }`}
-                          onClick={() => setSelectedThird(item.key)}
-                        >
-                          {item.label}
-                        </div>
+            {showThirdQuestions && (
+              <>
+                <div className="note">
+                  Эти вопросы помогают зафиксировать опыт.
+                </div>
 
-                        {selectedThird === item.key && (
-                          <div className="question">{item.question}</div>
-                        )}
-                      </div>
-                    ))}
-
-                    <button
-                      className="btn primary"
-                      onClick={() => navigate(-1)}
+                {[
+                  {
+                    key: "learned",
+                    label: "Я понял о себе что-то важное",
+                    question:
+                      "Что ты теперь знаешь о себе, чего не видел раньше?",
+                  },
+                  {
+                    key: "pattern",
+                    label: "Я увидел повторяющийся паттерн",
+                    question:
+                      "Что в этой ситуации повторяется из прошлого опыта?",
+                  },
+                  {
+                    key: "next",
+                    label: "Я вижу, как могу поступить иначе",
+                    question:
+                      "Что ты сделаешь по-другому, если похожая ситуация повторится?",
+                  },
+                ].map((item) => (
+                  <div key={item.key}>
+                    <div
+                      className={`choice ${
+                        selectedThird === item.key ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedThird(item.key)}
                     >
-                      Завершить
-                    </button>
-                  </>
-                )}
+                      {item.label}
+                    </div>
+
+                    {selectedThird === item.key && (
+                      <div className="question">{item.question}</div>
+                    )}
+                  </div>
+                ))}
+
+                <button
+                  className="btn primary"
+                  onClick={() => navigate(-1)}
+                >
+                  Завершить
+                </button>
               </>
             )}
           </>
