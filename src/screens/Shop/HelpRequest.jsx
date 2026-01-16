@@ -12,6 +12,10 @@ export default function HelpRequest() {
   const [selectedSecond, setSelectedSecond] = useState(null);
   const [showThird, setShowThird] = useState(false);
   const [selectedThird, setSelectedThird] = useState(null);
+  // ДОБАВЬ В STATE
+  const [showFourth, setShowFourth] = useState(false);
+  const [selectedFourth, setSelectedFourth] = useState(null);
+
 
   return (
     <>
@@ -28,9 +32,9 @@ export default function HelpRequest() {
         /* ===== FIXED BACK ===== */
         .back-fixed {
           position: fixed;
-          top: calc(env(safe-area-inset-top) + 20px);
+          top: calc(env(safe-area-inset-top) + 50px);
           left: 20px;
-          font-size: 20px;
+          font-size: 30px;
           color: #999;
           cursor: pointer;
           z-index: 100;
@@ -413,6 +417,86 @@ export default function HelpRequest() {
                 )}
               </div>
             ))}
+
+            {/* ===== ТЕМА 4 ===== */}
+{showFourth && (
+  <>
+    <div className="spacer" />
+
+    <div className="title">Маленькое движение вместо большого решения</div>
+
+    <div className="text">
+{`После ясности часто приходит странное состояние.
+
+Ты вроде бы понял больше.
+Стало честнее.
+Но вместе с этим —
+пропало желание что-то резко решать.
+
+И это нормально.
+
+Тебе не нужно «собраться».
+Не нужно «взять себя в руки».
+Не нужно делать шаг,
+который должен что-то доказать.
+
+Сейчас важно другое —
+не результат,
+а ощущение движения.`}
+    </div>
+
+    <div className="note">
+      Эти вопросы не про дисциплину.  
+      Они про заботу и устойчивость.
+    </div>
+
+    {[
+      {
+        key: "relief",
+        label: "Я хочу немного выдохнуть",
+        question:
+          "Что ты можешь сделать сегодня, чтобы стало чуть легче, а не «лучше»?",
+        hint:
+          "Иногда движение — это не шаг вперёд, а снятие лишнего."
+      },
+      {
+        key: "tiny",
+        label: "Я готов к очень маленькому шагу",
+        question:
+          "Какое действие займёт не больше 5 минут и не потребует усилий?",
+        hint:
+          "Если шаг кажется слишком простым — значит он подходит."
+      },
+      {
+        key: "care",
+        label: "Мне важно не сломать себя",
+        question:
+          "Как ты можешь поддержать себя, а не толкать?",
+        hint:
+          "Поддержка — это тоже форма движения."
+      },
+    ].map((item) => (
+      <div key={item.key}>
+        <div
+          className={`choice ${selectedFourth === item.key ? "active" : ""}`}
+          onClick={() => setSelectedFourth(item.key)}
+        >
+          {item.label}
+        </div>
+
+        {selectedFourth === item.key && (
+          <>
+            <div className="question">{item.question}</div>
+            <div className="hint">{item.hint}</div>
+          </>
+        )}
+      </div>
+    ))}
+
+    
+  </>
+)}
+
 
             <button className="btn primary" onClick={() => navigate(-1)}>
               Завершить
