@@ -4,11 +4,12 @@ import { useState } from "react";
 export default function HelpRequest() {
   const navigate = useNavigate();
 
-  const [stage, setStage] = useState("topic1"); 
-  // topic1 | q1 | topic2 | q2 | end
+  const [phase, setPhase] = useState("choice"); 
+  // choice | questions | next
+  const [selected, setSelected] = useState(null);
 
-  const [selected1, setSelected1] = useState(null);
-  const [selected2, setSelected2] = useState(null);
+  const [showSecondQuestions, setShowSecondQuestions] = useState(false);
+  const [selectedSecond, setSelectedSecond] = useState(null);
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function HelpRequest() {
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
           padding:
-            calc(env(safe-area-inset-top) + 70px)
+            calc(env(safe-area-inset-top) + 40px)
             20px
             60px;
           max-width: 520px;
@@ -37,6 +38,7 @@ export default function HelpRequest() {
         .back {
           font-size: 20px;
           color: #999;
+          margin-top: 50px;
           cursor: pointer;
           margin-bottom: 20px;
           user-select: none;
@@ -116,11 +118,9 @@ export default function HelpRequest() {
         <div className="back" onClick={() => navigate(-1)}>←</div>
 
         {/* ===== ТЕМА 1 ===== */}
-        {stage === "topic1" && (
-          <>
-            <div className="title">Точка застревания</div>
+        <div className="title">Точка застревания</div>
 
-            <div className="text">
+        <div className="text">
 {`Если ты читаешь это —
 значит внутри уже не просто тяжело.
 
@@ -131,36 +131,52 @@ export default function HelpRequest() {
 
 «Я застрял».
 
-Ты стараешься.
-Ты не бездействуешь.
-Но результат не меняется.
+Не драматично.
+Без истерики.
+Просто глухо.
 
-И самое неприятное —
-ты не до конца понимаешь, почему.`}
-            </div>
+Ты прокручиваешь ситуацию снова и снова.
+Иногда злишься на себя.
+Иногда убеждаешь себя, что «ничего страшного».
+Иногда сравниваешь с другими и чувствуешь неприятное сжатие внутри.
 
+И самое мерзкое —
+ты не до конца понимаешь, что именно пошло не так.
+
+Обычно в этот момент человек делает одно из двух.
+
+Либо начинает давить на себя.
+Либо делает вид, что ему всё равно.
+
+Если быть честным —
+оба варианта тебе знакомы.
+И ни один не работает.`}
+        </div>
+
+        {phase === "choice" && (
+          <>
             <div className="note">
-              Можно пойти глубже  
+              Дальше можно пойти по-разному.  
+              Ты можешь углубиться —  
               или просто продолжить чтение.
             </div>
 
             <div className="actions">
-              <button className="btn" onClick={() => setStage("q1")}>
+              <button className="btn" onClick={() => setPhase("questions")}>
                 Погрузиться глубже
               </button>
-              <button className="btn" onClick={() => setStage("topic2")}>
+              <button className="btn" onClick={() => setPhase("next")}>
                 Читать дальше
               </button>
             </div>
           </>
         )}
 
-        {/* ===== ВОПРОСЫ ТЕМА 1 ===== */}
-        {stage === "q1" && (
+        {phase === "questions" && (
           <>
             <div className="note">
-              Можно отвечать мысленно  
-              или записывать на бумаге.
+              Можно ответить мысленно  
+              или записать ответы на бумаге.
             </div>
 
             {[
@@ -168,46 +184,43 @@ export default function HelpRequest() {
                 key: "lost",
                 label: "Я не понимаю, где всё пошло не так",
                 question:
-                  "В какой момент ты почувствовал, что перестал влиять на ситуацию?",
+                  "Где был момент, после которого ситуация перестала быть управляемой?",
               },
               {
-                key: "pressure",
-                label: "Я слишком давлю на себя",
+                key: "anger",
+                label: "Я злюсь на себя",
                 question:
-                  "Что ты требуешь от себя сейчас — и откуда взялись эти требования?",
+                  "За что именно ты себя винишь — и действительно ли это полностью твоя ответственность?",
               },
               {
-                key: "loop",
-                label: "Я хожу по кругу",
+                key: "deadend",
+                label: "Я чувствую тупик",
                 question:
-                  "Что именно ты повторяешь снова и снова, надеясь на другой результат?",
+                  "Что ты продолжаешь пытаться изменить, хотя это уже не в твоей зоне контроля?",
               },
-            ].map(item => (
+            ].map((item) => (
               <div key={item.key}>
                 <div
-                  className={`choice ${selected1 === item.key ? "active" : ""}`}
-                  onClick={() => setSelected1(item.key)}
+                  className={`choice ${selected === item.key ? "active" : ""}`}
+                  onClick={() => setSelected(item.key)}
                 >
                   {item.label}
                 </div>
 
-                {selected1 === item.key && (
+                {selected === item.key && (
                   <div className="question">{item.question}</div>
                 )}
               </div>
             ))}
 
-            <button
-              className="btn primary"
-              onClick={() => setStage("topic2")}
-            >
-              Идти дальше
+            <button className="btn primary" onClick={() => setPhase("next")}>
+              Я готов идти дальше
             </button>
           </>
         )}
 
-        {/* ===== ТЕМА 2 ===== */}
-        {stage === "topic2" && (
+        {/* ===== ТЕМА 2 (ТЕКСТ НЕ ТРОНУТ) ===== */}
+        {phase === "next" && (
           <>
             <div className="spacer" />
 
@@ -217,106 +230,100 @@ export default function HelpRequest() {
 {`Есть одна вещь, которая почти всегда усиливает застревание.
 
 Ты продолжаешь пытаться контролировать то,
-что уже не в твоей власти.
+что уже не зависит от тебя.
 
-Реакции других.
-Прошлые решения.
-Условия, которые сложились без тебя.
+Решения других людей.
+Прошлые выборы.
+Условия, которые уже сложились.
 
 Чем дольше ты с этим борешься —
-тем сильнее чувство бессилия.
+тем сильнее ощущение бессилия.
 
-Контроль — это не заставить мир подстроиться.
+Но контроль — это не «сделать так, чтобы всё получилось».
 Контроль — это ясно видеть,
-где заканчивается твоя зона влияния.`}
+на что ты можешь влиять,
+а на что — нет.
+
+В этот момент давление начинает ослабевать.
+Не потому что стало легче.
+А потому что стало честнее.`}
             </div>
 
-            <div className="note">
-              Хочешь посмотреть на это внимательнее  
-              или просто читать дальше?
-            </div>
-
-            <div className="actions">
-              <button className="btn" onClick={() => setStage("q2")}>
-                Разобраться
-              </button>
-              <button className="btn" onClick={() => setStage("end")}>
-                Читать дальше
-              </button>
-            </div>
-          </>
-        )}
-
-        {/* ===== ВОПРОСЫ ТЕМА 2 ===== */}
-        {stage === "q2" && (
-          <>
-            <div className="note">
-              Эти вопросы не для ответа «правильно».  
-              Они для прояснения.
-            </div>
-
-            {[
-              {
-                key: "outside",
-                label: "Я переживаю из-за того, что не могу изменить",
-                question:
-                  "Что именно сейчас не зависит от тебя, но продолжает забирать энергию?",
-              },
-              {
-                key: "inside",
-                label: "Я не использую то, что в моей власти",
-                question:
-                  "На что ты реально можешь повлиять, но откладываешь это?",
-              },
-              {
-                key: "accept",
-                label: "Мне сложно принять ограничения",
-                question:
-                  "Что изменится, если ты перестанешь бороться с этим фактом?",
-              },
-            ].map(item => (
-              <div key={item.key}>
-                <div
-                  className={`choice ${selected2 === item.key ? "active" : ""}`}
-                  onClick={() => setSelected2(item.key)}
-                >
-                  {item.label}
+            {!showSecondQuestions && (
+              <>
+                <div className="note">
+                  Здесь тоже можно остановиться  
+                  и посмотреть внимательнее.
                 </div>
 
-                {selected2 === item.key && (
-                  <div className="question">{item.question}</div>
-                )}
-              </div>
-            ))}
+                <div className="actions">
+                  <button
+                    className="btn"
+                    onClick={() => setShowSecondQuestions(true)}
+                  >
+                    Погрузиться глубже
+                  </button>
 
-            <button
-              className="btn primary"
-              onClick={() => setStage("end")}
-            >
-              Продолжить
-            </button>
-          </>
-        )}
+                  <button
+                    className="btn"
+                    onClick={() => navigate(-1)}
+                  >
+                    Завершить
+                  </button>
+                </div>
+              </>
+            )}
 
-        {/* ===== ЗАВЕРШЕНИЕ ===== */}
-        {stage === "end" && (
-          <>
-            <div className="spacer" />
+            {showSecondQuestions && (
+              <>
+                <div className="note">
+                  Эти вопросы про границы контроля.
+                </div>
 
-            <div className="text">
-{`Если ты дошёл до этого места —
-значит ты уже смотришь честнее.
+                {[
+                  {
+                    key: "outside",
+                    label: "Я пытаюсь контролировать то, что от меня не зависит",
+                    question:
+                      "Что именно ты продолжаешь удерживать, хотя не можешь на это повлиять?",
+                  },
+                  {
+                    key: "inside",
+                    label: "Я игнорирую то, что в моей власти",
+                    question:
+                      "На что ты реально можешь повлиять прямо сейчас, но откладываешь?",
+                  },
+                  {
+                    key: "accept",
+                    label: "Мне сложно принять ограничения",
+                    question:
+                      "Что изменится, если ты перестанешь с этим бороться?",
+                  },
+                ].map((item) => (
+                  <div key={item.key}>
+                    <div
+                      className={`choice ${
+                        selectedSecond === item.key ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedSecond(item.key)}
+                    >
+                      {item.label}
+                    </div>
 
-Не на то, каким всё должно быть.
-А на то, как оно есть.
+                    {selectedSecond === item.key && (
+                      <div className="question">{item.question}</div>
+                    )}
+                  </div>
+                ))}
 
-Из этого места
-и появляются реальные шаги.`}
-            </div>
-
-            <button className="btn primary" onClick={() => navigate(-1)}>
-              Вернуться
-            </button>
+                <button
+                  className="btn primary"
+                  onClick={() => navigate(-1)}
+                >
+                  Завершить
+                </button>
+              </>
+            )}
           </>
         )}
       </div>
