@@ -8,38 +8,48 @@ export default function HelpRequest() {
   // choice | questions | next
 
   const [selected, setSelected] = useState(null);
-
   const [showSecondQuestions, setShowSecondQuestions] = useState(false);
   const [selectedSecond, setSelectedSecond] = useState(null);
-
   const [showThird, setShowThird] = useState(false);
   const [selectedThird, setSelectedThird] = useState(null);
 
   return (
     <>
       <style>{`
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; }
+        * {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+        }
 
+        body {
+          margin: 0;
+        }
+
+        /* ===== FIXED BACK ===== */
+        .back-fixed {
+          position: fixed;
+          top: calc(env(safe-area-inset-top) + 20px);
+          left: 20px;
+          font-size: 20px;
+          color: #999;
+          cursor: pointer;
+          z-index: 100;
+          user-select: none;
+        }
+
+        /* ===== SCREEN ===== */
         .screen {
           width: 100%;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
           padding:
-            calc(env(safe-area-inset-top) + 40px)
+            calc(env(safe-area-inset-top) + 90px)
             20px
             80px;
+
           max-width: 520px;
           margin: 0 auto;
-        }
-
-        .back {
-          font-size: 20px;
-          color: #999;
-          margin-top: 50px;
-          margin-bottom: 20px;
-          cursor: pointer;
-          user-select: none;
         }
 
         .title {
@@ -57,10 +67,17 @@ export default function HelpRequest() {
         }
 
         .note {
-          margin: 30px 0 18px;
+          margin: 26px 0 18px;
           font-size: 13px;
           color: #999;
           text-align: center;
+          line-height: 1.45;
+        }
+
+        .hint {
+          margin: 10px 0 22px;
+          font-size: 12px;
+          color: #aaa;
           line-height: 1.45;
         }
 
@@ -105,7 +122,7 @@ export default function HelpRequest() {
         }
 
         .question {
-          margin: 12px 0 18px;
+          margin: 12px 0 10px;
           font-size: 14px;
           line-height: 1.55;
           color: #444;
@@ -116,10 +133,10 @@ export default function HelpRequest() {
         }
       `}</style>
 
-      <div className="screen">
-        {/* ← НАЗАД (СКРОЛЛИТСЯ) */}
-        <div className="back" onClick={() => navigate(-1)}>←</div>
+      {/* ← FIXED BACK */}
+      <div className="back-fixed" onClick={() => navigate(-1)}>←</div>
 
+      <div className="screen">
         {/* ===== ТЕМА 1 ===== */}
         <div className="title">Точка застревания</div>
 
@@ -160,8 +177,7 @@ export default function HelpRequest() {
           <>
             <div className="note">
               Дальше можно пойти по-разному.  
-              Ты можешь углубиться —  
-              или просто продолжить чтение.
+              Выбирай не «правильный», а честный вариант.
             </div>
 
             <div className="actions">
@@ -178,28 +194,34 @@ export default function HelpRequest() {
         {phase === "questions" && (
           <>
             <div className="note">
-              Можно ответить мысленно  
-              или записать ответы на бумаге.
+              Отвечай мысленно или запиши.  
+              Здесь нет задачи «сделать правильно».
             </div>
 
             {[
               {
                 key: "lost",
-                label: "Я не понимаю, где всё пошло не так",
+                label: "Я не понимаю, в какой момент всё поехало",
                 question:
-                  "Где был момент, после которого ситуация перестала быть управляемой?",
+                  "Если вернуться назад — где ты впервые почувствовал, что делаешь усилие, а отклика уже нет?",
+                hint:
+                  "Это не про поиск ошибки. Это про момент, где ты перестал слышать себя."
               },
               {
-                key: "anger",
-                label: "Я злюсь на себя",
+                key: "pressure",
+                label: "Я всё время давлю на себя",
                 question:
-                  "За что именно ты себя винишь — и действительно ли это полностью твоя ответственность?",
+                  "Что ты от себя требуешь сейчас — и кто впервые сказал тебе, что так «надо»?",
+                hint:
+                  "Иногда давление — это не твой голос, а давно усвоенный чужой."
               },
               {
-                key: "deadend",
-                label: "Я чувствую тупик",
+                key: "confusion",
+                label: "Я не понимаю, куда дальше идти",
                 question:
-                  "Что ты продолжаешь пытаться изменить, хотя это уже не в твоей зоне контроля?",
+                  "Если убрать ожидания и страхи — чего ты на самом деле хочешь в этой ситуации?",
+                hint:
+                  "Ответ может быть тихим и неуверенным — это нормально."
               },
             ].map((item) => (
               <div key={item.key}>
@@ -211,7 +233,10 @@ export default function HelpRequest() {
                 </div>
 
                 {selected === item.key && (
-                  <div className="question">{item.question}</div>
+                  <>
+                    <div className="question">{item.question}</div>
+                    <div className="hint">{item.hint}</div>
+                  </>
                 )}
               </div>
             ))}
@@ -271,48 +296,55 @@ export default function HelpRequest() {
 
             {showSecondQuestions && (
               <>
-                <div className="note">Эти вопросы про границы контроля.</div>
+                <div className="note">
+                  Эти вопросы помогают отпустить лишнее,
+                  а не «собраться».
+                </div>
 
                 {[
                   {
-                    key: "outside",
-                    label: "Я пытаюсь контролировать то, что от меня не зависит",
+                    key: "not_control",
+                    label: "Я держусь за то, что не могу изменить",
                     question:
-                      "Что именно ты продолжаешь удерживать, хотя не можешь на это повлиять?",
+                      "Что ты продолжаешь прокручивать в голове, хотя это уже произошло?",
+                    hint:
+                      "Отпустить — не значит согласиться. Это значит перестать тратить на это силы."
                   },
                   {
-                    key: "inside",
-                    label: "Я игнорирую то, что в моей власти",
+                    key: "real_control",
+                    label: "Я не вижу, где у меня есть влияние",
                     question:
-                      "На что ты реально можешь повлиять прямо сейчас, но откладываешь?",
+                      "На что ты реально можешь повлиять в ближайшие 24 часа?",
+                    hint:
+                      "Иногда контроль — это один маленький конкретный шаг."
                   },
                   {
-                    key: "accept",
-                    label: "Мне сложно принять ограничения",
+                    key: "fear",
+                    label: "Мне страшно отпустить контроль",
                     question:
-                      "Что изменится, если ты перестанешь с этим бороться?",
+                      "Что ты боишься почувствовать, если перестанешь всё удерживать?",
+                    hint:
+                      "Страх — не знак ошибки. Это знак соприкосновения с реальностью."
                   },
                 ].map((item) => (
                   <div key={item.key}>
                     <div
-                      className={`choice ${
-                        selectedSecond === item.key ? "active" : ""
-                      }`}
+                      className={`choice ${selectedSecond === item.key ? "active" : ""}`}
                       onClick={() => setSelectedSecond(item.key)}
                     >
                       {item.label}
                     </div>
 
                     {selectedSecond === item.key && (
-                      <div className="question">{item.question}</div>
+                      <>
+                        <div className="question">{item.question}</div>
+                        <div className="hint">{item.hint}</div>
+                      </>
                     )}
                   </div>
                 ))}
 
-                <button
-                  className="btn primary"
-                  onClick={() => setShowThird(true)}
-                >
+                <button className="btn primary" onClick={() => setShowThird(true)}>
                   Идти дальше
                 </button>
               </>
@@ -331,60 +363,58 @@ export default function HelpRequest() {
 {`Даже если ситуация была тяжёлой,
 она не прошла впустую.
 
-Вопрос не в том, что получилось или нет.
-А в том, что ты теперь знаешь о себе.
+Опыт — это не вывод «я справился».
+Иногда это честное:
+«я понял, где мне было сложно».
 
-Каждое застревание что-то показывает.
-Где ты переоценил контроль.
-Где недооценил себя.
-Где продолжал идти, даже когда было тяжело.
-
-Этот опыт — твой.
-И он остаётся с тобой.`}
+И этого уже достаточно,
+чтобы в следующий раз идти иначе.`}
             </div>
-
-            <div className="note">Можно зафиксировать это через вопросы.</div>
 
             {[
               {
-                key: "learned",
-                label: "Я понял о себе что-то важное",
+                key: "see",
+                label: "Я стал лучше понимать себя",
                 question:
-                  "Что ты теперь знаешь о себе, чего не видел раньше?",
+                  "Что в этой ситуации показало тебе твои реальные границы?",
+                hint:
+                  "Границы — это не слабость. Это ориентиры."
               },
               {
-                key: "pattern",
-                label: "Я увидел повторяющийся паттерн",
+                key: "repeat",
+                label: "Я увидел повторяющийся сценарий",
                 question:
-                  "Что в этой ситуации повторяется из прошлого опыта?",
+                  "В каких похожих ситуациях ты уже был раньше?",
+                hint:
+                  "Повтор — это не ошибка. Это приглашение к осознанности."
               },
               {
-                key: "next",
-                label: "Я вижу, как могу поступить иначе",
+                key: "next_step",
+                label: "Я понимаю, как могу поступить иначе",
                 question:
-                  "Что ты сделаешь по-другому, если похожая ситуация повторится?",
+                  "Какой самый простой шаг ты сделаешь в следующий раз?",
+                hint:
+                  "Он может выглядеть слишком маленьким — и это нормально."
               },
             ].map((item) => (
               <div key={item.key}>
                 <div
-                  className={`choice ${
-                    selectedThird === item.key ? "active" : ""
-                  }`}
+                  className={`choice ${selectedThird === item.key ? "active" : ""}`}
                   onClick={() => setSelectedThird(item.key)}
                 >
                   {item.label}
                 </div>
 
                 {selectedThird === item.key && (
-                  <div className="question">{item.question}</div>
+                  <>
+                    <div className="question">{item.question}</div>
+                    <div className="hint">{item.hint}</div>
+                  </>
                 )}
               </div>
             ))}
 
-            <button
-              className="btn primary"
-              onClick={() => navigate(-1)}
-            >
+            <button className="btn primary" onClick={() => navigate(-1)}>
               Завершить
             </button>
           </>
