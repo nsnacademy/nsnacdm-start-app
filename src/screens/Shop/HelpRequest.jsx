@@ -23,6 +23,9 @@ export default function HelpRequest() {
 
   const [showThirdQuestions, setShowThirdQuestions] = useState(false);
 
+  const [showFourthQuestions, setShowFourthQuestions] = useState(false);
+
+
 
 
 
@@ -64,6 +67,7 @@ export default function HelpRequest() {
 
           max-width: 520px;
           margin: 0 auto;
+          margin-top: 30px;
         }
 
         .title {
@@ -462,7 +466,7 @@ export default function HelpRequest() {
 )}
 
 
-        {/* ===== ТЕМА 4 ===== */}
+       {/* ===== ТЕМА 4 ===== */}
 {showFourth && (
   <>
     <div className="spacer" />
@@ -494,58 +498,84 @@ export default function HelpRequest() {
       Они про заботу и устойчивость.
     </div>
 
-    {[
-      {
-        key: "relief",
-        label: "Я хочу немного выдохнуть",
-        question:
-          "Что ты можешь сделать сегодня, чтобы стало чуть легче, а не «лучше»?",
-        hint:
-          "Иногда движение — это не шаг вперёд, а снятие лишнего."
-      },
-      {
-        key: "tiny",
-        label: "Я готов к очень маленькому шагу",
-        question:
-          "Какое действие займёт не больше 5 минут и не потребует усилий?",
-        hint:
-          "Если шаг кажется слишком простым — значит он подходит."
-      },
-      {
-        key: "care",
-        label: "Мне важно не сломать себя",
-        question:
-          "Как ты можешь поддержать себя, а не толкать?",
-        hint:
-          "Поддержка — это тоже форма движения."
-      },
-    ].map((item) => (
-      <div key={item.key}>
-        <div
-          className={`choice ${selectedFourth === item.key ? "active" : ""}`}
-          onClick={() => setSelectedFourth(item.key)}
+    {/* ===== ВЫБОР ===== */}
+    {!showFourthQuestions && (
+      <div className="actions">
+        <button
+          className="btn primary"
+          onClick={() => setShowFourthQuestions(true)}
         >
-          {item.label}
-        </div>
+          Погрузиться глубже
+        </button>
 
-        {selectedFourth === item.key && (
-          <>
-            <div className="question">{item.question}</div>
-            <div className="hint">{item.hint}</div>
-          </>
-        )}
+        <button
+          className="btn secondary"
+          onClick={() => setShowFifth(true)}
+        >
+          Читать дальше
+        </button>
       </div>
-    ))}
+    )}
 
-    <button
-      className="btn primary"
-      onClick={() => setShowFifth(true)}
-    >
-      Перейти дальше
+    {/* ===== ВОПРОСЫ ТЕМЫ 4 ===== */}
+    {showFourthQuestions && (
+      <>
+        {[
+          {
+            key: "relief",
+            label: "Я хочу немного выдохнуть",
+            question:
+              "Что ты можешь сделать сегодня, чтобы стало чуть легче, а не «лучше»?",
+            hint:
+              "Иногда движение — это не шаг вперёд, а снятие лишнего."
+          },
+          {
+            key: "tiny",
+            label: "Я готов к очень маленькому шагу",
+            question:
+              "Какое действие займёт не больше 5 минут и не потребует усилий?",
+            hint:
+              "Если шаг кажется слишком простым — значит он подходит."
+          },
+          {
+            key: "care",
+            label: "Мне важно не сломать себя",
+            question:
+              "Как ты можешь поддержать себя, а не толкать?",
+            hint:
+              "Поддержка — это тоже форма движения."
+          },
+        ].map((item) => (
+          <div key={item.key}>
+            <div
+              className={`choice ${
+                selectedFourth === item.key ? "active" : ""
+              }`}
+              onClick={() => setSelectedFourth(item.key)}
+            >
+              {item.label}
+            </div>
 
-    </button>
+            {selectedFourth === item.key && (
+              <>
+                <div className="question">{item.question}</div>
+                <div className="hint">{item.hint}</div>
+              </>
+            )}
+          </div>
+        ))}
+
+        <button
+          className="btn primary"
+          onClick={() => setShowFifth(true)}
+        >
+          Перейти дальше
+        </button>
+      </>
+    )}
   </>
 )}
+
 
 {/* ===== ТЕМА 5 ===== */}
 {showFifth && (
