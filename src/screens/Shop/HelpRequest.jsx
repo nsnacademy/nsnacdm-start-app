@@ -418,9 +418,13 @@ export default function HelpRequest() {
               </div>
             ))}
 
-            <button className="btn primary" onClick={() => navigate(-1)}>
-              Завершить
-            </button>
+            <button
+  className="btn primary"
+  onClick={() => setShowFourth(true)}
+>
+  Идти дальше
+</button>
+
           </>
         )}
 
