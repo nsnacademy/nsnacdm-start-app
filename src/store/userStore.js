@@ -6,26 +6,25 @@ export const useUserStore = create((set, get) => ({
   /**
    * Нормализация пользователя с нуля
    */
-  setUser: (userData) =>
-    set(() => ({
-      user: {
-        telegram_id: userData.telegram_id,
-        level: userData.level && userData.level >= 1 ? userData.level : 1,
+  setUser: (userData) => {
+  console.log("🔥 setUser CALLED WITH:", userData);
 
-        xp: userData.xp ?? 0,
-        od: userData.od ?? 0,
-        hp: userData.hp ?? 0,
-        has_onboarded: userData.has_onboarded ?? false,
-        
+  set(() => ({
+    user: {
+      telegram_id: userData.telegram_id,
+      level: userData.level && userData.level >= 1 ? userData.level : 1,
+      xp: userData.xp ?? 0,
+      od: userData.od ?? 0,
+      hp: userData.hp ?? 0,
+      has_help_access: userData.has_help_access ?? false,
+      has_onboarded: userData.has_onboarded ?? false,
+      has_accepted_policy: userData.has_accepted_policy ?? false,
+      accepted_policy_at: userData.accepted_policy_at ?? null,
+      _lastRewardSource: null,
+    },
+  }));
+},
 
-        has_accepted_policy: userData.has_accepted_policy ?? false,
-        accepted_policy_at: userData.accepted_policy_at ?? null,
-
-
-        // 🔒 для защиты от дублей
-        _lastRewardSource: null,
-      },
-    })),
 
   /**
    * Безопасное частичное обновление

@@ -14,6 +14,7 @@ export async function saveUser(user) {
     od: user.od,
     hp: user.hp,
     has_onboarded: user.has_onboarded ?? false,
+    has_help_access: false, // ← КРИТИЧНО
   };
 
   console.log("📡 SUPABASE UPDATE PAYLOAD:", payload);
