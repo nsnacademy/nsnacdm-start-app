@@ -45,7 +45,7 @@ export default function HelpRequest() {
         /* ===== FIXED BACK ===== */
         .back-fixed {
           position: fixed;
-          top: calc(env(safe-area-inset-top) + 70px);
+          top: calc(env(safe-area-inset-top) + 110px);
           left: 20px;
           font-size: 30px;
           color: #999;
@@ -662,7 +662,7 @@ export default function HelpRequest() {
       onClick={() => setShowFinal(true)}
 
     >
-      Закрепить
+      Последний шаг
     </button>
   </>
 )}
