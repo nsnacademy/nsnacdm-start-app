@@ -11,6 +11,9 @@ export default function HelpRequest() {
   const [showSecondQuestions, setShowSecondQuestions] = useState(false);
   const [selectedSecond, setSelectedSecond] = useState(null);
 
+  const [showThirdQuestions, setShowThirdQuestions] = useState(false);
+  const [selectedThird, setSelectedThird] = useState(null);
+
   return (
     <>
       <style>{`
@@ -153,6 +156,7 @@ export default function HelpRequest() {
 И ни один не работает.`}
         </div>
 
+        {/* ===== ВЫБОР 1 ===== */}
         {phase === "choice" && (
           <>
             <div className="note">
@@ -172,6 +176,7 @@ export default function HelpRequest() {
           </>
         )}
 
+        {/* ===== ВОПРОСЫ 1 ===== */}
         {phase === "questions" && (
           <>
             <div className="note">
@@ -219,7 +224,7 @@ export default function HelpRequest() {
           </>
         )}
 
-        {/* ===== ТЕМА 2 (ТЕКСТ НЕ ТРОНУТ) ===== */}
+        {/* ===== ТЕМА 2 ===== */}
         {phase === "next" && (
           <>
             <div className="spacer" />
@@ -266,9 +271,9 @@ export default function HelpRequest() {
 
                   <button
                     className="btn"
-                    onClick={() => navigate(-1)}
+                    onClick={() => setShowThirdQuestions(true)}
                   >
-                    Завершить
+                    Читать дальше
                   </button>
                 </div>
               </>
@@ -318,10 +323,105 @@ export default function HelpRequest() {
 
                 <button
                   className="btn primary"
-                  onClick={() => navigate(-1)}
+                  onClick={() => setShowThirdQuestions(true)}
                 >
-                  Завершить
+                  Идти дальше
                 </button>
+              </>
+            )}
+
+            {/* ===== ТЕМА 3 ===== */}
+            {showThirdQuestions && (
+              <>
+                <div className="spacer" />
+
+                <div className="title">Что ты можешь унести с собой</div>
+
+                <div className="text">
+{`Не каждая сложная ситуация должна «исправляться».
+
+Иногда её ценность —
+в том, что она что-то проясняет.
+
+Про твои границы.
+Про ожидания.
+Про то, как ты реагируешь под давлением.
+
+Опыт — это не вывод.
+Это не формулировка.
+Это то, что остаётся с тобой,
+даже когда ситуация закончилась.`}
+                </div>
+
+                {!showThirdQuestions && null}
+
+                <div className="note">
+                  Если хочешь, можно посмотреть,
+                  какой опыт ты уже получил.
+                </div>
+
+                <div className="actions">
+                  <button
+                    className="btn"
+                    onClick={() => setShowThirdQuestions(true)}
+                  >
+                    Погрузиться глубже
+                  </button>
+
+                  <button
+                    className="btn"
+                    onClick={() => navigate(-1)}
+                  >
+                    Завершить
+                  </button>
+                </div>
+
+                {showThirdQuestions && (
+                  <>
+                    {[
+                      {
+                        key: "see",
+                        label: "Я начал лучше понимать себя",
+                        question:
+                          "Что ты сейчас видишь о себе такого, чего не видел раньше?",
+                      },
+                      {
+                        key: "boundary",
+                        label: "Я увидел свои границы",
+                        question:
+                          "Где ты понял, что дальше давить на себя бессмысленно?",
+                      },
+                      {
+                        key: "next",
+                        label: "Я понял, что важно дальше",
+                        question:
+                          "Какой самый маленький, но честный шаг возможен из этого места?",
+                      },
+                    ].map((item) => (
+                      <div key={item.key}>
+                        <div
+                          className={`choice ${
+                            selectedThird === item.key ? "active" : ""
+                          }`}
+                          onClick={() => setSelectedThird(item.key)}
+                        >
+                          {item.label}
+                        </div>
+
+                        {selectedThird === item.key && (
+                          <div className="question">{item.question}</div>
+                        )}
+                      </div>
+                    ))}
+
+                    <button
+                      className="btn primary"
+                      onClick={() => navigate(-1)}
+                    >
+                      Завершить
+                    </button>
+                  </>
+                )}
               </>
             )}
           </>
