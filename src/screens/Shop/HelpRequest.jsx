@@ -14,27 +14,36 @@ export default function HelpRequest() {
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; }
 
-        .screen {
-          width: 100%;
-          min-height: 100vh;
-          background: #f8f8f8;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-          padding: calc(env(safe-area-inset-top) + 70px) 20px 40px;
-          max-width: 520px;
-          margin: 0 auto;
-
-          overflow-y: auto;
-        }
-
+        /* ===== КНОПКА НАЗАД ===== */
         .back {
-          position: absolute;
+          position: fixed;
           top: calc(env(safe-area-inset-top) + 20px);
           left: 20px;
           font-size: 20px;
           color: #999;
           cursor: pointer;
           user-select: none;
+          z-index: 10;
+        }
+
+        /* ===== ЭКРАН ===== */
+        .screen {
+          width: 100%;
+          min-height: 100vh;
+          background: #f8f8f8;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+          /* ⬇️ ВАЖНО: опускаем контент ниже стрелки */
+          padding:
+            calc(env(safe-area-inset-top) + 140px)
+            20px
+            40px;
+
+          max-width: 520px;
+          margin: 0 auto;
+
+          /* ⬇️ СКРОЛЛ */
+          overflow-y: auto;
         }
 
         .title {
@@ -103,13 +112,13 @@ export default function HelpRequest() {
         }
       `}</style>
 
-      {/* КНОПКА НАЗАД */}
+      {/* ← НАЗАД */}
       <div className="back" onClick={() => navigate(-1)}>
         ←
       </div>
 
+      {/* ===== КОНТЕНТ ===== */}
       <div className="screen">
-        {/* ===== ОСНОВНОЙ ТЕКСТ ===== */}
         <div className="title">Точка застревания</div>
 
         <div className="text">
