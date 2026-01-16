@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { saveUser } from "../../lib/saveUser";
+import { saveTransaction } from "../../lib/saveTransaction";
+
 
 
 export default function Shop() {
@@ -54,23 +56,37 @@ export default function Shop() {
     
     const HELP_PRICE = 100;
 
-    const handleBuyHelp = async () => {
-  if (!user || user.od < HELP_PRICE) return;
+  const handleBuyHelp = async () => {
+  if (!user || user.has_help_access) return;
+  if (user.od < HELP_PRICE) return;
 
-  const sourceId = "shop_help_request_v1";
+  const sourceId = "shop_help_access_v1";
 
-  // списываем локально
+  // 1. списываем Од
   spendOd(HELP_PRICE, sourceId);
 
-  // сохраняем в базу
+  // 2. открываем доступ
+  unlockHelpAccess(sourceId);
+
+  // 3. сохраняем пользователя
   await saveUser({
     ...user,
     od: user.od - HELP_PRICE,
+    has_help_access: true,
   });
 
-  // переход
+  // 4. пишем транзакцию
+  await saveTransaction({
+    userId: user.telegram_id,
+    type: "purchase",
+    product: "help_access",
+    amount: HELP_PRICE,
+  });
+
+  // 5. переход
   navigate("/help");
 };
+
 
 
 
@@ -362,17 +378,24 @@ export default function Shop() {
       </div>
     </div>
 
-        <button
-  className="free-btn"
-  disabled={user?.od < HELP_PRICE}
-  style={{
-    opacity: user?.od < HELP_PRICE ? 0.4 : 1,
-    cursor: user?.od < HELP_PRICE ? "default" : "pointer",
-  }}
-  onClick={handleBuyHelp}
->
-  {user?.od < HELP_PRICE ? "Недостаточно Од" : "100 Од"}
-</button>
+        {user?.has_help_access ? (
+  <button
+    className="free-btn"
+    onClick={() => navigate("/help")}
+  >
+    Перейти
+  </button>
+) : (
+  <button
+    className="free-btn"
+    disabled={user?.od < HELP_PRICE}
+    style={{ opacity: user?.od < HELP_PRICE ? 0.4 : 1 }}
+    onClick={handleBuyHelp}
+  >
+    {user?.od < HELP_PRICE ? "Недостаточно Од" : "100 Од"}
+  </button>
+)}
+
 
   </div>
 </div>
