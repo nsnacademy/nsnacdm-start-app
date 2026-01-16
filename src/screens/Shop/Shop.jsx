@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
+import { saveUser } from "../../lib/saveUser";
+
 
 export default function Shop() {
   const navigate = useNavigate();
@@ -45,7 +47,31 @@ export default function Shop() {
 // сколько hp осталось
     const hpLeft = Math.max(REQUIRED_HP - hp, 0);
 
+    const spendOd = useUserStore((s) => s.spendOd);
+    const updateUser = useUserStore((s) => s.updateUser);
+
     
+    
+    const HELP_PRICE = 100;
+
+    const handleBuyHelp = async () => {
+  if (!user || user.od < HELP_PRICE) return;
+
+  const sourceId = "shop_help_request_v1";
+
+  // списываем локально
+  spendOd(HELP_PRICE, sourceId);
+
+  // сохраняем в базу
+  await saveUser({
+    ...user,
+    od: user.od - HELP_PRICE,
+  });
+
+  // переход
+  navigate("/help");
+};
+
 
 
   return (
@@ -336,16 +362,18 @@ export default function Shop() {
       </div>
     </div>
 
-    <button
-      className="free-btn"
-      style={{
-        background: "#222",
-        color: "#f8f8f8",
-      }}
-      onClick={() => navigate("/help")}
-    >
-      100 Од
-    </button>
+        <button
+  className="free-btn"
+  disabled={user?.od < HELP_PRICE}
+  style={{
+    opacity: user?.od < HELP_PRICE ? 0.4 : 1,
+    cursor: user?.od < HELP_PRICE ? "default" : "pointer",
+  }}
+  onClick={handleBuyHelp}
+>
+  {user?.od < HELP_PRICE ? "Недостаточно Од" : "100 Од"}
+</button>
+
   </div>
 </div>
 

@@ -68,6 +68,36 @@ export const useUserStore = create((set, get) => ({
       };
     }),
 
+    /**
+ * Списание Од (покупка услуг)
+ * @param {number} amount
+ * @param {string} sourceId
+ */
+spendOd: (amount, sourceId) =>
+  set((state) => {
+    const user = state.user;
+    if (!user) return state;
+
+    // защита от повторного списания
+    if (user._lastRewardSource === sourceId) {
+      return state;
+    }
+
+    // защита от минуса
+    if (user.od < amount) {
+      return state;
+    }
+
+    return {
+      user: {
+        ...user,
+        od: user.od - amount,
+        _lastRewardSource: sourceId,
+      },
+    };
+  }),
+
+
   /**
    * ⚠️ ВРЕМЕННО (оставляем для совместимости)
    * Будет удалено после полного перехода на applyReward
@@ -91,3 +121,4 @@ export const useUserStore = create((set, get) => ({
   }),
 
 }));
+
