@@ -57,6 +57,12 @@ export default function Shop() {
     
     const HELP_PRICE = 100;
 
+   console.log("spendOd:", spendOd);
+console.log("unlockHelpAccess:", unlockHelpAccess);
+console.log("saveUser:", saveUser);
+console.log("saveTransaction:", saveTransaction);
+
+
   const handleBuyHelp = async () => {
   if (!user || user.has_help_access) return;
   if (user.od < HELP_PRICE) return;
