@@ -27,6 +27,12 @@ export const useUserStore = create((set, get) => ({
       },
     })),
 
+    has_help_access:
+  userData.has_help_access ??
+  get()?.user?.has_help_access ??
+  false,
+
+
   /**
    * Безопасное частичное обновление
    */

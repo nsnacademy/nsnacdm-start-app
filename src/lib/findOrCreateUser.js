@@ -59,6 +59,7 @@ export async function findOrCreateUser(tgUser) {
     od: 0,
     has_onboarded: false,
     has_accepted_policy: false,
+    has_help_access: false,
   };
 
   const { data: inserted, error: insertError } = await supabase
