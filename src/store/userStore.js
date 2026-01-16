@@ -16,7 +16,7 @@ export const useUserStore = create((set, get) => ({
         od: userData.od ?? 0,
         hp: userData.hp ?? 0,
         has_onboarded: userData.has_onboarded ?? false,
-        has_help_access: userData.has_help_access ?? false,
+        
 
         has_accepted_policy: userData.has_accepted_policy ?? false,
         accepted_policy_at: userData.accepted_policy_at ?? null,
@@ -97,8 +97,6 @@ spendOd: (amount, sourceId) =>
       },
     };
   }),
-
-  
 
 
   /**
