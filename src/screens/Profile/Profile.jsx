@@ -314,11 +314,15 @@ export default function Profile() {
   </a>
 
   <a
-    className="contact"
-    href="mailto:nsnacdm@yandex.ru"
-  >
-    Email → nsnacdm@yandex.ru
-  </a>
+  className="contact"
+  href="mailto:nsnacdm@yandex.ru"
+  onClick={() => {
+    navigator.clipboard?.writeText("nsnacdm@yandex.ru");
+  }}
+>
+  Email → nsnacdm@yandex.ru
+</a>
+
 </div>
 
 
