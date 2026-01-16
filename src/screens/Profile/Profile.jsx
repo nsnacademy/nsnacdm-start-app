@@ -152,13 +152,30 @@ export default function Profile() {
           margin: 14px 0;
         }
 
-        .contact {
+        .contact-block {
+  margin-top: 22px;
+}
+
+.contact-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222; /* чёрный — якорь */
+  margin-bottom: 6px;
+}
+
+.contact {
   display: block;
   font-size: 14px;
   color: #777;
   text-decoration: none;
-  margin-top: 6px;
+  margin-top: 4px;
 }
+
+.contact:hover {
+  color: #222;
+  text-decoration: underline;
+}
+
 
 
 
@@ -256,30 +273,43 @@ export default function Profile() {
 
             <div className="divider" />
 
+  <div className="contact-block">
+  <div className="contact-title">
+    Продолжение «Начать с начала»
+  </div>
+
   <a
-  className="contact"
-  href="https://t.me/nsnacdm"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Telegram-канал: «Начать с начала»
-</a>
+    className="contact"
+    href="https://t.me/nsnacdm"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Telegram-канал → @nsnacdm
+  </a>
+</div>
 
-<a
-  className="contact"
-  href="https://t.me/dmitriy_evgn"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Telegram: @dmitriy_evgn
-</a>
+<div className="contact-block">
+  <div className="contact-title">
+    Связь со мной
+  </div>
 
-<a
-  className="contact"
-  href="mailto:nsnacdm@yandex.ru"
->
-  Email: nsnacdm@yandex.ru
-</a>
+  <a
+    className="contact"
+    href="https://t.me/dmitriy_evgn"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Telegram → @dmitriy_evgn
+  </a>
+
+  <a
+    className="contact"
+    href="mailto:nsnacdm@yandex.ru"
+  >
+    Email → nsnacdm@yandex.ru
+  </a>
+</div>
+
 
 
           </div>

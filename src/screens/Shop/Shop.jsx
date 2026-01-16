@@ -142,13 +142,13 @@ export default function Shop() {
         }
 
         .title {
-          font-size: 17px;
+          font-size: 15px;
           font-weight: 500;
         }
 
         .sub {
           margin-top: 4px;
-          font-size: 14px;
+          font-size: 12px;
           color: #777;
         }
 
@@ -344,7 +344,7 @@ export default function Shop() {
       }}
       onClick={() => navigate("/help")}
     >
-      Купить · 100 ОД
+      100 Од
     </button>
   </div>
 </div>
