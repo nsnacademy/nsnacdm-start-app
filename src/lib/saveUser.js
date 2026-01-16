@@ -14,7 +14,12 @@ export async function saveUser(user) {
     od: user.od,
     hp: user.hp,
     has_onboarded: user.has_onboarded ?? false,
-    has_help_access: false, // ← КРИТИЧНО
+
+    // 🔒 ВАЖНО:
+    // передаём has_help_access ТОЛЬКО если он есть в user
+    ...(typeof user.has_help_access === "boolean"
+      ? { has_help_access: user.has_help_access }
+      : {}),
   };
 
   console.log("📡 SUPABASE UPDATE PAYLOAD:", payload);
@@ -25,10 +30,9 @@ export async function saveUser(user) {
     .eq("telegram_id", String(user.telegram_id))
     .select();
 
-
   if (error) {
     console.error("❌ SUPABASE ERROR:", error);
   } else {
-    console.log("✅ SUPABAS UPDATED ROWS:", data);
+    console.log("✅ SUPABASE UPDATED ROWS:", data);
   }
 }
