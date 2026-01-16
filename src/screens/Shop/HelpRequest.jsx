@@ -418,7 +418,13 @@ export default function HelpRequest() {
               </div>
             ))}
 
-            {/* ===== ТЕМА 4 ===== */}
+            <button className="btn primary" onClick={() => navigate(-1)}>
+              Завершить
+            </button>
+          </>
+        )}
+
+        {/* ===== ТЕМА 4 ===== */}
 {showFourth && (
   <>
     <div className="spacer" />
@@ -493,16 +499,15 @@ export default function HelpRequest() {
       </div>
     ))}
 
-    
+    <button
+      className="btn primary"
+      onClick={() => navigate(-1)}
+    >
+      Зафиксировать и выйти
+    </button>
   </>
 )}
 
-
-            <button className="btn primary" onClick={() => navigate(-1)}>
-              Завершить
-            </button>
-          </>
-        )}
       </div>
     </>
   );
