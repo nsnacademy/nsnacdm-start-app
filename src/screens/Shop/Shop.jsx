@@ -50,7 +50,8 @@ export default function Shop() {
     const hpLeft = Math.max(REQUIRED_HP - hp, 0);
 
     const spendOd = useUserStore((s) => s.spendOd);
-    const updateUser = useUserStore((s) => s.updateUser);
+    const unlockHelpAccess = useUserStore((s) => s.unlockHelpAccess);
+
 
     
     
