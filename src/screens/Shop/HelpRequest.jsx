@@ -16,6 +16,13 @@ export default function HelpRequest() {
   const [showFourth, setShowFourth] = useState(false);
   const [selectedFourth, setSelectedFourth] = useState(null);
 
+  const [showFifth, setShowFifth] = useState(false);
+  const [selectedFifth, setSelectedFifth] = useState(null);
+
+  const [showFinal, setShowFinal] = useState(false);
+
+
+
 
   return (
     <>
@@ -32,7 +39,7 @@ export default function HelpRequest() {
         /* ===== FIXED BACK ===== */
         .back-fixed {
           position: fixed;
-          top: calc(env(safe-area-inset-top) + 50px);
+          top: calc(env(safe-area-inset-top) + 70px);
           left: 20px;
           font-size: 30px;
           color: #999;
@@ -505,12 +512,156 @@ export default function HelpRequest() {
 
     <button
       className="btn primary"
-      onClick={() => navigate(-1)}
+      onClick={() => setShowFifth(true)}
     >
-      Зафиксировать и выйти
+      Перейти дальше
+
     </button>
   </>
 )}
+
+{/* ===== ТЕМА 5 ===== */}
+{showFifth && (
+  <>
+    <div className="spacer" />
+
+    <div className="title">Засчитать попытку</div>
+
+    <div className="text">
+{`Важно зафиксировать не результат,
+а сам факт.
+
+Ты не обязан сейчас что-то менять.
+Не обязан делать шаг.
+Не обязан чувствовать уверенность.
+
+Но ты уже сделал попытку —
+остановился,
+посмотрел честно,
+и не сбежал.
+
+Это и есть движение.
+
+Если это не зафиксировать —
+мозг быстро обесценит:
+«да ладно, ничего особенного».
+
+А на самом деле —
+это было важно.`}
+    </div>
+
+    <div className="note">
+      Выбери то, что ближе всего описывает
+      твоё состояние прямо сейчас.
+    </div>
+
+    {[
+      {
+        key: "pause",
+        label: "Я позволил себе остановиться",
+        question:
+          "Что изменилось внутри, когда ты перестал требовать от себя решения?",
+        hint:
+          "Иногда пауза — это и есть шаг."
+      },
+      {
+        key: "honest",
+        label: "Я был с собой честным",
+        question:
+          "Какое признание ты себе сделал, пусть даже не вслух?",
+        hint:
+          "Честность не требует действий. Только присутствия."
+      },
+      {
+        key: "move",
+        label: "Я сделал маленькое движение",
+        question:
+          "В чём именно это движение, даже если его не видно со стороны?",
+        hint:
+          "Не сравнивай. Засчитывай."
+      },
+    ].map((item) => (
+      <div key={item.key}>
+        <div
+          className={`choice ${
+            selectedFifth === item.key ? "active" : ""
+          }`}
+          onClick={() => setSelectedFifth(item.key)}
+        >
+          {item.label}
+        </div>
+
+        {selectedFifth === item.key && (
+          <>
+            <div className="question">{item.question}</div>
+            <div className="hint">{item.hint}</div>
+          </>
+        )}
+      </div>
+    ))}
+
+    <button
+      className="btn primary"
+      onClick={() => setShowFinal(true)}
+
+    >
+      Завершить
+    </button>
+  </>
+)}
+
+{/* ===== ФИНАЛ ===== */}
+{showFinal && (
+  <>
+    <div className="spacer" />
+
+    <div className="title">Ты начал движение</div>
+
+    <div className="text">
+{`Важно остановиться здесь и зафиксировать момент.
+
+Ты не просто прочитал текст.
+Ты не просто «подумал о жизни».
+
+Ты выбрал вложиться —
+в своё внимание,
+в своё состояние,
+в своё движение.
+
+Очки действия — это не награда.
+Это не бонус.
+И не мотивация.
+
+Это отражение твоих усилий.
+
+Ты используешь ОД не для того,
+чтобы «купить функцию».
+
+Ты используешь их,
+потому что делаешь шаги —
+и шаги открывают возможности.
+
+Это и есть принцип этого пространства:
+не обещания → а движение  
+не слова → а попытки  
+не мотивация → а путь`}
+    </div>
+
+    <div className="note">
+      Возможности открываются не всем.  
+      Они открываются тем, кто идёт.
+    </div>
+
+    <button
+      className="btn primary"
+      onClick={() => navigate("/home")}
+    >
+      Продолжить путь
+    </button>
+  </>
+)}
+
+
 
       </div>
     </>
