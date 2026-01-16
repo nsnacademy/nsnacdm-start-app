@@ -27,12 +27,6 @@ export const useUserStore = create((set, get) => ({
       },
     })),
 
-    has_help_access:
-  userData.has_help_access ??
-  get()?.user?.has_help_access ??
-  false,
-
-
   /**
    * Безопасное частичное обновление
    */
@@ -104,22 +98,7 @@ spendOd: (amount, sourceId) =>
     };
   }),
 
-  unlockHelpAccess: (sourceId) =>
-  set((state) => {
-    const user = state.user;
-    if (!user) return state;
-
-    if (user.has_help_access) return state;
-
-    return {
-      user: {
-        ...user,
-        has_help_access: true,
-        _lastRewardSource: sourceId,
-      },
-    };
-  }),
-
+  
 
 
   /**
