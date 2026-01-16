@@ -4,46 +4,44 @@ import { useState } from "react";
 export default function HelpRequest() {
   const navigate = useNavigate();
 
-  const [phase, setPhase] = useState("choice");
-  // choice | questions | next
+  const [phase, setPhase] = useState("choice"); // choice | questions | next
   const [selected, setSelected] = useState(null);
 
   return (
     <>
       <style>{`
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; }
+        * {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+        }
 
-        /* ===== КНОПКА НАЗАД ===== */
-        .back {
-          position: fixed;
-          top: calc(env(safe-area-inset-top) + 20px);
-          left: 20px;
-          font-size: 20px;
-          color: #999;
-          cursor: pointer;
-          user-select: none;
-          z-index: 10;
+        body {
+          margin: 0;
         }
 
         /* ===== ЭКРАН ===== */
         .screen {
           width: 100%;
-          min-height: 100vh;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-          /* ⬇️ ВАЖНО: опускаем контент ниже стрелки */
+          /* ⬇️ общий отступ сверху */
           padding:
-            calc(env(safe-area-inset-top) + 140px)
+            calc(env(safe-area-inset-top) + 40px)
             20px
-            40px;
+            60px;
 
           max-width: 520px;
           margin: 0 auto;
+        }
 
-          /* ⬇️ СКРОЛЛ */
-          overflow-y: auto;
+        /* ===== КНОПКА НАЗАД ===== */
+        .back {
+          font-size: 20px;
+          color: #999;
+          cursor: pointer;
+          margin-bottom: 20px; /* ⬅️ РОВНО 20px до заголовка */
+          user-select: none;
         }
 
         .title {
@@ -112,13 +110,13 @@ export default function HelpRequest() {
         }
       `}</style>
 
-      {/* ← НАЗАД */}
-      <div className="back" onClick={() => navigate(-1)}>
-        ←
-      </div>
-
-      {/* ===== КОНТЕНТ ===== */}
       <div className="screen">
+        {/* ← НАЗАД */}
+        <div className="back" onClick={() => navigate(-1)}>
+          ←
+        </div>
+
+        {/* ЗАГОЛОВОК */}
         <div className="title">Точка застревания</div>
 
         <div className="text">
@@ -186,8 +184,7 @@ export default function HelpRequest() {
           <>
             <div className="note">
               Можно ответить мысленно  
-              или записать ответы на бумаге.  
-              Делай так, как тебе сейчас безопаснее.
+              или записать ответы на бумаге.
             </div>
 
             {[
@@ -212,9 +209,7 @@ export default function HelpRequest() {
             ].map((item) => (
               <div key={item.key}>
                 <div
-                  className={`choice ${
-                    selected === item.key ? "active" : ""
-                  }`}
+                  className={`choice ${selected === item.key ? "active" : ""}`}
                   onClick={() => setSelected(item.key)}
                 >
                   {item.label}
