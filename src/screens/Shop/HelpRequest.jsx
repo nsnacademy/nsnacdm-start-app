@@ -43,16 +43,18 @@ export default function HelpRequest() {
         }
 
         /* ===== FIXED BACK ===== */
-        .back-fixed {
+        /* ===== FIXED CLOSE ===== */
+        .close-fixed {
           position: fixed;
           top: calc(env(safe-area-inset-top) + 110px);
-          left: 20px;
-          font-size: 30px;
+          right: 20px;
+          font-size: 28px;
           color: #999;
           cursor: pointer;
           z-index: 100;
           user-select: none;
         }
+
 
         /* ===== SCREEN ===== */
         .screen {
@@ -151,8 +153,9 @@ export default function HelpRequest() {
         }
       `}</style>
 
-      {/* ← FIXED BACK */}
-      <div className="back-fixed" onClick={() => navigate(-1)}>←</div>
+      {/* ✕ FIXED CLOSE */}
+        <div className="close-fixed" onClick={() => navigate(-1)}>✕</div>
+
 
       <div className="screen">
         {/* ===== ТЕМА 1 ===== */}
