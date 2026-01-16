@@ -256,7 +256,16 @@ export default function Profile() {
 
             <div className="divider" />
 
-            <a
+  <a
+  className="contact"
+  href="https://t.me/nsnacdm"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Telegram-канал: «Начать с начала»
+</a>
+
+<a
   className="contact"
   href="https://t.me/dmitriy_evgn"
   target="_blank"
@@ -271,6 +280,7 @@ export default function Profile() {
 >
   Email: nsnacdm@yandex.ru
 </a>
+
 
           </div>
         </div>
