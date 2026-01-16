@@ -308,6 +308,49 @@ export default function Shop() {
             </div>
           </div>
 
+
+                  {/* 🧠 ГЛУБОКИЙ РАЗБОР */}
+<div className="card">
+  <div className="row">
+    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <div
+        style={{
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          background: "#ececec",
+          color: "#555",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 18,
+          flexShrink: 0,
+        }}
+      >
+        ●
+      </div>
+
+      <div>
+        <div className="title">Разобраться в состоянии</div>
+        <div className="sub">Когда внутри тяжело и непонятно, что делать</div>
+      </div>
+    </div>
+
+    <button
+      className="free-btn"
+      style={{
+        background: "#222",
+        color: "#f8f8f8",
+      }}
+      onClick={() => navigate("/help")}
+    >
+      Купить · 100 ОД
+    </button>
+  </div>
+</div>
+
+
+
           {/* ===== ВТОРОЙ ПРОДУКТ (НЕ ТРОГАЕМ) ===== */}
           {/* ===== ВТОРОЙ ПРОДУКТ ===== */}
 <div className="card">

@@ -11,6 +11,8 @@ import Shop from "./screens/Shop/Shop";
 import FirstStep from "./screens/Shop/FirstStep";
 import FounderRequest from "./screens/Shop/FounderRequest";
 import Profile from "./screens/Profile/Profile";
+import HelpRequest from "./screens/Step/HelpRequest";
+
 
 
 
@@ -44,6 +46,8 @@ export default function App() {
 
         {/* 🔥 Новый роут */}
         <Route path="/new-task" element={<NewTask />} />
+        <Route path="/help" element={<HelpRequest />} />
+    
       </Routes>
     </BrowserRouter>
   );
