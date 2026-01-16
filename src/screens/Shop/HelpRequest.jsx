@@ -39,6 +39,7 @@ export default function HelpRequest() {
         .back {
           font-size: 20px;
           color: #999;
+          margin-top: 50px;
           cursor: pointer;
           margin-bottom: 20px; /* ⬅️ РОВНО 20px до заголовка */
           user-select: none;
