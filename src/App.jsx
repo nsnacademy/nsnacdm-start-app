@@ -11,7 +11,7 @@ import Shop from "./screens/Shop/Shop";
 import FirstStep from "./screens/Shop/FirstStep";
 import FounderRequest from "./screens/Shop/FounderRequest";
 import Profile from "./screens/Profile/Profile";
-import HelpRequest from "./screens/Step/HelpRequest";
+import HelpRequest from "./screens/Shop/HelpRequest";
 
 
 
