@@ -97,6 +97,22 @@ spendOd: (amount, sourceId) =>
     };
   }),
 
+  unlockHelpAccess: (sourceId) =>
+  set((state) => {
+    const user = state.user;
+    if (!user) return state;
+
+    if (user.has_help_access) return state;
+
+    return {
+      user: {
+        ...user,
+        has_help_access: true,
+        _lastRewardSource: sourceId,
+      },
+    };
+  }),
+
 
   /**
    * ⚠️ ВРЕМЕННО (оставляем для совместимости)
