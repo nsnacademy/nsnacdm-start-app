@@ -21,6 +21,9 @@ export default function HelpRequest() {
 
   const [showFinal, setShowFinal] = useState(false);
 
+  const [showThirdQuestions, setShowThirdQuestions] = useState(false);
+
+
 
 
 
@@ -364,13 +367,13 @@ export default function HelpRequest() {
         )}
 
         {/* ===== ТЕМА 3 ===== */}
-        {showThird && (
-          <>
-            <div className="spacer" />
+{showThird && (
+  <>
+    <div className="spacer" />
 
-            <div className="title">Какой опыт ты можешь забрать</div>
+    <div className="title">Какой опыт ты можешь забрать</div>
 
-            <div className="text">
+    <div className="text">
 {`Даже если ситуация была тяжёлой,
 она не прошла впустую.
 
@@ -380,60 +383,84 @@ export default function HelpRequest() {
 
 И этого уже достаточно,
 чтобы в следующий раз идти иначе.`}
+    </div>
+
+    {/* ===== ВЫБОР ===== */}
+    {!showThirdQuestions && (
+      <div className="actions">
+        <button
+          className="btn primary"
+          onClick={() => setShowThirdQuestions(true)}
+        >
+          Погрузиться глубже
+        </button>
+
+        <button
+          className="btn secondary"
+          onClick={() => setShowFourth(true)}
+        >
+          Читать дальше
+        </button>
+      </div>
+    )}
+
+    {/* ===== ВОПРОСЫ ТЕМЫ 3 ===== */}
+    {showThirdQuestions && (
+      <>
+        {[
+          {
+            key: "see",
+            label: "Я стал лучше понимать себя",
+            question:
+              "Что в этой ситуации показало тебе твои реальные границы?",
+            hint:
+              "Границы — это не слабость. Это ориентиры."
+          },
+          {
+            key: "repeat",
+            label: "Я увидел повторяющийся сценарий",
+            question:
+              "В каких похожих ситуациях ты уже был раньше?",
+            hint:
+              "Повтор — это не ошибка. Это приглашение к осознанности."
+          },
+          {
+            key: "next_step",
+            label: "Я понимаю, как могу поступить иначе",
+            question:
+              "Какой самый простой шаг ты сделаешь в следующий раз?",
+            hint:
+              "Он может выглядеть слишком маленьким — и это нормально."
+          },
+        ].map((item) => (
+          <div key={item.key}>
+            <div
+              className={`choice ${selectedThird === item.key ? "active" : ""}`}
+              onClick={() => setSelectedThird(item.key)}
+            >
+              {item.label}
             </div>
 
-            {[
-              {
-                key: "see",
-                label: "Я стал лучше понимать себя",
-                question:
-                  "Что в этой ситуации показало тебе твои реальные границы?",
-                hint:
-                  "Границы — это не слабость. Это ориентиры."
-              },
-              {
-                key: "repeat",
-                label: "Я увидел повторяющийся сценарий",
-                question:
-                  "В каких похожих ситуациях ты уже был раньше?",
-                hint:
-                  "Повтор — это не ошибка. Это приглашение к осознанности."
-              },
-              {
-                key: "next_step",
-                label: "Я понимаю, как могу поступить иначе",
-                question:
-                  "Какой самый простой шаг ты сделаешь в следующий раз?",
-                hint:
-                  "Он может выглядеть слишком маленьким — и это нормально."
-              },
-            ].map((item) => (
-              <div key={item.key}>
-                <div
-                  className={`choice ${selectedThird === item.key ? "active" : ""}`}
-                  onClick={() => setSelectedThird(item.key)}
-                >
-                  {item.label}
-                </div>
+            {selectedThird === item.key && (
+              <>
+                <div className="question">{item.question}</div>
+                <div className="hint">{item.hint}</div>
+              </>
+            )}
+          </div>
+        ))}
 
-                {selectedThird === item.key && (
-                  <>
-                    <div className="question">{item.question}</div>
-                    <div className="hint">{item.hint}</div>
-                  </>
-                )}
-              </div>
-            ))}
+        <button
+          className="btn primary"
+          onClick={() => setShowFourth(true)}
+        >
+          Идти дальше
+        </button>
+      </>
+    )}
+  </>
+)}
 
-            <button
-  className="btn primary"
-  onClick={() => setShowFourth(true)}
->
-  Идти дальше
-</button>
-
-          </>
-        )}
 
         {/* ===== ТЕМА 4 ===== */}
 {showFourth && (
@@ -605,7 +632,7 @@ export default function HelpRequest() {
       onClick={() => setShowFinal(true)}
 
     >
-      Завершить
+      Закрепить
     </button>
   </>
 )}
