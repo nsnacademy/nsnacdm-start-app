@@ -183,19 +183,6 @@ export default function Profile() {
   margin-top: 2px;
 }
 
-.label {
-  display: block;
-  font-size: 13px;
-  color: #000;
-}
-
-.link {
-  display: inline-block;
-  font-size: 14px;
-  color: #777;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 
         /* ===== NAV ===== */
@@ -326,16 +313,15 @@ export default function Profile() {
     Telegram → @dmitriy_evgn
   </a>
 
-  <div className="contact">
-  <span className="label">Email</span>
   <a
-    className="link"
-    href="mailto:nsnacdm@yandex.ru"
-  >
-    nsnacdm@yandex.ru
-  </a>
-</div>
-
+  className="contact"
+  href="mailto:nsnacdm@yandex.ru"
+  onClick={() => {
+    navigator.clipboard?.writeText("nsnacdm@yandex.ru");
+  }}
+>
+  Email → nsnacdm@yandex.ru
+</a>
 
 </div>
 
