@@ -85,7 +85,6 @@ export default function Shop() {
   });
 
   // 5. переход
-  navigate("/help");
 };
 
 
@@ -396,6 +395,7 @@ export default function Shop() {
     {user?.od < HELP_PRICE ? "Недостаточно Од" : "100 Од"}
   </button>
 )}
+
 
 
   </div>
