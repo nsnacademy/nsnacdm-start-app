@@ -6,13 +6,13 @@ export default function HelpRequest() {
 
   const [phase, setPhase] = useState("choice"); 
   // choice | questions | next
+
   const [selected, setSelected] = useState(null);
 
   const [showSecondQuestions, setShowSecondQuestions] = useState(false);
   const [selectedSecond, setSelectedSecond] = useState(null);
 
   const [showThird, setShowThird] = useState(false);
-  const [showThirdQuestions, setShowThirdQuestions] = useState(false);
   const [selectedThird, setSelectedThird] = useState(null);
 
   return (
@@ -21,31 +21,25 @@ export default function HelpRequest() {
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; }
 
-        /* ===== FIXED BACK ===== */
-        .back {
-          position: fixed;
-          top: calc(env(safe-area-inset-top) + 20px);
-          left: 20px;
-          font-size: 20px;
-          color: #999;
-          cursor: pointer;
-          user-select: none;
-          z-index: 20;
-        }
-
         .screen {
           width: 100%;
           background: #f8f8f8;
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-          /* ⬇️ запас под фиксированную стрелку */
           padding:
-            calc(env(safe-area-inset-top) + 90px)
+            calc(env(safe-area-inset-top) + 40px)
             20px
             80px;
-
           max-width: 520px;
           margin: 0 auto;
+        }
+
+        .back {
+          font-size: 20px;
+          color: #999;
+          margin-top: 50px;
+          margin-bottom: 20px;
+          cursor: pointer;
+          user-select: none;
         }
 
         .title {
@@ -82,7 +76,6 @@ export default function HelpRequest() {
           height: 46px;
           border-radius: 16px;
           border: none;
-          background: #f0f0f0;
           font-size: 15px;
           cursor: pointer;
         }
@@ -90,6 +83,11 @@ export default function HelpRequest() {
         .primary {
           background: #222;
           color: #fff;
+        }
+
+        .secondary {
+          background: #f0f0f0;
+          color: #222;
         }
 
         .choice {
@@ -118,10 +116,9 @@ export default function HelpRequest() {
         }
       `}</style>
 
-      {/* ← FIXED BACK */}
-      <div className="back" onClick={() => navigate(-1)}>←</div>
-
       <div className="screen">
+        {/* ← НАЗАД (СКРОЛЛИТСЯ) */}
+        <div className="back" onClick={() => navigate(-1)}>←</div>
 
         {/* ===== ТЕМА 1 ===== */}
         <div className="title">Точка застревания</div>
@@ -162,14 +159,16 @@ export default function HelpRequest() {
         {phase === "choice" && (
           <>
             <div className="note">
-              Дальше можно пойти по-разному.
+              Дальше можно пойти по-разному.  
+              Ты можешь углубиться —  
+              или просто продолжить чтение.
             </div>
 
             <div className="actions">
-              <button className="btn" onClick={() => setPhase("questions")}>
+              <button className="btn primary" onClick={() => setPhase("questions")}>
                 Погрузиться глубже
               </button>
-              <button className="btn primary" onClick={() => setPhase("next")}>
+              <button className="btn secondary" onClick={() => setPhase("next")}>
                 Читать дальше
               </button>
             </div>
@@ -179,26 +178,30 @@ export default function HelpRequest() {
         {phase === "questions" && (
           <>
             <div className="note">
-              Можно ответить мысленно или записать.
+              Можно ответить мысленно  
+              или записать ответы на бумаге.
             </div>
 
             {[
               {
                 key: "lost",
                 label: "Я не понимаю, где всё пошло не так",
-                question: "Где был момент, после которого ситуация перестала быть управляемой?",
+                question:
+                  "Где был момент, после которого ситуация перестала быть управляемой?",
               },
               {
                 key: "anger",
                 label: "Я злюсь на себя",
-                question: "За что именно ты себя винишь?",
+                question:
+                  "За что именно ты себя винишь — и действительно ли это полностью твоя ответственность?",
               },
               {
                 key: "deadend",
                 label: "Я чувствую тупик",
-                question: "Что ты пытаешься изменить, хотя это уже не в твоей зоне контроля?",
+                question:
+                  "Что ты продолжаешь пытаться изменить, хотя это уже не в твоей зоне контроля?",
               },
-            ].map(item => (
+            ].map((item) => (
               <div key={item.key}>
                 <div
                   className={`choice ${selected === item.key ? "active" : ""}`}
@@ -206,6 +209,7 @@ export default function HelpRequest() {
                 >
                   {item.label}
                 </div>
+
                 {selected === item.key && (
                   <div className="question">{item.question}</div>
                 )}
@@ -219,34 +223,45 @@ export default function HelpRequest() {
         )}
 
         {/* ===== ТЕМА 2 ===== */}
-        {phase === "next" && (
+        {phase === "next" && !showThird && (
           <>
             <div className="spacer" />
 
             <div className="title">Где заканчивается твой контроль</div>
 
             <div className="text">
-{`Ты продолжаешь пытаться контролировать то,
+{`Есть одна вещь, которая почти всегда усиливает застревание.
+
+Ты продолжаешь пытаться контролировать то,
 что уже не зависит от тебя.
 
-Чем дольше ты борешься —
+Решения других людей.
+Прошлые выборы.
+Условия, которые уже сложились.
+
+Чем дольше ты с этим борешься —
 тем сильнее ощущение бессилия.
 
-Контроль — это видеть,
-на что ты влияешь,
-а на что — нет.`}
+Но контроль — это не «сделать так, чтобы всё получилось».
+Контроль — это ясно видеть,
+на что ты можешь влиять,
+а на что — нет.
+
+В этот момент давление начинает ослабевать.
+Не потому что стало легче.
+А потому что стало честнее.`}
             </div>
 
             {!showSecondQuestions && (
               <div className="actions">
                 <button
-                  className="btn"
+                  className="btn primary"
                   onClick={() => setShowSecondQuestions(true)}
                 >
                   Погрузиться глубже
                 </button>
                 <button
-                  className="btn primary"
+                  className="btn secondary"
                   onClick={() => setShowThird(true)}
                 >
                   Читать дальше
@@ -256,25 +271,38 @@ export default function HelpRequest() {
 
             {showSecondQuestions && (
               <>
+                <div className="note">Эти вопросы про границы контроля.</div>
+
                 {[
                   {
                     key: "outside",
-                    label: "Я держусь за то, что не могу контролировать",
-                    question: "Что именно ты продолжаешь удерживать?",
+                    label: "Я пытаюсь контролировать то, что от меня не зависит",
+                    question:
+                      "Что именно ты продолжаешь удерживать, хотя не можешь на это повлиять?",
                   },
                   {
                     key: "inside",
-                    label: "Я игнорирую то, что могу изменить",
-                    question: "Что реально в твоей власти сейчас?",
+                    label: "Я игнорирую то, что в моей власти",
+                    question:
+                      "На что ты реально можешь повлиять прямо сейчас, но откладываешь?",
                   },
-                ].map(item => (
+                  {
+                    key: "accept",
+                    label: "Мне сложно принять ограничения",
+                    question:
+                      "Что изменится, если ты перестанешь с этим бороться?",
+                  },
+                ].map((item) => (
                   <div key={item.key}>
                     <div
-                      className={`choice ${selectedSecond === item.key ? "active" : ""}`}
+                      className={`choice ${
+                        selectedSecond === item.key ? "active" : ""
+                      }`}
                       onClick={() => setSelectedSecond(item.key)}
                     >
                       {item.label}
                     </div>
+
                     {selectedSecond === item.key && (
                       <div className="question">{item.question}</div>
                     )}
@@ -300,65 +328,65 @@ export default function HelpRequest() {
             <div className="title">Какой опыт ты можешь забрать</div>
 
             <div className="text">
-{`Даже сложные состояния
-что-то оставляют после себя.
+{`Даже если ситуация была тяжёлой,
+она не прошла впустую.
 
-Вопрос не в результате.
-А в том, что ты понял о себе.`}
+Вопрос не в том, что получилось или нет.
+А в том, что ты теперь знаешь о себе.
+
+Каждое застревание что-то показывает.
+Где ты переоценил контроль.
+Где недооценил себя.
+Где продолжал идти, даже когда было тяжело.
+
+Этот опыт — твой.
+И он остаётся с тобой.`}
             </div>
 
-            {!showThirdQuestions && (
-              <div className="actions">
-                <button
-                  className="btn"
-                  onClick={() => setShowThirdQuestions(true)}
+            <div className="note">Можно зафиксировать это через вопросы.</div>
+
+            {[
+              {
+                key: "learned",
+                label: "Я понял о себе что-то важное",
+                question:
+                  "Что ты теперь знаешь о себе, чего не видел раньше?",
+              },
+              {
+                key: "pattern",
+                label: "Я увидел повторяющийся паттерн",
+                question:
+                  "Что в этой ситуации повторяется из прошлого опыта?",
+              },
+              {
+                key: "next",
+                label: "Я вижу, как могу поступить иначе",
+                question:
+                  "Что ты сделаешь по-другому, если похожая ситуация повторится?",
+              },
+            ].map((item) => (
+              <div key={item.key}>
+                <div
+                  className={`choice ${
+                    selectedThird === item.key ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedThird(item.key)}
                 >
-                  Погрузиться глубже
-                </button>
-                <button
-                  className="btn primary"
-                  onClick={() => navigate(-1)}
-                >
-                  Завершить
-                </button>
+                  {item.label}
+                </div>
+
+                {selectedThird === item.key && (
+                  <div className="question">{item.question}</div>
+                )}
               </div>
-            )}
+            ))}
 
-            {showThirdQuestions && (
-              <>
-                {[
-                  {
-                    key: "learned",
-                    label: "Я понял о себе что-то важное",
-                    question: "Что ты теперь знаешь о себе?",
-                  },
-                  {
-                    key: "next",
-                    label: "Я вижу следующий шаг",
-                    question: "Какой маленький шаг возможен дальше?",
-                  },
-                ].map(item => (
-                  <div key={item.key}>
-                    <div
-                      className={`choice ${selectedThird === item.key ? "active" : ""}`}
-                      onClick={() => setSelectedThird(item.key)}
-                    >
-                      {item.label}
-                    </div>
-                    {selectedThird === item.key && (
-                      <div className="question">{item.question}</div>
-                    )}
-                  </div>
-                ))}
-
-                <button
-                  className="btn primary"
-                  onClick={() => navigate(-1)}
-                >
-                  Завершить
-                </button>
-              </>
-            )}
+            <button
+              className="btn primary"
+              onClick={() => navigate(-1)}
+            >
+              Завершить
+            </button>
           </>
         )}
       </div>
