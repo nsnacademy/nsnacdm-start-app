@@ -176,6 +176,12 @@ export default function Profile() {
   text-decoration: underline;
 }
 
+.contact-sub {
+  font-size: 12px;
+  color: #aaa;
+  line-height: 1.4;
+  margin-top: 2px;
+}
 
 
 
@@ -275,7 +281,7 @@ export default function Profile() {
 
   <div className="contact-block">
   <div className="contact-title">
-    Продолжение «Начать с начала»
+    «Начать с начала»
   </div>
 
   <a
@@ -286,7 +292,12 @@ export default function Profile() {
   >
     Telegram-канал → @nsnacdm
   </a>
+
+  <div className="contact-sub">
+    мысли · шаги · попытки
+  </div>
 </div>
+
 
 <div className="contact-block">
   <div className="contact-title">
