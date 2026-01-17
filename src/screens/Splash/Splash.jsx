@@ -317,7 +317,7 @@ export default function Splash() {
         <div className="screen">
           <div className="inner">
             <div className="title">НАЧАТЬ С НАЧАЛА</div>
-           
+            
 
             <div className="card">
               {!user?.has_accepted_policy && (
@@ -341,7 +341,7 @@ export default function Splash() {
   disabled={!user?.has_accepted_policy && !accepted}
   onClick={handleStart}
 >
-  Начать
+  Войти
 </button>
 
             </div>
